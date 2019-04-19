@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>TT.SoMall</RootNamespace>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TT.SoMall.Application\TT.SoMall.Application.csproj" />
+    <ProjectReference Include="..\TT.SoMall.EntityFrameworkCore.DbMigrations\TT.SoMall.EntityFrameworkCore.DbMigrations.csproj" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="0.16.0" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="0.16.0" />
+    <PackageReference Include="Volo.Abp.Identity.Web" Version="0.16.0" />
+    <PackageReference Include="Volo.Abp.Account.Web" Version="0.16.0" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="0.16.0" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Web" Version="0.16.0" />
+  </ItemGroup>
+
+</Project>
