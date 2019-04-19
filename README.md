@@ -1,2 +1,25 @@
 # SoMall
-一个社交socail+商城mall的开源学习项目,技术栈:小程序端mpvue,后台angular7,后端.net core(ABP框架),数据库 docker  mssql(version 2017)
+
+一个社交( Socail)+商城(Mall) 的开源学习项目
+
+### 技术栈:
+
+.netcore
+angular
+typescript
+docker
+mssql(base on docker)
+
+### 前端
+
+ng-zorro+ng-alain (Admin backEnd)
+ionic (H5 and APP)
+mpvue (weixin mini programe)
+
+### microService
+
+Abp.vnext
+RabbitMQ (Event Bus)
+Ocelot (Api Gate)
+Consul (Service Discovery)
+Quartz (background Job Schedule)
