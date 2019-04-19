@@ -1,0 +1,8 @@
+{
+  "version": "0.1.0",
+  "name": "TT.SoMall",
+  "private": true,
+  "dependencies": {
+    "@abp/aspnetcore.mvc.ui.theme.basic": "^0.4.9"
+  }
+}
