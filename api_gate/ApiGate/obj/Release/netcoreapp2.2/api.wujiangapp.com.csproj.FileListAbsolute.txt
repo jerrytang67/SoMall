@@ -1,0 +1,15 @@
+E:\Code\ocelot\ApiGate\bin\Release\netcoreapp2.2\api.wujiangapp.com.deps.json
+E:\Code\ocelot\ApiGate\bin\Release\netcoreapp2.2\api.wujiangapp.com.runtimeconfig.json
+E:\Code\ocelot\ApiGate\bin\Release\netcoreapp2.2\api.wujiangapp.com.runtimeconfig.dev.json
+E:\Code\ocelot\ApiGate\bin\Release\netcoreapp2.2\api.wujiangapp.com.dll
+E:\Code\ocelot\ApiGate\bin\Release\netcoreapp2.2\api.wujiangapp.com.pdb
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.csprojAssemblyReference.cache
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.csproj.CoreCompileInputs.cache
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.RazorAssemblyInfo.cache
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.RazorAssemblyInfo.cs
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.AssemblyInfoInputs.cache
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.AssemblyInfo.cs
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.RazorTargetAssemblyInfo.cache
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.dll
+E:\Code\ocelot\ApiGate\obj\Release\netcoreapp2.2\api.wujiangapp.com.pdb
+E:\Code\ocelot\ApiGate\bin\Release\netcoreapp2.2\wwwroot\bfoU4BhA3H.txt
