@@ -1,0 +1,17 @@
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.csprojAssemblyReference.cache
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.csproj.CoreCompileInputs.cache
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.RazorAssemblyInfo.cache
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.RazorAssemblyInfo.cs
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.AssemblyInfoInputs.cache
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.AssemblyInfo.cs
+E:\Code\Abp\SoMall\wx\WeiXinHandler\bin\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.deps.json
+E:\Code\Abp\SoMall\wx\WeiXinHandler\bin\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.runtimeconfig.json
+E:\Code\Abp\SoMall\wx\WeiXinHandler\bin\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.runtimeconfig.dev.json
+E:\Code\Abp\SoMall\wx\WeiXinHandler\bin\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.dll
+E:\Code\Abp\SoMall\wx\WeiXinHandler\bin\Debug\netcoreapp2.2\TT.WeiXinMiddleware.dll
+E:\Code\Abp\SoMall\wx\WeiXinHandler\bin\Debug\netcoreapp2.2\TT.WeiXinMiddleware.pdb
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.RazorTargetAssemblyInfo.cache
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.csproj.CopyComplete
+E:\Code\Abp\SoMall\wx\WeiXinHandler\bin\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.pdb
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.dll
+E:\Code\Abp\SoMall\wx\WeiXinHandler\obj\Debug\netcoreapp2.2\TT.SoMall.WeiXinHandler.pdb

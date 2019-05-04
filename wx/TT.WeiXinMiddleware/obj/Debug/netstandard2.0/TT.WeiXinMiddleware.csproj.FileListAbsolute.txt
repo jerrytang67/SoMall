@@ -1,0 +1,16 @@
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\TT.WeiXinMiddleware.deps.json
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\TT.WeiXinMiddleware.dll
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\TT.WeiXinMiddleware.pdb
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.xml
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.xml
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\bin\Debug\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\obj\Debug\netstandard2.0\TT.WeiXinMiddleware.csprojAssemblyReference.cache
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\obj\Debug\netstandard2.0\TT.WeiXinMiddleware.csproj.CoreCompileInputs.cache
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\obj\Debug\netstandard2.0\TT.WeiXinMiddleware.AssemblyInfoInputs.cache
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\obj\Debug\netstandard2.0\TT.WeiXinMiddleware.AssemblyInfo.cs
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\obj\Debug\netstandard2.0\TT.WeiXinMiddleware.csproj.CopyComplete
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\obj\Debug\netstandard2.0\TT.WeiXinMiddleware.dll
+E:\Code\Abp\SoMall\wx\TT.WeiXinMiddleware\obj\Debug\netstandard2.0\TT.WeiXinMiddleware.pdb
