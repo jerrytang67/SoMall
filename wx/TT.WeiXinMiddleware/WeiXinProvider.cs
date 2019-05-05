@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using TT.WeiXinMiddleware;
@@ -9,6 +10,13 @@ namespace TT.SoMall.WeiXinHandler
 {
     public class WeiXinProvide : IWeiXinProvider
     {
+        public readonly IMediator _mediator;
+
+        public WeiXinProvide(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         public WeiXinOptions Options { get; set; }
         /// <summary>
         /// 

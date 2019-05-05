@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 
 namespace TT.WeiXinMiddleware
@@ -40,24 +41,33 @@ namespace TT.WeiXinMiddleware
         /// </summary>
         /// <param name="write"></param>
         /// <param name="obj"></param>
-        public void Serialize(TextWriter write, object obj)
+        public string Serialize(object obj)
         {
-            //设置
-            var xwSettings = new XmlWriterSettings()
+            using (var write = new MemoryStream())
             {
-                CheckCharacters = false,
-                NewLineHandling = NewLineHandling.None,
-                Encoding = System.Text.Encoding.UTF8,
-            };
+                //设置
+                var xwSettings = new XmlWriterSettings()
+                {
+                    CheckCharacters = false,
+                    NewLineHandling = NewLineHandling.None,
+                    Encoding = System.Text.Encoding.UTF8,
+                };
 
-            //写入XML
-            using (XmlWriter xmlWriter = XmlWriter.Create(write, xwSettings))
-            {
-                xmlWriter.WriteStartElement("xml");
-                WriteProperty(xmlWriter, _properties, obj: obj);
-                xmlWriter.WriteEndElement();
-                xmlWriter.Flush();
+                //写入XML
+                using (XmlWriter xmlWriter = XmlWriter.Create(write, xwSettings))
+                {
+                    xmlWriter.WriteStartElement("xml");
+                    WriteProperty(xmlWriter, _properties, obj: obj);
+                    xmlWriter.WriteEndElement();
+                    xmlWriter.Flush();
+                    var btype = write.ToArray();
+                    var str = new UTF8Encoding().GetString(btype);
+                    return "";
+                }
+
             }
+
+
         }
 
 

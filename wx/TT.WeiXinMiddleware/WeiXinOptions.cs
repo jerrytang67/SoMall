@@ -7,7 +7,7 @@ namespace TT.WeiXinMiddleware
     public class WeiXinOptions
     {
         private IWeiXinProvider _provider = null;
-        public string NotifyPath { get; set; }
+        public string Path { get; set; } = "/";
 
         public IWeiXinProvider Provider
         {

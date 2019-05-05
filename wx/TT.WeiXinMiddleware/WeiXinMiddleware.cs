@@ -19,15 +19,15 @@ namespace TT.WeiXinMiddleware
 
         public async Task Invoke(HttpContext context)
         {
-            //if (context.Request.Path == Options.NotifyPath)
-            //{
+            if (context.Request.Path.Value.Trim().ToLower() == Options.Path.ToLower())
+            {
                 //微信服务
                 if (Options.Provider == null)
                     Options.Provider = context.RequestServices.GetService(typeof(IWeiXinProvider)) as IWeiXinProvider;
                 await Options.Provider.Run(context, Configuration);
                 return;
-            //}
-            //if (Next != null) await Next.Invoke(context);
+            }
+            if (Next != null) await Next.Invoke(context);
         }
     }
 }
