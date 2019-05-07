@@ -19,9 +19,9 @@
         <view class="submain">
             <view class="bg-wrap">
             <view class="color"></view>
-            <image src="http://img.wjhaomama.com/6/img/2019-05/19_52_08_528.png" class="bg"></image>
+            <image src="http://img.wjhaomama.com/6/img/2019-05/19_52_08_528.png" class="bg" :style="{width: 5.83*progress+'rpx'}"></image>
             </view>
-            <text class="text">83%</text>
+            <text class="text">{{progress}}%</text>
         </view>
         <view class="ft">
             <text class="people-support-prev">5216</text>
@@ -33,8 +33,10 @@
 </template>
 <script>
 export default {
-  onReady() {},
-  props: [],
+  onReady() {
+    this.progress = this.progress>100?100:this.progress;
+  },
+  props: ["progress"],
   computed: {
   },
   data() {
@@ -187,7 +189,7 @@ export default {
   position: absolute;
   top: 0rpx;
   left: 0rpx;
-  width: 400rpx;
+  max-width:583rpx;
   height: 6rpx;
 }
 .text {
