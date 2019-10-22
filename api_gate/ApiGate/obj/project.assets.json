@@ -12286,7 +12286,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\TT\\.nuget\\packages\\": {},
+    "C:\\Users\\tt-tj\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -12295,14 +12295,14 @@
       "projectUniqueName": "E:\\Code\\Abp\\SoMall\\api_gate\\ApiGate\\api.wujiangapp.com.csproj",
       "projectName": "api.wujiangapp.com",
       "projectPath": "E:\\Code\\Abp\\SoMall\\api_gate\\ApiGate\\api.wujiangapp.com.csproj",
-      "packagesPath": "C:\\Users\\TT\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\tt-tj\\.nuget\\packages\\",
       "outputPath": "E:\\Code\\Abp\\SoMall\\api_gate\\ApiGate\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\TT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tt-tj\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12310,13 +12310,8 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-        "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        "http://nexus.agileboost.com/repository/nuget-hosted/": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.2": {
@@ -12355,10 +12350,16 @@
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

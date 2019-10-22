@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>TT.SoMall</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TT.SoMall.Application.Contracts\TT.SoMall.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Account.HttpApi.Client" Version="1.0.2" />
+    <PackageReference Include="Volo.Abp.Identity.HttpApi.Client" Version="1.0.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi.Client" Version="1.0.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.HttpApi.Client" Version="1.0.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="1.0.2" />
+  </ItemGroup>
+
+</Project>
