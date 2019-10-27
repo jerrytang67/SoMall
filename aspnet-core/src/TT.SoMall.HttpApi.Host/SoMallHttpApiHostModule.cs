@@ -1,25 +1,27 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.MultiTenancy;
-using StackExchange.Redis;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 using Volo.Abp;
+using Volo.Abp.Account.Web;
+using Volo.Abp.AspNetCore.Authentication.JwtBearer;
 using Volo.Abp.AspNetCore.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc;
-using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.Autofac;
-using Volo.Abp.Caching;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 
 namespace TT.SoMall
@@ -28,9 +30,11 @@ namespace TT.SoMall
         typeof(SoMallHttpApiModule),
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreMultiTenancyModule),
-        typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
         typeof(SoMallApplicationModule),
-        typeof(SoMallEntityFrameworkCoreDbMigrationsModule)
+        typeof(SoMallEntityFrameworkCoreDbMigrationsModule),
+        typeof(AbpAspNetCoreMvcUiBasicThemeModule),
+        typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
+        typeof(AbpAccountWebIdentityServerModule)
         )]
     public class SoMallHttpApiHostModule : AbpModule
     {
@@ -41,21 +45,20 @@ namespace TT.SoMall
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
 
+            ConfigureUrls(configuration);
             ConfigureConventionalControllers();
             ConfigureAuthentication(context, configuration);
             ConfigureLocalization();
-            ConfigureCache(configuration);
             ConfigureVirtualFileSystem(context);
-            ConfigureRedis(context, configuration, hostingEnvironment);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
         }
 
-        private void ConfigureCache(IConfiguration configuration)
+        private void ConfigureUrls(IConfiguration configuration)
         {
-            Configure<AbpDistributedCacheOptions>(options =>
+            Configure<AppUrlOptions>(options =>
             {
-                options.KeyPrefix = "SoMall:";
+                options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
             });
         }
 
@@ -85,12 +88,16 @@ namespace TT.SoMall
 
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
         {
-            context.Services.AddAuthentication("Bearer")
+            context.Services.AddAuthentication()
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.RequireHttpsMetadata = true;
+                    options.RequireHttpsMetadata = false;
                     options.ApiName = "SoMall";
+                    options.JwtBackChannelHandler = new HttpClientHandler()
+                    {
+                        ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                    };
                 });
         }
 
@@ -114,25 +121,6 @@ namespace TT.SoMall
                 options.Languages.Add(new LanguageInfo("tr", "tr", "Türkçe"));
                 options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
             });
-        }
-
-        private void ConfigureRedis(
-            ServiceConfigurationContext context,
-            IConfiguration configuration,
-            IWebHostEnvironment hostingEnvironment)
-        {
-            context.Services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = configuration["Redis:Configuration"];
-            });
-
-            if (!hostingEnvironment.IsDevelopment())
-            {
-                var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-                context.Services
-                    .AddDataProtection()
-                    .PersistKeysToStackExchangeRedis(redis, "SoMall-Protection-Keys");
-            }
         }
 
         private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
@@ -166,11 +154,15 @@ namespace TT.SoMall
             app.UseRouting();
             app.UseCors(DefaultCorsPolicyName);
             app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseJwtTokenMiddleware();
+
             if (MultiTenancyConsts.IsEnabled)
             {
                 app.UseMultiTenancy();
             }
+
+            app.UseIdentityServer();
+            app.UseAuthorization();
             app.UseAbpRequestLocalization();
 
             app.UseSwagger();

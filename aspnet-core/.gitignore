@@ -256,4 +256,4 @@ src/TT.SoMall.Web/Logs/*
 src/TT.SoMall.Web.Host/Logs/*
 src/TT.SoMall.IdentityServer/Logs/*
 src/TT.SoMall.HttpApi.Host/Logs/*
-src/TT.SoMall.HttpApi.HostWithIds/Logs/*
+src/TT.SoMall.HttpApi.Host/Logs/*
