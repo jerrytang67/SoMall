@@ -1,12 +1,7 @@
-﻿using Volo.Abp;
-
-namespace TT.SoMall
+﻿namespace TT.SoMall
 {
-    public abstract class SoMallApplicationTestBase : AbpIntegratedTest<SoMallApplicationTestModule>
+    public abstract class SoMallApplicationTestBase : SoMallTestBase<SoMallApplicationTestModule> 
     {
-        protected override void SetAbpApplicationCreationOptions(AbpApplicationCreationOptions options)
-        {
-            options.UseAutofac();
-        }
+
     }
 }

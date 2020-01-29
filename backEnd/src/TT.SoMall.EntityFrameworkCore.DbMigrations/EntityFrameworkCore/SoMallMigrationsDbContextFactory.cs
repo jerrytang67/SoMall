@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace TT.SoMall.EntityFrameworkCore
 {
+    /* This class is needed for EF Core console commands
+     * (like Add-Migration and Update-Database commands) */
     public class SoMallMigrationsDbContextFactory : IDesignTimeDbContextFactory<SoMallMigrationsDbContext>
     {
         public SoMallMigrationsDbContext CreateDbContext(string[] args)
@@ -21,7 +23,7 @@ namespace TT.SoMall.EntityFrameworkCore
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, true);
+                .AddJsonFile("appsettings.json", optional: false);
 
             return builder.Build();
         }

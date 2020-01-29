@@ -1,51 +1,57 @@
-﻿using System.IO;
-using System.Linq;
-using Localization.Resources.AbpUi;
+﻿using System;
+using System.IO;
+using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TT.SoMall.EntityFrameworkCore;
-using TT.SoMall.Localization.SoMall;
-using TT.SoMall.Menus;
-using TT.SoMall.Permissions;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using TT.SoMall.Localization;
+using TT.SoMall.MultiTenancy;
+using TT.SoMall.Web.Menus;
+using StackExchange.Redis;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using Volo.Abp;
-using Volo.Abp.Account.Web;
-using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Authentication.OAuth;
+using Volo.Abp.AspNetCore.Mvc.Client;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
-using Volo.Abp.Authorization.Permissions;
+using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.Data;
-using Volo.Abp.Identity;
+using Volo.Abp.Caching;
+using Volo.Abp.FeatureManagement;
+using Volo.Abp.Http.Client.IdentityModel;
 using Volo.Abp.Identity.Web;
-using Volo.Abp.Localization;
-using Volo.Abp.Localization.Resources.AbpValidation;
 using Volo.Abp.Modularity;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement.Web;
-using Volo.Abp.Threading;
+using Volo.Abp.TenantManagement.Web;
+using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.PermissionManagement;
-using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.TenantManagement.Web;
 
-
-namespace TT.SoMall
+namespace TT.SoMall.Web
 {
     [DependsOn(
-        typeof(SoMallApplicationModule),
-        typeof(SoMallEntityFrameworkCoreModule),
-        typeof(AbpAutofacModule),
-        typeof(AbpIdentityWebModule),
-        typeof(AbpAccountWebModule),
+        typeof(SoMallHttpApiModule),
+        typeof(SoMallHttpApiClientModule),
+        typeof(AbpAspNetCoreAuthenticationOAuthModule),
+        typeof(AbpAspNetCoreMvcClientModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
-        typeof(AbpTenantManagementWebModule)
+        typeof(AbpAutofacModule),
+        typeof(AbpFeatureManagementWebModule),
+        typeof(AbpHttpClientIdentityModelModule),
+        typeof(AbpIdentityWebModule),
+        typeof(AbpTenantManagementWebModule),
+        typeof(AbpAspNetCoreSerilogModule)
         )]
     public class SoMallWebModule : AbpModule
     {
@@ -55,85 +61,110 @@ namespace TT.SoMall
             {
                 options.AddAssemblyResource(
                     typeof(SoMallResource),
-                    typeof(SoMallDomainModule).Assembly,
-                    typeof(SoMallApplicationModule).Assembly,
+                    typeof(SoMallDomainSharedModule).Assembly,
+                    typeof(SoMallApplicationContractsModule).Assembly,
                     typeof(SoMallWebModule).Assembly
                 );
             });
         }
-
+        
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             var hostingEnvironment = context.Services.GetHostingEnvironment();
             var configuration = context.Services.GetConfiguration();
 
-            ConfigureDatabaseServices();
+            ConfigureCache(configuration);
+            ConfigureUrls(configuration);
+            ConfigureAuthentication(context, configuration);
             ConfigureAutoMapper();
             ConfigureVirtualFileSystem(hostingEnvironment);
-            ConfigureLocalizationServices();
-            ConfigureNavigationServices();
-            ConfigureAutoApiControllers();
+            ConfigureNavigationServices(configuration);
+            ConfigureMultiTenancy();
             ConfigureSwaggerServices(context.Services);
         }
 
-        private void ConfigureDatabaseServices()
+        private void ConfigureCache(IConfiguration configuration)
         {
-            Configure<AbpDbContextOptions>(options =>
+            Configure<AbpDistributedCacheOptions>(options =>
             {
-                options.UseSqlServer();
+                options.KeyPrefix = "SoMall:";
             });
+        }
+
+        private void ConfigureUrls(IConfiguration configuration)
+        {
+            Configure<AppUrlOptions>(options =>
+            {
+                options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+            });
+        }
+
+        private void ConfigureMultiTenancy()
+        {
+            Configure<AbpMultiTenancyOptions>(options =>
+            {
+                options.IsEnabled = MultiTenancyConsts.IsEnabled;
+            });
+        }
+
+        private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
+        {
+            context.Services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = "Cookies";
+                    options.DefaultChallengeScheme = "oidc";
+                })
+                .AddCookie("Cookies", options =>
+                {
+                    options.ExpireTimeSpan = TimeSpan.FromDays(365);
+                })
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.Authority = configuration["AuthServer:Authority"];
+                    options.RequireHttpsMetadata = true;
+                    options.ResponseType = OpenIdConnectResponseType.CodeIdToken;
+
+                    options.ClientId = configuration["AuthServer:ClientId"];
+                    options.ClientSecret = configuration["AuthServer:ClientSecret"];
+
+                    options.SaveTokens = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+
+                    options.Scope.Add("role");
+                    options.Scope.Add("email");
+                    options.Scope.Add("phone");
+                    options.Scope.Add("SoMall");
+
+                    options.ClaimActions.MapAbpClaimTypes();
+                });
         }
 
         private void ConfigureAutoMapper()
         {
             Configure<AbpAutoMapperOptions>(options =>
             {
-                options.AddProfile<SoMallWebAutoMapperProfile>();
+                options.AddMaps<SoMallWebModule>();
             });
         }
 
-        private void ConfigureVirtualFileSystem(IHostingEnvironment hostingEnvironment)
+        private void ConfigureVirtualFileSystem(IWebHostEnvironment hostingEnvironment)
         {
             if (hostingEnvironment.IsDevelopment())
             {
-                Configure<VirtualFileSystemOptions>(options =>
+                Configure<AbpVirtualFileSystemOptions>(options =>
                 {
-                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, string.Format("..{0}TT.SoMall.Domain", Path.DirectorySeparatorChar)));
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Application.Contracts"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallWebModule>(hostingEnvironment.ContentRootPath);
                 });
             }
         }
 
-        private void ConfigureLocalizationServices()
+        private void ConfigureNavigationServices(IConfiguration configuration)
         {
-            Configure<AbpLocalizationOptions>(options =>
+            Configure<AbpNavigationOptions>(options =>
             {
-                options.Resources
-                    .Get<SoMallResource>()
-                    .AddBaseTypes(
-                        typeof(AbpValidationResource),
-                        typeof(AbpUiResource)
-                    );
-
-                options.Languages.Add(new LanguageInfo("en", "en", "English"));
-                options.Languages.Add(new LanguageInfo("pt-BR", "pt-BR", "Português"));
-                options.Languages.Add(new LanguageInfo("tr", "tr", "Türkçe"));
-                options.Languages.Add(new LanguageInfo("zh-Hans", "zh-Hans", "简体中文"));
-            });
-        }
-
-        private void ConfigureNavigationServices()
-        {
-            Configure<NavigationOptions>(options =>
-            {
-                options.MenuContributors.Add(new SoMallMenuContributor());
-            });
-        }
-
-        private void ConfigureAutoApiControllers()
-        {
-            Configure<AbpAspNetCoreMvcOptions>(options =>
-            {
-                options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly);
+                options.MenuContributors.Add(new SoMallMenuContributor(configuration));
             });
         }
 
@@ -142,16 +173,38 @@ namespace TT.SoMall
             services.AddSwaggerGen(
                 options =>
                 {
-                    options.SwaggerDoc("v1", new Info { Title = "SoMall API", Version = "v1" });
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "SoMall API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
                     options.CustomSchemaIds(type => type.FullName);
-                });
+                }
+            );
+        }
+
+        private void ConfigureRedis(
+            ServiceConfigurationContext context,
+            IConfiguration configuration,
+            IWebHostEnvironment hostingEnvironment)
+        {
+            context.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = configuration["Redis:Configuration"];
+            });
+
+            if (!hostingEnvironment.IsDevelopment())
+            {
+                var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
+                context.Services
+                    .AddDataProtection()
+                    .PersistKeysToStackExchangeRedis(redis, "SoMall-Protection-Keys");
+            }
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
             var env = context.GetEnvironment();
+
+            app.UseCorrelationId();
 
             if (env.IsDevelopment())
             {
@@ -163,9 +216,11 @@ namespace TT.SoMall
             }
 
             app.UseVirtualFiles();
+            app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            if (SoMallConsts.IsMultiTenancyEnabled)
+            if (MultiTenancyConsts.IsEnabled)
             {
                 app.UseMultiTenancy();
             }
@@ -179,23 +234,8 @@ namespace TT.SoMall
             });
 
             app.UseAuditing();
-
+            app.UseAbpSerilogEnrichers();
             app.UseMvcWithDefaultRouteAndArea();
-
-            SeedDatabase(context);
-        }
-
-        private static void SeedDatabase(ApplicationInitializationContext context)
-        {
-            using (var scope = context.ServiceProvider.CreateScope())
-            {
-                AsyncHelper.RunSync(async () =>
-                {
-                    await scope.ServiceProvider
-                        .GetRequiredService<IDataSeeder>()
-                        .SeedAsync();
-                });
-            }
         }
     }
 }

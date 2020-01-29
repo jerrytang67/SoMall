@@ -1,18 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>TT.SoMall</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190320072839_Initial.cs" />
+    <ProjectReference Include="..\TT.SoMall.EntityFrameworkCore\TT.SoMall.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TT.SoMall.EntityFrameworkCore\TT.SoMall.EntityFrameworkCore.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0" />
   </ItemGroup>
 
 </Project>

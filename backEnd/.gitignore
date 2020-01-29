@@ -252,4 +252,8 @@ paket-files/
 *.sln.iml
 
 # SoMall
-src/TT.SoMall.Web/Logs/logs.txt
+src/TT.SoMall.Web/Logs/*
+src/TT.SoMall.Web/Logs/*
+src/TT.SoMall.IdentityServer/Logs/*
+src/TT.SoMall.HttpApi.Host/Logs/*
+src/TT.SoMall.HttpApi.HostWithIds/Logs/*

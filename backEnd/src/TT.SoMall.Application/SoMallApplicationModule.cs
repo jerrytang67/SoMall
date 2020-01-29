@@ -1,4 +1,5 @@
-﻿using Volo.Abp.AutoMapper;
+﻿using Volo.Abp.Account;
+using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -9,6 +10,8 @@ namespace TT.SoMall
 {
     [DependsOn(
         typeof(SoMallDomainModule),
+        typeof(AbpAccountApplicationModule),
+        typeof(SoMallApplicationContractsModule),
         typeof(AbpIdentityApplicationModule),
         typeof(AbpPermissionManagementApplicationModule),
         typeof(AbpTenantManagementApplicationModule),
@@ -20,7 +23,7 @@ namespace TT.SoMall
         {
             Configure<AbpAutoMapperOptions>(options =>
             {
-                options.AddProfile<SoMallApplicationAutoMapperProfile>();
+                options.AddMaps<SoMallApplicationModule>();
             });
         }
     }

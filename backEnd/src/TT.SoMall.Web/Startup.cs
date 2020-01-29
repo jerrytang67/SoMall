@@ -1,21 +1,14 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Volo.Abp;
 
-namespace TT.SoMall
+namespace TT.SoMall.Web
 {
     public class Startup
     {
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplication<SoMallWebModule>(options =>
-            {
-                options.UseAutofac();
-            });
-
-            return services.BuildServiceProviderFromFactory();
+            services.AddApplication<SoMallWebModule>();
         }
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)

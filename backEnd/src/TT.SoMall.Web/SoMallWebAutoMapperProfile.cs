@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 
-namespace TT.SoMall
+namespace TT.SoMall.Web
 {
     public class SoMallWebAutoMapperProfile : Profile
     {
         public SoMallWebAutoMapperProfile()
         {
-            //Configure your AutoMapper mapping configuration here...
+            //Define your AutoMapper configuration here for the Web project.
         }
     }
 }
