@@ -52,13 +52,14 @@
     "@dcloudio/vue-cli-plugin-uni-optimize": "^2.0.0-25120200103006",
     "@dcloudio/webpack-uni-mp-loader": "^2.0.0-25120200103006",
     "@dcloudio/webpack-uni-pages-loader": "^2.0.0-25120200103006",
+    "@types/node": "^13.7.1",
     "@vue/cli-plugin-babel": "3.5.1",
     "@vue/cli-plugin-typescript": "^3.5.1",
     "@vue/cli-service": "~4.2.0",
     "babel-plugin-import": "^1.11.0",
     "miniprogram-api-typings": "^2.10.1-1",
     "postcss-comment": "^2.0.0",
-    "typescript": "^3.7.5",
+    "typescript": "^3.0.0",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [

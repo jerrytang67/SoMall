@@ -8,35 +8,40 @@
    </view>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-   data() {
-      return {
-         title: "Hello"
-      };
-   },
-   onLoad() {},
-   methods: {
-      click() {
-         uni.navigateTo({
-            url: "/pages/index/about"
-         });
-      }
-   }
-});
-</script>
 
+<script lang="ts">
+import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
+import api from "@/utils/api";
+
+@Component({})
+export default class About extends Vue {
+   get title() {
+      return "Hello";
+   }
+
+   created() {
+   }
+
+   async click() {
+      uni.navigateTo({
+         url: "/pages/index/about"
+      });
+      await api.init({ s: 123 }).then(res => {});
+   }
+}
+</script>
 <style>
 .content {
    text-align: center;
    height: 400upx;
 }
+
 .logo {
    height: 200upx;
    width: 200upx;
    margin-top: 200upx;
 }
+
 .title {
    font-size: 36upx;
    color: #8f8f94;

@@ -86,10 +86,7 @@
 	"tabBar": {
 		"selectedColor": "#FE3112",
 		"color": "#999999",
-		"spacing": "3px",
 		"borderStyle": "black",
-		"iconWidth": "24px",
-		"fontSize": "14px",
 		"list": [
 			{
 				"pagePath": "pages/index/index",
@@ -98,7 +95,7 @@
 				"text": "主页"
 			},
 			{
-				"pagePath": "pages/index/index",
+				"pagePath": "pages/orders/index",
 				"iconPath": "static/images/order2.png",
 				"selectedIconPath": "static/images/order.png",
 				"text": "订单"
@@ -109,14 +106,6 @@
 				"selectedIconPath": "static/images/my.png",
 				"text": "我的"
 			}
-		],
-		"midButton": {
-			"width": "80px",
-			"height": "50px",
-			"text": "文字",
-			"iconPath": "static/logo.png",
-			"iconWidth": "24px",
-			"backgroundImage": "static/image/midButton_backgroundImage.png"
-		}
+		]
 	}
 }

@@ -18,8 +18,7 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "@vant/weapp/*": ["./node_modules/@vant/weapp/dist/*"]
+      ]
     },
     "lib": [
       "esnext",
@@ -31,6 +30,7 @@
   "exclude": [
     "node_modules",
     "unpackage",
-    "src/**/*.nvue"
+    "src/**/*.nvue",
+    "src/wxcomponents"
   ]
 }

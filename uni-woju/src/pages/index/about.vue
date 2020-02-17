@@ -15,7 +15,6 @@ export default class About extends Vue {
    }
 
    created() {
-      console.log("created");
    }
 }
 </script>

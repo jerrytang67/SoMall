@@ -1,7 +1,7 @@
 
 <template>
    <view>
-      Hello {{name}}
+      <van-skeleton title avatar row="3" />
    </view>
 </template>
 
