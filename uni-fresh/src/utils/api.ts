@@ -31,7 +31,7 @@ const request = (
 
 
 export default {
-    init: (data: any) => request('GET', `/api/services/app/Client/init`, data),
+    init: (data: any) => request('GET', `https://www.lovewujiang.com/Wx/getShopInit?appId=wx1dfe7106c7a40821`, data),
     project_Get: (data: { id: number }) => request('GET', `http://localhost:21020/api/products/GetProduct`, data),
     project_GetAll: (data: any) => request('GET', `http://localhost:21020/api/products/GetAll`, data),
 };

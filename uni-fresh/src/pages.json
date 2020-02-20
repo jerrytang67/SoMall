@@ -4,13 +4,28 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "非常水果 在线下单",
+				"enablePullDownRefresh": true
 			}
 		},
 		{
-			"path": "pages/index/my",
+			"path": "pages/user/user",
 			"style": {
 				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"enablePullDownRefresh": true
+
+			}
+		},
+		{
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车"
 			}
 		},
 		{
@@ -28,16 +43,14 @@
 	],
 	"globalStyle": {
 		"backgroundTextStyle": "dark",
-		"navigationBarBackgroundColor": "#09BB07",
-		"navigationBarTitleText": "莴聚",
+		"navigationBarBackgroundColor": "#FA436A",
+		"navigationBarTitleText": "非常水果",
 		"navigationBarTextStyle": "white",
 		"usingComponents": {
 			"van-action-sheet": "/wxcomponents/vant/action-sheet/index",
 			"van-area": "/wxcomponents/vant/area/index",
 			"van-button": "/wxcomponents/vant/button/index",
 			"van-card": "/wxcomponents/vant/card/index",
-			"van-cell": "/wxcomponents/vant/cell/index",
-			"van-cell-group": "/wxcomponents/vant/cell-group/index",
 			"van-checkbox": "/wxcomponents/vant/checkbox/index",
 			"van-checkbox-group": "/wxcomponents/vant/checkbox-group/index",
 			"van-switch": "/wxcomponents/vant/switch/index",
@@ -50,7 +63,6 @@
 			"van-dialog": "/wxcomponents/vant/dialog/index",
 			"van-loading": "/wxcomponents/vant/loading/index",
 			"van-nav-bar": "/wxcomponents/vant/nav-bar/index",
-			"van-notice-bar": "/wxcomponents/vant/notice-bar/index",
 			"van-notify": "/wxcomponents/vant/notify/index",
 			"van-panel": "/wxcomponents/vant/panel/index",
 			"van-popup": "/wxcomponents/vant/popup/index",
@@ -80,30 +92,38 @@
 			"van-dropdown-menu": "/wxcomponents/vant/dropdown-menu/index",
 			"van-dropdown-item": "/wxcomponents/vant/dropdown-item/index",
 			"van-overlay": "/wxcomponents/vant/overlay/index",
-			"van-skeleton": "/wxcomponents/vant/skeleton/index"
+			"van-skeleton": "/wxcomponents/vant/skeleton/index",
+			"van-sidebar": "/wxcomponents/vant/sidebar/index",
+			"van-sidebar-item": "/wxcomponents/vant/sidebar-item/index"
 		}
 	},
 	"tabBar": {
-		"selectedColor": "#FE3112",
+		"selectedColor": "#FA436A",
 		"color": "#999999",
 		"borderStyle": "black",
 		"list": [
 			{
 				"pagePath": "pages/index/index",
-				"iconPath": "static/images/home2.png",
-				"selectedIconPath": "static/images/home.png",
+				"iconPath": "static/tab-home.png",
+				"selectedIconPath": "static/tab-home-current.png",
 				"text": "主页"
 			},
 			{
-				"pagePath": "pages/orders/index",
-				"iconPath": "static/images/order2.png",
-				"selectedIconPath": "static/images/order.png",
-				"text": "订单"
+				"pagePath": "pages/category/category",
+				"iconPath": "static/tab-cate.png",
+				"selectedIconPath": "static/tab-cate-current.png",
+				"text": "分类"
 			},
 			{
-				"pagePath": "pages/index/my",
-				"iconPath": "static/images/my2.png",
-				"selectedIconPath": "static/images/my.png",
+				"pagePath": "pages/cart/cart",
+				"iconPath": "static/tab-cart.png",
+				"selectedIconPath": "static/tab-cart-current.png",
+				"text": "购物车"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"iconPath": "static/tab-my.png",
+				"selectedIconPath": "static/tab-my-current.png",
 				"text": "我的"
 			}
 		]
