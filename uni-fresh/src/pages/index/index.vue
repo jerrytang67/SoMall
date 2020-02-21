@@ -1,25 +1,5 @@
 <template>
    <view class="container">
-      <!-- <view class="mp-search-box">
-         <input class="ser-input" type="text" value="输入关键字搜索" disabled />
-      </view>
-      <view class="carousel-section">
-         <view class="titleNview-placing"></view>
-         <view class="titleNview-background"></view>
-         <swiper class="carousel" circular @change="swiperChange">
-            <swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item">
-               <image :src="item.src" />
-            </swiper-item>
-         </swiper>
-         <view class="swiper-dots">
-            <text class="num">{{swiperCurrent+1}}</text>
-            <text class="sign">/</text>
-            <text class="num">{{swiperLength}}</text>
-         </view>
-      </view>
-      <view class="ad-1">
-         <image src="/static/temp/ad1.jpg" mode="scaleToFill"></image>
-      </view> -->
       <van-sticky>
          <!-- filters：过滤选项设置， sortChanged：排序更改的事件监听方法，showShape：是否显示右侧模板选择按钮，shapeValue：初始化的模板值，2：双列，1：单列，具体可自行控制，shapeChanged:右侧的模板选择按钮事件监听方法-->
          <filterList :filters="goodsFilters" @sortChanged="goodsFilterChanged" @shapeChanged="goodsTemplateChanged" :showShape="true" :shapeValue="2"></filterList>
@@ -37,31 +17,13 @@
             <style1 v-for="(x,index2) in showItems" :key="index2" :item="x" />
          </view>
       </view>
-
-      <!-- <view class="f-header m-t">
-         <image src="/static/temp/h1.png"></image>
-         <view class="tit-box">
-            <text class="tit">猜你喜欢</text>
-            <text class="tit2">Guess You Like It</text>
-         </view>
-         <text class="yticon icon-you"></text>
-      </view> -->
-
-      <!-- <view class="guess-section">
-         <view v-for="(item, index) in goodsList" :key="index" class="guess-item" @click="navToDetailPage(item)">
-            <view class="image-wrapper">
-               <image :src="item.image" mode="aspectFill"></image>
-            </view>
-            <text class="title clamp">{{item.title}}</text>
-            <text class="price">￥{{item.price}}</text>
-         </view>
-      </view> -->
       <button @click="open">打开弹窗</button>
       <uni-popup ref="popup">
          <view class="uniPopup">
             底部弹出 Popup
          </view>
       </uni-popup>
+      <unifab ref="fab" direction="vertical" :pattern="pattern" :content="content" @trigger="trigger"></unifab>
    </view>
 </template>
 
@@ -74,9 +36,10 @@ import { AppModule, ICategory } from "@/store/modules/app";
 import filterList from "@/components/filterList/index.vue";
 import style1 from "@/components/shopItem/style1.vue";
 import uniPopup from "@/components/uni-popup/uni-popup.vue";
+import unifab from "@/components/uni-fab/index.vue";
 
 @Component({
-   components: { filterList, style1, uniPopup }
+   components: { filterList, style1, uniPopup, unifab }
 })
 export default class About extends Vue {
    activeBar = 0;
@@ -104,6 +67,12 @@ export default class About extends Vue {
 
    get showItems() {
       return this.shopItems.filter(x => x.CategoryId == this.categorySelect.Id);
+   }
+
+   @Watch("cart")
+   cartCange(v: any[]) {
+      if (v.length > 0) (this.$refs.fab as any).isShow = true;
+      else (this.$refs.fab as any).isShow = false;
    }
 
    get goodsFilters() {
@@ -148,21 +117,36 @@ export default class About extends Vue {
       return this.goodsListTemplate;
    }
 
-   goodsFilterChanged(filter: any) {
-      console.log("filter:", filter);
-      // 此处可根据fitler数据，从服务器端加载数据
-      // pageIndex = 0;
-      // this.isEnd = false;
-      // this.loadingType = 0;
-      // this.curCateFid=filter.option || ""
-      // // 加载数据
-      // const resetData=true;
-      // this.loadMoreGoods(filter,resetData);
-   }
+   goodsFilterChanged(filter: any) {}
 
    // 点击了右侧的模板选择按钮：即单列还是双列展示商品
    goodsTemplateChanged(templateValue: any) {
+      console.log(templateValue);
       this.goodsListTemplate = templateValue;
+   }
+
+   //fab
+
+   // icon
+   pattern = {
+      color: "#7A7E83",
+      backgroundColor: "#fff",
+      selectedColor: "#fa436a",
+      buttonColor: "#fa436a"
+   };
+
+   content = [
+      {
+         iconPath: "/static/tab-cart.png",
+         selectedIconPath: "/static/tab-cart-current.png",
+         text: "购物车",
+         active: true
+      }
+   ];
+
+   trigger(e: any) {
+      console.log(e);
+      if (e.item.text === "购物车") uni.navigateTo({ url: "/pages/cart/cart" });
    }
 }
 </script>

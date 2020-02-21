@@ -2,19 +2,6 @@ import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-dec
 import store from '@/store'
 import api from '@/utils/api'
 
-// export interface IAppState {
-//   device: DeviceType
-//   sidebar: {
-//     opened: boolean
-//     withoutAnimation: boolean
-//   },
-//   name: string,
-//   version: string,
-//   tenant: ITenantLoginInfoDto,
-//   tenantId: number | string | undefined,
-//   routers: RouteConfig[] | undefined
-// }
-
 export interface IShopItem {
     Id: number;
     Name: string;
@@ -24,6 +11,7 @@ export interface IShopItem {
     Count: number;
     LogoUrl: string;
     CategoryId: number;
+    Unit: string;
 }
 
 export interface ICategory {
@@ -36,6 +24,11 @@ export interface ICategory {
     IsAppShow?: boolean;
 }
 
+export enum IListStyle {
+    Card = 0,
+    List = 1
+}
+
 @Module({ dynamic: true, store, name: 'app' })
 class App extends VuexModule {
 
@@ -45,6 +38,8 @@ class App extends VuexModule {
     category: ICategory[] = []
     cart: IShopItem[] = []
     currentCategory: ICategory = { Id: 0, Sort: 0 }
+
+    listStyle: IListStyle = 0
 
     get getShop() {
         return this.shop;
@@ -101,6 +96,11 @@ class App extends VuexModule {
         this.cart = this.cart.filter(x => x.Count > 0).sort((a: IShopItem, b: IShopItem) => a.Id - b.Id);
     }
 
+    @Mutation
+    private CLEAR_CART() {
+        this.cart = [];
+    }
+
     @Action
     public SetShop(shop: any) {
         this.SET_SHOP(shop);
@@ -142,6 +142,11 @@ class App extends VuexModule {
             AppModule.SetShop(res.data.shop);
             AppModule.SetCategory(res.data.categoryList);
         });
+    }
+
+    @Action
+    public ClearCart() {
+        this.CLEAR_CART();
     }
 }
 

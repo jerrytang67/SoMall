@@ -34,6 +34,7 @@
     "@dcloudio/uni-mp-weixin": "^2.0.0-25120200103006",
     "@dcloudio/uni-stat": "^2.0.0-25120200103006",
     "@vant/weapp": "^1.0.5",
+    "dayjs": "^1.8.20",
     "flyio": "^0.6.2",
     "regenerator-runtime": "^0.12.1",
     "vue": "^2.6.11",
