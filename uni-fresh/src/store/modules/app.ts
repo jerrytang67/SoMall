@@ -14,8 +14,6 @@ import store from '@/store'
 //   routers: RouteConfig[] | undefined
 // }
 
-
-
 interface IShopItem {
     Id: number;
     Name: string;
@@ -48,6 +46,9 @@ class App extends VuexModule {
     }
 
     get getCartTotal() {
+
+uni.getLocation()
+
         return this.cart.reduce((p, c) => p + (c.PriceVip * c.Count), 0);
     }
 
