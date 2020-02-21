@@ -53,6 +53,11 @@
         "setting" : {
             "urlCheck" : true,
             "checkSiteMap" : false
+        },
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于确定你的收货地址"
+            }
         }
     },
     "mp-alipay" : {

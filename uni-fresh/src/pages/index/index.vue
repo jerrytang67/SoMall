@@ -1,57 +1,25 @@
 <template>
    <view class="container">
-      <!-- 小程序头部兼容 -->
-      <!-- #ifdef MP -->
-      <view class="mp-search-box">
+      <!-- <view class="mp-search-box">
          <input class="ser-input" type="text" value="输入关键字搜索" disabled />
       </view>
-      <!-- #endif -->
-
-      <!-- 头部轮播 -->
       <view class="carousel-section">
-         <!-- 标题栏和状态栏占位符 -->
          <view class="titleNview-placing"></view>
-         <!-- 背景色区域 -->
          <view class="titleNview-background"></view>
          <swiper class="carousel" circular @change="swiperChange">
             <swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item">
                <image :src="item.src" />
             </swiper-item>
          </swiper>
-         <!-- 自定义swiper指示器 -->
          <view class="swiper-dots">
             <text class="num">{{swiperCurrent+1}}</text>
             <text class="sign">/</text>
             <text class="num">{{swiperLength}}</text>
          </view>
       </view>
-      <!-- 分类 -->
-      <!-- <view class="cate-section">
-         <view class="cate-item">
-            <image src="/static/temp/c3.png"></image>
-            <text>环球美食</text>
-         </view>
-         <view class="cate-item">
-            <image src="/static/temp/c5.png"></image>
-            <text>个护美妆</text>
-         </view>
-         <view class="cate-item">
-            <image src="/static/temp/c6.png"></image>
-            <text>营养保健</text>
-         </view>
-         <view class="cate-item">
-            <image src="/static/temp/c7.png"></image>
-            <text>家居厨卫</text>
-         </view>
-         <view class="cate-item">
-            <image src="/static/temp/c8.png"></image>
-            <text>速食生鲜</text>
-         </view>
-      </view> -->
-
       <view class="ad-1">
          <image src="/static/temp/ad1.jpg" mode="scaleToFill"></image>
-      </view>
+      </view> -->
       <van-sticky>
          <!-- filters：过滤选项设置， sortChanged：排序更改的事件监听方法，showShape：是否显示右侧模板选择按钮，shapeValue：初始化的模板值，2：双列，1：单列，具体可自行控制，shapeChanged:右侧的模板选择按钮事件监听方法-->
          <filterList :filters="goodsFilters" @sortChanged="goodsFilterChanged" @shapeChanged="goodsTemplateChanged" :showShape="true" :shapeValue="2"></filterList>
@@ -59,9 +27,9 @@
       <view class="mainContainer">
          <view style="width:85px;">
             <!-- <van-sticky :offset-top="45"> -->
-               <van-sidebar :active-key="activeBar" class="sidebar" @change="sidebarChange">
-                  <van-sidebar-item v-for="(x,index) in categoryList" :key="index" :title="x.Name" />
-               </van-sidebar>
+            <van-sidebar :active-key="activeBar" class="sidebar" @change="sidebarChange">
+               <van-sidebar-item v-for="(x,index) in categoryList" :key="index" :title="x.Name" />
+            </van-sidebar>
             <!-- </van-sticky> -->
          </view>
 
@@ -70,17 +38,16 @@
          </view>
       </view>
 
-      <!-- 猜你喜欢 -->
-      <view class="f-header m-t">
+      <!-- <view class="f-header m-t">
          <image src="/static/temp/h1.png"></image>
          <view class="tit-box">
             <text class="tit">猜你喜欢</text>
             <text class="tit2">Guess You Like It</text>
          </view>
          <text class="yticon icon-you"></text>
-      </view>
+      </view> -->
 
-      <view class="guess-section">
+      <!-- <view class="guess-section">
          <view v-for="(item, index) in goodsList" :key="index" class="guess-item" @click="navToDetailPage(item)">
             <view class="image-wrapper">
                <image :src="item.image" mode="aspectFill"></image>
@@ -88,12 +55,11 @@
             <text class="title clamp">{{item.title}}</text>
             <text class="price">￥{{item.price}}</text>
          </view>
-      </view>
+      </view> -->
       <button @click="open">打开弹窗</button>
       <uni-popup ref="popup">
          <view class="uniPopup">
             底部弹出 Popup
-
          </view>
       </uni-popup>
    </view>
@@ -103,7 +69,7 @@
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import api from "@/utils/api";
-import { AppModule } from "@/store/modules/app";
+import { AppModule, ICategory } from "@/store/modules/app";
 
 import filterList from "@/components/filterList/index.vue";
 import style1 from "@/components/shopItem/style1.vue";
@@ -113,13 +79,8 @@ import uniPopup from "@/components/uni-popup/uni-popup.vue";
    components: { filterList, style1, uniPopup }
 })
 export default class About extends Vue {
-   get title() {
-      return "Hello";
-   }
-
-   get swiperLength() {
-      return this.carouselList.length;
-   }
+   activeBar = 0;
+   itemList: any[] = [];
 
    get shop() {
       return AppModule.getShop;
@@ -133,65 +94,44 @@ export default class About extends Vue {
       return AppModule.getCart;
    }
 
-   activeBar = 0;
-   swiperCurrent = 0;
+   get categoryList() {
+      return AppModule.getCategory;
+   }
 
-   cateList = [
-      { name: "卤菜", value: "100001" },
-      { name: "凉菜", value: "100002" },
-      { name: "酒水", value: "100003" }
-   ];
+   get categorySelect() {
+      return AppModule.getCurrentCategory;
+   }
 
-   categoryList: any[] = [];
-   itemList: any[] = [];
+   get showItems() {
+      return this.shopItems.filter(x => x.CategoryId == this.categorySelect.Id);
+   }
 
-   selectCategory: any | undefined = null;
+   get goodsFilters() {
+      const cateOptions = [{ name: "推荐", value: "0" }];
+      return [
+         { title: "类别", value: 0, filterType: 2, options: cateOptions },
+         { title: "人气", value: 3, filterType: 1 },
+         { title: "最新", value: 4, filterType: 1 },
+         { title: "价格", value: 5, filterType: 1, initAscState: true }
+      ];
+   }
+
+   async onPullDownRefresh() {
+      await this.fetchData();
+      uni.stopPullDownRefresh();
+   }
 
    open() {
       (this.$refs.popup as any).open();
    }
 
-   beforeCreate() {
-      api.init({}).then((res: any) => {
-         console.log(res);
-
-         this.categoryList = res.data.categoryList;
-
-         AppModule.SetShopItems(res.data.itemList);
-
-         AppModule.SetShop(res.data.shop);
-
-         if (this.categoryList.length)
-            this.selectCategory = this.categoryList[0];
-      });
+   async fetchData() {
+      await AppModule.Init();
    }
 
    sidebarChange(e: any) {
       let index = e.detail;
-      this.selectCategory = this.categoryList[index];
-   }
-
-   get showItems() {
-      return this.shopItems.filter(x => x.CategoryId == this.selectCategory.Id);
-   }
-
-   // 商品过滤器参数 <!-- //1：按距离，2：按销量，3：按人气，4：按最新，5：按价格 -->
-   get goodsFilters() {
-      // 参考的下拉选项如下，可从服务器端加载：
-      //options:[{name:'不限',value:""},{name:'酒水',value:"js",children:[{name:'啤酒',value:"pj"}]}]},
-      // const cateOptions=this.cateList.map(function (item){
-      // 	return {name:item.Name,value:item.Fid}
-      // });
-      const cateOptions = [{ name: "推荐", value: "0" }, ...this.cateList];
-      // filterType为0，普通方式，无排序，1：排序模式，2：下拉筛选模式，当前支持一级，多级可自行扩展
-      return [
-         { title: "类别", value: 0, filterType: 2, options: cateOptions },
-         // {title:'推荐',value:0,filterType:0,disableAscDesc:true},
-         { title: "距离", value: 2, filterType: 0 },
-         // {title:'人气', value:3, filterType:1},
-         { title: "最新", value: 4, filterType: 1 },
-         { title: "价格", value: 5, filterType: 1, initAscState: true }
-      ];
+      AppModule.setCurrentCategory(this.categoryList[index]);
    }
 
    carouselList = [
@@ -203,8 +143,6 @@ export default class About extends Vue {
    goodsListTemplate = 2;
    // 过滤参数
    curCateFid = "";
-
-   async created() {}
 
    goodsListTemplateType() {
       return this.goodsListTemplate;
@@ -225,11 +163,6 @@ export default class About extends Vue {
    // 点击了右侧的模板选择按钮：即单列还是双列展示商品
    goodsTemplateChanged(templateValue: any) {
       this.goodsListTemplate = templateValue;
-   }
-
-   private swiperChange(e: any) {
-      console.log(e);
-      this.swiperCurrent = e.detail.current;
    }
 }
 </script>
@@ -411,7 +344,7 @@ page {
    }
    .tit {
       font-size: $font-lg + 2upx;
-      color: #font-color-dark;
+      color: $font-color-dark;
       line-height: 1.3;
    }
    .tit2 {

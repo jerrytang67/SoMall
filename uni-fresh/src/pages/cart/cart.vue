@@ -24,9 +24,17 @@ import api from "@/utils/api";
 import { AppModule } from "@/store/modules/app";
 @Component({})
 export default class Cart extends Vue {
-   created() {}
+   created() {
+      uni.getLocation({
+         type: "wgs84",
+         success: res => {
+            console.log("当前位置的经度：" + res.longitude);
+            console.log("当前位置的纬度：" + res.latitude);
+         }
+      });
+   }
 
-   get total(){
+   get total() {
       return AppModule.getCartTotal;
    }
 

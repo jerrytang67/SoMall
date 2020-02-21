@@ -1,5 +1,6 @@
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
 import store from '@/store'
+import api from '@/utils/api'
 
 // export interface IAppState {
 //   device: DeviceType
@@ -14,7 +15,7 @@ import store from '@/store'
 //   routers: RouteConfig[] | undefined
 // }
 
-interface IShopItem {
+export interface IShopItem {
     Id: number;
     Name: string;
     Desc: string;
@@ -25,18 +26,37 @@ interface IShopItem {
     CategoryId: number;
 }
 
+export interface ICategory {
+    Id?: number;
+    Name?: string;
+    ParentId?: number | undefined;
+    Sort: number;
+    StoreId?: number;
+    Level?: number;
+    IsAppShow?: boolean;
+}
+
 @Module({ dynamic: true, store, name: 'app' })
 class App extends VuexModule {
 
     shop: any = {}
     shopItems: IShopItem[] = []
 
+    category: ICategory[] = []
     cart: IShopItem[] = []
+    currentCategory: ICategory = { Id: 0, Sort: 0 }
 
     get getShop() {
         return this.shop;
     }
 
+    get getCategory() {
+        return this.category;
+    }
+
+    get getCurrentCategory() {
+        return this.currentCategory
+    }
     get getShopItems() {
         return this.shopItems;
     }
@@ -46,15 +66,22 @@ class App extends VuexModule {
     }
 
     get getCartTotal() {
-
-uni.getLocation()
-
         return this.cart.reduce((p, c) => p + (c.PriceVip * c.Count), 0);
     }
 
     @Mutation
     private SET_SHOP(shop: any) {
         this.shop = shop
+    }
+
+    @Mutation
+    private SET_CATEGORY(cate: ICategory[]) {
+        this.category = cate.sort((a, b) => b.Sort - a.Sort).filter(x => x.IsAppShow)
+    }
+
+    @Mutation
+    private SET_CURRENT_CATEGORY(cate: ICategory) {
+        this.currentCategory = cate
     }
 
     @Mutation
@@ -80,6 +107,17 @@ uni.getLocation()
     }
 
     @Action
+    public SetCategory(category: ICategory[]) {
+        this.SET_CATEGORY(category);
+        this.SET_CURRENT_CATEGORY(category[0])
+    }
+
+    @Action
+    public setCurrentCategory(category: ICategory) {
+        this.SET_CURRENT_CATEGORY(category);
+    }
+
+    @Action
     public SetShopItems(items: IShopItem[]) {
         this.SET_SHOPITEMS(items);
     }
@@ -94,6 +132,16 @@ uni.getLocation()
         if (item.Count > 0)
             item.Count -= 1;
         this.SET_CART(item);
+    }
+
+    @Action
+    public Init() {
+        api.init({}).then((res: any) => {
+            console.log(res);
+            AppModule.SetShopItems(res.data.itemList);
+            AppModule.SetShop(res.data.shop);
+            AppModule.SetCategory(res.data.categoryList);
+        });
     }
 }
 
