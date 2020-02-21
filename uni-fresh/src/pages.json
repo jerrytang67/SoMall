@@ -39,6 +39,12 @@
 			"style": {
 				"navigationBarTitleText": "订单"
 			}
+		},
+		{
+			"path": "pages/user/myAddress",
+			"style": {
+				"navigationBarTitleText": "选择收货地址"
+			}
 		}
 	],
 	"globalStyle": {

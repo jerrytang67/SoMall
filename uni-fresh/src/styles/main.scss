@@ -1,0 +1,17 @@
+.appContainer {
+  width: 750rpx;
+  padding: 0 20rpx;
+  --button-danger-background-color: #fa436a;
+}
+.fill {
+  flex: 1;
+}
+
+.align_center {
+  align-items: center;
+}
+
+.line1 {
+  background: linear-gradient(to bottom, #ccc, rgba(255, 255, 255, 0));
+  height: 1rpx;
+}

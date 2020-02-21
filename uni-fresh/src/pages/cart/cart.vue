@@ -2,7 +2,7 @@
 <template>
    <view class="appContainer">
       <view class="cardWrap">
-         <view class="card__cell">
+         <view class="card__cell" @click="toMyAddress">
             <view class="_icon">
                <van-icon name="location-o" />
             </view>
@@ -127,27 +127,12 @@ export default class Cart extends Vue {
          uni.switchTab({ url: "/pages/index/index" });
       }, 500);
    }
+
+   toMyAddress() {
+      uni.navigateTo({ url: "/pages/user/myAddress" });
+   }
 }
 </script>
-
-<style lang="scss">
-.appContainer {
-   width: 750rpx;
-   padding: 0 20rpx;
-}
-.fill {
-   flex: 1;
-}
-
-.align_center {
-   align-items: center;
-}
-
-.line1 {
-   background: linear-gradient(to bottom, #ccc, rgba(255, 255, 255, 0));
-   height: 1rpx;
-}
-</style>
 
 <style lang="scss" scoped>
 .cardWrap {
