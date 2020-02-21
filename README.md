@@ -4,17 +4,17 @@
 
 #### 技术栈:
 
-.netcore 2.2
-angular
+.netcore 3.1
+vue
+uni-app
 typescript
 docker
-mssql(base on docker)
+mssql
 
 #### 前端
 
-ng-zorro+ng-alain (Admin backEnd)
-ionic (H5 and APP)
-mpvue (weixin mini programe)
+vue-element
+uni-app
 
 #### 微服务
 
