@@ -461,12 +461,3 @@ page {
    }
 }
 </style>
-
-<style>
-.uniPopup {
-   padding: 20rpx;
-   background: #fff;
-   border-radius: 10rpx;
-   box-shadow: 2upx 3upx 5upx rgba(40, 40, 40, 0.2);
-}
-</style>

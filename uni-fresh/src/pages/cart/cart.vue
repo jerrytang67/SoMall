@@ -11,7 +11,7 @@
                   东方花园小区33幢3单元1301
                </view>
                <view class="_desc">
-                  <view>name</view>
+                  <view class="mr-2">name</view>
                   <view>138868998</view>
                </view>
             </view>
@@ -135,33 +135,6 @@ export default class Cart extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.cardWrap {
-   margin: 40rpx 0;
-   width: 710rpx;
-   border-radius: 10rpx;
-   box-shadow: 0 4rpx 6rpx #ddd, 0 4rpx 6rpx #ccc;
-   &__header {
-      height: 70rpx;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      .__title {
-         margin-left: 30rpx;
-         font-size: 26rpx;
-         font-weight: 600;
-         color: $font-color-dark;
-      }
-      .__more {
-         margin-right: 20rpx;
-         font-size: 26rpx;
-         font-weight: 600;
-         color: $font-color-dark;
-         display: flex;
-         flex-direction: row;
-      }
-   }
-}
-
 .cartItem {
    padding: 30rpx 0;
    display: flex;
@@ -195,42 +168,6 @@ export default class Cart extends Vue {
       font-size: 26rpx;
       color: #000;
       font-weight: 800;
-   }
-}
-
-.card__cell {
-   display: flex;
-   padding: 20rpx 0 20rpx 20rpx;
-   flex-direction: row;
-   align-items: center;
-   ._icon {
-      font-size: 40rpx;
-
-      width: 60rpx;
-   }
-   ._main {
-      flex: 1;
-      ._title {
-         font-size: 32rpx;
-         font-weight: 800;
-         color: $font-color-dark;
-      }
-      ._desc {
-         color: $uni-text-color;
-         display: flex;
-         flex-direction: row;
-      }
-   }
-   ._submain {
-      display: flex;
-      flex: 1;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-   }
-   ._nav {
-      font-size: 48rpx;
-      color: $uni-text-color-grey;
    }
 }
 </style>
