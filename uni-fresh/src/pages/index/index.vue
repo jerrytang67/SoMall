@@ -44,13 +44,9 @@ import { UserModule } from "@/store/modules/user";
 @Component({
    components: { filterList, style1, uniPopup, unifab }
 })
-export default class About extends BaseView {
+export default class About  extends BaseView {
    activeBar = 0;
    itemList: any[] = [];
-
-   get shopMember() {
-      return UserModule.getShopMember;
-   }
 
    get shop() {
       return AppModule.getShop;

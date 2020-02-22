@@ -1,5 +1,5 @@
 import utils from "./utils";
-import { UserModule } from '@/store/modules/user';
+import { UserModule, IAddress } from '@/store/modules/user';
 
 let host = process.env.VUE_APP_BASE_API;
 
@@ -38,5 +38,10 @@ export default {
     project_GetAll: (data: any) => request('GET', `http://localhost:21020/api/products/GetAll`, data),
     postUserInfo: (data: any) => request('POST', `http://localhost:8088/api/WoJu/postUserInfo2`, data),
     pay: (data: any) => request('POST', `http://localhost:8088/Api/V1/SomePostWithToken`, data),
+
+    postNewAddress: (data: IAddress) => request('POST', `http://localhost:8088/Wx/PostNewAddress`, { address: data }),
+    SetAddressDefault: (data: { Id: number }) => request('POST', `http://localhost:8088/Api/V1/SetAddressDefault`, data),
+
+
 
 };

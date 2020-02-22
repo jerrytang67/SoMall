@@ -1,7 +1,9 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { UserModule } from '@/store/modules/user';
+import api from '@/utils/api';
 
-export abstract class BaseView extends Vue {
+@Component
+export class BaseView extends Vue {
     get token() {
         return UserModule.getToken;
     }
@@ -13,6 +15,15 @@ export abstract class BaseView extends Vue {
     get addressList() {
         return UserModule.getAddressList;
     }
+
+    initUser() {
+        if (this.token) {
+           api.userInit({}).then((res: any) => {
+              if (res.success) UserModule.UserInit(res.data);
+              else UserModule.Logout();
+           });
+        }
+     }
 }
 
 export default {

@@ -8,11 +8,11 @@
             </view>
             <view class="_main">
                <view class="_title">
-                  东方花园小区33幢3单元1301
+                  {{defaultAddress.LocationLable}}
                </view>
                <view class="_desc">
-                  <view class="mr-2">name</view>
-                  <view>138868998</view>
+                  <view class="mr-2">{{defaultAddress.RealName}}</view>
+                  <view>{{defaultAddress.Phone}}</view>
                </view>
             </view>
             <view class="_nav">
@@ -87,16 +87,23 @@
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import api from "@/utils/api";
 import { AppModule } from "@/store/modules/app";
-@Component({})
-export default class Cart extends Vue {
+import { UserModule } from "@/store/modules/user";
+import { BaseView } from "../baseView";
+
+@Component
+export default class Cart extends BaseView {
    created() {
-      uni.getLocation({
-         type: "wgs84",
-         success: res => {
-            console.log("当前位置的经度：" + res.longitude);
-            console.log("当前位置的纬度：" + res.latitude);
-         }
-      });
+      // uni.getLocation({
+      //    type: "wgs84",
+      //    success: res => {
+      //       console.log("当前位置的经度：" + res.longitude);
+      //       console.log("当前位置的纬度：" + res.latitude);
+      //    }
+      // });
+   }
+
+   get defaultAddress() {
+      return UserModule.getAddressList.find(x => x.IsDefault) || {};
    }
 
    get total() {
@@ -111,29 +118,17 @@ export default class Cart extends Vue {
       uni.navigateTo({ url: "/pages/orders/index" });
    }
 
+   onShow() {
+      //this.initUser();
+   }
+
    pay() {
       if (this.cart.length <= 0) {
          uni.showToast({ title: "购物车为空" });
          return;
       }
       api.pay({
-         address: {
-            MemberId: 1303,
-            RealName: "我想静静",
-            NickName: "唐唐唐 1983",
-            Phone: "18012729981",
-            LocationLable: "东方花园-33栋 1301",
-            IsDefault: true,
-            DatetimeLast: "2018-04-20 00:22:30",
-            ShopMember: null,
-            ShopOrders: null,
-            Lat: 30.908531,
-            Lng: 120.634472,
-            IsUserDelete: false,
-            Id: 4753,
-            StoreId: 4,
-            DateTimeCreate: "2018-04-20 00:22:30"
-         },
+         address: this.defaultAddress,
          carts: this.cart,
          payType: "later",
          comment: "",

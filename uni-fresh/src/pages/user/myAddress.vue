@@ -9,11 +9,11 @@
                </view>
                <view class="_main" @click.stop="select(x)">
                   <view class="_title">
-                     {{x.address}}
+                     {{x.LocationLable}}
                   </view>
                   <view class="_desc">
-                     <view>{{x.name}}</view>
-                     <view>{{x.phone}}</view>
+                     <view>{{x.RealName}}</view>
+                     <view>{{x.Phone}}</view>
                   </view>
                </view>
                <view class="_nav">
@@ -27,17 +27,20 @@
       <uni-popup ref="popup">
          <view class="uniPopup" style="width:650rpx;">
             <van-cell-group>
-               <van-field titleWidth="60px" :value.sync="form.name" data-name="name" label="收件人" placeholder="收件人" @change="onChange" />
+               <van-field titleWidth="60px" :value.sync="form.RealName" data-name="RealName" label="收件人" placeholder="收件人" @change="onChange" />
 
-               <van-field titleWidth="60px" :value="form.phone" data-name="phone" label="手机号" placeholder="手机号" @change="onChange" use-button-slot>
+               <van-field titleWidth="60px" :value="form.Phone" data-name="Phone" label="手机号" placeholder="手机号" @change="onChange" use-button-slot>
 
                   <van-button slot="button" size="mini" type="danger" @getphonenumber="bindPhone" open-type="getPhoneNumber">获取</van-button>
                </van-field>
 
-               <van-field titleWidth="60px" :value="form.address" data-name="address" label="地址" placeholder="收货地址" @change="onChange" use-button-slot>
+               <van-field titleWidth="60px" :value="form.Address" data-name="Address" label="小区" placeholder="收货地址" @change="onChange" use-button-slot>
                   <van-button slot="button" size="mini" type="danger" @click="getAddress">地图</van-button>
                </van-field>
-               <van-button block @click="submit">确定</van-button>
+
+               <van-field titleWidth="60px" :value="form.LocationLable" data-name="LocationLable" label="楼号-门牌" placeholder="收货地址" @change="onChange">
+               </van-field>
+               <van-button block @click="submit" size="small">确定</van-button>
             </van-cell-group>
          </view>
       </uni-popup>
@@ -49,31 +52,20 @@ import uniPopup from "@/components/uni-popup/uni-popup.vue";
 
 import api from "@/utils/api";
 import { SystemModule } from "@/store/modules/system";
+import { IAddress, UserModule } from "@/store/modules/user";
+import { BaseView } from "../baseView";
+
 @Component({
    components: { uniPopup }
 })
-export default class MyAddress extends Vue {
+export default class MyAddress extends BaseView {
+   get addressList() {
+      return UserModule.getAddressList;
+   }
+
    created() {}
 
-   form: any = {
-      id: 0,
-      name: "",
-      phone: "",
-      address: "",
-      lat: 0,
-      lng: 0
-   };
-
-   addressList: any[] = [
-      {
-         id: 0,
-         address: "东方花园小区33幢3单元1301",
-         name: "tt",
-         phone: "138868998",
-         lat: 0,
-         lng: 0
-      }
-   ];
+   form: any = {};
 
    get info() {
       return SystemModule.getInfo;
@@ -86,21 +78,18 @@ export default class MyAddress extends Vue {
    onChange(e: any) {
       let value = e.detail;
       let key = e.currentTarget.dataset.name;
-      this.form[key] = value;
+      let o: any = {};
+      o[key] = value;
+      this.form = Object.assign({}, this.form, o);
    }
 
    submit() {
-      this.form.id = this.addressList.length;
-      this.addressList = [...this.addressList, this.form];
-      this.form = {
-         id: 0,
-         name: "",
-         phone: "",
-         address: "",
-         lat: 0,
-         lng: 0
-      };
-      (this.$refs.popup as any).close();
+      api.postNewAddress(this.form).then((res: any) => {
+         if (res.success) {
+            this.initUser();
+            (this.$refs.popup as any).close();
+         }
+      });
    }
 
    edit(x: any) {
@@ -136,8 +125,11 @@ export default class MyAddress extends Vue {
          }
    }
 
-   select(x: any) {
-      uni.navigateBack();
+   async select(x: IAddress) {
+      console.log(x);
+      await api.SetAddressDefault({ Id: x.Id! }).then((res: any) => {
+         if (res.success) uni.navigateBack();
+      });
    }
 
    getAddress() {
@@ -147,9 +139,13 @@ export default class MyAddress extends Vue {
             console.log("详细地址：" + res.address);
             console.log("纬度：" + res.latitude);
             console.log("经度：" + res.longitude);
-            this.form.address = `${res.name}`;
-            this.form.lat = res.latitude;
-            this.form.lng = res.longitude;
+
+            this.form = Object.assign({}, this.form, {
+               Address: res.address,
+               LocationLable: res.name,
+               Lat: res.latitude,
+               Lng: res.longitude
+            });
          }
       });
    }

@@ -7,14 +7,14 @@ import { SystemModule } from "./store/modules/system";
 
 import { BaseView } from "@/pages/baseView.ts";
 
-@Component({})
+@Component
 export default class extends BaseView {
+
    @Watch("token")
    onTokenChange(token: string) {
       console.log("token changed;");
       this.initUser();
    }
-
    onLaunch() {
       console.log("App Launch");
       AppModule.Init();
@@ -28,20 +28,10 @@ export default class extends BaseView {
       console.log("App Hide");
    }
 
-   private initUser() {
-      if (this.token) {
-         api.userInit({}).then((res: any) => {
-            if (res.success) UserModule.UserInit(res.data);
-            else
-            UserModule.Logout();
-         });
-      }
-   }
 }
 </script>
 
 <style lang="scss">
 @import "./graceUI/graceUI.css";
-@import "./colorui/main.css";
 @import "./colorui/icon.css";
 </style>

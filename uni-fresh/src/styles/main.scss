@@ -5,6 +5,8 @@
 
 page {
   --button-danger-background-color: #fa436a;
+  --button-primary-background-color: #80d640;
+  --button-primary-border-color: #80d640;
 }
 .fill {
   flex: 1;
@@ -79,7 +81,7 @@ page {
     flex: 1;
     ._title {
       font-size: 32rpx;
-      padding:6rpx 0;
+      padding: 6rpx 0;
       font-weight: 800;
       color: $font-color-dark;
     }
