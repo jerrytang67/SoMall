@@ -11,14 +11,6 @@
          <span>服务协议</span> 和
          <span>隐私协议</span>
       </div>
-      <van-toast id="van-toast" />
-      <van-popup :show="phoneShow" @close="onClose" position="bottom">
-         <demo-block title="绑定手机">
-            <div style="width:100%;text-align:center;">
-               <van-button type="primary" @getphonenumber="getPhoneNumber" open-type="getPhoneNumber" style="margin:30rpx auto;display: block;">您未绑定手机号,点击绑定</van-button>
-            </div>
-         </demo-block>
-      </van-popup>
    </view>
 </template>
 
@@ -28,7 +20,7 @@ import { UserModule } from "@/store/modules/user";
 import api from "@/utils/api";
 
 @Component({})
-export default class About extends Vue {
+export default class Login extends Vue {
    get token() {
       return UserModule.getToken;
    }
@@ -68,15 +60,17 @@ export default class About extends Vue {
 </script>
 
 <style lang="scss" scoped>
+page {
+   height: 100%;
+}
+
 .title {
    color: #508ed4;
    font-size: 25px;
    text-align: center;
    font-weight: 700;
 }
-page {
-   height: 100%;
-}
+
 .mainView {
    height: 100%;
    justify-content: space-around;

@@ -38,8 +38,8 @@ import filterList from "@/components/filterList/index.vue";
 import style1 from "@/components/shopItem/style1.vue";
 import uniPopup from "@/components/uni-popup/uni-popup.vue";
 import unifab from "@/components/uni-fab/index.vue";
-import { BaseView } from '../baseView';
-import { UserModule } from '@/store/modules/user';
+import { BaseView } from "../baseView";
+import { UserModule } from "@/store/modules/user";
 
 @Component({
    components: { filterList, style1, uniPopup, unifab }
@@ -47,9 +47,11 @@ import { UserModule } from '@/store/modules/user';
 export default class About extends BaseView {
    activeBar = 0;
    itemList: any[] = [];
-    get shopMember() {
-        return UserModule.getShopMember;
-    }
+
+   get shopMember() {
+      return UserModule.getShopMember;
+   }
+
    get shop() {
       return AppModule.getShop;
    }

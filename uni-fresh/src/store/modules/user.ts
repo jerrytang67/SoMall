@@ -114,6 +114,18 @@ class User extends VuexModule {
         console.log("Mutation:SET_SHOPMEMBER", shopMember);
         this.shopMember = shopMember;
     }
+
+
+    // Logout
+    @Action
+    public Logout() {
+        this.SET_TOKEN("");
+        this.SET_USERINFO({});
+        this.SET_SHOPMEMBER({});
+        this.SET_ADDRESSLIST([]);
+    }
+
+
 }
 
 export const UserModule = getModule(User)

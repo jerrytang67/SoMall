@@ -9,7 +9,6 @@ import { BaseView } from "@/pages/baseView.ts";
 
 @Component({})
 export default class extends BaseView {
-   
    @Watch("token")
    onTokenChange(token: string) {
       console.log("token changed;");
@@ -32,7 +31,9 @@ export default class extends BaseView {
    private initUser() {
       if (this.token) {
          api.userInit({}).then((res: any) => {
-            UserModule.UserInit(res.data);
+            if (res.success) UserModule.UserInit(res.data);
+            else
+            UserModule.Logout();
          });
       }
    }
