@@ -1,4 +1,5 @@
 import utils from "./utils";
+import { UserModule } from '@/store/modules/user';
 
 let host = process.env.VUE_APP_BASE_API;
 
@@ -23,7 +24,7 @@ const request = (
         method: method,
         header: {
             "content-type": "application/json",
-            "Authorization": `Bearer ${uni.getStorageSync("token") || ''}`,
+            "Authorization": `Bearer ${UserModule.getToken || ''}`,
             "Abp.TenantId": `${TenantId}`,
         }
     });
@@ -32,6 +33,10 @@ const request = (
 
 export default {
     init: (data: any) => request('GET', `https://www.lovewujiang.com/Wx/getShopInit?appId=wx1dfe7106c7a40821`, data),
+    userInit: (data: any) => request('GET', `http://localhost:8088/Wx/UserInit`, data),
     project_Get: (data: { id: number }) => request('GET', `http://localhost:21020/api/products/GetProduct`, data),
     project_GetAll: (data: any) => request('GET', `http://localhost:21020/api/products/GetAll`, data),
+    postUserInfo: (data: any) => request('POST', `http://localhost:8088/api/WoJu/postUserInfo2`, data),
+    pay: (data: any) => request('POST', `http://localhost:8088/Api/V1/SomePostWithToken`, data),
+
 };

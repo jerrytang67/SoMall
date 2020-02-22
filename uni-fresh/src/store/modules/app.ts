@@ -137,7 +137,7 @@ class App extends VuexModule {
     @Action
     public Init() {
         api.init({}).then((res: any) => {
-            console.log(res);
+            //console.log(res);
             AppModule.SetShopItems(res.data.itemList);
             AppModule.SetShop(res.data.shop);
             AppModule.SetCategory(res.data.categoryList);

@@ -17,6 +17,7 @@
             <style1 v-for="(x,index2) in showItems" :key="index2" :item="x" />
          </view>
       </view>
+      {{shopMember.Balance}}
       <button @click="open">打开弹窗</button>
       <uni-popup ref="popup">
          <view class="uniPopup">
@@ -37,14 +38,18 @@ import filterList from "@/components/filterList/index.vue";
 import style1 from "@/components/shopItem/style1.vue";
 import uniPopup from "@/components/uni-popup/uni-popup.vue";
 import unifab from "@/components/uni-fab/index.vue";
+import { BaseView } from '../baseView';
+import { UserModule } from '@/store/modules/user';
 
 @Component({
    components: { filterList, style1, uniPopup, unifab }
 })
-export default class About extends Vue {
+export default class About extends BaseView {
    activeBar = 0;
    itemList: any[] = [];
-
+    get shopMember() {
+        return UserModule.getShopMember;
+    }
    get shop() {
       return AppModule.getShop;
    }

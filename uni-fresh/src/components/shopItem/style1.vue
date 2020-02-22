@@ -31,7 +31,7 @@ export default class Style1 extends Vue {
       let inCart = AppModule.getCart.filter(x => x.Id === this.item.Id)[0] || {
          Count: 0
       };
-      console.log("inCart", inCart.Count);
+      // console.log("inCart", inCart.Count);
       return inCart.Count;
    }
 

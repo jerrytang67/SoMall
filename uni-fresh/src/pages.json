@@ -46,6 +46,13 @@
 				"navigationBarTitleText": "选择收货地址"
 			}
 		}
+		,
+		{
+			"path": "pages/index/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}
 	],
 	"globalStyle": {
 		"backgroundTextStyle": "dark",

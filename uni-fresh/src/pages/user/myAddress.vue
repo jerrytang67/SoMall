@@ -22,27 +22,26 @@
             </view>
             <view class="line1" />
          </view>
-         <van-button type="danger" block class="fix-bottom" @click="newAddress">新增收货地址</van-button>
-
-         <uni-popup ref="popup">
-            <view class="uniPopup" style="width:650rpx;">
-
-               <van-cell-group>
-                  <van-field titleWidth="60px" :value.sync="form.name" data-name="name" label="收件人" placeholder="收件人" @change="onChange" />
-
-                  <van-field titleWidth="60px" :value="form.phone" data-name="phone" label="手机号" placeholder="手机号" @change="onChange" use-button-slot>
-
-                     <van-button slot="button" size="mini" type="danger" @getphonenumber="bindPhone" open-type="getPhoneNumber">获取</van-button>
-                  </van-field>
-
-                  <van-field titleWidth="60px" :value="form.address" data-name="address" label="地址" placeholder="收货地址" @change="onChange" use-button-slot>
-                     <van-button slot="button" size="mini" type="danger" @click="getAddress">地图</van-button>
-                  </van-field>
-                  <van-button block @click="submit">确定</van-button>
-               </van-cell-group>
-            </view>
-         </uni-popup>
       </view>
+      <van-button type="danger" block class="fix-bottom" @click="newAddress">新增收货地址</van-button>
+      <uni-popup ref="popup">
+         <view class="uniPopup" style="width:650rpx;">
+            <van-cell-group>
+               <van-field titleWidth="60px" :value.sync="form.name" data-name="name" label="收件人" placeholder="收件人" @change="onChange" />
+
+               <van-field titleWidth="60px" :value="form.phone" data-name="phone" label="手机号" placeholder="手机号" @change="onChange" use-button-slot>
+
+                  <van-button slot="button" size="mini" type="danger" @getphonenumber="bindPhone" open-type="getPhoneNumber">获取</van-button>
+               </van-field>
+
+               <van-field titleWidth="60px" :value="form.address" data-name="address" label="地址" placeholder="收货地址" @change="onChange" use-button-slot>
+                  <van-button slot="button" size="mini" type="danger" @click="getAddress">地图</van-button>
+               </van-field>
+               <van-button block @click="submit">确定</van-button>
+            </van-cell-group>
+         </view>
+      </uni-popup>
+   </view>
 </template>
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";

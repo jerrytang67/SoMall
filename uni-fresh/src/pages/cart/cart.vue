@@ -75,7 +75,7 @@
             <view class="line1"></view>
          </view>
       </view>
-      <van-submit-bar :price="total * 100" button-text="生成订单" @submit="onClickButton" :tip="true">
+      <van-submit-bar :price="total * 100" button-text="生成订单" @submit="pay" :tip="true">
          <!-- <van-tag type="primary">标签</van-tag> -->
          <!-- <view slot="tip">
             您的收货地址不支持同城送, <text>修改地址</text>
@@ -111,7 +111,39 @@ export default class Cart extends Vue {
       uni.navigateTo({ url: "/pages/orders/index" });
    }
 
-   onClickButton() {}
+   pay() {
+      if (this.cart.length <= 0) {
+         uni.showToast({ title: "购物车为空" });
+         return;
+      }
+      api.pay({
+         address: {
+            MemberId: 1303,
+            RealName: "我想静静",
+            NickName: "唐唐唐 1983",
+            Phone: "18012729981",
+            LocationLable: "东方花园-33栋 1301",
+            IsDefault: true,
+            DatetimeLast: "2018-04-20 00:22:30",
+            ShopMember: null,
+            ShopOrders: null,
+            Lat: 30.908531,
+            Lng: 120.634472,
+            IsUserDelete: false,
+            Id: 4753,
+            StoreId: 4,
+            DateTimeCreate: "2018-04-20 00:22:30"
+         },
+         carts: this.cart,
+         payType: "later",
+         comment: "",
+         totalPrice: this.total
+      }).then((res: any) => {
+         if (res.success) {
+            uni.showToast({ title: "下单成功" });
+         }
+      });
+   }
 
    cartAdd(x: any) {
       AppModule.AddCart(x);
