@@ -38,6 +38,7 @@ export default {
     pay: (data: any) => request('POST', `https://www.lovewujiang.com/Api/V1/SomePostWithToken`, data),
 
     postNewAddress: (data: IAddress) => request('POST', `https://www.lovewujiang.com/Wx/PostNewAddress`, { address: data }),
+    AddressDelete: (data: IAddress) => request('POST', `https://www.lovewujiang.com/Api/V1/AddressDeleteWithToken`, data ),
     SetAddressDefault: (data: { Id: number }) => request('POST', `https://www.lovewujiang.com/Api/V1/SetAddressDefault`, data),
 
     GetOrders: (data: any = {}) => request('POST', `https://www.lovewujiang.com/Api/V1/GetOrders`, data),

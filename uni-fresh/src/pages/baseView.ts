@@ -4,6 +4,9 @@ import api from '@/utils/api';
 
 @Component
 export class BaseView extends Vue {
+
+    public modalName: string  = "";
+
     get token() {
         return UserModule.getToken;
     }
@@ -39,6 +42,16 @@ export class BaseView extends Vue {
 
     toHome() {
         uni.switchTab({ url: "/pages/index/index" })
+    }
+
+    showModal(e: any) {
+        console.log(e);
+        
+        this.modalName = e.currentTarget.dataset.target
+    }
+
+    hideModal() {
+        this.modalName = ""
     }
 }
 

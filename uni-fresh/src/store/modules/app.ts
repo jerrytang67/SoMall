@@ -38,7 +38,8 @@ class App extends VuexModule {
     shopItems: IShopItem[] = []
 
     category: ICategory[] = []
-    cart: IShopItem[] = uni.getStorageSync("cart") || []
+    cart: IShopItem[] =  []
+    //cart: IShopItem[] = uni.getStorageSync("cart") || []
     currentCategory: ICategory = { Id: 0, Sort: 0 }
 
     listStyle: IListStyle = 0
@@ -96,7 +97,7 @@ class App extends VuexModule {
             this.cart = [...this.cart, item]
         }
         this.cart = this.cart.filter(x => x.Count! > 0).sort((a: IShopItem, b: IShopItem) => a.Id! - b.Id!);
-        uni.setStorageSync("cart", this.cart)
+        //uni.setStorageSync("cart", this.cart)
     }
 
     @Mutation
