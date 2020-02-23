@@ -1,14 +1,15 @@
 import dayjs from 'dayjs'
-import 'dayjs/locale/zh-cn' // import locale
 
-function formatDate(value: any, arg: string | undefined) {
+const formatDate = (value: any, arg: string | undefined) => {
     console.log(value)
     if (value) {
         return dayjs(value).format('YYYY-MM-DD HH:mm')
     }
 }
 
-function currency(value: any) {
+const currency = (value: any | undefined) => {
+    console.log(value);
+
     if (value !== undefined) {
         return '￥' + parseFloat(value).toFixed(2)
     }

@@ -22,6 +22,8 @@ export interface ICategory {
     StoreId?: number;
     Level?: number;
     IsAppShow?: boolean;
+    top?:number;
+    bottom?:number;
 }
 
 export enum IListStyle {

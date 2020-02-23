@@ -1,29 +1,45 @@
 <template>
-   <view class="container">
-      <van-sticky>
-         <!-- filters：过滤选项设置， sortChanged：排序更改的事件监听方法，showShape：是否显示右侧模板选择按钮，shapeValue：初始化的模板值，2：双列，1：单列，具体可自行控制，shapeChanged:右侧的模板选择按钮事件监听方法-->
-         <filterList :filters="goodsFilters" @sortChanged="goodsFilterChanged" @shapeChanged="goodsTemplateChanged" :showShape="true" :shapeValue="2"></filterList>
-      </van-sticky>
-      <view class="mainContainer">
-         <view style="width:85px;">
-            <!-- <van-sticky :offset-top="45"> -->
-            <van-sidebar :active-key="activeBar" class="sidebar" @change="sidebarChange">
-               <van-sidebar-item v-for="(x,index) in categoryList" :key="index" :title="x.Name" />
-            </van-sidebar>
-            <!-- </van-sticky> -->
-         </view>
+   <view>
+      <!-- <van-sticky>
+          <filterList :filters="goodsFilters" @sortChanged="goodsFilterChanged" @shapeChanged="goodsTemplateChanged" :showShape="true" :shapeValue="2"></filterList>
+      </van-sticky> -->
 
-         <view class="shopItems">
-            <style1 v-for="(x,index2) in showItems" :key="index2" :item="x" />
+      <view class="VerticalBox">
+         <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation :scroll-top="verticalNavTop" style="min-height:calc(100vh - 200rpx)">
+            <view class="cu-item" :class="index==tabCur?'text-green cur':''" v-for="(item,index) in categoryList" :key="index" @tap="TabSelect" :data-id="index">
+               {{item.Name}}
+            </view>
+         </scroll-view>
+         <view class="VerticalMain margin-lr-xs">
+            <view class="cu-list menu-avatar">
+               <view class="cu-item" v-for="(x ,idx2) in showItems" :key="idx2">
+                  <view class="cu-avatar round lg" :style="`background-image:url(${x.LogoUrl}!w300w);`"></view>
+                  <view class="content">
+                     <view class="text-grey">{{x.Name}}</view>
+                     <view class="text-gray text-sm flex">
+                        <text class="text-cut">
+                           <text class="cuIcon-moneybag text-red margin-right-xs"></text>
+                           <text class="text-red text-lg margin-right-xs">
+                              {{ x.PriceVip }}元
+                           </text>/{{x.Unit}}
+                        </text> </view>
+                  </view>
+                  <view class="action" style="width:140rpx;">
+                     <view class="flex justify-end align-center ">
+                        <button v-show="x.Count>0" @click="cartRemove(x)" class="cu-btn" style="background:none;padding:0">
+                           <text class="cuIcon-move text-green" style="font-size:50rpx;"></text></button>
+                        <text v-show="x.Count>0" class="text-red text-xl margin-lr text-bold">
+                           {{x.Count}}
+                        </text>
+                        <button @click="cartAdd(x)" class="cu-btn" style="background:none;padding:0">
+                           <text class="cuIcon-add text-green" style="font-size:50rpx;"></text></button>
+                     </view>
+                  </view>
+               </view>
+            </view>
          </view>
       </view>
       <copyright />
-      <!-- <button @click="open">打开弹窗</button>
-      <uni-popup ref="popup">
-         <view class="uniPopup">
-            底部弹出 Popup
-         </view>
-      </uni-popup> -->
       <unifab ref="fab" direction="vertical" :pattern="pattern" :content="content" @trigger="trigger"></unifab>
    </view>
 </template>
@@ -32,7 +48,7 @@
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import api from "@/utils/api";
-import { AppModule, ICategory } from "@/store/modules/app";
+import { AppModule, ICategory, IShopItem } from "@/store/modules/app";
 
 import filterList from "@/components/filterList/index.vue";
 import style1 from "@/components/shopItem/style1.vue";
@@ -47,7 +63,7 @@ import copyright from "@/components/copyright/index.vue";
 })
 export default class About extends BaseView {
    activeBar = 0;
-   itemList: any[] = [];
+   tabCur = 0;
 
    get shop() {
       return AppModule.getShop;
@@ -73,6 +89,12 @@ export default class About extends BaseView {
       return this.shopItems.filter(x => x.CategoryId == this.categorySelect.Id);
    }
 
+   TabSelect(e: any) {
+      let index = e.currentTarget.dataset.id;
+      this.tabCur = index;
+      AppModule.setCurrentCategory(this.categoryList[index]);
+   }
+
    @Watch("cart")
    cartCange(v: any[]) {
       if (v.length > 0) (this.$refs.fab as any).isShow = true;
@@ -89,8 +111,17 @@ export default class About extends BaseView {
       ];
    }
 
+   cartAdd(item: IShopItem) {
+      AppModule.AddCart(item);
+   }
+
+   cartRemove(item: IShopItem) {
+      AppModule.RemoveCart(item);
+   }
+
    async onPullDownRefresh() {
       await this.fetchData();
+      this.tabCur = 0;
       uni.stopPullDownRefresh();
    }
 
@@ -101,17 +132,6 @@ export default class About extends BaseView {
    async fetchData() {
       await AppModule.Init();
    }
-
-   sidebarChange(e: any) {
-      let index = e.detail;
-      AppModule.setCurrentCategory(this.categoryList[index]);
-   }
-
-   carouselList = [
-      { src: "/static/temp/cate1.jpg", background: "/static/temp/cate1.jpg" },
-      { src: "/static/temp/cate2.jpg", background: "/static/temp/cate1.jpg" },
-      { src: "/static/temp/cate3.jpg", background: "/static/temp/cate1.jpg" }
-   ];
 
    goodsListTemplate = 2;
    // 过滤参数
@@ -154,28 +174,53 @@ export default class About extends BaseView {
    }
 }
 </script>
-<style lang="scss" scoped>
-page {
-   background: #f5f5f5;
+
+
+
+<style>
+.fixed {
+   position: fixed;
+   z-index: 99;
 }
 
-.mainContainer {
-   min-height: calc(100vh - 46px);
-   display: flex;
-   flex-wrap: nowrap;
-   flex-direction: row;
-   overflow: auto;
-   .shopItems {
-      flex: 1;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      background: #fff;
-      padding: 10rpx;
-      align-items: flex-start;
-      align-content: start;
+.VerticalNav.nav {
+   width: 160upx;
+   white-space: initial;
+}
 
-   }
+.VerticalNav.nav .cu-item {
+   width: 100%;
+   text-align: center;
+   background-color: #fff;
+   margin: 0;
+   border: none;
+   height: 50px;
+   position: relative;
+}
+
+.VerticalNav.nav .cu-item.cur {
+   background-color: #f1f1f1;
+}
+
+.VerticalNav.nav .cu-item.cur::after {
+   content: "";
+   width: 8upx;
+   height: 30upx;
+   border-radius: 10upx 0 0 10upx;
+   position: absolute;
+   background-color: currentColor;
+   top: 0;
+   right: 0upx;
+   bottom: 0;
+   margin: auto;
+}
+
+.VerticalBox {
+   display: flex;
+}
+
+.VerticalMain {
+   background-color: #f1f1f1;
+   flex: 1;
 }
 </style>

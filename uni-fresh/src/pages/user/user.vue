@@ -12,25 +12,48 @@
          </div>
       </div>
 
-      <demo-block title="用户信息" line custom-class="m-t-sm" v-if="openid">
-         <van-cell-group>
-            <van-cell v-if="phone" :value="phone" title="手机号"></van-cell>
-            <van-cell v-else>
-               <van-button size="large" @getphonenumber="getPhoneNumber" open-type="getPhoneNumber" style="margin:30rpx auto;display: block;">绑定手机号</van-button>
-            </van-cell>
-            <van-cell is-link title="操作指南" link-type="navigateTo" url="/pagesB/cms/list" />
-            <van-cell title="在线客服">
-               <view>
-                  <van-button type="danger" round size="small" icon="chat-o" open-type="contact">联系客服</van-button>
-               </view>
-            </van-cell>
+      <view class="cu-bar bg-white solid-bottom margin-top">
+         <view class="action">
+            <text class="cuIcon-title text-orange"></text> 用户信息
+         </view>
+      </view>
+      <view class="cu-list menu">
+         <view class="cu-item">
+            <view class="content">
+               <text class="cuIcon-phone text-olive"></text>
+               <text class="text-grey">手机号</text>
+            </view>
+            <view class="action">
+               <text class="text-grey text-sm">
+                  {{phone}}
+               </text>
+            </view>
+         </view>
+      </view>
 
-         </van-cell-group>
-      </demo-block>
+      <view class="cu-bar bg-white solid-bottom margin-top">
+         <view class="action">
+            <text class="cuIcon-title text-orange"></text> 操作指南
+         </view>
+      </view>
+      <view class="cu-list menu">
+         <view class="cu-item">
+            <view class="content">
+               <text class="cuIcon-btn text-green"></text>
+               <text class="text-grey">
+                  客服</text>
+            </view>
+            <view class="action">
+               <button class="cu-btn round bg-green shadow">
+                  <text class="cuIcon-service"></text> 联系客服</button>
+            </view>
+         </view>
+      </view>
 
-      <div style="margin:80rpx 50rpx 50rpx 50rpx;" v-if="openid">
-         <van-button size="large" @click.stop="logout">退出登录</van-button>
-      </div>
+      <view class="padding flex flex-direction">
+         <button class="cu-btn bg-white margin-tb-sm lg" @click.stop="logout">
+            退出登录</button>
+      </view>
    </view>
 </template>
 <script lang="ts">

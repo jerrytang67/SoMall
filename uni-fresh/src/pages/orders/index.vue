@@ -82,7 +82,7 @@
                </text>
             </view>
          </view>
-         <view class="cu-item">
+         <view class="cu-item" v-if="x.State === '已完成'">
             <view class="content">
                <text class="cuIcon-recharge text-olive"></text>
                <text class="text-grey">实收</text>
@@ -101,14 +101,14 @@
                   <text class="text-grey">商品明细</text>
                </view>
                <view class="text-gray text-sm">
-                  <view v-for="(c,index2) in x.ShopCarts" :key="index2" class="flex text-center justify-around">
-                     <view>
+                  <view v-for="(c,index2) in x.ShopCarts" :key="index2" class="flex">
+                     <view style="flex:1;">
                         {{c.ShopItemName}} [{{c.ShopItemPrice | currency}}]
                      </view>
-                     <view>
+                     <view style="width:80rpx;">
                         x
                      </view>
-                     <view>
+                     <view style="width:150rpx;">
                         {{c.Count}} {{c.ShopItemUnit}}
                      </view>
                   </view>

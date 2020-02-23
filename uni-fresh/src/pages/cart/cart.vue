@@ -1,82 +1,56 @@
 
 <template>
-   <view class="appContainer">
-      <view class="cardWrap radius shadow bg-white">
-         <view class="card__cell" @click="toMyAddress">
-            <view class="_icon">
-               <van-icon name="location-o" />
-            </view>
-            <view class="_main">
-               <view class="_title">
-                  {{defaultAddress.LocationLable}}
+   <view>
+      <view class="cu-list menu  card-menu margin-top">
+         <view class="cu-item arrow" @click="toMyAddress">
+            <view class="content padding-tb-sm">
+               <view class="content">
+                  <text class="cuIcon-location text-red"></text>
+                  <text class="text-black text-bold text-lg">{{defaultAddress.LocationLable}}</text>
                </view>
-               <view class="_desc">
-                  <view class="mr-2">{{defaultAddress.RealName}}</view>
+               <view class="text-black flex  " style="margin-left:calc(1.6em + 10rpx)">
+                  <view>{{defaultAddress.RealName}}</view>
                   <view>{{defaultAddress.Phone}}</view>
                </view>
             </view>
-            <view class="_nav">
-               <van-icon name="arrow" />
-            </view>
          </view>
-         <view class="line1"></view>
-         <view class="card__cell">
-            <view class="_icon">
-               <van-icon name="clock-o" />
+         <view class="cu-item arrow">
+            <view class="content">
+               <text class="cuIcon-time text-red"></text>
+               <text class="text-black  text-bold text-lg">期望送达</text>
             </view>
-            <view class="_main" style="flex:2;">
-               <view class="_title">
-                  期望送达时间
-               </view>
-            </view>
-            <view class="_submain" style="flex:3;">
-               <van-tag plain round color="#fa436a">立即送出</van-tag>
-               <view>今日 13:30-14:00</view>
-            </view>
-            <view class="_nav">
-               <van-icon name="arrow" />
+            <view class="action" style="flex:1;">
+               <view class="cu-tag line-red round light">立即送出</view>
+               <text>今日 13:30</text>
             </view>
          </view>
       </view>
-      <view class="cardWrap radius shadow bg-white" v-if="cart.length">
-         <view class="cardWrap__header">
-            <view class="__title">我的订单</view>
-            <view class="fill"></view>
-            <view class="__more" @click="clearCart">
-               清空
-               <van-icon name="delete" style="font-size:40rpx;" />
+
+      <view class="cu-list menu card-menu margin-top" >
+         <view class="cu-item" style="padding:20rpx 0 20rpx 10rpx;" v-for="(x ,index) in cart" :key="index">
+            <view class="cu-avatar round lg" :style="`background-image:url(${x.LogoUrl}!w300w);`"></view>
+            <view class="content">
+               <view class="text-grey">{{x.Name}}</view>
+               <view class="text-gray text-sm flex">
+                  <text class="text-cut">
+                     <text class="cuIcon-moneybag text-red margin-right-xs"></text>
+                     <text class="text-red text-lg margin-right-xs">
+                        {{x.PriceVip}}元
+                     </text>/{{x.Unit}}
+                  </text> </view>
+            </view>
+            <view class="action" style="width:140rpx;">
+               <view class="flex justify-end align-center ">
+                  <button v-show="x.Count>0" @click="cartRemove(x)" class="cu-btn" style="background:none;padding:0">
+                     <text class="cuIcon-move text-green" style="font-size:50rpx;"></text></button>
+                  <text v-show="x.Count>0" class="text-red text-xl margin-lr text-bold">
+                     {{x.Count}}
+                  </text>
+                  <button @click="cartAdd(x)" class="cu-btn" style="background:none;padding:0">
+                     <text class="cuIcon-add text-green" style="font-size:50rpx;"></text></button>
+               </view>
             </view>
          </view>
-         <view class="cartItem" v-for="(x ,index) in cart" :key="index">
-            <view class="line1"></view>
-
-            <view class="cartItem__wrap">
-               <view class="col1">
-                  <image :src="x.LogoUrl" />
-               </view>
-               <view class="col2">
-                  <view class="cartItem__title">{{x.Name}}</view>
-                  <view v-if="x.Desc">
-                     {{x.Desc}}
-                  </view>
-               </view>
-               <view class="col3">
-                  {{x.PriceVip | currency}}
-                  / {{x.Unit}}
-               </view>
-            </view>
-            <view class="cartItem__wrap align_center">
-               <view class="col1">
-               </view>
-               <view class="col2">
-                  <van-stepper :value="x.Count" input-width="40px" button-size="32px" :min="0" :disable-input="true" @plus="cartAdd(x)" @minus="cartRemove(x)" />
-               </view>
-               <view class="col3"> {{x.PriceVip * x.Count | currency}}</view>
-            </view>
-         </view>
-      </view>
-      <view style="min-height:20vh;">
-
       </view>
       <van-submit-bar :price="total * 100" button-text="生成订单" @submit="pay" :tip="true">
          <!-- <van-tag type="primary">标签</van-tag> -->
@@ -89,7 +63,7 @@
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import api from "@/utils/api";
-import { AppModule } from "@/store/modules/app";
+import { AppModule, IShopItem } from "@/store/modules/app";
 import { UserModule } from "@/store/modules/user";
 import { BaseView } from "../baseView";
 
@@ -150,11 +124,11 @@ export default class Cart extends BaseView {
       });
    }
 
-   cartAdd(x: any) {
+   cartAdd(x: IShopItem) {
       AppModule.AddCart(x);
    }
 
-   cartRemove(x: any) {
+   cartRemove(x: IShopItem) {
       AppModule.RemoveCart(x);
    }
 
