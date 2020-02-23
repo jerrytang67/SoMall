@@ -2,44 +2,121 @@
    <view>
       <scroll-view scroll-x class="bg-white nav">
          <view class="flex text-center">
-            <view class="cu-item flex-sub" :class="index==TabCur?'text-orange cur':''" v-for="(item,index) in 4" :key="index" @tap="tabSelect" :data-id="index">
-               Tab{{index}}
+            <view class="cu-item flex-sub" :class="index==TabCur?'text-orange cur':''" v-for="(item,index) in tabs" :key="index" @tap="tabSelect" :data-id="index">
+               {{item}}
             </view>
          </view>
       </scroll-view>
-      <view class="appContainer">
-
-         <van-panel v-for="(x,index) in orders" custom-class="panel" :key="index" :title="title(x)" :status="x.State" use-footer-slot>
-            <view>
-               <van-cell-group>
-                  <van-cell title="商品" use-label-slot>
-                     <view slot="label">
-                        <view v-for="(c,index2) in x.ShopCarts" :key="index2" class="">
-                           <view>
-                              {{c.ShopItemName}} x {{c.Count}} {{c.ShopItemUnit}}
-                           </view>
-                           <view>
-                              {{c.ShopItemPrice | currency}}
-                           </view>
-                        </view>
-                     </view>
-                  </van-cell>
-                  <van-cell title="送货方式" :value="x.Type" />
-                  <van-cell title="支付方式" :value="x.PayType" />
-                  <van-cell title="预计应收">
-                     <view>
-                        {{x.PriceOriginal | currency}}
-                     </view>
-                  </van-cell>
-                  <van-cell title="实收">
-                     <view>
-                        {{x.PricePaidIn | currency}}
-                     </view>
-                  </van-cell>
-               </van-cell-group>
+      <!-- 
+      <view class="cu-bar bg-white solid-bottom margin-top">
+         <view class="action">
+            <text class="cuIcon-title text-orange"></text> 菜单列表
+         </view>
+      </view> -->
+      <view v-for="(x,index) in orders" :key="index" class="cu-list menu" :class="['sm-border','card-menu margin-top']">
+         <view class="cu-item">
+            <view class="content flex">
+               <text class="text-grey">订单编号 #{{x.Id}}
+               </text>
+               <view class="cu-tag round bg-green light margin-left">{{x.State}}</view>
             </view>
-         </van-panel>
+            <view class="action">
+               <text class="text-grey text-sm">
+                  {{x.DateTimeCreate | formatDate}}
+               </text>
+            </view>
+         </view>
+         <view class="cu-item">
+            <view class="content">
+               <text class="text-grey">送货方式</text>
+            </view>
+            <view class="action">
+               <text class="text-red text-lg">
+                  {{x.Type}}
+               </text>
+            </view>
+         </view>
+         <template v-if="x.Type ==='外送'">
+            <view class="cu-item">
+               <view class="content">
+                  <text class="cuIcon-profile text-olive"></text>
+                  <text class="text-grey">收货人</text>
+               </view>
+               <view class="action">
+                  <text class="text-grey text-sm">
+                     {{x.AddressRealName}}
+                  </text>
+               </view>
+            </view>
+            <view class="cu-item">
+               <view class="content">
+                  <text class="cuIcon-phone text-olive"></text>
+                  <text class="text-grey">手机号</text>
+               </view>
+               <view class="action">
+                  <text class="text-grey text-sm">
+                     {{x.AddressPhone}}
+                  </text>
+               </view>
+            </view>
+            <view class="cu-item">
+               <view class="content">
+                  <text class="cuIcon-location text-olive"></text>
+                  <text class="text-grey">地址</text>
+               </view>
+               <view class="action">
+                  <text class="text-grey text-sm">
+                     {{x.AddressLocationLable}}
+                  </text>
+               </view>
+            </view>
+         </template>
+         <view class="cu-item">
+            <view class="content">
+               <text class="cuIcon-recharge text-olive"></text>
+               <text class="text-grey">预计应收</text>
+            </view>
+            <view class="action">
+               <text class="text-olive text-sm">
+                  {{x.PriceOriginal | currency}}
+               </text>
+            </view>
+         </view>
+         <view class="cu-item">
+            <view class="content">
+               <text class="cuIcon-recharge text-olive"></text>
+               <text class="text-grey">实收</text>
+            </view>
+            <view class="action">
+               <text class="text-red text-lg">
+                  {{x.PricePaidIn | currency}}
+               </text>
+            </view>
+         </view>
+
+         <view class="cu-item">
+            <view class="content padding-tb-sm">
+               <view class="content">
+                  <text class="cuIcon-goods text-olive"></text>
+                  <text class="text-grey">商品明细</text>
+               </view>
+               <view class="text-gray text-sm">
+                  <view v-for="(c,index2) in x.ShopCarts" :key="index2" class="flex text-center justify-around">
+                     <view>
+                        {{c.ShopItemName}} [{{c.ShopItemPrice | currency}}]
+                     </view>
+                     <view>
+                        x
+                     </view>
+                     <view>
+                        {{c.Count}} {{c.ShopItemUnit}}
+                     </view>
+                  </view>
+               </view>
+            </view>
+         </view>
       </view>
+      <copyright />
    </view>
 </template>
 
@@ -49,7 +126,9 @@ import api from "@/utils/api";
 import { BaseView } from "../baseView";
 import dayjs from "dayjs";
 
-@Component
+import copyright from "@/components/copyright/index.vue";
+
+@Component({ components: { copyright } })
 export default class About extends BaseView {
    get name() {
       return "TT";
@@ -57,6 +136,11 @@ export default class About extends BaseView {
 
    TabCur = 0;
    scrollLeft = 0;
+   menuBorder = true;
+   menuCard = true;
+   menuArrow = false;
+
+   tabs: string[] = ["待配送", "配送中", "已完成"];
 
    title(v: any) {
       const date = dayjs(v.DateTimeCreate).format("YYYY-MM-DD HH:mm");
