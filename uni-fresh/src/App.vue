@@ -33,5 +33,7 @@ export default class extends BaseView {
 </script>
 
 <style lang="scss">
-@import "./colorui/main.css"
+@import "./styles/main.scss";
+@import "./colorui/main.css";
+@import "./colorui/icon.css";
 </style>

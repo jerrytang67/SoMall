@@ -40,6 +40,6 @@ export default {
     postNewAddress: (data: IAddress) => request('POST', `https://www.lovewujiang.com/Wx/PostNewAddress`, { address: data }),
     SetAddressDefault: (data: { Id: number }) => request('POST', `https://www.lovewujiang.com/Api/V1/SetAddressDefault`, data),
 
-
+    GetOrders: (data: any = {}) => request('POST', `https://www.lovewujiang.com/Api/V1/GetOrders`, data),
 
 };

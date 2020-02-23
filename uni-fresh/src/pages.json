@@ -123,7 +123,7 @@
 				"text": "主页"
 			},
 			{
-				"pagePath": "pages/category/category",
+				"pagePath": "pages/orders/index",
 				"iconPath": "static/tab-cate.png",
 				"selectedIconPath": "static/tab-cate-current.png",
 				"text": "订单"

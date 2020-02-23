@@ -1,7 +1,7 @@
 
 <template>
    <view class="appContainer">
-      <view class="cardWrap">
+      <view class="cardWrap radius shadow bg-white">
          <view class="card__cell" @click="toMyAddress">
             <view class="_icon">
                <van-icon name="location-o" />
@@ -38,7 +38,7 @@
             </view>
          </view>
       </view>
-      <view class="cardWrap" v-if="cart.length">
+      <view class="cardWrap radius shadow bg-white" v-if="cart.length">
          <view class="cardWrap__header">
             <view class="__title">我的订单</view>
             <view class="fill"></view>

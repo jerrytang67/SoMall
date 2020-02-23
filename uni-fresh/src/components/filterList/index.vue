@@ -132,5 +132,4 @@ export default class FilterList extends Vue {
 
 <style lang="scss" scoped>
 @import "../../graceUI/graceUI.css";
-@import "../../colorui/icon.css";
 </style>
