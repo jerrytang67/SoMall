@@ -7,7 +7,6 @@
             <div class="nickname" v-else @click="login">{{userInfo.nickName}}</div>
             <div class="info flex-r-ac" v-if="openid">
                <div class="jf">余额: {{shopMember.Balance | currency}}</div>
-               <img class="icon" src="/static/icon_scan.png " @click="scan" />
             </div>
          </div>
       </div>
@@ -25,7 +24,7 @@
             </view>
             <view class="action">
                <text class="text-grey text-sm">
-                  {{phone}}
+                  {{shopMember.Telphone}}
                </text>
             </view>
          </view>
@@ -64,8 +63,6 @@ import { UserModule } from "@/store/modules/user";
 
 @Component
 export default class User extends BaseView {
-   qrShow = false;
-   myQr = "";
    created() {}
 
    scan() {
@@ -88,8 +85,6 @@ export default class User extends BaseView {
    qrClose() {
       this.qrShow = false;
    }
-
-   getPhoneNumber() {}
 
    logout() {
       UserModule.Logout();

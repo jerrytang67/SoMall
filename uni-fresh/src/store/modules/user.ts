@@ -57,6 +57,12 @@ class User extends VuexModule {
         return this.userInfo;
     }
 
+    getPhone(){
+        console.log(this.shopMember);
+        
+        return this.shopMember.Telphone;
+    }
+
     get getToken() {
         return this.token;
     }

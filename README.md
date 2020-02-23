@@ -23,3 +23,16 @@ RabbitMQ (Event Bus)
 Ocelot (Api Gate)
 Consul (Service Discovery)
 Quartz (background Job Schedule)
+
+
+## 生鲜电商版小程序截图
+
+![image](_temp/fresh/1.png)
+
+![image](_temp/fresh/2.png)
+
+![image](_temp/fresh/3.png)
+
+![image](_temp/fresh/4.png)
+
+![image](_temp/fresh/5.png)
