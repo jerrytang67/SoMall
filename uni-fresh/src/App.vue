@@ -1,11 +1,14 @@
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
-import { UserModule } from "@/store/modules/user";
+// api 
 import api from "@/utils/api";
+// pageBase
+import { BaseView } from "@/pages/baseView.ts";
+// store
 import { AppModule } from "./store/modules/app";
 import { SystemModule } from "./store/modules/system";
+import { UserModule } from "@/store/modules/user";
 
-import { BaseView } from "@/pages/baseView.ts";
 
 @Component
 export default class extends BaseView {
@@ -30,7 +33,5 @@ export default class extends BaseView {
 </script>
 
 <style lang="scss">
-@import "./graceUI/graceUI.css";
-@import "./colorui/main.css";
-@import "./colorui/icon.css";
+@import "./colorui/main.css"
 </style>

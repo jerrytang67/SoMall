@@ -130,42 +130,7 @@ export default class FilterList extends Vue {
 }
 </script>
 
-<style lang="scss">
-page {
-   --red: #e54d42;
-}
-
-.text-red,
-.line-red,
-.lines-red {
-   color: var(--red);
-}
-
-.text-xxl {
-   font-size: 44upx;
-}
-
-.padding-lr {
-	padding-left: 30upx;
-	padding-right: 30upx;
-}
-
-.margin-top-sm {
-   margin-top: 20upx;
-}
-
-.grace-filter .items uni-text.text-df {
-   font-size: 30upx;
-}
-.position-relative {
-   position: relative;
-}
-.position-fixed {
-   position: fixed;
-}
-/* #ifdef  H5 */
-.grace-filter-top {
-   top: 44px;
-}
-/* #endif */
+<style lang="scss" scoped>
+@import "../../graceUI/graceUI.css";
+@import "../../colorui/icon.css";
 </style>
