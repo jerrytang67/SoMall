@@ -26,7 +26,7 @@
          </view>
       </view>
 
-      <view class="cu-list menu card-menu margin-top" >
+      <view class="cu-list menu card-menu margin-top">
          <view class="cu-item" style="padding:20rpx 0 20rpx 10rpx;" v-for="(x ,index) in cart" :key="index">
             <view class="cu-avatar round lg" :style="`background-image:url(${x.LogoUrl}!w300w);`"></view>
             <view class="content">
@@ -52,6 +52,8 @@
             </view>
          </view>
       </view>
+      <copyright />
+      <view style="height:100rpx;"></view>
       <van-submit-bar :price="total * 100" button-text="生成订单" @submit="pay" :tip="true">
          <!-- <van-tag type="primary">标签</van-tag> -->
          <!-- <view slot="tip">
@@ -67,7 +69,9 @@ import { AppModule, IShopItem } from "@/store/modules/app";
 import { UserModule } from "@/store/modules/user";
 import { BaseView } from "../baseView";
 
-@Component
+import copyright from "@/components/copyright/index.vue";
+
+@Component({ components: { copyright } })
 export default class Cart extends BaseView {
    created() {
       // uni.getLocation({

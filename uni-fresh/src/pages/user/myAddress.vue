@@ -1,29 +1,24 @@
 
 <template>
    <view>
-      <view class="appContainer">
-         <view class="cardWrap">
-            <view class="card__cell" v-for="(x , index) in addressList" :key="index">
-               <view class="_icon">
-                  <van-icon name="location-o" />
+
+      <view class="cu-list menu  card-menu margin-top">
+         <view class="cu-item arrow" v-for="(x , index) in addressList" :key="index" @click.stop="select(x)">
+            <view class="content padding-tb-sm">
+               <view class="content">
+                  <text class="cuIcon-location text-red"></text>
+                  <text class="text-black text-bold text-lg">{{x.LocationLable}}</text>
                </view>
-               <view class="_main" @click.stop="select(x)">
-                  <view class="_title">
-                     {{x.LocationLable}}
-                  </view>
-                  <view class="_desc">
-                     <view>{{x.RealName}}</view>
-                     <view>{{x.Phone}}</view>
-                  </view>
-               </view>
-               <view class="_nav">
-                  <van-icon name="edit" class="edit" @click.stop="edit(x)" />
+               <view class="text-black flex  " style="margin-left:calc(1.6em + 10rpx)">
+                  <view>{{x.RealName}}</view>
+                  <view>{{x.Phone}}</view>
                </view>
             </view>
-            <view class="line1" />
          </view>
       </view>
-      <van-button type="danger" block class="fix-bottom" @click="newAddress">新增收货地址</van-button>
+
+      <button class="cu-btn block bg-blue margin lg fix-bottom  shadow shadow-lg" block @click="newAddress">新增收货地址</button>
+
       <uni-popup ref="popup">
          <view class="uniPopup" style="width:650rpx;">
             <van-cell-group>

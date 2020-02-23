@@ -13,7 +13,7 @@
          <view class="VerticalMain margin-lr-xs">
             <view class="cu-list menu-avatar">
                <view class="cu-item" v-for="(x ,idx2) in showItems" :key="idx2">
-                  <view class="cu-avatar round lg" :style="`background-image:url(${x.LogoUrl}!w300w);`"></view>
+                  <view class="cu-avatar round lg" :style="`background-image:url(${x.LogoUrl}!w300w);`" :class="[animation&&currentTarget.Id===x.Id?'animation-shake':'']"></view>
                   <view class="content">
                      <view class="text-grey">{{x.Name}}</view>
                      <view class="text-gray text-sm flex">
@@ -28,7 +28,7 @@
                      <view class="flex justify-end align-center ">
                         <button v-show="x.Count>0" @click="cartRemove(x)" class="cu-btn" style="background:none;padding:0">
                            <text class="cuIcon-move text-green" style="font-size:50rpx;"></text></button>
-                        <text v-show="x.Count>0" class="text-red text-xl margin-lr text-bold">
+                        <text v-show="x.Count>0" class="text-red text-xl margin-lr text-bold" :class="[animation&&currentTarget.Id===x.Id?'animation-scale-up':'']">
                            {{x.Count}}
                         </text>
                         <button @click="cartAdd(x)" class="cu-btn" style="background:none;padding:0">
@@ -64,6 +64,8 @@ import copyright from "@/components/copyright/index.vue";
 export default class About extends BaseView {
    activeBar = 0;
    tabCur = 0;
+
+   currentTarget: IShopItem = {};
 
    get shop() {
       return AppModule.getShop;
@@ -111,8 +113,16 @@ export default class About extends BaseView {
       ];
    }
 
+   animation = false;
    cartAdd(item: IShopItem) {
+      this.currentTarget = item;
       AppModule.AddCart(item);
+      if (!this.animation) {
+         this.animation = true;
+         setTimeout(() => {
+            this.animation = false;
+         }, 1000);
+      }
    }
 
    cartRemove(item: IShopItem) {
@@ -174,10 +184,8 @@ export default class About extends BaseView {
    }
 }
 </script>
-
-
-
 <style>
+@import url("../../colorui/animation.css");
 .fixed {
    position: fixed;
    z-index: 99;

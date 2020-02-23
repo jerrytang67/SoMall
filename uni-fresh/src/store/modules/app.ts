@@ -3,15 +3,15 @@ import store from '@/store'
 import api from '@/utils/api'
 
 export interface IShopItem {
-    Id: number;
-    Name: string;
-    Desc: string;
-    Price: number;
-    PriceVip: number;
-    Count: number;
-    LogoUrl: string;
-    CategoryId: number;
-    Unit: string;
+    Id?: number;
+    Name?: string;
+    Desc?: string;
+    Price?: number;
+    PriceVip?: number;
+    Count?: number;
+    LogoUrl?: string;
+    CategoryId?: number;
+    Unit?: string;
 }
 
 export interface ICategory {
@@ -22,8 +22,8 @@ export interface ICategory {
     StoreId?: number;
     Level?: number;
     IsAppShow?: boolean;
-    top?:number;
-    bottom?:number;
+    top?: number;
+    bottom?: number;
 }
 
 export enum IListStyle {
@@ -38,7 +38,7 @@ class App extends VuexModule {
     shopItems: IShopItem[] = []
 
     category: ICategory[] = []
-    cart: IShopItem[] = []
+    cart: IShopItem[] = uni.getStorageSync("cart") || []
     currentCategory: ICategory = { Id: 0, Sort: 0 }
 
     listStyle: IListStyle = 0
@@ -63,7 +63,7 @@ class App extends VuexModule {
     }
 
     get getCartTotal() {
-        return this.cart.reduce((p, c) => p + (c.PriceVip * c.Count), 0);
+        return this.cart.reduce((p, c) => p + (c.PriceVip! * c.Count!), 0);
     }
 
     @Mutation
@@ -95,7 +95,8 @@ class App extends VuexModule {
         else {
             this.cart = [...this.cart, item]
         }
-        this.cart = this.cart.filter(x => x.Count > 0).sort((a: IShopItem, b: IShopItem) => a.Id - b.Id);
+        this.cart = this.cart.filter(x => x.Count! > 0).sort((a: IShopItem, b: IShopItem) => a.Id! - b.Id!);
+        uni.setStorageSync("cart", this.cart)
     }
 
     @Mutation
@@ -126,13 +127,13 @@ class App extends VuexModule {
 
     @Action
     public AddCart(item: IShopItem) {
-        item.Count += 1;
+        item.Count! += 1;
         this.SET_CART(item);
     }
     @Action
     public RemoveCart(item: IShopItem) {
-        if (item.Count > 0)
-            item.Count -= 1;
+        if (item.Count! > 0)
+            item.Count! -= 1;
         this.SET_CART(item);
     }
 

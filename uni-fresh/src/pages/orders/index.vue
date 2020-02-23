@@ -74,6 +74,17 @@
          <view class="cu-item">
             <view class="content">
                <text class="cuIcon-recharge text-olive"></text>
+               <text class="text-grey">支付方式</text>
+            </view>
+            <view class="action">
+               <text class="text-grey text-sm">
+                  {{x.PayType}}
+               </text>
+            </view>
+         </view>
+         <view class="cu-item">
+            <view class="content">
+               <text class="cuIcon-recharge text-olive"></text>
                <text class="text-grey">预计应收</text>
             </view>
             <view class="action">
@@ -82,7 +93,7 @@
                </text>
             </view>
          </view>
-         <view class="cu-item" v-if="x.State === '已完成'">
+         <view class="cu-item" v-if="x.State === '完成'">
             <view class="content">
                <text class="cuIcon-recharge text-olive"></text>
                <text class="text-grey">实收</text>

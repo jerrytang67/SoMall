@@ -14,7 +14,7 @@ body {
 	/* Color 可以自定义相关配色 */
 	/* var属性兼容性 --> https://www.caniuse.com/#feat=css-variables */
 	/* 标准色 */
-	--red: #e54d42;
+	--red: #fa436a;
 	--orange: #f37b1d;
 	--yellow: #fbbd08;
 	--olive: #8dc63f;
