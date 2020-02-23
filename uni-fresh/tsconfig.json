@@ -8,12 +8,12 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators":true,
+    "experimentalDecorators": true,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "@dcloudio/types/uni-app"
+      "@dcloudio/types/uni-app",
     ],
     "paths": {
       "@/*": [
@@ -25,12 +25,13 @@
       "dom",
       "dom.iterable",
       "scripthost"
-    ]
+    ],
+    "skipLibCheck": true,
   },
   "exclude": [
     "node_modules",
     "unpackage",
     "src/**/*.nvue",
     "src/wxcomponents"
-  ]
+  ],
 }
