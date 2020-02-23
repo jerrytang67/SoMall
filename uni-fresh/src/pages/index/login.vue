@@ -1,10 +1,10 @@
 <template>
-   <view class="mainView">
+   <view class="appContainer">
       <div class="title">
-         <image src="/static/missing-face.png" style="width:177rpx; height:149rpx;" />
+         <image src="/static/logo.png" style="width:177rpx;" mode="widthFix" />
       </div>
       <div style="display:flex;flex-direction:column;">
-         <van-button style="margin-top:15rpx;" size="large" open-type="getUserInfo" round type="danger" color="linear-gradient(to right, #FE585E, #FE7D82)" @getuserinfo="bindGetUserInfo">微信一键登录</van-button>
+         <van-button style="margin-top:15rpx;" size="large" open-type="getUserInfo" round type="danger" @getuserinfo="bindGetUserInfo">微信一键登录</van-button>
       </div>
       <div class="desc">
          登陆即代表您同意我们的
@@ -45,8 +45,12 @@ export default class Login extends Vue {
                      storeId: 4
                   }).then((res: any) => {
                      console.log(res);
-                     UserModule.Set_UserInfo(res.data.userInfo);
-                     UserModule.Set_Token(res.data.token);
+                     if (res.success) {
+                        UserModule.Set_UserInfo(res.data.userInfo);
+                        UserModule.Set_Token(res.data.token);
+
+                        uni.navigateBack();
+                     }
                   });
                }
             });
@@ -69,6 +73,10 @@ page {
    font-size: 25px;
    text-align: center;
    font-weight: 700;
+   height: 40vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .mainView {
@@ -76,6 +84,7 @@ page {
    justify-content: space-around;
 }
 .desc {
+   margin-top:5vh;
    text-align: center;
    font-size: 26rpx;
 }

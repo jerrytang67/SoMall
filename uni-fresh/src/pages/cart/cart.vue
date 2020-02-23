@@ -47,8 +47,9 @@
                <van-icon name="delete" style="font-size:40rpx;" />
             </view>
          </view>
-         <view class="line1"></view>
          <view class="cartItem" v-for="(x ,index) in cart" :key="index">
+            <view class="line1"></view>
+
             <view class="cartItem__wrap">
                <view class="col1">
                   <image :src="x.LogoUrl" />
@@ -72,8 +73,10 @@
                </view>
                <view class="col3"> {{x.PriceVip * x.Count | currency}}</view>
             </view>
-            <view class="line1"></view>
          </view>
+      </view>
+      <view style="min-height:20vh;">
+
       </view>
       <van-submit-bar :price="total * 100" button-text="生成订单" @submit="pay" :tip="true">
          <!-- <van-tag type="primary">标签</van-tag> -->
@@ -103,7 +106,13 @@ export default class Cart extends BaseView {
    }
 
    get defaultAddress() {
-      return UserModule.getAddressList.find(x => x.IsDefault) || {};
+      return (
+         UserModule.getAddressList.find(x => x.IsDefault) || {
+            LocationLable: "请选择地址",
+            RealName: "",
+            Phone: ""
+         }
+      );
    }
 
    get total() {
@@ -119,6 +128,7 @@ export default class Cart extends BaseView {
    }
 
    onShow() {
+      if (!this.openid) this.toLogin();
       //this.initUser();
    }
 

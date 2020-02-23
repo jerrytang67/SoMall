@@ -8,6 +8,10 @@ export class BaseView extends Vue {
         return UserModule.getToken;
     }
 
+    get userInfo() {
+        return UserModule.getUserInfo;
+    }
+
     get shopMember() {
         return UserModule.getShopMember;
     }
@@ -16,14 +20,26 @@ export class BaseView extends Vue {
         return UserModule.getAddressList;
     }
 
+    get openid() {
+        return UserModule.getOpenid;
+    }
+
     initUser() {
         if (this.token) {
-           api.userInit({}).then((res: any) => {
-              if (res.success) UserModule.UserInit(res.data);
-              else UserModule.Logout();
-           });
+            api.userInit({}).then((res: any) => {
+                if (res.success) UserModule.UserInit(res.data);
+                else UserModule.Logout();
+            });
         }
-     }
+    }
+
+    toLogin() {
+        uni.navigateTo({ url: "/pages/index/login" })
+    }
+
+    toHome() {
+        uni.switchTab({ url: "/pages/index/index" })
+    }
 }
 
 export default {

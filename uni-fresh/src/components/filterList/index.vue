@@ -16,7 +16,7 @@
          </view>
          <!-- 下拉选项 -->
          <template v-if="activeIndex == index && showOption">
-            <view class='grace-filter-options' v-for="(item, index) in filters" :key="index+10000">
+            <view class='grace-filter-options' v-for="(item, index) in filters" :key="index">
                <view :class="[activeOption && (opt.value ===  activeOption.value) ? 'option current' : 'option']" :data-index="index" :data-optindex="optIndex" v-for="(opt, optIndex) in item.options||[]" :key="optIndex+100000" @tap="changeSort">
                   {{opt.name}}<text class="cuIcon-right text-gray"></text>
                </view>
@@ -25,7 +25,6 @@
       </view>
    </view>
 </template>
-
 
 <script lang="ts">
 import {

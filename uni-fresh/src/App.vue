@@ -9,7 +9,6 @@ import { BaseView } from "@/pages/baseView.ts";
 
 @Component
 export default class extends BaseView {
-
    @Watch("token")
    onTokenChange(token: string) {
       console.log("token changed;");
@@ -27,11 +26,11 @@ export default class extends BaseView {
    onHide() {
       console.log("App Hide");
    }
-
 }
 </script>
 
 <style lang="scss">
 @import "./graceUI/graceUI.css";
+@import "./colorui/main.css";
 @import "./colorui/icon.css";
 </style>

@@ -17,13 +17,12 @@
             <style1 v-for="(x,index2) in showItems" :key="index2" :item="x" />
          </view>
       </view>
-      {{shopMember.Balance}}
-      <button @click="open">打开弹窗</button>
+      <!-- <button @click="open">打开弹窗</button>
       <uni-popup ref="popup">
          <view class="uniPopup">
             底部弹出 Popup
          </view>
-      </uni-popup>
+      </uni-popup> -->
       <unifab ref="fab" direction="vertical" :pattern="pattern" :content="content" @trigger="trigger"></unifab>
    </view>
 </template>
@@ -449,6 +448,7 @@ page {
 }
 
 .mainContainer {
+   min-height: calc(100vh - 46px);
    display: flex;
    flex-wrap: nowrap;
    flex-direction: row;

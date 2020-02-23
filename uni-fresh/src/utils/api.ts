@@ -33,14 +33,12 @@ const request = (
 
 export default {
     init: (data: any) => request('GET', `https://www.lovewujiang.com/Wx/getShopInit?appId=wx1dfe7106c7a40821`, data),
-    userInit: (data: any) => request('GET', `http://localhost:8088/Wx/UserInit`, data),
-    project_Get: (data: { id: number }) => request('GET', `http://localhost:21020/api/products/GetProduct`, data),
-    project_GetAll: (data: any) => request('GET', `http://localhost:21020/api/products/GetAll`, data),
-    postUserInfo: (data: any) => request('POST', `http://localhost:8088/api/WoJu/postUserInfo2`, data),
-    pay: (data: any) => request('POST', `http://localhost:8088/Api/V1/SomePostWithToken`, data),
+    userInit: (data: any) => request('GET', `https://www.lovewujiang.com/Wx/UserInit`, data),
+    postUserInfo: (data: any) => request('POST', `https://www.lovewujiang.com/api/WoJu/postUserInfo2`, data),
+    pay: (data: any) => request('POST', `https://www.lovewujiang.com/Api/V1/SomePostWithToken`, data),
 
-    postNewAddress: (data: IAddress) => request('POST', `http://localhost:8088/Wx/PostNewAddress`, { address: data }),
-    SetAddressDefault: (data: { Id: number }) => request('POST', `http://localhost:8088/Api/V1/SetAddressDefault`, data),
+    postNewAddress: (data: IAddress) => request('POST', `https://www.lovewujiang.com/Wx/PostNewAddress`, { address: data }),
+    SetAddressDefault: (data: { Id: number }) => request('POST', `https://www.lovewujiang.com/Api/V1/SetAddressDefault`, data),
 
 
 

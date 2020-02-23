@@ -12,7 +12,9 @@ function formatDate(value: any, arg: string | undefined) {
 }
 
 function currency(value: any) {
-    if (value) {
+    console.log("currency", value);
+
+    if (value !== undefined) {
         return '￥' + parseFloat(value).toFixed(2)
     }
     return value

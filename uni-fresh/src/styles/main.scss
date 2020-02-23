@@ -17,8 +17,9 @@ page {
 }
 
 .line1 {
-  background: linear-gradient(to bottom, #ccc, rgba(255, 255, 255, 0));
-  height: 1rpx;
+  margin: 10rpx 20rpx;
+  background: linear-gradient(to bottom, #eaeaea, rgba(255, 255, 255, 0));
+  height: 1px;
 }
 
 .fix-bottom {
@@ -97,6 +98,7 @@ page {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    font-size: 24rpx;
   }
   ._nav {
     font-size: 48rpx;
@@ -104,3 +106,36 @@ page {
   }
 }
 // cardWrap end
+
+
+
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.flex-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.flex-c {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-r-ac {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-r {
+  display: flex;
+  flex-direction: row;
+}
