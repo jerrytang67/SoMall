@@ -5,7 +5,7 @@ import api from '@/utils/api';
 @Component
 export class BaseView extends Vue {
 
-    public modalName: string  = "";
+    public modalName: string = "";
 
     get token() {
         return UserModule.getToken;
@@ -40,13 +40,17 @@ export class BaseView extends Vue {
         uni.navigateTo({ url: "/pages/index/login" })
     }
 
+    toOrders() {
+        uni.switchTab({ url: "/pages/orders/index" });
+    }
+
     toHome() {
         uni.switchTab({ url: "/pages/index/index" })
     }
 
     showModal(e: any) {
         console.log(e);
-        
+
         this.modalName = e.currentTarget.dataset.target
     }
 

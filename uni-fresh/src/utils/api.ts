@@ -2,7 +2,8 @@ import utils from "./utils";
 import { UserModule, IAddress } from '@/store/modules/user';
 
 let host = process.env.VUE_APP_BASE_API;
-
+//host = "http://localhost:8088"
+//host = "https://www.lovewujiang.com"
 const TenantId = 2;
 
 const getRequest = utils.httpsPromisify(uni.request);
@@ -30,17 +31,18 @@ const request = (
     });
 };
 
-
 export default {
-    init: (data: any) => request('GET', `https://www.lovewujiang.com/Wx/getShopInit?appId=wx1dfe7106c7a40821`, data),
-    userInit: (data: any) => request('GET', `https://www.lovewujiang.com/Wx/UserInit`, data),
-    postUserInfo: (data: any) => request('POST', `https://www.lovewujiang.com/api/WoJu/postUserInfo2`, data),
-    pay: (data: any) => request('POST', `https://www.lovewujiang.com/Api/V1/SomePostWithToken`, data),
+    init: (data: any) => request('GET', `/Wx/getShopInit?appId=wx1dfe7106c7a40821`, data),
+    userInit: (data: any) => request('GET', `/Wx/UserInit`, data),
+    postUserInfo: (data: any) => request('POST', `/api/WoJu/postUserInfo2`, data),
+    pay: (data: any) => request('POST', `/Api/V1/SomePostWithToken`, data),
 
-    postNewAddress: (data: IAddress) => request('POST', `https://www.lovewujiang.com/Wx/PostNewAddress`, { address: data }),
-    AddressDelete: (data: IAddress) => request('POST', `https://www.lovewujiang.com/Api/V1/AddressDeleteWithToken`, data ),
-    SetAddressDefault: (data: { Id: number }) => request('POST', `https://www.lovewujiang.com/Api/V1/SetAddressDefault`, data),
+    postNewAddress: (data: IAddress) => request('POST', `/Wx/PostNewAddress`, { address: data }),
+    AddressDelete: (data: IAddress) => request('POST', `/Api/V1/AddressDeleteWithToken`, data),
+    AddressEdit: (data: IAddress) => request('POST', `/Api/V1/AddressEdit`, data),
+    SetAddressDefault: (data: { Id: number }) => request('POST', `/Api/V1/SetAddressDefault`, data),
 
-    GetOrders: (data: any = {}) => request('POST', `https://www.lovewujiang.com/Api/V1/GetOrders`, data),
+    GetOrders: (data: any = {}) => request('POST', `/Api/V1/GetOrders`, data),
+    GetPhone: (data: any) => request('POST', `/Api/WoJu/GetPhone`, data)
 
 };

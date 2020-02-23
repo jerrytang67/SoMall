@@ -2,7 +2,7 @@
 <template>
    <view>
       <view class="cu-list menu  card-menu margin-top">
-         <view class="cu-item arrow" @click="toMyAddress">
+         <view class="cu-item">
             <view class="content padding-tb-sm">
                <view class="content">
                   <text class="cuIcon-location text-red"></text>
@@ -13,6 +13,10 @@
                   <view>{{defaultAddress.Phone}}</view>
                </view>
             </view>
+            <view class="action">
+               <button class="cu-btn round bg-white shadow sm" @click="toMyAddress">
+                  重新选择</button>
+            </view>
          </view>
          <view class="cu-item arrow">
             <view class="content">
@@ -21,14 +25,14 @@
             </view>
             <view class="action" style="flex:1;">
                <view class="cu-tag line-red round light">立即送出</view>
-               <text>今日 13:30</text>
+               <!-- <text>今日 13:30</text> -->
             </view>
          </view>
       </view>
 
       <view class="cu-list menu card-menu margin-top">
          <view class="cu-item" style="padding:20rpx 0 20rpx 10rpx;" v-for="(x ,index) in cart" :key="index">
-            <view class="cu-avatar round lg" :style="`background-image:url(${x.LogoUrl}!w300w);`"></view>
+            <view class="cu-avatar round lg" :style="'background-image:url('+x.LogoUrl+'!w300w);'"></view>
             <view class="content">
                <view class="text-grey">{{x.Name}}</view>
                <view class="text-gray text-sm flex">
@@ -54,12 +58,14 @@
       </view>
       <copyright />
       <view style="height:100rpx;"></view>
-      <van-submit-bar :price="total * 100" button-text="生成订单" @submit="pay" :tip="true">
-         <!-- <van-tag type="primary">标签</van-tag> -->
-         <!-- <view slot="tip">
-            您的收货地址不支持同城送, <text>修改地址</text>
-         </view> -->
-      </van-submit-bar>
+      <view class="cu-bar bg-white tabbar border shop fix-bottom ">
+         <button class="action" open-type="contact">
+            <view class="cuIcon-service text-green">
+            </view>
+            <text class="text-green">客服</text>
+         </button>
+         <view class="submit" :class="[total>miniPay?'bg-red':'bg-grey']" @tap="pay">生成订单 {{ totalText  }}</view>
+      </view>
    </view>
 </template>
 <script lang="ts">
@@ -70,6 +76,7 @@ import { UserModule } from "@/store/modules/user";
 import { BaseView } from "../baseView";
 
 import copyright from "@/components/copyright/index.vue";
+import { Tips } from "@/utils/tips";
 
 @Component({ components: { copyright } })
 export default class Cart extends BaseView {
@@ -81,6 +88,10 @@ export default class Cart extends BaseView {
       //       console.log("当前位置的纬度：" + res.latitude);
       //    }
       // });
+   }
+
+   get miniPay() {
+      return AppModule.shop.Setting.MinOutPrice || 100;
    }
 
    get defaultAddress() {
@@ -95,6 +106,10 @@ export default class Cart extends BaseView {
 
    get total() {
       return AppModule.getCartTotal;
+   }
+
+   get totalText() {
+      return `￥${this.total.toFixed(2)}`;
    }
 
    get cart() {
@@ -115,6 +130,11 @@ export default class Cart extends BaseView {
          uni.showToast({ title: "购物车为空" });
          return;
       }
+
+      if (this.total < this.miniPay) {
+         Tips.info(`最低满 ${this.miniPay}元开始配送`, 2000);
+         return;
+      }
       api.pay({
          address: this.defaultAddress,
          carts: this.cart,
@@ -123,7 +143,11 @@ export default class Cart extends BaseView {
          totalPrice: this.total
       }).then((res: any) => {
          if (res.success) {
-            uni.showToast({ title: "下单成功" });
+            Tips.info("下单成功,请等待配货", 1500);
+            AppModule.ClearCart();
+            setTimeout(() => {
+               this.toOrders();
+            }, 1500);
          }
       });
    }
