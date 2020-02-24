@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
-// api 
+// api
 import api from "@/utils/api";
 // pageBase
 import { BaseView } from "@/pages/baseView.ts";
@@ -8,24 +8,31 @@ import { BaseView } from "@/pages/baseView.ts";
 import { AppModule } from "./store/modules/app";
 import { SystemModule } from "./store/modules/system";
 import { UserModule } from "@/store/modules/user";
-
+import updateApp from "@/utils/updateApp.ts";
 
 @Component
 export default class extends BaseView {
+   mpType: string = "app";
+
    @Watch("token")
    onTokenChange(token: string) {
       console.log("token changed;");
       this.initUser();
    }
+
    onLaunch() {
+      updateApp.updateApp();
+
       console.log("App Launch");
       AppModule.Init();
       SystemModule.Set_Info(uni.getSystemInfoSync());
       this.initUser();
    }
+
    onShow() {
       console.log("App Show");
    }
+
    onHide() {
       console.log("App Hide");
    }
