@@ -1,9 +1,5 @@
 <template>
    <view>
-      <!-- <van-sticky>
-          <filterList :filters="goodsFilters" @sortChanged="goodsFilterChanged" @shapeChanged="goodsTemplateChanged" :showShape="true" :shapeValue="2"></filterList>
-      </van-sticky> -->
-
       <view class="VerticalBox">
          <scroll-view class="VerticalNav nav" scroll-y scroll-with-animation :scroll-top="verticalNavTop" style="min-height:calc(100vh - 200rpx)">
             <view class="cu-item" :class="index==tabCur?'text-green cur':''" v-for="(item,index) in categoryList" :key="index" @tap="TabSelect" :data-id="index">
@@ -49,17 +45,13 @@
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import api from "@/utils/api";
 import { AppModule, ICategory, IShopItem } from "@/store/modules/app";
-
-import filterList from "@/components/filterList/index.vue";
-import style1 from "@/components/shopItem/style1.vue";
-import uniPopup from "@/components/uni-popup/uni-popup.vue";
 import unifab from "@/components/uni-fab/index.vue";
 import { BaseView } from "../baseView";
 import { UserModule } from "@/store/modules/user";
 import copyright from "@/components/copyright/index.vue";
 
 @Component({
-   components: { filterList, style1, uniPopup, unifab, copyright }
+   components: { unifab, copyright }
 })
 export default class About extends BaseView {
    activeBar = 0;

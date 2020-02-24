@@ -1,10 +1,10 @@
 <template>
    <view class="appContainer">
       <div class="title">
-         <image src="/static/logo.png" style="width:177rpx;" mode="widthFix" />
+         <image src="/static/logo.png" style="width:177rpx;" mode="widthFix" class="shadow-blur" />
       </div>
       <div style="display:flex;flex-direction:column;">
-         <van-button style="margin-top:15rpx;" size="large" open-type="getUserInfo" round type="danger" @getuserinfo="bindGetUserInfo">微信一键登录</van-button>
+         <button class="cu-btn block lg shadow-blur bg-gradual-red margin padding radius" @getuserinfo="bindGetUserInfo" open-type="getUserInfo">微信一键登录</button>
       </div>
       <div class="desc">
          登陆即代表您同意我们的
@@ -84,7 +84,7 @@ page {
    justify-content: space-around;
 }
 .desc {
-   margin-top:5vh;
+   margin-top: 5vh;
    text-align: center;
    font-size: 26rpx;
 }

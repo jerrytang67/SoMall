@@ -57,26 +57,7 @@
 		"navigationBarBackgroundColor": "#FA436A",
 		"navigationBarTitleText": "非常水果",
 		"navigationBarTextStyle": "white",
-		"usingComponents": {
-			"van-button": "/wxcomponents/vant/button/index",
-			"van-checkbox": "/wxcomponents/vant/checkbox/index",
-			"van-checkbox-group": "/wxcomponents/vant/checkbox-group/index",
-			"van-field": "/wxcomponents/vant/field/index",
-			"van-goods-action": "/wxcomponents/vant/goods-action/index",
-			"van-goods-action-icon": "/wxcomponents/vant/goods-action-icon/index",
-			"van-goods-action-button": "/wxcomponents/vant/goods-action-button/index",
-			"van-icon": "/wxcomponents/vant/icon/index",
-			"van-radio": "/wxcomponents/vant/radio/index",
-			"van-radio-group": "/wxcomponents/vant/radio-group/index",
-			"van-search": "/wxcomponents/vant/search/index",
-			"van-stepper": "/wxcomponents/vant/stepper/index",
-			"van-submit-bar": "/wxcomponents/vant/submit-bar/index",
-			"van-swipe-cell": "/wxcomponents/vant/swipe-cell/index",
-			"van-sticky": "/wxcomponents/vant/sticky/index",
-			"van-skeleton": "/wxcomponents/vant/skeleton/index",
-			"van-sidebar": "/wxcomponents/vant/sidebar/index",
-			"van-sidebar-item": "/wxcomponents/vant/sidebar-item/index"
-		}
+		"usingComponents": {}
 	},
 	"tabBar": {
 		"selectedColor": "#FA436A",

@@ -3,7 +3,7 @@ import { UserModule, IAddress } from '@/store/modules/user';
 
 let host = process.env.VUE_APP_BASE_API;
 //host = "http://localhost:8088"
-//host = "https://www.lovewujiang.com"
+host = "https://www.lovewujiang.com"
 const TenantId = 2;
 
 const getRequest = utils.httpsPromisify(uni.request);
@@ -12,6 +12,7 @@ const request = (
     method: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT',
     url: string,
     data: string | object | ArrayBuffer) => {
+
 
     uni.showLoading();
     uni.showNavigationBarLoading();

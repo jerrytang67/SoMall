@@ -82,10 +82,6 @@ export default class User extends BaseView {
       if (!this.openid) this.toLogin();
    }
 
-   qrClose() {
-      this.qrShow = false;
-   }
-
    logout() {
       UserModule.Logout();
       this.toHome();
