@@ -174,39 +174,4 @@ export default class Cart extends BaseView {
 </script>
 
 <style lang="scss" scoped>
-.cartItem {
-   padding: 30rpx 0;
-   display: flex;
-   flex-direction: column;
-   &__wrap {
-      display: flex;
-      flex-direction: row;
-
-      .col1 {
-         width: 140rpx;
-         text-align: center;
-         image {
-            width: 96rpx;
-            height: 96rpx;
-            border-radius: 50%;
-         }
-      }
-      .col2 {
-         flex: 1;
-      }
-      .col3 {
-         width: 180rpx;
-         font-size: 26rpx;
-         color: #000;
-         font-weight: 800;
-      }
-   }
-
-   &__title {
-      height: 75rpx;
-      font-size: 26rpx;
-      color: #000;
-      font-weight: 800;
-   }
-}
 </style>
