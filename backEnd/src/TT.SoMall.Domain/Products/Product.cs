@@ -6,6 +6,17 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace TT.SoMall.Products
 {
+
+    public class ProductCategory : AuditedAggregateRoot<Guid>
+    {
+        public string Name { get; set; }
+
+        public string Code { get; set; }
+
+        public virtual ICollection<ProductSpu> SpuList { get; set; }
+    }
+
+
     public class ProductSpu : AuditedAggregateRoot<Guid>
     {
         public Guid CategoryId { get; set; }
@@ -35,12 +46,4 @@ namespace TT.SoMall.Products
     }
 
 
-    public class ProductCategory : AuditedAggregateRoot<Guid>
-    {
-        public string Name { get; set; }
-
-        public string Code { get; set; }
-
-        public virtual ICollection<ProductSpu> SpuList { get; set; }
-    }
 }

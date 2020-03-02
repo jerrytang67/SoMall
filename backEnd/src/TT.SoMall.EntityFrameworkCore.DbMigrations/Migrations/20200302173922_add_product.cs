@@ -38,7 +38,7 @@ namespace TT.SoMall.Migrations
                     LastModificationTime = table.Column<DateTime>(nullable: true),
                     LastModifierId = table.Column<Guid>(nullable: true),
                     CategoryId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 32, nullable: false),
+                    Name = table.Column<string>(maxLength: 64, nullable: false),
                     Code = table.Column<string>(maxLength: 32, nullable: true),
                     Desc = table.Column<string>(nullable: true)
                 },

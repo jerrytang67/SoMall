@@ -34,7 +34,7 @@ namespace TT.SoMall.EntityFrameworkCore
             {
                 b.ToTable(SoMallConsts.DbTablePrefix + "ProductSpu", SoMallConsts.DbSchema);
                 b.ConfigureByConvention();
-                b.Property(x => x.Name).IsRequired().HasMaxLength(32);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(64);
                 b.Property(x => x.Code).HasMaxLength(32);
             });
 
