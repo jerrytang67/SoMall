@@ -3,7 +3,8 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:44335"
+      "applicationUrl": "https://localhost:44316",
+      "sslPort": 44316
     }
   },
   "profiles": {
@@ -17,7 +18,7 @@
     "TT.SoMall.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:44335",
+      "applicationUrl": "https://localhost:44316",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

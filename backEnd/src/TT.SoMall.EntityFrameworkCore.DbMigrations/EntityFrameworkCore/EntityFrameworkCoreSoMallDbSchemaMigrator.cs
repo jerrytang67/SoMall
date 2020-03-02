@@ -1,24 +1,36 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TT.SoMall.Data;
 using Volo.Abp.DependencyInjection;
 
 namespace TT.SoMall.EntityFrameworkCore
 {
     [Dependency(ReplaceServices = true)]
-    public class EntityFrameworkCoreSoMallDbSchemaMigrator 
+    public class EntityFrameworkCoreSoMallDbSchemaMigrator
         : ISoMallDbSchemaMigrator, ITransientDependency
     {
-        private readonly SoMallMigrationsDbContext _dbContext;
+        private readonly IServiceProvider _serviceProvider;
 
-        public EntityFrameworkCoreSoMallDbSchemaMigrator(SoMallMigrationsDbContext dbContext)
+        public EntityFrameworkCoreSoMallDbSchemaMigrator(
+            IServiceProvider serviceProvider)
         {
-            _dbContext = dbContext;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task MigrateAsync()
         {
-            await _dbContext.Database.MigrateAsync();
+            /* We intentionally resolving the SoMallMigrationsDbContext
+             * from IServiceProvider (instead of directly injecting it)
+             * to properly get the connection string of the current tenant in the
+             * current scope.
+             */
+
+            await _serviceProvider
+                .GetRequiredService<SoMallMigrationsDbContext>()
+                .Database
+                .MigrateAsync();
         }
     }
 }

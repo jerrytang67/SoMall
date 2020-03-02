@@ -121,7 +121,7 @@ namespace TT.SoMall.Web
                 .AddOpenIdConnect("oidc", options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.RequireHttpsMetadata = false;
+                    options.RequireHttpsMetadata = true;
                     options.ResponseType = OpenIdConnectResponseType.CodeIdToken;
 
                     options.ClientId = configuration["AuthServer:ClientId"];

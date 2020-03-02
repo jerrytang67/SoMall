@@ -89,7 +89,7 @@ namespace TT.SoMall
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.RequireHttpsMetadata = false;
+                    options.RequireHttpsMetadata = true;
                     options.ApiName = "SoMall";
                 });
         }
