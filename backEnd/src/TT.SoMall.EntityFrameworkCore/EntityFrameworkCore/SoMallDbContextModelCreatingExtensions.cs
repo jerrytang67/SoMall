@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TT.SoMall.Products;
 using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.Users;
 
 namespace TT.SoMall.EntityFrameworkCore
@@ -19,10 +21,38 @@ namespace TT.SoMall.EntityFrameworkCore
 
             //    //...
             //});
+
+            builder.Entity<ProductCategory>(b =>
+            {
+                b.ToTable(SoMallConsts.DbTablePrefix + "ProductCategory", SoMallConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(64);
+                b.Property(x => x.Code).HasMaxLength(32);
+            });
+
+            builder.Entity<ProductSpu>(b =>
+            {
+                b.ToTable(SoMallConsts.DbTablePrefix + "ProductSpu", SoMallConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(32);
+                b.Property(x => x.Code).HasMaxLength(32);
+            });
+
+            builder.Entity<ProductSku>(b =>
+            {
+                b.ToTable(SoMallConsts.DbTablePrefix + "ProductSku", SoMallConsts.DbSchema);
+                b.ConfigureByConvention();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(64);
+                b.Property(x => x.Code).HasMaxLength(32);
+            });
+
+
+
+
         }
 
         public static void ConfigureCustomUserProperties<TUser>(this EntityTypeBuilder<TUser> b)
-            where TUser: class, IUser
+            where TUser : class, IUser
         {
             //b.Property<string>(nameof(AppUser.MyProperty))...
         }

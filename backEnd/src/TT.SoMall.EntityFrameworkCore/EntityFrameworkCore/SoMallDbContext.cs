@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TT.SoMall.Products;
 using TT.SoMall.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
@@ -24,6 +25,11 @@ namespace TT.SoMall.EntityFrameworkCore
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside SoMallDbContextModelCreatingExtensions.ConfigureSoMall
          */
+
+
+        public DbSet<ProductSpu> ProductSpu { get; set; }
+        public DbSet<ProductSku> ProductSku { get; set; }
+        public DbSet<ProductCategory> ProductCategory { get; set; }
 
         public SoMallDbContext(DbContextOptions<SoMallDbContext> options)
             : base(options)

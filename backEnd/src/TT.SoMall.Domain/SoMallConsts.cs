@@ -2,7 +2,7 @@
 {
     public static class SoMallConsts
     {
-        public const string DbTablePrefix = "App";
+        public const string DbTablePrefix = "SoMall_";
 
         public const string DbSchema = null;
     }
