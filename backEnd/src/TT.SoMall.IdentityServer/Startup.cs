@@ -12,6 +12,7 @@ namespace TT.SoMall
 
         public void Configure(IApplicationBuilder app)
         {
+
             app.InitializeApplication();
         }
     }
