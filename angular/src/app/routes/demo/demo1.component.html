@@ -1,0 +1,21 @@
+<div class="alain-default__content-title">
+  <h1>
+    Dashboard
+    <small>Welcome !</small>
+  </h1>
+</div>
+<h1 *ngIf="!name">
+  Hallo
+</h1>
+<h1 *ngIf="name">
+  Hallo, {{name}}
+</h1>
+
+<button class="btn btn-default"
+        (click)="login()">
+  Login
+</button>
+<button class="btn btn-default"
+        (click)="logoff()">
+  Logout
+</button>
