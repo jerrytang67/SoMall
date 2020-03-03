@@ -27,14 +27,13 @@ const routes: Routes = [
     canActivate: [SimpleGuard],
     canActivateChild: [SimpleGuard],
     children: [
-      { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
+      { path: '', redirectTo: 'demo', pathMatch: 'full' },
       { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
       { path: 'dashboard/v1', component: DashboardV1Component },
       { path: 'dashboard/analysis', component: DashboardAnalysisComponent },
       { path: 'dashboard/monitor', component: DashboardMonitorComponent },
       { path: 'dashboard/workplace', component: DashboardWorkplaceComponent },
       { path: 'style', loadChildren: () => import('./style/style.module').then(m => m.StyleModule) },
-
     ],
   },
   // passport
@@ -69,9 +68,7 @@ const routes: Routes = [
     component: LayoutDefaultComponent,
     children: [
       {
-        path: 'demo1',
-        component: Demo1Component,
-        data: { title: 'demo1' },
+        path: 'demo1', component: Demo1Component, data: { title: 'demo1' },
       }
     ],
   },

@@ -8,45 +8,46 @@
     "avatar": "./assets/tmp/img/avatar.jpg",
     "email": "cipchk@qq.com"
   },
-  "menu": [{
-    "text": "主导航",
-    "i18n": "menu.main",
-    "group": true,
-    "hideInBreadcrumb": true,
-    "children": [{
-        "text": "仪表盘",
-        "i18n": "menu.dashboard",
-        "icon": "anticon-dashboard",
-        "children": [{
-            "text": "仪表盘V1",
-            "link": "/dashboard/v1",
-            "i18n": "menu.dashboard.v1"
-          },
-          {
-            "text": "分析页",
-            "link": "/dashboard/analysis",
-            "i18n": "menu.dashboard.analysis"
-          },
-          {
-            "text": "监控页",
-            "link": "/dashboard/monitor",
-            "i18n": "menu.dashboard.monitor"
-          },
-          {
-            "text": "工作台",
-            "link": "/dashboard/workplace",
-            "i18n": "menu.dashboard.workplace"
-          }
-        ]
-      },
-      {
-        "text": "Demo",
-        "icon": "anticon-dashboard",
-        "children": [{
-          "text": "demo1",
-          "link": "/demo/demo1"
-        }]
-      }
-    ]
-  }]
+  "menu": [
+    {
+      "text": "主导航",
+      "i18n": "menu.main",
+      "group": true,
+      "hideInBreadcrumb": true,
+      "children": [
+        {
+          "text": "仪表盘",
+          "icon": "anticon-dashboard",
+          "children": [
+            {
+              "text": "仪表盘V1",
+              "link": "/dashboard/v1"
+            },
+            {
+              "text": "分析页",
+              "link": "/dashboard/analysis"
+            },
+            {
+              "text": "监控页",
+              "link": "/dashboard/monitor"
+            },
+            {
+              "text": "工作台",
+              "link": "/dashboard/workplace"
+            }
+          ]
+        },
+        {
+          "text": "Demo",
+          "icon": "anticon-dashboard",
+          "children": [
+            {
+              "text": "demo1",
+              "link": "/demo/demo1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -14,7 +14,6 @@ export class Demo1Component implements OnInit {
   }
 
   public login() {
-    console.log("login");
     this.oauthService.initLoginFlow();
   }
 
@@ -23,11 +22,8 @@ export class Demo1Component implements OnInit {
   }
 
   public get name() {
-    console.log("getName");
-
     const claims: any = this.oauthService.getIdentityClaims();
     if (!claims) return null;
-    debugger;
     return claims.given_name;
   }
 }

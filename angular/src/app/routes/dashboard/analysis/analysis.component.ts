@@ -3,7 +3,6 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { STColumn } from '@delon/abc';
 import { getTimeDistance, deepCopy } from '@delon/util';
 import { _HttpClient } from '@delon/theme';
-import { I18NService } from '@core';
 import { yuan } from '@shared';
 
 @Component({
@@ -16,9 +15,8 @@ export class DashboardAnalysisComponent implements OnInit {
   constructor(
     private http: _HttpClient,
     public msg: NzMessageService,
-    private i18n: I18NService,
     private cdr: ChangeDetectorRef,
-  ) {}
+  ) { }
   data: any = {};
   loading = true;
   date_range: Date[] = [];
@@ -26,13 +24,13 @@ export class DashboardAnalysisComponent implements OnInit {
     .fill({})
     .map((item, i) => {
       return {
-        title: this.i18n.fanyi('app.analysis.test', { no: i }),
+        title: "app.analysis.test",
         total: 323234,
       };
     });
   titleMap = {
-    y1: this.i18n.fanyi('app.analysis.traffic'),
-    y2: this.i18n.fanyi('app.analysis.payments'),
+    y1: "app.analysis.traffic",
+    y2: "app.analysis.payments"
   };
   searchColumn: STColumn[] = [
     { title: '排名', i18n: 'app.analysis.table.rank', index: 'index' },
@@ -88,8 +86,8 @@ export class DashboardAnalysisComponent implements OnInit {
       this.salesType === 'all'
         ? this.data.salesTypeData
         : this.salesType === 'online'
-        ? this.data.salesTypeDataOnline
-        : this.data.salesTypeDataOffline;
+          ? this.data.salesTypeDataOnline
+          : this.data.salesTypeDataOffline;
     if (this.salesPieData) {
       this.salesTotal = this.salesPieData.reduce((pre, now) => now.y + pre, 0);
     }

@@ -19,20 +19,20 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       <div nz-menu class="width-sm">
         <div nz-menu-item routerLink="/pro/account/center">
           <i nz-icon nzType="user" class="mr-sm"></i>
-          {{ 'menu.account.center' | translate }}
+          {{ 'menu.account.center'  }}
         </div>
         <div nz-menu-item routerLink="/pro/account/settings">
           <i nz-icon nzType="setting" class="mr-sm"></i>
-          {{ 'menu.account.settings' | translate }}
+          {{ 'menu.account.settings'  }}
         </div>
         <div nz-menu-item routerLink="/exception/trigger">
           <i nz-icon nzType="close-circle" class="mr-sm"></i>
-          {{ 'menu.account.trigger' | translate }}
+          {{ 'menu.account.trigger'  }}
         </div>
         <li nz-menu-divider></li>
         <div nz-menu-item (click)="logout()">
           <i nz-icon nzType="logout" class="mr-sm"></i>
-          {{ 'menu.account.logout' | translate }}
+          {{ 'menu.account.logout'  }}
         </div>
       </div>
     </nz-dropdown-menu>
@@ -44,7 +44,7 @@ export class HeaderUserComponent {
     public settings: SettingsService,
     private router: Router,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
-  ) {}
+  ) { }
 
   logout() {
     this.tokenService.clear();
