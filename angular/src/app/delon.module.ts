@@ -6,12 +6,6 @@ import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core
 import { throwIfAlreadyLoaded } from '@core';
 
 import { AlainThemeModule } from '@delon/theme';
-import { DelonACLModule } from '@delon/acl';
-
-// #region mock
-import { DelonMockModule } from '@delon/mock';
-import { environment } from '@env/environment';
-// #endregion
 
 // #region reuse-tab
 /**
@@ -46,13 +40,6 @@ export function fnPageHeaderConfig(): PageHeaderConfig {
   };
 }
 
-import { DelonAuthConfig } from '@delon/auth';
-export function fnDelonAuthConfig(): DelonAuthConfig {
-  return {
-    ...new DelonAuthConfig(),
-    login_url: '/passport/login',
-  };
-}
 
 // tslint:disable-next-line: no-duplicate-imports
 import { STConfig } from '@delon/abc';
@@ -66,14 +53,13 @@ export function fnSTConfig(): STConfig {
 const GLOBAL_CONFIG_PROVIDES = [
   // TIPS：@delon/abc 有大量的全局配置信息，例如设置所有 `st` 的页码默认为 `20` 行
   { provide: STConfig, useFactory: fnSTConfig },
-  { provide: PageHeaderConfig, useFactory: fnPageHeaderConfig },
-  { provide: DelonAuthConfig, useFactory: fnDelonAuthConfig },
+  { provide: PageHeaderConfig, useFactory: fnPageHeaderConfig }
 ];
 
 // #endregion
 
 @NgModule({
-  imports: [AlainThemeModule.forRoot(), DelonACLModule.forRoot()],
+  imports: [AlainThemeModule.forRoot()],
 })
 export class DelonModule {
   constructor(@Optional() @SkipSelf() parentModule: DelonModule) {

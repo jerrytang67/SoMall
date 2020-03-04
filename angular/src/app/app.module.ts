@@ -80,6 +80,7 @@ export function createTranslateLoader(http: HttpClient) {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    CoreModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -88,9 +89,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     BrowserAnimationsModule,
-    HttpClientModule,
     DelonModule.forRoot(),
-    CoreModule,
     SharedModule,
     LayoutModule,
     RoutesModule,

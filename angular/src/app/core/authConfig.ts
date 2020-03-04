@@ -1,17 +1,17 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
-    // Url of the Identity Provider
+
     issuer: 'https://localhost:44380',
-
-    // URL of the SPA to redirect the user to after login
-    redirectUri: window.location.origin + '/index.html',
-
-    // The SPA's id. The SPA is registered with this id at the auth-server
     clientId: 'SoMall_App',
-
     dummyClientSecret: '1q2w3e*',
-    // set the scope for the permissions the client should request
-    // The first three are defined by OIDC. The 4th is a usecase-specific one
+    // responseType: 'implicit',
+    redirectUri: window.location.origin + '/',
+    postLogoutRedirectUri: window.location.origin + '/index.html',
+    //silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
     scope: 'address email openid phone profile role SoMall',
+    silentRefreshTimeout: 500000, // For faster testing
+    timeoutFactor: 0.25, // For faster testing
+    showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
+    clearHashAfterLogin: false, // https://github.com/manfredsteyer/angular-oauth2-oidc/issues/457#issuecomment-431807040
 }

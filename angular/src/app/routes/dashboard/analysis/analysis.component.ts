@@ -66,15 +66,7 @@ export class DashboardAnalysisComponent implements OnInit {
   offlineIdx = 0;
 
   ngOnInit() {
-    this.http.get('/chart').subscribe((res: any) => {
-      res.offlineData.forEach((item: any, idx: number) => {
-        item.show = idx === 0;
-        item.chart = deepCopy(res.offlineChartData);
-      });
-      this.data = res;
-      this.loading = false;
-      this.changeSaleType();
-    });
+
   }
 
   setDate(type: any) {

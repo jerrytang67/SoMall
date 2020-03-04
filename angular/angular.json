@@ -24,7 +24,8 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/silent-refresh.html"
             ],
             "styles": [
               "src/styles.less"

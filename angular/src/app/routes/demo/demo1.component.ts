@@ -8,22 +8,12 @@ import { OAuthService } from 'angular-oauth2-oidc';
 })
 export class Demo1Component implements OnInit {
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private oauthService: OAuthService) {
+
+  }
 
   ngOnInit() {
   }
 
-  public login() {
-    this.oauthService.initLoginFlow();
-  }
 
-  public logoff() {
-    this.oauthService.logOut();
-  }
-
-  public get name() {
-    const claims: any = this.oauthService.getIdentityClaims();
-    if (!claims) return null;
-    return claims.given_name;
-  }
 }

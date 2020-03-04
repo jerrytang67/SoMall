@@ -79,20 +79,6 @@ export class DashboardWorkplaceComponent implements OnInit {
   constructor(private http: _HttpClient, public msg: NzMessageService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    zip(this.http.get('/chart'), this.http.get('/api/notice'), this.http.get('/api/activities')).subscribe(
-      ([chart, notice, activities]: [any, any, any]) => {
-        this.radarData = chart.radarData;
-        this.notice = notice;
-        this.activities = activities.map((item: any) => {
-          item.template = item.template.split(/@\{([^{}]*)\}/gi).map((key: string) => {
-            if (item[key]) return `<a>${item[key].name}</a>`;
-            return key;
-          });
-          return item;
-        });
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
-    );
+  
   }
 }

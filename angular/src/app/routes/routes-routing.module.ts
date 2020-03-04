@@ -19,19 +19,20 @@ import { UserRegisterResultComponent } from './passport/register-result/register
 import { CallbackComponent } from './callback/callback.component';
 import { UserLockComponent } from './passport/lock/lock.component';
 import { Demo1Component } from './demo/demo1.component';
+import { AuthGuard } from '@core/auth-guard.service';
+import { Exception404Component } from './exception/404.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutDefaultComponent,
-    canActivate: [SimpleGuard],
-    canActivateChild: [SimpleGuard],
+    canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: 'demo', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
       { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
       { path: 'dashboard/v1', component: DashboardV1Component },
       { path: 'dashboard/analysis', component: DashboardAnalysisComponent },
-      { path: 'dashboard/monitor', component: DashboardMonitorComponent },
+      { path: 'dashboard/monitor', component: DashboardMonitorComponent, canActivate: [AuthGuard] },
       { path: 'dashboard/workplace', component: DashboardWorkplaceComponent },
       { path: 'style', loadChildren: () => import('./style/style.module').then(m => m.StyleModule) },
     ],
@@ -39,22 +40,11 @@ const routes: Routes = [
   // passport
   {
     path: 'passport',
-    component: LayoutPassportComponent,
     children: [
       {
         path: 'login',
         component: UserLoginComponent,
         data: { title: '登录', titleI18n: 'app.login.login' },
-      },
-      {
-        path: 'register',
-        component: UserRegisterComponent,
-        data: { title: '注册', titleI18n: 'app.register.register' },
-      },
-      {
-        path: 'register-result',
-        component: UserRegisterResultComponent,
-        data: { title: '注册结果', titleI18n: 'app.register.register' },
       },
       {
         path: 'lock',
@@ -69,6 +59,15 @@ const routes: Routes = [
     children: [
       {
         path: 'demo1', component: Demo1Component, data: { title: 'demo1' },
+      }
+    ],
+  },
+  {
+    path: 'exception',
+    component: LayoutDefaultComponent,
+    children: [
+      {
+        path: '404', component: Exception404Component, data: { title: '404' },
       }
     ],
   },

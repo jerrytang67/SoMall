@@ -8,6 +8,7 @@ import { NzIconService } from 'ng-zorro-antd';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from '@core/auth.service';
 
 /**
  * 用于应用启动时
@@ -19,12 +20,13 @@ export class StartupService {
     iconSrv: NzIconService,
     private menuService: MenuService,
     private settingService: SettingsService,
-    private aclService: ACLService,
     private titleService: TitleService,
     private httpClient: HttpClient,
-    private translate: TranslateService
+    private translate: TranslateService,
+
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
+
   }
 
   load(): Promise<any> {
