@@ -1,1 +1,39 @@
-<p>users works!</p>
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button
+                (click)="create()"
+                nzType="primary">{{'Create' | translate}}</button>
+        <button nz-button
+                (click)="refresh()">{{'Refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzData]="dataItems"
+              [nzTotal]="pageingInfo.totalItems"
+              [(nzPageIndex)]="pageingInfo.pageNumber"
+              [(nzPageSize)]="pageingInfo.pageSize"
+              [nzLoading]="pageingInfo.isTableLoading"
+              (nzPageIndexChange)="refresh()"
+              (nzPageSizeChange)="refresh()">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <td>{{item.id}}</td>
+                <td>
+                    <a (click)="edit(item)">{{'Edit' | translate}}</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a nz-popconfirm
+                       [nzTitle]="'UserDeleteWarningMessage'"
+                       (nzOnConfirm)="delete(item)"
+                       nzPlacement="top">{{'Delete' | translate}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

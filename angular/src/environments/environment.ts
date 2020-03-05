@@ -23,7 +23,7 @@ export const environment = {
   },
   apis: {
     default: {
-      url: 'https://localhost:44340',
+      url: 'http://localhost:44340',
     },
   },
   localization: {

@@ -121,7 +121,15 @@ export class DefaultInterceptor implements HttpInterceptor {
       token = getStore<User>("auth").access_token
     let headers = req.headers.set("Authorization", `Bearer ${token}`);
 
-    const clonedRequest = req.clone({ headers });
+
+    // 统一加上服务端前缀
+    let url = req.url;
+    if (!url.startsWith('https://') && !url.startsWith('http://')) {
+      if (url.startsWith('/api/'))
+        url = environment.apis.default.url + url;
+    }
+
+    const clonedRequest = req.clone({ headers, url });
 
     // 统一加上服务端前缀
     // let url = req.url;
