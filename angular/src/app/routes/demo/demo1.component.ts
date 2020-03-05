@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthQuery } from 'src/store/auth.query';
+import { User } from 'oidc-client';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-demo1',
@@ -8,11 +10,15 @@ import { OAuthService } from 'angular-oauth2-oidc';
 })
 export class Demo1Component implements OnInit {
 
-  constructor(private oauthService: OAuthService) {
+  auth$: Observable<User>;
+  profile$: Observable<any>;
+  constructor(private authQuery: AuthQuery) {
 
   }
 
   ngOnInit() {
+    this.auth$ = this.authQuery.auth$;
+    this.profile$ = this.authQuery.profile$;
   }
 
 

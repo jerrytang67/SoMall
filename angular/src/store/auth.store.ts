@@ -1,19 +1,18 @@
 import { Store, StoreConfig } from '@datorama/akita';
 import { Injectable } from '@angular/core';
-import { getStore } from '@shared';
+import { User } from 'oidc-client';
 
 export interface AuthState {
-    token: string;
+    auth: User;
+
 }
 
 export function createInitialState(): AuthState {
-    return getStore<AuthState>("token") || {
-        token: ''
-    };
+    return { auth: undefined };
 }
 
 @Injectable({ providedIn: 'root' })
-@StoreConfig({ name: 'session' })
+@StoreConfig({ name: 'auth' })
 export class AuthStore extends Store<AuthState> {
     constructor() {
         super(createInitialState());

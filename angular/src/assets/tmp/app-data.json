@@ -38,6 +38,25 @@
           ]
         },
         {
+          "text": "管理",
+          "i18n": "Admin",
+          "icon": "anticon-global",
+          "children": [
+            {
+              "text": "用户",
+              "i18n": "Users",
+              "link": "/identity/users",
+              "acl": "Pages"
+            },
+            {
+              "text": "角色",
+              "i18n": "Roles",
+              "link": "/identity/roles",
+              "acl": "Pages"
+            }
+          ]
+        },
+        {
           "text": "Demo",
           "icon": "anticon-dashboard",
           "children": [

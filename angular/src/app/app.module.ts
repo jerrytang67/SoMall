@@ -1,8 +1,11 @@
 // tslint:disable: no-duplicate-imports
 import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// akita tools
+import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 
 // #region default language
@@ -68,9 +71,9 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { RoutesModule } from './routes/routes.module';
 import { LayoutModule } from './layout/layout.module';
-import { OAuthModule } from 'angular-oauth2-oidc';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { environment } from '@env/environment';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/tmp/i18n/', '.json');
@@ -95,7 +98,7 @@ export function createTranslateLoader(http: HttpClient) {
     RoutesModule,
     ...GLOBAL_THIRD_MODULES,
     ...FORM_MODULES,
-    OAuthModule.forRoot()
+    environment.production ? [] : AkitaNgDevtools
   ],
   providers: [...LANG_PROVIDES, ...INTERCEPTOR_PROVIDES, ...APPINIT_PROVIDES],
   bootstrap: [AppComponent],

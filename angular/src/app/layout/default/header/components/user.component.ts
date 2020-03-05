@@ -2,7 +2,6 @@ import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import { AuthService } from '@core/auth.service';
 
 @Component({
   selector: 'header-user',
@@ -43,12 +42,10 @@ import { AuthService } from '@core/auth.service';
 export class HeaderUserComponent {
   constructor(
     public settings: SettingsService,
-    private router: Router,
-    private authService: AuthService
   ) { }
 
   logout() {
-    this.authService.logout();
+    // this.authService.lou();
     // this.tokenService.clear();
     // this.router.navigateByUrl(this.tokenService.login_url!);
   }

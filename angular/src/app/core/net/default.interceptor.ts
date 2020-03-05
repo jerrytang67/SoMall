@@ -10,10 +10,14 @@ import {
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
-import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
+import { NzNotificationService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { AuthQuery } from 'src/store/auth.query';
+import { getStore } from '@shared';
+import { User } from 'oidc-client';
+import { AuthService } from 'src/store/auth.service';
 
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',
@@ -38,7 +42,7 @@ const CODEMESSAGE = {
  */
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
-  constructor(private injector: Injector) {}
+  constructor(private injector: Injector, private authService: AuthService) { }
 
   private get notification(): NzNotificationService {
     return this.injector.get(NzNotificationService);
@@ -111,14 +115,23 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // 统一加上服务端前缀
-    let url = req.url;
-    if (!url.startsWith('https://') && !url.startsWith('http://')) {
-      url = environment.SERVER_URL + url;
-    }
 
-    const newReq = req.clone({ url });
-    return next.handle(newReq).pipe(
+    let token = "";
+    if (getStore<User>("auth"))
+      token = getStore<User>("auth").access_token
+    let headers = req.headers.set("Authorization", `Bearer ${token}`);
+
+    const clonedRequest = req.clone({ headers });
+
+    // 统一加上服务端前缀
+    // let url = req.url;
+    // if (!url.startsWith('https://') && !url.startsWith('http://')) {
+    //   url = environment.SERVER_URL + url;
+    // }
+    // const newReq = req.clone({ url, headers });
+
+
+    return next.handle(clonedRequest).pipe(
       mergeMap((event: any) => {
         // 允许统一对请求错误处理
         if (event instanceof HttpResponseBase) return this.handleData(event);

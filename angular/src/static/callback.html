@@ -16,7 +16,7 @@
     var Oidc = window.Oidc;
     var config = {
       userStore: new Oidc.WebStorageStateStore({ store: window.localStorage }),
-      response_mode: 'query'
+      //response_mode: 'query'
     }
     if ((Oidc && Oidc.Log && Oidc.Log.logger)) {
       Oidc.Log.logger = console;
@@ -26,6 +26,7 @@
       new Oidc.UserManager(config).signinPopupCallback();
     } else {
       new Oidc.UserManager(config).signinRedirectCallback().then(t => {
+        window.localStorage.setItem("somall_auth", JSON.stringify(t));
         window.location.href = '/';
       });
     }

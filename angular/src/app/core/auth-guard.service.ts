@@ -1,23 +1,33 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthQuery } from 'src/store/auth.query';
+import { AuthService } from 'src/store/auth.service';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+
     constructor(
         private authService: AuthService,
+        private authQuery: AuthQuery
     ) { }
 
     canActivate(
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot,
-    ): Observable<boolean> {
-        console.log("canActivate");
-        
-        return this.authService.canActivateProtectedRoutes$
-            .pipe(tap(x => console.log('You tried to go to ' + state.url + ' and this guard said ' + x)));
+        next: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        return new Promise((resolve, reject) => {
+            this.authService.getUser().then(user => {
+                console.log(user)
+
+                let url = state.url.substr(1, state.url.length);
+                if (user) {
+                    resolve(true);
+                }
+                else {
+                    resolve(false);
+                    this.authService.startAuthentication();
+                }
+            })
+        })
     }
 }
