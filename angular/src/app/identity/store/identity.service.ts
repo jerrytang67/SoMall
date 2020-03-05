@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IdentityStore } from './identity.store';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { UserProxyService } from 'src/api/appService';
+import { UserProxyService, IdentityUserDtoPagedResultDto } from 'src/api/appService';
 
 @Injectable({ providedIn: 'root' })
 export class IdentityService {
@@ -13,8 +13,11 @@ export class IdentityService {
 
     }
 
-    getUsers(params = {}): Observable<any> {
+    getUsers(params = {}): Observable<IdentityUserDtoPagedResultDto> {
         return this.userApi.users3(params);
     }
 
+
+
+    
 } 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IdentityService } from '../../store/identity.service';
+import { IdentityService } from '../store/identity.service';
+import { NzModalService } from 'ng-zorro-antd';
+import { EditUserComponent } from '../components/edit-user/edit-user.component';
 
 @Component({
   selector: 'app-users',
@@ -17,6 +19,7 @@ export class UsersComponent implements OnInit {
   };
   constructor(
     private identityService: IdentityService,
+    private modalService: NzModalService
   ) {
 
   }
@@ -32,7 +35,31 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  create() { }
+  create() {
+    const modal = this.modalService.create({
+      nzTitle: 'Modal Title',
+      nzContent: EditUserComponent,
+      nzComponentParams: {
+        title: 'title in component',
+        subtitle: 'component sub title，will be changed after 2 sec'
+      },
+      nzFooter: [
+        {
+          label: '确定',
+          onClick: componentInstance => {
+            console.log("componentInstance",componentInstance);
+            
+            componentInstance!.title = 'title in inner component is changed';
+          }
+        }
+      ]
+    });
+
+    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+
+    // Return a result when closed
+    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+  }
   edit() { }
   delete() { }
   // protected delete(item: UserDto): void {

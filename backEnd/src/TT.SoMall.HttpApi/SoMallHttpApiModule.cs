@@ -1,4 +1,8 @@
-﻿using Volo.Abp.Account;
+﻿using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Volo.Abp.Account;
+using Volo.Abp.AspNetCore.Mvc.Conventions;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -14,9 +18,11 @@ namespace TT.SoMall
         typeof(AbpPermissionManagementHttpApiModule),
         typeof(AbpTenantManagementHttpApiModule),
         typeof(AbpFeatureManagementHttpApiModule)
-        )]
+    )]
     public class SoMallHttpApiModule : AbpModule
     {
-        
+        public override void ConfigureServices(ServiceConfigurationContext context)
+        {
+        }
     }
 }

@@ -1,12 +1,9 @@
-/** Generate by swagger-axios-codegen */
-// tslint:disable
-/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-export class IList<T> extends Array<T> {}
-export class List<T> extends Array<T> {}
+export class IList<T> extends Array<T> { }
+export class List<T> extends Array<T> { }
 
 export interface IListResult<T> {
   items?: T[];
@@ -29,7 +26,7 @@ export class PagedResultDto<T> implements IPagedResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApiDefinitionProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -39,13 +36,13 @@ export class AbpApiDefinitionProxyService {
     let options: any = {
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ApplicationApiDescriptionModel>;
+    return (this.http.request('get', url, options) as any) as Observable<ApplicationApiDescriptionModel>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -55,13 +52,13 @@ export class AbpApplicationConfigurationProxyService {
     let options: any = {
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ApplicationConfigurationDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ApplicationConfigurationDto>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationScriptProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -71,13 +68,13 @@ export class AbpApplicationConfigurationScriptProxyService {
     let options: any = {
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<any>;
+    return (this.http.request('get', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class AbpLanguagesProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -93,17 +90,18 @@ export class AbpLanguagesProxyService {
     } = {} as any
   ): Observable<any> {
     let url = '/Abp/Languages/Switch';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<any>;
+    return (this.http.request('get', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class AbpServiceProxyScriptProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -123,17 +121,18 @@ export class AbpServiceProxyScriptProxyService {
     } = {} as any
   ): Observable<any> {
     let url = '/Abp/ServiceProxyScript';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<any>;
+    return (this.http.request('get', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class AbpTenantProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -145,11 +144,12 @@ export class AbpTenantProxyService {
     } = {} as any
   ): Observable<FindTenantResultDto> {
     let url = '/api/abp/multi-tenancy/tenants/by-name/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<FindTenantResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<FindTenantResultDto>;
   }
   /**
    *
@@ -161,17 +161,18 @@ export class AbpTenantProxyService {
     } = {} as any
   ): Observable<FindTenantResultDto> {
     let url = '/api/abp/multi-tenancy/tenants/by-id/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<FindTenantResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<FindTenantResultDto>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class AccountProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -187,18 +188,18 @@ export class AccountProxyService {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<IdentityUserDto>;
+    return (this.http.request('post', url, options) as any) as Observable<IdentityUserDto>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class FeaturesProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
    */
-  features(
+  get(
     params: {
       /**  */
       providerName?: string;
@@ -206,17 +207,18 @@ export class FeaturesProxyService {
       providerKey?: string;
     } = {} as any
   ): Observable<FeatureListDto> {
-    let url = '/api/abp/features';
+    let url = '/api/abp/features/get';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<FeatureListDto>;
+    return (this.http.request('get', url, options) as any) as Observable<FeatureListDto>;
   }
   /**
    *
    */
-  features1(
+  update(
     params: {
       /**  */
       providerName?: string;
@@ -226,23 +228,23 @@ export class FeaturesProxyService {
       body?: UpdateFeaturesDto;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/abp/features';
+    let url = '/api/abp/features/update';
     let options: any = {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<any>;
+    return (this.http.request('put', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
    */
-  permissions(
+  get(
     params: {
       /**  */
       providerName?: string;
@@ -250,17 +252,18 @@ export class PermissionsProxyService {
       providerKey?: string;
     } = {} as any
   ): Observable<GetPermissionListResultDto> {
-    let url = '/api/abp/permissions';
+    let url = '/api/abp/permissions/get';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<GetPermissionListResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<GetPermissionListResultDto>;
   }
   /**
    *
    */
-  permissions1(
+  update(
     params: {
       /**  */
       providerName?: string;
@@ -270,73 +273,40 @@ export class PermissionsProxyService {
       body?: UpdatePermissionsDto;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/abp/permissions';
+    let url = '/api/abp/permissions/update';
     let options: any = {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<any>;
+    return (this.http.request('put', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
    */
-  productCategory(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<ProductCategoryDto> {
-    let url = '/api/app/productCategory/';
+    let url = '/api/app/productCategory/get';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ProductCategoryDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ProductCategoryDto>;
   }
   /**
    *
    */
-  productCategory1(
-    params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: CreateUpdateCategoryDto;
-    } = {} as any
-  ): Observable<ProductCategoryDto> {
-    let url = '/api/app/productCategory/';
-    let options: any = {
-      body: params,
-      method: 'put'
-    };
-    return this.http.request('put', url, options) as Observable<ProductCategoryDto>;
-  }
-  /**
-   *
-   */
-  productCategory2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/app/productCategory/';
-    let options: any = {
-      body: params,
-      method: 'delete'
-    };
-    return this.http.request('delete', url, options) as Observable<any>;
-  }
-  /**
-   *
-   */
-  productCategory3(
+  getList(
     params: {
       /**  */
       sorting?: string;
@@ -346,89 +316,91 @@ export class ProductCategoryProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductCategoryDtoPagedResultDto> {
-    let url = '/api/app/productCategory';
+    let url = '/api/app/productCategory/getList';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ProductCategoryDtoPagedResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ProductCategoryDtoPagedResultDto>;
   }
   /**
    *
    */
-  productCategory4(
+  create(
     params: {
       /** requestBody */
       body?: CreateUpdateCategoryDto;
     } = {} as any
   ): Observable<ProductCategoryDto> {
-    let url = '/api/app/productCategory';
+    let url = '/api/app/productCategory/create';
     let options: any = {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<ProductCategoryDto>;
+    return (this.http.request('post', url, options) as any) as Observable<ProductCategoryDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CreateUpdateCategoryDto;
+    } = {} as any
+  ): Observable<ProductCategoryDto> {
+    let url = '/api/app/productCategory/update';
+    let options: any = {
+      body: params,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductCategoryDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/productCategory/delete';
+    let options: any = {
+      body: params,
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class ProductSkuProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
    */
-  productSku(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<ProductSkuDto> {
-    let url = '/api/app/productSku/';
+    let url = '/api/app/productSku/get';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ProductSkuDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ProductSkuDto>;
   }
   /**
    *
    */
-  productSku1(
-    params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: CreateUpdateSkuDto;
-    } = {} as any
-  ): Observable<ProductSkuDto> {
-    let url = '/api/app/productSku/';
-    let options: any = {
-      body: params,
-      method: 'put'
-    };
-    return this.http.request('put', url, options) as Observable<ProductSkuDto>;
-  }
-  /**
-   *
-   */
-  productSku2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/app/productSku/';
-    let options: any = {
-      body: params,
-      method: 'delete'
-    };
-    return this.http.request('delete', url, options) as Observable<any>;
-  }
-  /**
-   *
-   */
-  productSku3(
+  getList(
     params: {
       /**  */
       sorting?: string;
@@ -438,89 +410,91 @@ export class ProductSkuProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductSkuDtoPagedResultDto> {
-    let url = '/api/app/productSku';
+    let url = '/api/app/productSku/getList';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ProductSkuDtoPagedResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ProductSkuDtoPagedResultDto>;
   }
   /**
    *
    */
-  productSku4(
+  create(
     params: {
       /** requestBody */
       body?: CreateUpdateSkuDto;
     } = {} as any
   ): Observable<ProductSkuDto> {
-    let url = '/api/app/productSku';
+    let url = '/api/app/productSku/create';
     let options: any = {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<ProductSkuDto>;
+    return (this.http.request('post', url, options) as any) as Observable<ProductSkuDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CreateUpdateSkuDto;
+    } = {} as any
+  ): Observable<ProductSkuDto> {
+    let url = '/api/app/productSku/update';
+    let options: any = {
+      body: params,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductSkuDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/productSku/delete';
+    let options: any = {
+      body: params,
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class ProductSpuProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
    */
-  productSpu(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<ProductSpuDto> {
-    let url = '/api/app/productSpu/';
+    let url = '/api/app/productSpu/get';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ProductSpuDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ProductSpuDto>;
   }
   /**
    *
    */
-  productSpu1(
-    params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: CreateUpdateSpuDto;
-    } = {} as any
-  ): Observable<ProductSpuDto> {
-    let url = '/api/app/productSpu/';
-    let options: any = {
-      body: params,
-      method: 'put'
-    };
-    return this.http.request('put', url, options) as Observable<ProductSpuDto>;
-  }
-  /**
-   *
-   */
-  productSpu2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/app/productSpu/';
-    let options: any = {
-      body: params,
-      method: 'delete'
-    };
-    return this.http.request('delete', url, options) as Observable<any>;
-  }
-  /**
-   *
-   */
-  productSpu3(
+  getList(
     params: {
       /**  */
       sorting?: string;
@@ -530,34 +504,69 @@ export class ProductSpuProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductSpuDtoPagedResultDto> {
-    let url = '/api/app/productSpu';
+    let url = '/api/app/productSpu/getList';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ProductSpuDtoPagedResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ProductSpuDtoPagedResultDto>;
   }
   /**
    *
    */
-  productSpu4(
+  create(
     params: {
       /** requestBody */
       body?: CreateUpdateSpuDto;
     } = {} as any
   ): Observable<ProductSpuDto> {
-    let url = '/api/app/productSpu';
+    let url = '/api/app/productSpu/create';
     let options: any = {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<ProductSpuDto>;
+    return (this.http.request('post', url, options) as any) as Observable<ProductSpuDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CreateUpdateSpuDto;
+    } = {} as any
+  ): Observable<ProductSpuDto> {
+    let url = '/api/app/productSpu/update';
+    let options: any = {
+      body: params,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductSpuDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/productSpu/delete';
+    let options: any = {
+      body: params,
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class ProfileProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -567,7 +576,7 @@ export class ProfileProxyService {
     let options: any = {
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<ProfileDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ProfileDto>;
   }
   /**
    *
@@ -583,7 +592,7 @@ export class ProfileProxyService {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<ProfileDto>;
+    return (this.http.request('put', url, options) as any) as Observable<ProfileDto>;
   }
   /**
    *
@@ -599,13 +608,13 @@ export class ProfileProxyService {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<any>;
+    return (this.http.request('post', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class RoleProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -621,11 +630,12 @@ export class RoleProxyService {
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<IdentityRoleDtoPagedResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<IdentityRoleDtoPagedResultDto>;
   }
   /**
    *
@@ -641,7 +651,7 @@ export class RoleProxyService {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<IdentityRoleDto>;
+    return (this.http.request('post', url, options) as any) as Observable<IdentityRoleDto>;
   }
   /**
    *
@@ -653,11 +663,12 @@ export class RoleProxyService {
     } = {} as any
   ): Observable<IdentityRoleDto> {
     let url = '/api/identity/roles/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<IdentityRoleDto>;
+    return (this.http.request('get', url, options) as any) as Observable<IdentityRoleDto>;
   }
   /**
    *
@@ -675,7 +686,7 @@ export class RoleProxyService {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<IdentityRoleDto>;
+    return (this.http.request('put', url, options) as any) as Observable<IdentityRoleDto>;
   }
   /**
    *
@@ -691,13 +702,13 @@ export class RoleProxyService {
       body: params,
       method: 'delete'
     };
-    return this.http.request('delete', url, options) as Observable<any>;
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class TenantProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -709,11 +720,12 @@ export class TenantProxyService {
     } = {} as any
   ): Observable<TenantDto> {
     let url = '/api/multi-tenancy/tenants/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<TenantDto>;
+    return (this.http.request('get', url, options) as any) as Observable<TenantDto>;
   }
   /**
    *
@@ -731,7 +743,7 @@ export class TenantProxyService {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<TenantDto>;
+    return (this.http.request('put', url, options) as any) as Observable<TenantDto>;
   }
   /**
    *
@@ -747,7 +759,7 @@ export class TenantProxyService {
       body: params,
       method: 'delete'
     };
-    return this.http.request('delete', url, options) as Observable<any>;
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
   /**
    *
@@ -765,11 +777,12 @@ export class TenantProxyService {
     } = {} as any
   ): Observable<TenantDtoPagedResultDto> {
     let url = '/api/multi-tenancy/tenants';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<TenantDtoPagedResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<TenantDtoPagedResultDto>;
   }
   /**
    *
@@ -785,7 +798,7 @@ export class TenantProxyService {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<TenantDto>;
+    return (this.http.request('post', url, options) as any) as Observable<TenantDto>;
   }
   /**
    *
@@ -797,11 +810,12 @@ export class TenantProxyService {
     } = {} as any
   ): Observable<string> {
     let url = '/api/multi-tenancy/tenants//default-connection-string';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<string>;
+    return (this.http.request('get', url, options) as any) as Observable<string>;
   }
   /**
    *
@@ -819,7 +833,7 @@ export class TenantProxyService {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<any>;
+    return (this.http.request('put', url, options) as any) as Observable<any>;
   }
   /**
    *
@@ -835,29 +849,13 @@ export class TenantProxyService {
       body: params,
       method: 'delete'
     };
-    return this.http.request('delete', url, options) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class TestProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  test(): Observable<TestModel[]> {
-    let url = '/api/test';
-    let options: any = {
-      method: 'get'
-    };
-    return this.http.request('get', url, options) as Observable<TestModel[]>;
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class UserProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -869,11 +867,12 @@ export class UserProxyService {
     } = {} as any
   ): Observable<IdentityUserDto> {
     let url = '/api/identity/users/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<IdentityUserDto>;
+    return (this.http.request('get', url, options) as any) as Observable<IdentityUserDto>;
   }
   /**
    *
@@ -891,7 +890,7 @@ export class UserProxyService {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<IdentityUserDto>;
+    return (this.http.request('put', url, options) as any) as Observable<IdentityUserDto>;
   }
   /**
    *
@@ -907,7 +906,7 @@ export class UserProxyService {
       body: params,
       method: 'delete'
     };
-    return this.http.request('delete', url, options) as Observable<any>;
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
   /**
    *
@@ -925,11 +924,12 @@ export class UserProxyService {
     } = {} as any
   ): Observable<IdentityUserDtoPagedResultDto> {
     let url = '/api/identity/users';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<IdentityUserDtoPagedResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<IdentityUserDtoPagedResultDto>;
   }
   /**
    *
@@ -945,7 +945,7 @@ export class UserProxyService {
       body: params,
       method: 'post'
     };
-    return this.http.request('post', url, options) as Observable<IdentityUserDto>;
+    return (this.http.request('post', url, options) as any) as Observable<IdentityUserDto>;
   }
   /**
    *
@@ -957,11 +957,12 @@ export class UserProxyService {
     } = {} as any
   ): Observable<IdentityRoleDtoListResultDto> {
     let url = '/api/identity/users//roles';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<IdentityRoleDtoListResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<IdentityRoleDtoListResultDto>;
   }
   /**
    *
@@ -979,7 +980,7 @@ export class UserProxyService {
       body: params,
       method: 'put'
     };
-    return this.http.request('put', url, options) as Observable<any>;
+    return (this.http.request('put', url, options) as any) as Observable<any>;
   }
   /**
    *
@@ -991,11 +992,12 @@ export class UserProxyService {
     } = {} as any
   ): Observable<IdentityUserDto> {
     let url = '/api/identity/users/by-username/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<IdentityUserDto>;
+    return (this.http.request('get', url, options) as any) as Observable<IdentityUserDto>;
   }
   /**
    *
@@ -1007,17 +1009,18 @@ export class UserProxyService {
     } = {} as any
   ): Observable<IdentityUserDto> {
     let url = '/api/identity/users/by-email/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<IdentityUserDto>;
+    return (this.http.request('get', url, options) as any) as Observable<IdentityUserDto>;
   }
 }
 
 @Injectable({ providedIn: 'root' })
 export class UserLookupProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -1029,11 +1032,12 @@ export class UserLookupProxyService {
     } = {} as any
   ): Observable<UserData> {
     let url = '/api/identity/users/lookup/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<UserData>;
+    return (this.http.request('get', url, options) as any) as Observable<UserData>;
   }
   /**
    *
@@ -1045,11 +1049,12 @@ export class UserLookupProxyService {
     } = {} as any
   ): Observable<UserData> {
     let url = '/api/identity/users/lookup/by-username/';
+    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return this.http.request('get', url, options) as Observable<UserData>;
+    return (this.http.request('get', url, options) as any) as Observable<UserData>;
   }
 }
 
@@ -1512,20 +1517,20 @@ export interface ProductCategoryDto {
   id?: string;
 }
 
-export interface CreateUpdateCategoryDto {
-  /**  */
-  name?: string;
-
-  /**  */
-  code?: string;
-}
-
 export interface ProductCategoryDtoPagedResultDto {
   /**  */
   totalCount?: number;
 
   /**  */
   items?: ProductCategoryDto[];
+}
+
+export interface CreateUpdateCategoryDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
 }
 
 export interface ProductSpuDto {
@@ -1589,6 +1594,14 @@ export interface ProductSkuDto {
   id?: string;
 }
 
+export interface ProductSkuDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: ProductSkuDto[];
+}
+
 export interface CreateUpdateSkuDto {
   /**  */
   spuId?: string;
@@ -1603,12 +1616,12 @@ export interface CreateUpdateSkuDto {
   price?: number;
 }
 
-export interface ProductSkuDtoPagedResultDto {
+export interface ProductSpuDtoPagedResultDto {
   /**  */
   totalCount?: number;
 
   /**  */
-  items?: ProductSkuDto[];
+  items?: ProductSpuDto[];
 }
 
 export interface CreateUpdateSpuDto {
@@ -1623,14 +1636,6 @@ export interface CreateUpdateSpuDto {
 
   /**  */
   desc?: string;
-}
-
-export interface ProductSpuDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: ProductSpuDto[];
 }
 
 export interface ProfileDto {
@@ -1752,14 +1757,6 @@ export interface TenantDtoPagedResultDto {
 export interface TenantCreateDto {
   /**  */
   name?: string;
-}
-
-export interface TestModel {
-  /**  */
-  name?: string;
-
-  /**  */
-  birthDate?: Date;
 }
 
 export interface IdentityUserUpdateDto {

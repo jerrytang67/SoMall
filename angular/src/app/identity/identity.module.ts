@@ -1,23 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersComponent } from './components/users/users.component';
-import { RolesComponent } from './components/roles/roles.component';
-import { IdentityRoutingModule } from './identity-routing.module';
-import { LayoutModule } from '../layout/layout.module';
 import { SharedModule } from '@shared';
+import { LayoutModule } from '../layout/layout.module';
+import { IdentityRoutingModule } from './identity-routing.module';
+
+// com
+import { UsersComponent } from './users/users.component';
+import { RolesComponent } from './roles/roles.component';
+
+//entry
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+
 
 
 const COMPONENTS = [UsersComponent, RolesComponent]
-
+const ENTRYCOMPONENTS = [EditUserComponent]
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [...COMPONENTS, ...ENTRYCOMPONENTS],
   imports: [
     CommonModule,
     SharedModule,
     LayoutModule,
     IdentityRoutingModule,
-    
-
-  ]
+  ], entryComponents: [...ENTRYCOMPONENTS]
 })
 export class IdentityModule { }

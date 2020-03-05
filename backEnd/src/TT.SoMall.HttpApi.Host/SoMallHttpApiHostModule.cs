@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.MultiTenancy;
@@ -14,6 +15,7 @@ using StackExchange.Redis;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.Conventions;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
@@ -49,6 +51,9 @@ namespace TT.SoMall
             ConfigureRedis(context, configuration, hostingEnvironment);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
+            
+            context.Services.Replace(ServiceDescriptor.Transient<IAbpServiceConvention, TtServiceConvention>());
+
         }
 
         private void ConfigureCache(IConfiguration configuration)
@@ -57,6 +62,8 @@ namespace TT.SoMall
             {
                 options.KeyPrefix = "SoMall:";
             });
+            
+            
         }
 
         private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
