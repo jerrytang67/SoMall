@@ -25,15 +25,6 @@ namespace TT.SoMall
 
             var url = $"api/{rootPath}/{controllerNameInUrl.ToCamelCase()}";
 
-            Log.Warning(controllerName);
-            Log.Warning(action.ActionName);
-
-            if (controllerName == "Tenant")
-            {
-                Log.Warning(controllerName);
-            }
-            
-            
             //Add {id} path if needed
             // if (action.Parameters.Any(p => p.ParameterName == "id"))
             // {

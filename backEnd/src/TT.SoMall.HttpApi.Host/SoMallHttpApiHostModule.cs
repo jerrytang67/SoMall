@@ -52,7 +52,6 @@ namespace TT.SoMall
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
             
-            context.Services.Replace(ServiceDescriptor.Transient<IAbpServiceConvention, TtServiceConvention>());
 
         }
 

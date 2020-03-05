@@ -23,6 +23,7 @@ namespace TT.SoMall
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.Replace(ServiceDescriptor.Transient<IAbpServiceConvention, TtServiceConvention>());
         }
     }
 }
