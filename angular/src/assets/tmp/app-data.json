@@ -11,12 +11,11 @@
   "menu": [
     {
       "text": "主导航",
-      "i18n": "menu.main",
       "group": true,
       "hideInBreadcrumb": true,
       "children": [
         {
-          "text": "仪表盘",
+          "text": "Dashboard",
           "icon": "anticon-dashboard",
           "children": [
             {
@@ -39,20 +38,50 @@
         },
         {
           "text": "管理",
-          "i18n": "Admin",
           "icon": "anticon-global",
           "children": [
             {
-              "text": "用户",
-              "i18n": "Users",
-              "link": "/identity/users",
-              "acl": "Pages"
+              "text": "Saas",
+              "icon": "anticon-pound",
+              "children": [
+                {
+                  "text": "用户",
+                  "link": "/identity/users",
+                  "shortcutRoot": true
+                },
+                {
+                  "text": "角色",
+                  "link": "/identity/roles"
+                }
+              ]
             },
             {
-              "text": "角色",
-              "i18n": "Roles",
-              "link": "/identity/roles",
-              "acl": "Pages"
+              "text": "管理",
+              "icon": "anticon-global",
+              "children": [
+                {
+                  "text": "用户",
+                  "link": "/identity/2"
+                },
+                {
+                  "text": "角色",
+                  "link": "/identity/2"
+                }
+              ]
+            },
+            {
+              "text": "Identity Server",
+              "icon": "anticon-global",
+              "children": [
+                {
+                  "text": "用户",
+                  "link": "/identity/1"
+                },
+                {
+                  "text": "角色",
+                  "link": "/identity/1"
+                }
+              ]
             }
           ]
         },

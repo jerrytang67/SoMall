@@ -15,19 +15,16 @@ export class AuthGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        return new Promise((resolve, reject) => {
-            this.authService.getUser().then(user => {
-                console.log(user)
 
-                let url = state.url.substr(1, state.url.length);
-                if (user) {
+        return new Promise((resolve, reject) => {
+            this.authService.userLoaded$.subscribe(res => {
+                if (res)
                     resolve(true);
-                }
                 else {
                     resolve(false);
                     this.authService.startAuthentication();
                 }
-            })
-        })
+            });
+        });
     }
 }
