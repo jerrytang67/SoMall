@@ -50,7 +50,7 @@ export class DashboardV1Component implements OnInit {
   salesData: any[];
   offlineChartData: any[];
 
-  constructor(private http: _HttpClient, private cdr: ChangeDetectorRef) {}
+  constructor(private http: _HttpClient, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
