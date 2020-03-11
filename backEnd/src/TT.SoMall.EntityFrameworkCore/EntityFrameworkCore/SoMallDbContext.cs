@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TT.Abp.ShopManagement.Domain;
+using TT.Abp.ShopManagement.EntityFrameworkCore;
 using TT.SoMall.Products;
 using TT.SoMall.Users;
 using Volo.Abp.Data;
@@ -21,6 +23,7 @@ namespace TT.SoMall.EntityFrameworkCore
     public class SoMallDbContext : AbpDbContext<SoMallDbContext>
     {
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<Shop> Shops { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside SoMallDbContextModelCreatingExtensions.ConfigureSoMall
@@ -56,6 +59,8 @@ namespace TT.SoMall.EntityFrameworkCore
             /* Configure your own tables/entities inside the ConfigureSoMall method */
 
             builder.ConfigureSoMall();
+
+            builder.ConfigureShop();
         }
     }
 }
