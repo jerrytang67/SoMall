@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TT.Abp.ShopManagement.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -19,7 +20,7 @@ namespace TT.SoMall.EntityFrameworkCore
      */
     public class SoMallMigrationsDbContext : AbpDbContext<SoMallMigrationsDbContext>
     {
-        public SoMallMigrationsDbContext(DbContextOptions<SoMallMigrationsDbContext> options) 
+        public SoMallMigrationsDbContext(DbContextOptions<SoMallMigrationsDbContext> options)
             : base(options)
         {
 
@@ -50,6 +51,7 @@ namespace TT.SoMall.EntityFrameworkCore
             /* Configure your own tables/entities inside the ConfigureSoMall method */
 
             builder.ConfigureSoMall();
+            builder.ConfigureShop();
         }
     }
 }

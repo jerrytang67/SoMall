@@ -16,8 +16,4 @@ export class IdentityService {
     getUsers(params = {}): Observable<IdentityUserDtoPagedResultDto> {
         return this.userApi.users3(params);
     }
-
-
-
-    
 } 

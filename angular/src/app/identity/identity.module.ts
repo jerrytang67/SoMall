@@ -10,10 +10,11 @@ import { RolesComponent } from './roles/roles.component';
 
 //entry
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { ShopListComponent } from './shop/shop-list.component';
 
 
 
-const COMPONENTS = [UsersComponent, RolesComponent]
+const COMPONENTS = [UsersComponent, RolesComponent, ShopListComponent]
 const ENTRYCOMPONENTS = [EditUserComponent]
 @NgModule({
   declarations: [...COMPONENTS, ...ENTRYCOMPONENTS],

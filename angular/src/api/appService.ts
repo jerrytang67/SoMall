@@ -1,9 +1,12 @@
+/** Generate by swagger-axios-codegen */
+// tslint:disable
+/* eslint-disable */
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-export class IList<T> extends Array<T> { }
-export class List<T> extends Array<T> { }
+export class IList<T> extends Array<T> {}
+export class List<T> extends Array<T> {}
 
 export interface IListResult<T> {
   items?: T[];
@@ -26,7 +29,7 @@ export class PagedResultDto<T> implements IPagedResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApiDefinitionProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -42,7 +45,7 @@ export class AbpApiDefinitionProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -58,7 +61,7 @@ export class AbpApplicationConfigurationProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -74,7 +77,7 @@ export class AbpApplicationConfigurationScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpLanguagesProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -101,7 +104,7 @@ export class AbpLanguagesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpServiceProxyScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -132,7 +135,7 @@ export class AbpServiceProxyScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpTenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -172,7 +175,7 @@ export class AbpTenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AccountProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -194,7 +197,7 @@ export class AccountProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class FeaturesProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -239,7 +242,7 @@ export class FeaturesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -284,7 +287,7 @@ export class PermissionsProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -309,11 +312,11 @@ export class ProductCategoryProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<ProductCategoryDtoPagedResultDto> {
     let url = '/api/app/productCategory/getList';
@@ -378,7 +381,7 @@ export class ProductCategoryProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSkuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -403,11 +406,11 @@ export class ProductSkuProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<ProductSkuDtoPagedResultDto> {
     let url = '/api/app/productSku/getList';
@@ -472,7 +475,7 @@ export class ProductSkuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSpuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -497,11 +500,11 @@ export class ProductSpuProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<ProductSpuDtoPagedResultDto> {
     let url = '/api/app/productSpu/getList';
@@ -566,7 +569,7 @@ export class ProductSpuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProfileProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -614,7 +617,7 @@ export class ProfileProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class RoleProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -622,11 +625,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -707,13 +710,180 @@ export class RoleProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class ShopProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getList(): Observable<ShopDtoListResultDto> {
+    let url = '/api/app/shop/getList';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ShopDtoListResultDto>;
+  }
+  /**
+   *
+   */
+  getByShortName(
+    params: {
+      /**  */
+      shortName?: string;
+    } = {} as any
+  ): Observable<ShopDto> {
+    let url = '/api/app/shop/getByShortName';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<ShopDto> {
+    let url = '/api/app/shop/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: CreateShopDto;
+    } = {} as any
+  ): Observable<ShopDto> {
+    let url = '/api/app/shop/create';
+    let options: any = {
+      body: params,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<ShopDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: UpdateShopDto;
+    } = {} as any
+  ): Observable<ShopDto> {
+    let url = '/api/app/shop/update';
+    let options: any = {
+      body: params,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ShopDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/shop/delete';
+    let options: any = {
+      body: params,
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class TenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
    */
   tenants(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<TenantDto> {
+    let url = '/api/multi-tenancy/tenants';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<TenantDto>;
+  }
+  /**
+   *
+   */
+  tenants1(
+    params: {
+      /** requestBody */
+      body?: TenantCreateDto;
+    } = {} as any
+  ): Observable<TenantDto> {
+    let url = '/api/multi-tenancy/tenants';
+    let options: any = {
+      body: params,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<TenantDto>;
+  }
+  /**
+   *
+   */
+  tenants2(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: TenantUpdateDto;
+    } = {} as any
+  ): Observable<TenantDto> {
+    let url = '/api/multi-tenancy/tenants';
+    let options: any = {
+      body: params,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<TenantDto>;
+  }
+  /**
+   *
+   */
+  tenants3(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/multi-tenancy/tenants';
+    let options: any = {
+      body: params,
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  tenants4(
     params: {
       /**  */
       id: string;
@@ -730,7 +900,7 @@ export class TenantProxyService {
   /**
    *
    */
-  tenants1(
+  tenants5(
     params: {
       /**  */
       id: string;
@@ -748,7 +918,7 @@ export class TenantProxyService {
   /**
    *
    */
-  tenants2(
+  tenants6(
     params: {
       /**  */
       id: string;
@@ -760,45 +930,6 @@ export class TenantProxyService {
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  tenants3(
-    params: {
-      /**  */
-      filter?: string;
-      /**  */
-      sorting?: string;
-      /**  */
-      skipCount?: number;
-      /**  */
-      maxResultCount?: number;
-    } = {} as any
-  ): Observable<TenantDtoPagedResultDto> {
-    let url = '/api/multi-tenancy/tenants';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<TenantDtoPagedResultDto>;
-  }
-  /**
-   *
-   */
-  tenants4(
-    params: {
-      /** requestBody */
-      body?: TenantCreateDto;
-    } = {} as any
-  ): Observable<TenantDto> {
-    let url = '/api/multi-tenancy/tenants';
-    let options: any = {
-      body: params,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<TenantDto>;
   }
   /**
    *
@@ -855,7 +986,7 @@ export class TenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1020,7 +1151,7 @@ export class UserProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserLookupProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1733,6 +1864,77 @@ export interface IdentityRoleUpdateDto {
   isPublic?: boolean;
 }
 
+export interface ShopDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+
+  /**  */
+  isDeleted?: boolean;
+
+  /**  */
+  deleterId?: string;
+
+  /**  */
+  deletionTime?: Date;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ShopDtoListResultDto {
+  /**  */
+  items?: ShopDto[];
+}
+
+export interface CreateShopDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+}
+
+export interface UpdateShopDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+}
+
 export interface TenantDto {
   /**  */
   name?: string;
@@ -1741,20 +1943,12 @@ export interface TenantDto {
   id?: string;
 }
 
-export interface TenantUpdateDto {
+export interface TenantCreateDto {
   /**  */
   name?: string;
 }
 
-export interface TenantDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: TenantDto[];
-}
-
-export interface TenantCreateDto {
+export interface TenantUpdateDto {
   /**  */
   name?: string;
 }

@@ -3,6 +3,7 @@ import { RouterModule, Router, NavigationEnd, Routes } from '@angular/router';
 import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { UsersComponent, RolesComponent } from '.';
 import { AuthGuard } from '@core/auth-guard.service';
+import { ShopListComponent } from './shop/shop-list.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
         children: [
             { path: 'users', component: UsersComponent, data: { title: '用户列表', permission: 'Pages' } },
             { path: 'roles', component: RolesComponent, data: { title: '权限列表', permission: 'Pages' } },
+            { path: 'shop-list', component: ShopListComponent, data: { title: 'ShopList', permission: 'Pages' } },
         ],
     },
 ]

@@ -60,8 +60,8 @@
               "icon": "anticon-global",
               "children": [
                 {
-                  "text": "用户",
-                  "link": "/identity/2"
+                  "text": "Shop",
+                  "link": "/identity/shop-list"
                 },
                 {
                   "text": "角色",
