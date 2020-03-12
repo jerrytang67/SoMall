@@ -1,0 +1,53 @@
+<form nz-form
+      #f="ngForm"
+      (ngSubmit)="onSubmit(f)"
+      se-container="1"
+      labelWidth="100">
+    <se label="名称"
+        error="请填写">
+        <input type="text"
+               nz-input
+               [(ngModel)]="form.name"
+               name="name"
+               required>
+    </se>
+    <se label="简称"
+        error="请填写，最多16位">
+        <input type="text"
+               nz-input
+               [(ngModel)]="form.shortName"
+               name="shortName"
+               required
+               maxlength="16">
+    </se>
+    <se label="封面图片">
+        <nz-upload class="avatar-uploader"
+                   nzAction="https://jsonplaceholder.typicode.com/posts/"
+                   nzName="avatar"
+                   nzListType="picture-card"
+                   [nzShowUploadList]="false"
+                   [nzBeforeUpload]="beforeUpload"
+                   (nzChange)="handleChange($event)">
+            <ng-container *ngIf="!form.coverImage">
+                <i class="upload-icon"
+                   nz-icon
+                   [nzType]="loading ? 'loading' : 'plus'"></i>
+                <div class="ant-upload-text">Upload</div>
+            </ng-container>
+            <img *ngIf="form.coverImage"
+                 [src]="form.coverImage"
+                 class="avatar" />
+        </nz-upload>
+    </se>
+    <se label="介绍">
+        <textarea rows="4"
+                  nz-input
+                  [(ngModel)]="form.description"
+                  name="description"></textarea>
+
+    </se>
+    <se>
+        <button nz-button
+                nzType="primary">Save</button>
+    </se>
+</form>

@@ -5,8 +5,7 @@ import { EditUserComponent } from '../components/edit-user/edit-user.component';
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.less']
+  templateUrl: './users.component.html'
 })
 export class UsersComponent implements OnInit {
 

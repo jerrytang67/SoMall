@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TT.Abp.ShopManagement.Application.Dtos;
 using TT.Abp.ShopManagement.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;

@@ -1,4 +1,6 @@
-﻿namespace TT.Abp.ShopManagement.Application
+﻿using System;
+
+namespace TT.Abp.ShopManagement.Application.Dtos
 {
     public class UpdateShopDto
     {

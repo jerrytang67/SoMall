@@ -3,8 +3,7 @@ import { NzModalRef } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.less']
+  templateUrl: './edit-user.component.html'
 })
 export class EditUserComponent implements OnInit {
 

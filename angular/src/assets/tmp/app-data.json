@@ -42,7 +42,7 @@
           "children": [
             {
               "text": "Saas",
-              "icon": "anticon-pound",
+              "icon": "anticon-dashboard",
               "children": [
                 {
                   "text": "用户",
@@ -82,6 +82,16 @@
                   "link": "/identity/1"
                 }
               ]
+            }
+          ]
+        },
+        {
+          "text": "商家管理",
+          "icon": "anticon-dashboard",
+          "children": [
+            {
+              "text": "商家列表",
+              "link": "/shop-management"
             }
           ]
         },

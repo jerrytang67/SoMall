@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.ShopManagement.Application.Dtos;
 using TT.Abp.ShopManagement.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -50,38 +52,43 @@ namespace TT.Abp.ShopManagement.Application
 
         public async Task<ShopDto> CreateAsync(CreateShopDto input)
         {
-
             var newEntity = await _repository.InsertAsync(new Shop(GuidGenerator.Create(), input.Name, input.ShortName, input.CoverImage)
             {
                 Description = input.Description
             });
 
             return ObjectMapper.Map<Shop, ShopDto>(newEntity);
-
         }
 
-        public async Task<ShopDto> UpdateAsync(Guid id, UpdateShopDto input)
+        public async Task<ShopDto> UpdateAsync(Guid id, UpdateShopDto body)
         {
             var find = await _repository.GetAsync(id);
 
             if (find == null)
             {
-                throw new EntityNotFoundException(typeof(Shop), input.ShortName);
+                throw new EntityNotFoundException(typeof(Shop), body.ShortName);
             }
 
             //ObjectMapper.Map(input, find);
 
-            find.SetName(input.Name);
-            find.SetShortName(input.ShortName);
-            find.SetCoverImage(input.CoverImage);
-            find.SetDescription(input.Description);
+            find.SetName(body.Name);
+            find.SetShortName(body.ShortName);
+            find.SetCoverImage(body.CoverImage);
+            find.SetDescription(body.Description);
 
             return ObjectMapper.Map<Shop, ShopDto>(find);
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            await _repository.DeleteAsync(id);
+            var find = await _repository.GetAsync(id);
+
+            if (find == null)
+            {
+                throw new EntityNotFoundException(typeof(Shop));
+            }
+
+            await _repository.DeleteAsync(find);
         }
     }
 }
