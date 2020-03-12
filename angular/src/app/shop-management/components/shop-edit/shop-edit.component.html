@@ -22,11 +22,10 @@
     </se>
     <se label="封面图片">
         <nz-upload class="avatar-uploader"
-                   nzAction="https://jsonplaceholder.typicode.com/posts/"
-                   nzName="avatar"
+                   [nzAction]="action"
+                   [nzCustomRequest]="customReq"
                    nzListType="picture-card"
                    [nzShowUploadList]="false"
-                   [nzBeforeUpload]="beforeUpload"
                    (nzChange)="handleChange($event)">
             <ng-container *ngIf="!form.coverImage">
                 <i class="upload-icon"

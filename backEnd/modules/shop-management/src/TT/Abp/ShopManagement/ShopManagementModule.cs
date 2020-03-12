@@ -6,7 +6,8 @@ using Volo.Abp.Modularity;
 
 namespace TT.Abp.ShopManagement
 {
-    [DependsOn(typeof(AbpHttpClientModule),
+    [DependsOn(
+        typeof(AbpHttpClientModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule)
     )]
@@ -16,28 +17,18 @@ namespace TT.Abp.ShopManagement
         {
             context.Services.AddAutoMapperObjectMapper<ShopManagementModule>();
 
-            Configure<AbpAutoMapperOptions>(options =>
-            {
-                options.AddProfile<ShopApplicationAutoMapperProfile>(validate: true);
-            });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<ShopApplicationAutoMapperProfile>(validate: true); });
 
-            Configure<AbpAspNetCoreMvcOptions>(options =>
-            {
-                options.ConventionalControllers.Create(typeof(ShopManagementModule).Assembly);
-            });
+            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(ShopManagementModule).Assembly); });
 
             //创建动态客户端代理
             // context.Services.AddHttpClientProxies(typeof(ShopManagementModule).Assembly);
         }
 
 
-        // public override void PreConfigureServices(ServiceConfigurationContext context)
-        // {
-        //     PreConfigure<IMvcBuilder>(mvcBuilder =>
-        //     {
-        //         mvcBuilder.AddApplicationPartIfNotExists(typeof(ShopManagementModule).Assembly);
-        //     });
-        // }
-
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            PreConfigure<IMvcBuilder>(mvcBuilder => { mvcBuilder.AddApplicationPartIfNotExists(typeof(ShopManagementModule).Assembly); });
+        }
     }
 }

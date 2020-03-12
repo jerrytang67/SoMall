@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ShopProxyService, ShopDto } from 'src/api/appService';
 import { ShopEditComponent } from '../shop-edit/shop-edit.component';
-import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -30,9 +29,11 @@ export class ShopListComponent implements OnInit {
   }
 
   refresh() {
+    this.pageingInfo.isTableLoading = true;
     this.api.getList().subscribe(res => {
       console.log(res);
       this.dataItems = res.items;
+      this.pageingInfo.isTableLoading = false;
     })
   }
 

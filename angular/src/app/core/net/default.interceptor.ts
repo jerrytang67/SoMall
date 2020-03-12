@@ -129,7 +129,8 @@ export class DefaultInterceptor implements HttpInterceptor {
         url = environment.apis.default.url + url;
     }
 
-    const clonedRequest = req.clone({ headers, url });
+
+    const clonedRequest: HttpRequest<any> = req.clone({ headers, url });
 
     // 统一加上服务端前缀
     // let url = req.url;

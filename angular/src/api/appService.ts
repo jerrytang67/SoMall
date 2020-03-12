@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-export class IList<T> extends Array<T> { }
-export class List<T> extends Array<T> { }
+export class IList<T> extends Array<T> {}
+export class List<T> extends Array<T> {}
 
 export interface IListResult<T> {
   items?: T[];
@@ -29,7 +29,7 @@ export class PagedResultDto<T> implements IPagedResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApiDefinitionProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -45,7 +45,7 @@ export class AbpApiDefinitionProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -61,7 +61,7 @@ export class AbpApplicationConfigurationProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -77,7 +77,7 @@ export class AbpApplicationConfigurationScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpLanguagesProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -104,7 +104,7 @@ export class AbpLanguagesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpServiceProxyScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -135,7 +135,7 @@ export class AbpServiceProxyScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpTenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -175,7 +175,7 @@ export class AbpTenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AccountProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -197,7 +197,7 @@ export class AccountProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class FeaturesProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -233,6 +233,7 @@ export class FeaturesProxyService {
   ): Observable<any> {
     let url = '/api/abp/features/update';
     let options: any = {
+      params: params,
       body: params.body,
       method: 'put'
     };
@@ -241,8 +242,31 @@ export class FeaturesProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class OssProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getSignature(
+    params: {
+      /**  */
+      data?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/oss/getSignature';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class PermissionsProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -278,6 +302,7 @@ export class PermissionsProxyService {
   ): Observable<any> {
     let url = '/api/abp/permissions/update';
     let options: any = {
+      params: params,
       body: params.body,
       method: 'put'
     };
@@ -287,7 +312,7 @@ export class PermissionsProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -356,6 +381,7 @@ export class ProductCategoryProxyService {
   ): Observable<ProductCategoryDto> {
     let url = '/api/app/productCategory/update';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -372,7 +398,7 @@ export class ProductCategoryProxyService {
   ): Observable<any> {
     let url = '/api/app/productCategory/delete';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -381,7 +407,7 @@ export class ProductCategoryProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSkuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -450,6 +476,7 @@ export class ProductSkuProxyService {
   ): Observable<ProductSkuDto> {
     let url = '/api/app/productSku/update';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -466,7 +493,7 @@ export class ProductSkuProxyService {
   ): Observable<any> {
     let url = '/api/app/productSku/delete';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -475,7 +502,7 @@ export class ProductSkuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSpuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -544,6 +571,7 @@ export class ProductSpuProxyService {
   ): Observable<ProductSpuDto> {
     let url = '/api/app/productSpu/update';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -560,7 +588,7 @@ export class ProductSpuProxyService {
   ): Observable<any> {
     let url = '/api/app/productSpu/delete';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -569,7 +597,7 @@ export class ProductSpuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProfileProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -617,7 +645,7 @@ export class ProfileProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class RoleProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -686,6 +714,7 @@ export class RoleProxyService {
   ): Observable<IdentityRoleDto> {
     let url = '/api/identity/roles/';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -702,7 +731,7 @@ export class RoleProxyService {
   ): Observable<any> {
     let url = '/api/identity/roles/';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -711,7 +740,7 @@ export class RoleProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ShopProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -778,7 +807,8 @@ export class ShopProxyService {
    */
   update(
     params: {
-      id?: string,
+      /**  */
+      id?: string;
       /** requestBody */
       body?: UpdateShopDto;
     } = {} as any
@@ -811,7 +841,7 @@ export class ShopProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class TenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -859,6 +889,7 @@ export class TenantProxyService {
   ): Observable<TenantDto> {
     let url = '/api/multi-tenancy/tenants';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -875,7 +906,7 @@ export class TenantProxyService {
   ): Observable<any> {
     let url = '/api/multi-tenancy/tenants';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -910,6 +941,7 @@ export class TenantProxyService {
   ): Observable<TenantDto> {
     let url = '/api/multi-tenancy/tenants/';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -926,7 +958,7 @@ export class TenantProxyService {
   ): Observable<any> {
     let url = '/api/multi-tenancy/tenants/';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -961,7 +993,7 @@ export class TenantProxyService {
   ): Observable<any> {
     let url = '/api/multi-tenancy/tenants//default-connection-string';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'put'
     };
     return (this.http.request('put', url, options) as any) as Observable<any>;
@@ -977,7 +1009,7 @@ export class TenantProxyService {
   ): Observable<any> {
     let url = '/api/multi-tenancy/tenants//default-connection-string';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -986,7 +1018,7 @@ export class TenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1018,6 +1050,7 @@ export class UserProxyService {
   ): Observable<IdentityUserDto> {
     let url = '/api/identity/users/';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -1034,7 +1067,7 @@ export class UserProxyService {
   ): Observable<any> {
     let url = '/api/identity/users/';
     let options: any = {
-      body: params,
+      params: { id: params.id },
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
@@ -1108,6 +1141,7 @@ export class UserProxyService {
   ): Observable<any> {
     let url = '/api/identity/users//roles';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -1151,7 +1185,7 @@ export class UserProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserLookupProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1922,9 +1956,6 @@ export interface CreateShopDto {
 }
 
 export interface UpdateShopDto {
-  /**  */
-  id?: string;
-
   /**  */
   name?: string;
 
