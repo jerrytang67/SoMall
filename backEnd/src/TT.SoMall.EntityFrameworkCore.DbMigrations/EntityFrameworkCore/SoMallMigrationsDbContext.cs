@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TT.Abp.ShopManagement.EntityFrameworkCore;
+using TT.Abp.VisitorManagement.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -23,7 +24,6 @@ namespace TT.SoMall.EntityFrameworkCore
         public SoMallMigrationsDbContext(DbContextOptions<SoMallMigrationsDbContext> options)
             : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -43,15 +43,14 @@ namespace TT.SoMall.EntityFrameworkCore
 
             /* Configure customizations for entities from the modules included  */
 
-            builder.Entity<IdentityUser>(b =>
-            {
-                b.ConfigureCustomUserProperties();
-            });
+            builder.Entity<IdentityUser>(b => { b.ConfigureCustomUserProperties(); });
 
             /* Configure your own tables/entities inside the ConfigureSoMall method */
 
             builder.ConfigureSoMall();
             builder.ConfigureShop();
+
+            builder.ConfigureVisitorManagement();
         }
     }
 }

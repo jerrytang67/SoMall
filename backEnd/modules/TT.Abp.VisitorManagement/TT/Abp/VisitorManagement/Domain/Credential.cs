@@ -20,7 +20,7 @@ namespace TT.Abp.VisitorManagement.Domain
         }
 
         public bool IsDeleted { get; set; }
-        public Guid? TenantId { get; }
+        public Guid? TenantId { get; protected set; }
 
         internal void Use()
         {

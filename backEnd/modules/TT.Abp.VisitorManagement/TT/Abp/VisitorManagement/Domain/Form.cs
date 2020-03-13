@@ -27,7 +27,7 @@ namespace TT.Abp.VisitorManagement.Domain
 
 
         public bool IsDeleted { get; set; }
-        public Guid? TenantId { get; }
+        public Guid? TenantId { get; protected set; }
         public Guid? ShopId { get; set; }
 
         internal void SetTitle([NotNull] string title)
