@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
@@ -12,8 +13,6 @@ namespace TT.Abp.VisitorManagement.Application
     public interface IVisitorLogAppService : IApplicationService
     {
         Task<ListResultDto<VisitorLogDto>> GetListAsync();
-
-        Task<VisitorLogDto> GetByShortNameAsync(string shortName);
 
         Task<VisitorLogDto> GetAsync(Guid id);
 
@@ -34,14 +33,12 @@ namespace TT.Abp.VisitorManagement.Application
             _currentTenant = currentTenant;
         }
 
-        public Task<ListResultDto<VisitorLogDto>> GetListAsync()
+        public async Task<ListResultDto<VisitorLogDto>> GetListAsync()
         {
-            throw new NotImplementedException();
-        }
+            var result = await _repository.GetListAsync();
 
-        public Task<VisitorLogDto> GetByShortNameAsync(string shortName)
-        {
-            throw new NotImplementedException();
+            return new ListResultDto<VisitorLogDto>(
+                ObjectMapper.Map<List<VisitorLog>, List<VisitorLogDto>>(result));
         }
 
         public Task<VisitorLogDto> GetAsync(Guid id)

@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\modules\shop-management\src\TT.Abp.ShopManagement.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.OssManagement\TT.Abp.OssManagement.csproj" />
+    <ProjectReference Include="..\..\modules\TT.Abp.VisitorManagement\TT.Abp.VisitorManagement.csproj" />
     <ProjectReference Include="..\TT.SoMall.Application.Contracts\TT.SoMall.Application.Contracts.csproj" />
   </ItemGroup>
 

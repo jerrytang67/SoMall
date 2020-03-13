@@ -10,8 +10,8 @@ using TT.SoMall.EntityFrameworkCore;
 namespace TT.SoMall.Migrations
 {
     [DbContext(typeof(SoMallMigrationsDbContext))]
-    [Migration("20200313204429_visitor")]
-    partial class visitor
+    [Migration("20200313205544_visitor2")]
+    partial class visitor2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -212,15 +212,42 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DefaultValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("ErrorText")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
 
                     b.Property<Guid?>("FormId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsDisable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsMulti")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("IsRequired")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("Key")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
 
                     b.Property<string>("PlaceHolder")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("SelectionJson")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Sort")
