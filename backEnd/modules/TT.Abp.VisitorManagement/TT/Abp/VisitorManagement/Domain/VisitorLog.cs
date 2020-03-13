@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using TT.Abp.ShopManagement;
 using Volo.Abp;
@@ -19,9 +18,9 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public Guid? CredentialId { get; set; }
 
-        [ForeignKey("FormId")] public virtual Form Form { get; set; }
+        public virtual Form Form { get; set; }
 
-        [ForeignKey("CredentialId")] public virtual Credential Credential { get; set; }
+        public virtual Credential Credential { get; set; }
 
         public VisitorLog(Guid id, Guid? tenantId, Guid? shopId)
         {
@@ -31,36 +30,7 @@ namespace TT.Abp.VisitorManagement.Domain
         }
 
         public bool IsDeleted { get; set; }
-        public Guid? TenantId { get; }
-
+        public Guid? TenantId { get; protected set; }
         public Guid? ShopId { get; set; }
-    }
-
-    public class FormItem : CreationAuditedEntity
-    {
-        public Guid FromId { get; }
-
-        public Guid ItemId { get; }
-
-        public FormItem(Guid fromId, Guid itemId)
-        {
-            ItemId = itemId;
-            FromId = fromId;
-        }
-
-        public VisitorEnums.FormItemType Type { get; set; }
-
-        public int Sort { get; set; }
-
-        [NotNull] public string Key { get; set; }
-
-        [NotNull] public string PlaceHolder { get; set; }
-
-        public string DefaultValue { get; set; }
-
-        public override object[] GetKeys()
-        {
-            return new object[] {FromId, ItemId};
-        }
     }
 }

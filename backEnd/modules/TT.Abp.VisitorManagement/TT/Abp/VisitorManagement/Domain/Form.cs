@@ -24,8 +24,7 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public virtual Collection<FormItem> FormItems { get; protected set; }
         public virtual Collection<VisitorLog> VisitorLogs { get; protected set; }
-
-
+        
         public bool IsDeleted { get; set; }
         public Guid? TenantId { get; protected set; }
         public Guid? ShopId { get; set; }

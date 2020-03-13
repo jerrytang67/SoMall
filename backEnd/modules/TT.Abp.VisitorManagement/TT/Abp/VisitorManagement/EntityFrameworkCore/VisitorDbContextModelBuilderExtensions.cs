@@ -47,6 +47,13 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
 
                 b.Property(x => x.FromId).HasColumnName(nameof(FormItem.FromId));
                 b.Property(x => x.ItemId).HasColumnName(nameof(FormItem.ItemId));
+                b.Property(x => x.Key).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
+                b.Property(x => x.PlaceHolder).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
+                b.Property(x => x.DefaultValue).HasMaxLength(VisitorConsts.MaxTitleLength);
+                b.Property(x => x.ErrorText).HasMaxLength(VisitorConsts.MaxTitleLength);
+                b.Property(x => x.IsRequired).HasDefaultValue(true);
+                b.Property(x => x.IsDisable).HasDefaultValue(false);
+                b.Property(x => x.IsMulti).HasDefaultValue(false);
 
                 b.HasKey(x => new {x.FromId, x.ItemId});
             });
