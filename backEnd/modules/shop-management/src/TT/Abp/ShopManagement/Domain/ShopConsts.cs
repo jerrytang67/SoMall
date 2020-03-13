@@ -12,7 +12,7 @@ namespace TT.Abp.ShopManagement.Domain
 
         public const int MaxShortNameLength = 16;
 
-        public const int MaxCoverImageLength = 256;
+        public const int MaxImageLength = 255;
 
         public static string DbTablePrefix = "SoMall_";
 

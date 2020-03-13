@@ -14,6 +14,10 @@ import { HttpRequest, HttpEvent, HttpEventType, HttpResponse, HttpClient } from 
         width: 128px;
         height: 128px;
       }
+      .avatar250 {
+        width: 250px;
+        height: 128px;
+      }
       .upload-icon {
         font-size: 32px;
         color: #999;
@@ -108,6 +112,15 @@ export class ShopEditComponent implements OnInit {
     if (e.type === "success") {
       const url = e.file.response.url;
       this.form.coverImage = `http://img1.wujiangapp.com${url}!w500`
+    }
+
+  }
+
+  handleChange2(e) {
+    console.log(e);
+    if (e.type === "success") {
+      const url = e.file.response.url;
+      this.form.logoImage = `http://img1.wujiangapp.com${url}!w500`
     }
 
   }

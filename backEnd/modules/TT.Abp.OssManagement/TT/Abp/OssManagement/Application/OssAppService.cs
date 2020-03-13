@@ -23,7 +23,6 @@ namespace TT.Abp.OssManagement.Application
             var password = await _setting.GetOrNullAsync(OssManagementSettings.AccessKey);
             var hmac = new HMACSHA1(Encoding.UTF8.GetBytes(password.GetMd5()));
             var hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
-
             return await Task.FromResult(new {signature = Convert.ToBase64String(hashBytes)});
         }
     }

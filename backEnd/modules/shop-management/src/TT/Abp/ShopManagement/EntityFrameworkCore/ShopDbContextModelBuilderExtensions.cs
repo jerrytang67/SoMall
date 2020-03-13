@@ -19,8 +19,8 @@ namespace TT.Abp.ShopManagement.EntityFrameworkCore
 
                 b.Property(x => x.Name).IsRequired().HasMaxLength(ShopConsts.MaxNameLength);
                 b.Property(x => x.ShortName).IsRequired().HasMaxLength(ShopConsts.MaxShortNameLength);
-                b.Property(x => x.CoverImage).IsRequired().HasMaxLength(ShopConsts.MaxCoverImageLength);
-
+                b.Property(x => x.LogoImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
+                b.Property(x => x.CoverImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
             });
         }
     }

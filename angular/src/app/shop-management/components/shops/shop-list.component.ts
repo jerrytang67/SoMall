@@ -45,7 +45,8 @@ export class ShopListComponent implements OnInit {
         form: {
           name: "",
           shortName: "",
-          coverImage: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+          logoImage: "",
+          coverImage: "",
           description: ""
         }
       },

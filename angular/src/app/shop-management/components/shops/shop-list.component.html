@@ -26,6 +26,7 @@
             <tr>
                 <!-- <th>Id</th> -->
                 <th>图标</th>
+                <th>cover</th>
                 <th>名称</th>
                 <th>简称</th>
                 <th>介绍</th>
@@ -38,6 +39,13 @@
                 <td>
                     <nz-avatar nzShape="square"
                                [nzSize]="64"
+                               nzSize="large"
+                               nzIcon="user"
+                               [nzSrc]="item.logoImage"></nz-avatar>
+                </td>
+                <td>
+                    <nz-avatar nzShape="square"
+                               [nzSize]="128"
                                nzSize="large"
                                nzIcon="user"
                                [nzSrc]="item.coverImage"></nz-avatar>

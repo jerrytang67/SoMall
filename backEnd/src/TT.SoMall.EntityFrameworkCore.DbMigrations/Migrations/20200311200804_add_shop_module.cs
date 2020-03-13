@@ -56,7 +56,7 @@ namespace TT.SoMall.Migrations
                     DeletionTime = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: false),
                     ShortName = table.Column<string>(maxLength: 16, nullable: false),
-                    CoverImage = table.Column<string>(maxLength: 256, nullable: false),
+                    CoverImage = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

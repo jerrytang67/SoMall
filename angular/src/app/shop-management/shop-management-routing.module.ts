@@ -13,7 +13,7 @@ const routes: Routes = [
     component: LayoutDefaultComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'shop-list', component: ShopListComponent, data: { title: 'ShopList', permission: 'Pages' } }
+      { path: 'shop-list', component: ShopListComponent, data: { title: '商家列表', permission: 'Pages' } }
     ]
   }
 ];

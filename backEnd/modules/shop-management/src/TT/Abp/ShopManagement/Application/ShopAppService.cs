@@ -9,22 +9,26 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.ShopManagement.Application
 {
     public class ShopAppService : ApplicationService, IShopAppService
     {
         private readonly IRepository<Shop, Guid> _repository;
+        private readonly ICurrentTenant _currentTenant;
 
-        public ShopAppService(IRepository<Shop, Guid> shopRepository)
+        public ShopAppService(IRepository<Shop, Guid> shopRepository, ICurrentTenant currentTenant)
         {
             ObjectMapperContext = typeof(ShopManagementModule);
             _repository = shopRepository;
+            _currentTenant = currentTenant;
         }
 
 
         public async Task<ListResultDto<ShopDto>> GetListAsync()
         {
+            var tenantId = _currentTenant.Id;
             var shops = await _repository.GetListAsync();
 
             return new ListResultDto<ShopDto>(
@@ -52,9 +56,10 @@ namespace TT.Abp.ShopManagement.Application
 
         public async Task<ShopDto> CreateAsync(CreateShopDto input)
         {
-            var newEntity = await _repository.InsertAsync(new Shop(GuidGenerator.Create(), input.Name, input.ShortName, input.CoverImage)
+            var newEntity = await _repository.InsertAsync(new Shop(GuidGenerator.Create(), input.Name, input.ShortName, input.LogoImage, input.CoverImage)
             {
-                Description = input.Description
+                Description = input.Description,
+                TenantId = _currentTenant.Id
             });
 
             return ObjectMapper.Map<Shop, ShopDto>(newEntity);
@@ -69,10 +74,9 @@ namespace TT.Abp.ShopManagement.Application
                 throw new EntityNotFoundException(typeof(Shop), body.ShortName);
             }
 
-            //ObjectMapper.Map(input, find);
-
             find.SetName(body.Name);
             find.SetShortName(body.ShortName);
+            find.SetLogoImage(body.LogoImage);
             find.SetCoverImage(body.CoverImage);
             find.SetDescription(body.Description);
 
