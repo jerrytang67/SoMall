@@ -22,7 +22,7 @@ namespace TT.Abp.ShopManagement
             Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(ShopManagementModule).Assembly); });
 
             //创建动态客户端代理
-            // context.Services.AddHttpClientProxies(typeof(ShopManagementModule).Assembly);
+            context.Services.AddHttpClientProxies(typeof(ShopManagementModule).Assembly);
         }
 
 

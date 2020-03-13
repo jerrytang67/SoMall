@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\TT.Abp.VisitorManagement\TT.Abp.VisitorManagement.csproj" />
     <ProjectReference Include="..\TT.SoMall.EntityFrameworkCore\TT.SoMall.EntityFrameworkCore.csproj" />
   </ItemGroup>
 

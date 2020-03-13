@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="9.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
+      <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.2.1" />
+      <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="2.2.1" />
+      <PackageReference Include="Volo.Abp.AutoMapper" Version="2.2.1" />
+      <PackageReference Include="Volo.Abp.Core" Version="2.2.1" />
+      <PackageReference Include="Volo.Abp.Http.Client" Version="2.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\shop-management\src\TT.Abp.ShopManagement.csproj" />
+    </ItemGroup>
+
+</Project>

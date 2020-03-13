@@ -24,8 +24,7 @@ namespace TT.Abp.ShopManagement.Application
             _repository = shopRepository;
             _currentTenant = currentTenant;
         }
-
-
+        
         public async Task<ListResultDto<ShopDto>> GetListAsync()
         {
             var tenantId = _currentTenant.Id;
