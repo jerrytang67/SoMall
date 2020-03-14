@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Serilog;
 using TT.HttpClient.Weixin;
+using TT.HttpClient.Weixin.Helpers;
 using Volo.Abp;
 using Volo.Abp.Caching;
 using Volo.Abp.DependencyInjection;
@@ -37,6 +38,11 @@ namespace TT.Abp.WeixinManagement.Domain
             _weixinApi = weixinApi;
         }
 
+        public async Task<MiniSessionResult> Mini_Code2Session(string code, string appid, string appsecret)
+        {
+            return await _weixinApi.Mini_Code2Session(code, appid, appsecret);
+        }
+
         public async Task<string> GetAccessTokenAsync(string appid, string appSeret)
         {
             var cache = await _tokenCache.GetOrAddAsync(
@@ -66,6 +72,18 @@ namespace TT.Abp.WeixinManagement.Domain
             }
 
             throw new UserFriendlyException("token 获取失败");
+        }
+        
+        public async Task<MiniUserInfoResult> Mini_GetUserInfo(string encryptedDataStr, string sessionKey, string iv)
+        {
+            var json = Encryption.AES_decrypt(encryptedDataStr, sessionKey, iv);
+            
+            var userInfo = JsonConvert.DeserializeObject<MiniUserInfoResult>(json);
+#if DEBUG
+            Log.Logger.Debug(JsonConvert.SerializeObject(userInfo));
+#endif
+            
+            return await Task.FromResult(userInfo);
         }
 
         private async Task<AccessTokeCacheItem> GetAccessToken(string appid, string appSeret)

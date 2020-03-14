@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Newtonsoft.Json;
+using Serilog;
 
 namespace TT.HttpClient.Weixin
 {
@@ -59,6 +60,10 @@ namespace TT.HttpClient.Weixin
                     $"sns/jscode2session?appid={appid}&secret={appSeret}&grant_type=authorization_code&js_code={code}");
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
+
+#if DEBUG
+            Log.Logger.Debug(JsonConvert.SerializeObject(jsonResponse));
+#endif
 
             var result = JsonConvert.DeserializeObject<MiniSessionResult>(jsonResponse);
 
