@@ -34,8 +34,9 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.ToTable(VisitorConsts.DbTablePrefix + "Forms", VisitorConsts.DbSchema);
                 b.ConfigureFullAuditedAggregateRoot();
 
-                b.Property(x => x.Title).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength).HasColumnName(nameof(Form.Title));
-                b.Property(x => x.Description).HasMaxLength(VisitorConsts.MaxDescriptionLength).HasColumnName(nameof(Form.Description));
+                b.Property(x => x.Title).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
+                b.Property(x => x.Description).HasMaxLength(VisitorConsts.MaxDescriptionLength);
+                b.Property(x => x.Theme).HasDefaultValue(0);
 
                 b.HasMany<VisitorLog>().WithOne().HasForeignKey(qt => qt.FormId);
                 b.HasMany<FormItem>().WithOne().HasForeignKey(qt => qt.FromId);

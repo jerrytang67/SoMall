@@ -13,6 +13,8 @@ namespace TT.Abp.VisitorManagement.Domain
         [NotNull] public string Title { get; internal set; }
         [NotNull] public string Description { get; internal set; }
 
+        public VisitorEnums.FormTheme Theme { get; set; }
+
         public Form(string title, string description, Guid? tenantId = null)
         {
             Title = title;
@@ -24,7 +26,7 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public virtual Collection<FormItem> FormItems { get; protected set; }
         public virtual Collection<VisitorLog> VisitorLogs { get; protected set; }
-        
+
         public bool IsDeleted { get; set; }
         public Guid? TenantId { get; protected set; }
         public Guid? ShopId { get; set; }

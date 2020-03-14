@@ -15,5 +15,12 @@
             Input = 0,
             TextArea = 1
         }
+
+        public enum FormTheme
+        {
+            Default = 0,
+            Read = 1,
+            Black = 2
+        }
     }
 }
