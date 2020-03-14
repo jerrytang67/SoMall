@@ -1,7 +1,4 @@
-﻿using System;
-using Volo.Abp.MultiTenancy;
-
-namespace TT.Abp.ShopManagement.Application
+﻿namespace TT.Abp.WeixinManagement.Application.Dtos
 {
     public class CreateShopDto
     {

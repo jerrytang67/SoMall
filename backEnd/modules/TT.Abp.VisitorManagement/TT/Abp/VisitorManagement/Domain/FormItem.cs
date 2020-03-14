@@ -13,13 +13,13 @@ namespace TT.Abp.VisitorManagement.Domain
         }
 
         public Guid FromId { get; }
-
         public Guid ItemId { get; }
 
         public VisitorEnums.FormItemType Type { get; set; }
 
         public int Sort { get; set; }
 
+        [NotNull] public string Label { get; set; }
         [NotNull] public string Key { get; set; }
 
         [NotNull] public string PlaceHolder { get; set; }
