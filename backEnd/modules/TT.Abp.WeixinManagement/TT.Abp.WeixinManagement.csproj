@@ -6,8 +6,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
       <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
       <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.2.1" />
+      <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="2.2.1" />
       <PackageReference Include="Volo.Abp.AutoMapper" Version="2.2.1" />
       <PackageReference Include="Volo.Abp.Caching" Version="2.2.1" />
       <PackageReference Include="Volo.Abp.Core" Version="2.2.1" />
