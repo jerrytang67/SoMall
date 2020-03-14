@@ -1,6 +1,12 @@
 # SoMall
 
+**预计三月底可以上DEMO站**
+
 **一个社交( Socail)+商城(Mall) 的开源学习项目**
+
+**后端采用 abp二代 模块化开发**
+
+**管理后台Angular9 - Ant Design**
 
 #### 技术栈:
 
@@ -13,13 +19,17 @@ mssql
 
 #### 前端
 
-vue-element
-uni-app
+Angular9 - Ant Design
+ng-zorro-antd
+ng-alain
 
-#### 微服务
+#### 小程序 
+uni-app typescript
 
-Abp.vnext
+#### 后端+微服务技术栈
+
 RabbitMQ (Event Bus)
+Redis
 Ocelot (Api Gate)
 Consul (Service Discovery)
 Quartz (background Job Schedule)
