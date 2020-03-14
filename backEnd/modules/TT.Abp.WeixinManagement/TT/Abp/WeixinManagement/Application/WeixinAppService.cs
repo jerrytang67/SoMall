@@ -46,7 +46,7 @@ namespace TT.Abp.ShopManagement.Application
             var appId = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
             var appSec = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppSecret);
             
-            var token = await _weixinService.GetAccessTokenAsync(appid, appSec);
+            var token = await _weixinService.GetAccessTokenAsync(appId, appSec);
 
             return token;
         }

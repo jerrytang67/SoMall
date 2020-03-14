@@ -27,8 +27,8 @@ namespace TT.Abp.ShopManagement.Application
 
         public const string AppId = GroupName + ".AppId";
         public const string AppSecret = GroupName + ".AppSecret";
-        public const string MiniAppId = GroupName + ".Mini_AppId";
-        public const string MiniAppSecret = GroupName + ".Mini_AppSecret";
+        public const string MiniAppId = GroupName + ".MiniAppId";
+        public const string MiniAppSecret = GroupName + ".MiniAppSecret";
         public const string PayMchId = GroupName + ".PayMchId";
         public const string PayKey = GroupName + ".PayKey";
         public const string PayNotify = GroupName + ".PayNotify";

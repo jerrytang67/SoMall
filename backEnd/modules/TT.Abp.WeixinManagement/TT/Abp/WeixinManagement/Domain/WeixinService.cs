@@ -49,6 +49,19 @@ namespace TT.Abp.WeixinManagement.Domain
             );
             if (cache != null)
             {
+                if (cache.TimeExpired <= DateTimeOffset.Now)
+                {
+                    await _tokenCache.RemoveAsync(appid);
+                    cache = await _tokenCache.GetOrAddAsync(
+                        appid, //Cache key
+                        async () => await GetAccessToken(appid, appSeret),
+                        () => new DistributedCacheEntryOptions
+                        {
+                            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+                        }
+                    );
+                }
+
                 return cache.AccessToken;
             }
 
@@ -67,7 +80,7 @@ namespace TT.Abp.WeixinManagement.Domain
                     AppSecret = appSeret,
                     AccessToken = token.access_token,
                     TimeCreated = DateTimeOffset.Now,
-                    TimeExpired = DateTimeOffset.Now.AddTicks(token.expires_in)
+                    TimeExpired = DateTimeOffset.Now.AddSeconds(token.expires_in)
                 };
             }
 
