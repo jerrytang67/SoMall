@@ -6,10 +6,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
       <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.2.1" />
       <PackageReference Include="Volo.Abp.AutoMapper" Version="2.2.1" />
+      <PackageReference Include="Volo.Abp.Caching" Version="2.2.1" />
       <PackageReference Include="Volo.Abp.Core" Version="2.2.1" />
       <PackageReference Include="Volo.Abp.Http.Client" Version="2.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\http_modules\TT.HttpClient.Weixin\TT.HttpClient.Weixin.csproj" />
     </ItemGroup>
 
 </Project>

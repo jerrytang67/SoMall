@@ -2,3 +2,4 @@
 mpvue/package-lock.json
 .vscode/launch.json
 .vscode/tasks.json
+backEnd/src/TT.SoMall.HttpApi.Host/appsettings.Development.json
