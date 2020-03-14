@@ -12,7 +12,7 @@ namespace TT.Abp.WeixinManagement.EntityFrameworkCore
 
             builder.Entity<WechatUserinfo>(b =>
             {
-                b.ToTable(WeixinConsts.DbTablePrefix + "VisitorLogs", WeixinConsts.DbSchema);
+                b.ToTable(WeixinConsts.DbTablePrefix + "WechatUserinfos", WeixinConsts.DbSchema);
 
                 b.Property(x => x.appid).IsRequired().HasMaxLength(WeixinConsts.MaxOpenidLength);
                 b.Property(x => x.openid).IsRequired().HasMaxLength(WeixinConsts.MaxOpenidLength);

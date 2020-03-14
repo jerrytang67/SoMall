@@ -36,7 +36,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
 
                 b.Property(x => x.Title).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
                 b.Property(x => x.Description).HasMaxLength(VisitorConsts.MaxDescriptionLength);
-                b.Property(x => x.Theme).HasDefaultValue(0);
+                b.Property(x => x.Theme).HasDefaultValue(VisitorEnums.FormTheme.Default);
 
                 b.HasMany<VisitorLog>().WithOne().HasForeignKey(qt => qt.FormId);
                 b.HasMany<FormItem>().WithOne().HasForeignKey(qt => qt.FromId);

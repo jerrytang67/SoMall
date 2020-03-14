@@ -5,7 +5,7 @@ namespace TT.Abp.WeixinManagement.Domain
 {
     public class WechatUserinfo : CreationAuditedEntity
     {
-        public WechatUserinfo([NotNull] string appid, [NotNull] string openid, string unionid, string nickname, string headimgurl, WeixinConsts.ClientType fromClient = WeixinConsts.ClientType.Mini)
+        public WechatUserinfo([NotNull] string appid, [NotNull] string openid, string unionid, string nickname, string headimgurl, WeixinEnums.ClientType fromClient = WeixinEnums.ClientType.Mini)
         {
             this.appid = appid;
             this.openid = openid;
