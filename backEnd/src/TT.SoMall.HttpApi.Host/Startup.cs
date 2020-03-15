@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using DotNetCore.CAP;
+using Microsoft.IdentityModel.Logging;
 
 namespace TT.SoMall
 {
@@ -34,6 +35,8 @@ namespace TT.SoMall
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            IdentityModelEventSource.ShowPII = true;
+            
             app.InitializeApplication();
 
             app.UseCapDashboard();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
 using Volo.Abp.Application.Dtos;
@@ -33,6 +34,7 @@ namespace TT.Abp.VisitorManagement.Application
             _currentTenant = currentTenant;
         }
 
+        [Authorize]
         public async Task<ListResultDto<VisitorLogDto>> GetListAsync()
         {
             var result = await _repository.GetListAsync();

@@ -27,11 +27,13 @@
             <tr>
                 <th>Id</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <td>{{item.id}}</td>
+                <td>{{item.userName}}</td>
                 <td>
                     <a (click)="edit(item)">{{'Edit' | translate}}</a>
                     <nz-divider nzType="vertical"></nz-divider>

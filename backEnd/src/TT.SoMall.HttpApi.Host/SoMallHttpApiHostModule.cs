@@ -86,10 +86,7 @@ namespace TT.SoMall
 
         private void ConfigureConventionalControllers()
         {
-            Configure<AbpAspNetCoreMvcOptions>(options =>
-            {
-                options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly);
-            });
+            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly); });
         }
 
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
@@ -98,9 +95,10 @@ namespace TT.SoMall
                 .AddIdentityServerAuthentication(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.RequireHttpsMetadata = true;
+                    options.RequireHttpsMetadata = false;
                     options.ApiName = "SoMall";
-                });
+                })
+                ;
         }
 
         private static void ConfigureSwaggerServices(ServiceConfigurationContext context)
@@ -132,10 +130,7 @@ namespace TT.SoMall
             IConfiguration configuration,
             IWebHostEnvironment hostingEnvironment)
         {
-            context.Services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = configuration["Redis:Configuration"];
-            });
+            context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:Configuration"]; });
 
             if (!hostingEnvironment.IsDevelopment())
             {
@@ -193,62 +188,62 @@ namespace TT.SoMall
             app.UseMvcWithDefaultRouteAndArea();
         }
     }
-    
-    
-        internal static class ApiDescriptionConflictResolver
+
+
+    internal static class ApiDescriptionConflictResolver
+    {
+        public static ApiDescription Resolve(IEnumerable<ApiDescription> descriptions, string httpMethod)
         {
-            public static ApiDescription Resolve(IEnumerable<ApiDescription> descriptions, string httpMethod)
+            var parameters = descriptions
+                .SelectMany(desc => desc.ParameterDescriptions)
+                .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
+                    ApiParameterDescriptionEqualityComparer.Instance)
+                .ToList();
+            var description = descriptions.First();
+            description.ParameterDescriptions.Clear();
+            parameters.ForEach(x =>
             {
-                var parameters = descriptions
-                    .SelectMany(desc => desc.ParameterDescriptions)
-                    .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
-                        ApiParameterDescriptionEqualityComparer.Instance)
-                    .ToList();
-                var description = descriptions.First();
-                description.ParameterDescriptions.Clear();
-                parameters.ForEach(x =>
-                {
-                    if (x.Parameter.RouteInfo != null)
-                        x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-                    description.ParameterDescriptions.Add(x.Parameter);
-                });
-                return description;
+                if (x.Parameter.RouteInfo != null)
+                    x.Parameter.RouteInfo.IsOptional = x.IsOptional;
+                description.ParameterDescriptions.Add(x.Parameter);
+            });
+            return description;
+        }
+    }
+
+    internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>
+    {
+        private static readonly Lazy<ApiParameterDescriptionEqualityComparer> _instance
+            = new Lazy<ApiParameterDescriptionEqualityComparer>(() =>
+                new ApiParameterDescriptionEqualityComparer());
+
+        public static ApiParameterDescriptionEqualityComparer Instance
+            => _instance.Value;
+
+        private ApiParameterDescriptionEqualityComparer()
+        {
+        }
+
+        public int GetHashCode(ApiParameterDescription obj)
+        {
+            unchecked
+            {
+                var hash = 17;
+                hash = hash * 23 + obj.ModelMetadata.GetHashCode();
+                hash = hash * 23 + obj.Name.GetHashCode();
+                hash = hash * 23 + obj.Source.GetHashCode();
+                hash = hash * 23 + obj.Type.GetHashCode();
+                return hash;
             }
         }
 
-        internal sealed class ApiParameterDescriptionEqualityComparer : IEqualityComparer<ApiParameterDescription>
+        public bool Equals(ApiParameterDescription x, ApiParameterDescription y)
         {
-            private static readonly Lazy<ApiParameterDescriptionEqualityComparer> _instance
-                = new Lazy<ApiParameterDescriptionEqualityComparer>(() =>
-                    new ApiParameterDescriptionEqualityComparer());
-
-            public static ApiParameterDescriptionEqualityComparer Instance
-                => _instance.Value;
-
-            private ApiParameterDescriptionEqualityComparer()
-            {
-            }
-
-            public int GetHashCode(ApiParameterDescription obj)
-            {
-                unchecked
-                {
-                    var hash = 17;
-                    hash = hash * 23 + obj.ModelMetadata.GetHashCode();
-                    hash = hash * 23 + obj.Name.GetHashCode();
-                    hash = hash * 23 + obj.Source.GetHashCode();
-                    hash = hash * 23 + obj.Type.GetHashCode();
-                    return hash;
-                }
-            }
-
-            public bool Equals(ApiParameterDescription x, ApiParameterDescription y)
-            {
-                if (!x.ModelMetadata.Equals(y.ModelMetadata)) return false;
-                if (!x.Name.Equals(y.Name)) return false;
-                if (!x.Source.Equals(y.Source)) return false;
-                if (!x.Type.Equals(y.Type)) return false;
-                return true;
-            }
+            if (!x.ModelMetadata.Equals(y.ModelMetadata)) return false;
+            if (!x.Name.Equals(y.Name)) return false;
+            if (!x.Source.Equals(y.Source)) return false;
+            if (!x.Type.Equals(y.Type)) return false;
+            return true;
         }
+    }
 }
