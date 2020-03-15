@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AutoMapper;
+using DotNetCore.CAP;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Serilog;
@@ -8,35 +11,52 @@ using TT.HttpClient.Weixin.Helpers;
 using Volo.Abp;
 using Volo.Abp.Caching;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.Domain.Services;
+using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Uow;
 
 namespace TT.Abp.WeixinManagement.Domain
 {
-    public class AccessTokeCacheItem
-    {
-        public string AccessToken { get; set; }
-
-        public string Appid { get; set; }
-
-        public string AppSecret { get; set; }
-
-        public DateTimeOffset TimeCreated { get; set; }
-
-        public DateTimeOffset TimeExpired { get; set; }
-    }
-
-
-    public class WeixinService : ITransientDependency
+    public class WeixinManager : ITransientDependency
     {
         private readonly IDistributedCache<AccessTokeCacheItem> _tokenCache;
+        private readonly IRepository<WechatUserinfo> _wechatUserRepository;
+        private readonly Volo.Abp.ObjectMapping.IObjectMapper _mapper;
         private readonly IWeixinApi _weixinApi;
 
-        public WeixinService(IDistributedCache<AccessTokeCacheItem> tokenCache,
+        public WeixinManager(
+            IDistributedCache<AccessTokeCacheItem> tokenCache,
+            IRepository<WechatUserinfo> wechatUserRepository,
+            Volo.Abp.ObjectMapping.IObjectMapper mapper,
             IWeixinApi weixinApi)
         {
             _tokenCache = tokenCache;
+            _wechatUserRepository = wechatUserRepository;
+            _mapper = mapper;
             _weixinApi = weixinApi;
         }
+
+
+        [UnitOfWork]
+        public virtual async Task CreateOrUpdate(MiniUserInfoResult userinfo)
+        {
+            var find = await _wechatUserRepository.FirstOrDefaultAsync(x => x.appid == userinfo.appid && x.openid == userinfo.openid);
+            if (find == null)
+            {
+                await _wechatUserRepository.InsertAsync(
+                    new WechatUserinfo(userinfo.appid, userinfo.openid, userinfo.unionid, userinfo.nickName, userinfo.avatarUrl, WeixinEnums.ClientType.Mini)
+                    {
+                        city = userinfo.city,
+                        province = userinfo.province,
+                        sex = userinfo.gender,
+                        country = userinfo.country
+                    });
+            }
+            else
+            {
+                _mapper.Map(userinfo, find);
+            }
+        }
+
 
         public async Task<MiniSessionResult> Mini_Code2Session(string code, string appid, string appsecret)
         {
@@ -73,16 +93,17 @@ namespace TT.Abp.WeixinManagement.Domain
 
             throw new UserFriendlyException("token 获取失败");
         }
-        
+
         public async Task<MiniUserInfoResult> Mini_GetUserInfo(string encryptedDataStr, string sessionKey, string iv)
         {
             var json = Encryption.AES_decrypt(encryptedDataStr, sessionKey, iv);
-            
+
             var userInfo = JsonConvert.DeserializeObject<MiniUserInfoResult>(json);
 #if DEBUG
             Log.Logger.Debug(JsonConvert.SerializeObject(userInfo));
 #endif
-            
+
+
             return await Task.FromResult(userInfo);
         }
 
@@ -105,6 +126,25 @@ namespace TT.Abp.WeixinManagement.Domain
             Log.Logger.Error($"token 获取失败: {token.errmsg}");
             Log.Logger.Error(JsonConvert.SerializeObject(token));
             return null;
+        }
+    }
+
+
+    public class SubscriberService : ICapSubscribe
+    {
+        private readonly WeixinManager _weixinManager;
+
+        public SubscriberService(WeixinManager weixinManager)
+        {
+            _weixinManager = weixinManager;
+        }
+
+        [CapSubscribe("weixin.services.mini.getuserinfo")]
+        public async Task Subscriber(MiniUserInfoResult userInfo)
+        {
+            Log.Logger.Warning("Cap");
+            Log.Logger.Warning(JsonConvert.SerializeObject(userInfo));
+            await _weixinManager.CreateOrUpdate(userInfo);
         }
     }
 }

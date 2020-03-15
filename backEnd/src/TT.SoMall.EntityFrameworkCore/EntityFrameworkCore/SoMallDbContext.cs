@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TT.Abp.ShopManagement.Domain;
 using TT.Abp.ShopManagement.EntityFrameworkCore;
+using TT.Abp.WeixinManagement.Domain;
+using TT.Abp.WeixinManagement.EntityFrameworkCore;
 using TT.SoMall.Products;
 using TT.SoMall.Users;
 using Volo.Abp.Data;
@@ -34,11 +36,12 @@ namespace TT.SoMall.EntityFrameworkCore
 
         public DbSet<Shop> Shops { get; set; }
 
+        public DbSet<WechatUserinfo> WechatUserinfos { get; set; }
+
 
         public SoMallDbContext(DbContextOptions<SoMallDbContext> options)
             : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -62,6 +65,8 @@ namespace TT.SoMall.EntityFrameworkCore
             builder.ConfigureSoMall();
 
             builder.ConfigureShop();
+
+            builder.ConfigureWeixinManagement();
         }
     }
 }

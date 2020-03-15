@@ -1,10 +1,16 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using JetBrains.Annotations;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace TT.Abp.WeixinManagement.Domain
 {
     public class WechatUserinfo : CreationAuditedEntity
     {
+        private WechatUserinfo()
+        {
+        }
+
         public WechatUserinfo([NotNull] string appid, [NotNull] string openid, string unionid, string nickname, string headimgurl, WeixinEnums.ClientType fromClient = WeixinEnums.ClientType.Mini)
         {
             this.appid = appid;

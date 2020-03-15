@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Serilog;
@@ -26,16 +27,20 @@ namespace TT.Abp.ShopManagement.Application
     {
         private readonly ICurrentTenant _currentTenant;
         private readonly ISettingProvider _setting;
-        private readonly WeixinService _weixinService;
+        private readonly WeixinManager _weixinManager;
+        private readonly ICapPublisher _capBus;
+        
 
         public WeixinAppService(ICurrentTenant currentTenant,
             ISettingProvider setting,
-            WeixinService weixinService)
+            WeixinManager weixinManager,
+            ICapPublisher capBus)
         {
             ObjectMapperContext = typeof(WeixinManagementModule);
             _currentTenant = currentTenant;
             _setting = setting;
-            _weixinService = weixinService;
+            _weixinManager = weixinManager;
+            _capBus = capBus;
         }
 
         public async Task<object> Code2Session(WeChatMiniProgramAuthenticateModel loginModel)
@@ -49,7 +54,7 @@ namespace TT.Abp.ShopManagement.Application
             var appId = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
             var appSec = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppSecret);
 
-            var token = await _weixinService.GetAccessTokenAsync(appId, appSec);
+            var token = await _weixinManager.GetAccessTokenAsync(appId, appSec);
 
             return token;
         }
@@ -61,7 +66,7 @@ namespace TT.Abp.ShopManagement.Application
             var appId = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
             var appSec = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppSecret);
 
-            var session = await _weixinService.Mini_Code2Session(loginModel.code, appId, appSec);
+            var session = await _weixinManager.Mini_Code2Session(loginModel.code, appId, appSec);
 
             if (session == null)
             {
@@ -70,7 +75,11 @@ namespace TT.Abp.ShopManagement.Application
 
             // 解密用户信息
             var miniUserInfo =
-                await _weixinService.Mini_GetUserInfo(loginModel.encryptedData, session.session_key, loginModel.iv);
+                await _weixinManager.Mini_GetUserInfo(loginModel.encryptedData, session.session_key, loginModel.iv);
+
+            miniUserInfo.appid = appId;
+
+            await _capBus.PublishAsync("weixin.services.mini.getuserinfo", miniUserInfo);
 
             return await Task.FromResult(new
             {
