@@ -36,8 +36,8 @@ namespace TT.SoMall.EntityFrameworkCore
 
         public DbSet<Shop> Shops { get; set; }
 
+        
         public DbSet<WechatUserinfo> WechatUserinfos { get; set; }
-
 
         public SoMallDbContext(DbContextOptions<SoMallDbContext> options)
             : base(options)

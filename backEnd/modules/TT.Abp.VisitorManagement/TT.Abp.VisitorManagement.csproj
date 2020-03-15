@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="9.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
       <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.2.1" />
       <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="2.2.1" />

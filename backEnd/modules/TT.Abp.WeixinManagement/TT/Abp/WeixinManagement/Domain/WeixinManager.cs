@@ -60,7 +60,13 @@ namespace TT.Abp.WeixinManagement.Domain
 
         public async Task<MiniSessionResult> Mini_Code2Session(string code, string appid, string appsecret)
         {
-            return await _weixinApi.Mini_Code2Session(code, appid, appsecret);
+            var session = await _weixinApi.Mini_Code2Session(code, appid, appsecret);
+
+            if (session == null)
+            {
+                throw new UserFriendlyException("解密失败");
+            }
+            return session;
         }
 
         public async Task<string> GetAccessTokenAsync(string appid, string appSeret)
@@ -94,7 +100,7 @@ namespace TT.Abp.WeixinManagement.Domain
             throw new UserFriendlyException("token 获取失败");
         }
 
-        public async Task<MiniUserInfoResult> Mini_GetUserInfo(string encryptedDataStr, string sessionKey, string iv)
+        public async Task<MiniUserInfoResult> Mini_GetUserInfo(string appid, string encryptedDataStr, string sessionKey, string iv)
         {
             var json = Encryption.AES_decrypt(encryptedDataStr, sessionKey, iv);
 
@@ -102,7 +108,7 @@ namespace TT.Abp.WeixinManagement.Domain
 #if DEBUG
             Log.Logger.Debug(JsonConvert.SerializeObject(userInfo));
 #endif
-
+            userInfo.appid = appid;
 
             return await Task.FromResult(userInfo);
         }
@@ -130,11 +136,11 @@ namespace TT.Abp.WeixinManagement.Domain
     }
 
 
-    public class SubscriberService : ICapSubscribe
+    public class WexinCapSubscriberService : ICapSubscribe
     {
         private readonly WeixinManager _weixinManager;
 
-        public SubscriberService(WeixinManager weixinManager)
+        public WexinCapSubscriberService(WeixinManager weixinManager)
         {
             _weixinManager = weixinManager;
         }

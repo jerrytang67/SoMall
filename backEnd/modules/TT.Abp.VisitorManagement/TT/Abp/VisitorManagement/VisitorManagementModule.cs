@@ -18,7 +18,7 @@ namespace TT.Abp.VisitorManagement
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.AddAbpDbContext<VisitorManagementDbContext>(options => { options.AddDefaultRepositories(); });
-            
+
             context.Services.AddAutoMapperObjectMapper<VisitorManagementModule>();
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<VisitorApplicationAutoMapperProfile>(validate: true); });

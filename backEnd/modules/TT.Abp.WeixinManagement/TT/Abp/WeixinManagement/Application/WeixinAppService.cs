@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Serilog;
-using TT.Abp.ShopManagement.Application.Dtos;
-using TT.Abp.WeixinManagement;
+using TT.Abp.WeixinManagement.Application.Dtos;
 using TT.Abp.WeixinManagement.Domain;
-using Volo.Abp;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Settings;
 
-namespace TT.Abp.ShopManagement.Application
+namespace TT.Abp.WeixinManagement.Application
 {
     public interface IWeixinAppService : IApplicationService
     {
@@ -29,7 +20,7 @@ namespace TT.Abp.ShopManagement.Application
         private readonly ISettingProvider _setting;
         private readonly WeixinManager _weixinManager;
         private readonly ICapPublisher _capBus;
-        
+
 
         public WeixinAppService(ICurrentTenant currentTenant,
             ISettingProvider setting,
@@ -68,22 +59,17 @@ namespace TT.Abp.ShopManagement.Application
 
             var session = await _weixinManager.Mini_Code2Session(loginModel.code, appId, appSec);
 
-            if (session == null)
-            {
-                throw new UserFriendlyException("解密失败");
-            }
-
             // 解密用户信息
             var miniUserInfo =
-                await _weixinManager.Mini_GetUserInfo(loginModel.encryptedData, session.session_key, loginModel.iv);
+                await _weixinManager.Mini_GetUserInfo(appId, loginModel.encryptedData, session.session_key, loginModel.iv);
 
-            miniUserInfo.appid = appId;
-
+            // 更新数据库
             await _capBus.PublishAsync("weixin.services.mini.getuserinfo", miniUserInfo);
+
 
             return await Task.FromResult(new
             {
-                AccessToken = "123",
+                AccessToken = "",
                 ExternalUser = miniUserInfo,
                 SessionKey = session.session_key
             });

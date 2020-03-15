@@ -13,7 +13,6 @@ namespace TT.SoMall
             var configuration = services.GetConfiguration();
             services.AddApplication<SoMallHttpApiHostModule>();
             
-            // services.AddTransient<DotNetCore.CAP.ISubscriberService,SubscriberService>();
             services.AddDbContext<CapDbContext>();
             services.AddCap(x =>
             {

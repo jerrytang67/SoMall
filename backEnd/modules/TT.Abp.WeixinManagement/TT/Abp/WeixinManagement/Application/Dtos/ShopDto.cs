@@ -1,7 +1,7 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
 
-namespace TT.Abp.ShopManagement.Application.Dtos
+namespace TT.Abp.WeixinManagement.Application.Dtos
 {
     public class ShopDto : FullAuditedEntityDto<Guid>
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TT.Abp.ShopManagement.Application.Dtos
+﻿namespace TT.Abp.WeixinManagement.Application.Dtos
 {
     public class UpdateShopDto
     {

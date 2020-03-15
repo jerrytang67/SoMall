@@ -10,23 +10,23 @@ using Volo.Abp.Uow;
 
 namespace TT.SoMall.Controllers
 {
-    public class CapController : AbpController
-    {
-        private readonly WeixinManager _weixinManager;
-
-        public CapController(WeixinManager weixinManager)
-        {
-            _weixinManager = weixinManager;
-        }
-
-        [NonAction]
-        [CapSubscribe("weixin.services.mini.getuserinfo")]
-        public async Task Subscriber(MiniUserInfoResult userInfo)
-        {
-            Log.Logger.Warning("Cap");
-            Log.Logger.Warning(JsonConvert.SerializeObject(userInfo));
-
-            await _weixinManager.CreateOrUpdate(userInfo);
-        }
-    }
+    // public class CapController : AbpController
+    // {
+    //     private readonly WeixinManager _weixinManager;
+    //
+    //     public CapController(WeixinManager weixinManager)
+    //     {
+    //         _weixinManager = weixinManager;
+    //     }
+    //
+    //     [NonAction]
+    //     [CapSubscribe("weixin.services.mini.getuserinfo")]
+    //     public async Task Subscriber(MiniUserInfoResult userInfo)
+    //     {
+    //         Log.Logger.Warning("Cap");
+    //         Log.Logger.Warning(JsonConvert.SerializeObject(userInfo));
+    //
+    //         await _weixinManager.CreateOrUpdate(userInfo);
+    //     }
+    // }
 }

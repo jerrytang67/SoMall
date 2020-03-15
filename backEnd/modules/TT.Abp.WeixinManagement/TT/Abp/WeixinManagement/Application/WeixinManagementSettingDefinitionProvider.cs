@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Volo.Abp.Settings;
+﻿using Volo.Abp.Settings;
 
-namespace TT.Abp.ShopManagement.Application
+namespace TT.Abp.WeixinManagement.Application
 {
     public class WeixinManagementSettingDefinitionProvider : SettingDefinitionProvider
     {
