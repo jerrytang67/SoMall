@@ -163,28 +163,28 @@ namespace TT.Abp.WeixinManagement.Application
             });
         }
 
-        public async Task<TokenResponse> DelegateAsync(string username)
-        {
-            var serverClient = _httpClientFactory.CreateClient();
-            var disco = await serverClient.GetDiscoveryDocumentAsync("https://localhost:44380");
-
-            //send custom grant to token endpoint, return response
-            return await serverClient.RequestTokenAsync(
-                new TokenRequest
-                {
-                    Address = disco.TokenEndpoint,
-                    GrantType = "password",
-
-                    ClientId = "SoMall_App",
-                    ClientSecret = "1q2w3e*",
-                    Parameters =
-                    {
-                        {"UserName", username},
-                        {"Password", "1q2w3E*"},
-                        {"scope", "SoMall"}
-                    }
-                });
-        }
+        // public async Task<TokenResponse> DelegateAsync(string username)
+        // {
+        //     var serverClient = _httpClientFactory.CreateClient();
+        //     var disco = await serverClient.GetDiscoveryDocumentAsync("https://localhost:44380");
+        //
+        //     //send custom grant to token endpoint, return response
+        //     return await serverClient.RequestTokenAsync(
+        //         new TokenRequest
+        //         {
+        //             Address = disco.TokenEndpoint,
+        //             GrantType = "password",
+        //
+        //             ClientId = "SoMall_App",
+        //             ClientSecret = "1q2w3e*",
+        //             Parameters =
+        //             {
+        //                 {"UserName", username},
+        //                 {"Password", "1q2w3E*"},
+        //                 {"scope", "SoMall"}
+        //             }
+        //         });
+        // }
 
         //
         // public async Task<string> LoginAs(IdentityUser user)

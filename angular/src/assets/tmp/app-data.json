@@ -96,6 +96,16 @@
           ]
         },
         {
+          "text": "访客管理",
+          "icon": "anticon-dashboard",
+          "children": [
+            {
+              "text": "表单列表",
+              "link": "/visitor/forms"
+            }
+          ]
+        },
+        {
           "text": "Demo",
           "icon": "anticon-dashboard",
           "children": [

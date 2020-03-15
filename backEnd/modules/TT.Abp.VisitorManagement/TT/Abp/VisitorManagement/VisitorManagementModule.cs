@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.VisitorManagement.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
@@ -27,13 +26,6 @@ namespace TT.Abp.VisitorManagement
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(VisitorManagementModule).Assembly);
-        }
-    }
-
-    public class VisitorApplicationAutoMapperProfile : Profile
-    {
-        public VisitorApplicationAutoMapperProfile()
-        {
         }
     }
 }

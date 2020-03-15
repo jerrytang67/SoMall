@@ -37,6 +37,7 @@ const routes: Routes = [
   },
   { path: 'identity', loadChildren: () => import('../identity/identity.module').then(m => m.IdentityModule) },
   { path: 'shop-management', loadChildren: () => import('../shop-management/shop-management.module').then(m => m.ShopManagementModule) },
+  { path: 'visitor', loadChildren: () => import('../visitor/visitor.module').then(m => m.VisitorModule) },
   {
     path: 'demo',
     component: LayoutDefaultComponent,

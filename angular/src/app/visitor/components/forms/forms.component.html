@@ -1,0 +1,51 @@
+<div class="alain-default__content-title">
+    <h1>
+        Shop List
+    </h1>
+</div>
+
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button
+                (click)="create()"
+                nzType="primary">{{'create' | translate}}</button>
+        <button nz-button
+                (click)="refresh()">{{'refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzData]="dataItems"
+              [nzTotal]="pageingInfo.totalItems"
+              [(nzPageIndex)]="pageingInfo.pageNumber"
+              [(nzPageSize)]="pageingInfo.pageSize"
+              [nzLoading]="pageingInfo.isTableLoading"
+              (nzPageIndexChange)="refresh()"
+              (nzPageSizeChange)="refresh()">
+        <thead>
+            <tr>
+                <!-- <th>Id</th> -->
+                <th>标题</th>
+                <th>介绍</th>
+                <th>主题</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <!-- <td>{{item.id}}</td> -->
+                <td>{{item.title}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.theme}}</td>
+                <td>
+                    <a (click)="edit(item)">{{'edit' | translate}}</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a nz-popconfirm
+                       [nzTitle]="'确定删除吗?'"
+                       (nzOnConfirm)="delete(item)"
+                       nzPlacement="top">{{'delete' | translate}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

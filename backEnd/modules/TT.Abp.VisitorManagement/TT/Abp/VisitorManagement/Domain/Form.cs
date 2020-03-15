@@ -8,15 +8,16 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.VisitorManagement.Domain
 {
-    public class Form : AuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant, IMayHaveShop
+    public class Form : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMayHaveShop
     {
         [NotNull] public string Title { get; internal set; }
         [NotNull] public string Description { get; internal set; }
 
         public VisitorEnums.FormTheme Theme { get; set; }
 
-        public Form(string title, string description, Guid? tenantId = null)
+        public Form(Guid id, string title, string description, Guid? tenantId = null)
         {
+            Id = id;
             Title = title;
             Description = description;
             TenantId = tenantId;
@@ -26,8 +27,6 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public virtual Collection<FormItem> FormItems { get; protected set; }
         public virtual Collection<VisitorLog> VisitorLogs { get; protected set; }
-
-        public bool IsDeleted { get; set; }
         public Guid? TenantId { get; protected set; }
         public Guid? ShopId { get; set; }
 
