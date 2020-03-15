@@ -47,7 +47,8 @@ namespace TT.SoMall
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                        ;
                 })
                 .UseAutofac()
                 .UseSerilog();

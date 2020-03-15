@@ -53,6 +53,9 @@ namespace TT.SoMall
             ConfigureRedis(context, configuration, hostingEnvironment);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
+            
+            
+            
         }
 
         private void ConfigureCache(IConfiguration configuration)

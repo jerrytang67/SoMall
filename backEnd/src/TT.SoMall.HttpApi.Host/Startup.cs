@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using DotNetCore.CAP;
+using IdentityServer4.Models;
+using IdentityServer4.Validation;
 using Microsoft.IdentityModel.Logging;
 
 namespace TT.SoMall
@@ -13,7 +20,7 @@ namespace TT.SoMall
         {
             var configuration = services.GetConfiguration();
             services.AddApplication<SoMallHttpApiHostModule>();
-            
+
             services.AddDbContext<CapDbContext>();
             services.AddCap(x =>
             {
@@ -36,10 +43,11 @@ namespace TT.SoMall
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             IdentityModelEventSource.ShowPII = true;
-            
+
             app.InitializeApplication();
 
             app.UseCapDashboard();
         }
     }
+
 }

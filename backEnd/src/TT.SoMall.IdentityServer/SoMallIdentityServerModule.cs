@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Localization.Resources.AbpUi;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
@@ -125,6 +126,10 @@ namespace TT.SoMall
                         .AllowCredentials();
                 });
             });
+            
+            
+            // var build = context.Services.GetObject<IIdentityServerBuilder>();
+            // build.AddExtensionGrantValidator<MiniGrant>();
         }
         
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
