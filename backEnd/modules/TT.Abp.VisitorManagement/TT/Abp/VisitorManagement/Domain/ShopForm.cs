@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using TT.Abp.ShopManagement.Domain;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -21,7 +22,7 @@ namespace TT.Abp.VisitorManagement.Domain
         }
 
 
-        public virtual Shop Shop { get; set; }
+        [ForeignKey("ShopId")] public virtual Shop Shop { get; set; }
         public virtual Form Form { get; set; }
     }
 }

@@ -67,6 +67,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.Property(x => x.FromId);
                 b.Property(x => x.ShopId);
                 b.HasKey(x => new {x.FromId, x.ShopId});
+                
             });
 
             // many to many 
