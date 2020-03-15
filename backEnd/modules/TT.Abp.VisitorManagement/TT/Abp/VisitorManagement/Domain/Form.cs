@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using TT.Abp.ShopManagement;
+using TT.Abp.ShopManagement.Domain;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.VisitorManagement.Domain
 {
-    public class Form : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMayHaveShop
+    public class Form : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         [NotNull] public string Title { get; internal set; }
         [NotNull] public string Description { get; internal set; }
@@ -25,10 +27,9 @@ namespace TT.Abp.VisitorManagement.Domain
             VisitorLogs = new Collection<VisitorLog>();
         }
 
-        public virtual Collection<FormItem> FormItems { get; protected set; }
-        public virtual Collection<VisitorLog> VisitorLogs { get; protected set; }
+        public virtual ICollection<FormItem> FormItems { get; protected set; }
+        public virtual ICollection<VisitorLog> VisitorLogs { get; protected set; }
         public Guid? TenantId { get; protected set; }
-        public Guid? ShopId { get; set; }
 
         internal void SetTitle([NotNull] string title)
         {
@@ -45,9 +46,12 @@ namespace TT.Abp.VisitorManagement.Domain
             FormItems.Add(new FormItem(Id, itemId));
         }
 
-        public virtual void AddVisitorLog(Guid visitorLogId)
+        public virtual void AddVisitorLog(Guid visitorLogId, Guid shopId)
         {
-            VisitorLogs.Add(new VisitorLog(visitorLogId, TenantId, ShopId));
+            VisitorLogs.Add(new VisitorLog(visitorLogId, TenantId, shopId));
         }
+
+
+        public virtual ICollection<ShopForm> ShopForms { get; set; }
     }
 }

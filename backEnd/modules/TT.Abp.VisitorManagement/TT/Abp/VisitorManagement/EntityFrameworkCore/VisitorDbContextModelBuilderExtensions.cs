@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.ShopManagement.Domain;
 using TT.Abp.VisitorManagement.Domain;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -59,6 +60,20 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
 
                 b.HasKey(x => new {x.FromId, x.ItemId});
             });
+
+            builder.Entity<ShopForm>(b =>
+            {
+                b.ToTable(VisitorConsts.DbTablePrefix + "ShopForms", VisitorConsts.DbSchema);
+                b.Property(x => x.FromId);
+                b.Property(x => x.ShopId);
+                b.HasKey(x => new {x.FromId, x.ShopId});
+            });
+
+            // many to many 
+            builder.Entity<ShopForm>()
+                .HasOne(bc => bc.Form)
+                .WithMany(b => b.ShopForms)
+                .HasForeignKey(bc => bc.FromId);
         }
     }
 }
