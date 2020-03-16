@@ -7,22 +7,23 @@ namespace TT.Abp.VisitorManagement.Domain
 {
     public class ShopForm : CreationAuditedEntity
     {
-        public ShopForm(Guid fromId, Guid shopId)
+        public ShopForm(Guid formId, Guid shopId)
         {
             ShopId = shopId;
-            FromId = fromId;
+            FormId = formId;
         }
 
-        public Guid FromId { get; protected set; }
+        public Guid FormId { get; protected set; }
         public Guid ShopId { get; protected set; }
 
         public override object[] GetKeys()
         {
-            return new object[] {FromId, ShopId};
+            return new object[] {FormId, ShopId};
         }
 
 
         [ForeignKey("ShopId")] public virtual Shop Shop { get; set; }
-        public virtual Form Form { get; set; }
+
+        [ForeignKey("FormId")] public virtual Form Form { get; set; }
     }
 }

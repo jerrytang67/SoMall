@@ -18,6 +18,7 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public Guid? CredentialId { get; set; }
 
+        [ForeignKey("FormId")]
         public virtual Form Form { get; set; }
 
         public virtual Credential Credential { get; set; }

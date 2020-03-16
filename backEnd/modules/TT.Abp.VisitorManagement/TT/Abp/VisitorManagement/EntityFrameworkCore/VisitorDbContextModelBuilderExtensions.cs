@@ -18,9 +18,9 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.ToTable(VisitorConsts.DbTablePrefix + "VisitorLogs", VisitorConsts.DbSchema);
                 b.ConfigureFullAuditedAggregateRoot();
                 b.ConfigureByConvention();
-
-                b.HasOne(s => s.Form).WithMany(g => g.VisitorLogs).HasForeignKey(s => s.FormId);
             });
+
+            builder.Entity<VisitorLog>().HasOne(x => x.Form).WithMany(x => x.VisitorLogs).HasForeignKey(x => x.FormId);
 
 
             builder.Entity<Credential>(b =>
@@ -38,8 +38,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.Property(x => x.Title).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
                 b.Property(x => x.Description).HasMaxLength(VisitorConsts.MaxDescriptionLength);
                 b.Property(x => x.Theme).HasDefaultValue(VisitorEnums.FormTheme.Default);
-
-                b.HasMany<VisitorLog>().WithOne().HasForeignKey(qt => qt.FormId);
+                
                 b.HasMany<FormItem>().WithOne().HasForeignKey(qt => qt.FormId);
             });
 
@@ -60,21 +59,21 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
 
                 b.HasKey(x => new {x.FormId, x.ItemId});
             });
+            builder.Entity<FormItem>().HasOne(x => x.Form).WithMany(x => x.FormItems).HasForeignKey(x => x.FormId);
 
             builder.Entity<ShopForm>(b =>
             {
                 b.ToTable(VisitorConsts.DbTablePrefix + "ShopForms", VisitorConsts.DbSchema);
-                b.Property(x => x.FromId);
+                b.Property(x => x.FormId);
                 b.Property(x => x.ShopId);
-                b.HasKey(x => new {x.FromId, x.ShopId});
-                
+                b.HasKey(x => new {x.FormId, x.ShopId});
             });
 
             // many to many 
             builder.Entity<ShopForm>()
                 .HasOne(bc => bc.Form)
                 .WithMany(b => b.ShopForms)
-                .HasForeignKey(bc => bc.FromId);
+                .HasForeignKey(bc => bc.FormId);
         }
     }
 }

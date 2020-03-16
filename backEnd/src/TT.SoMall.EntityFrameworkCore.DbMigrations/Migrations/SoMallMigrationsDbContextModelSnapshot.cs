@@ -210,8 +210,8 @@ namespace TT.SoMall.Migrations
 
             modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.FormItem", b =>
                 {
-                    b.Property<Guid>("FromId")
-                        .HasColumnName("FromId")
+                    b.Property<Guid>("FormId")
+                        .HasColumnName("FormId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ItemId")
@@ -231,9 +231,6 @@ namespace TT.SoMall.Migrations
                     b.Property<string>("ErrorText")
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
-
-                    b.Property<Guid?>("FormId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDisable")
                         .ValueGeneratedOnAdd()
@@ -274,16 +271,14 @@ namespace TT.SoMall.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("FromId", "ItemId");
-
-                    b.HasIndex("FormId");
+                    b.HasKey("FormId", "ItemId");
 
                     b.ToTable("Visitor_FormItems");
                 });
 
             modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.ShopForm", b =>
                 {
-                    b.Property<Guid>("FromId")
+                    b.Property<Guid>("FormId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ShopId")
@@ -295,7 +290,7 @@ namespace TT.SoMall.Migrations
                     b.Property<Guid?>("CreatorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("FromId", "ShopId");
+                    b.HasKey("FormId", "ShopId");
 
                     b.HasIndex("ShopId");
 
@@ -331,9 +326,6 @@ namespace TT.SoMall.Migrations
                     b.Property<Guid>("FormId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("FormId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("FormJson")
                         .HasColumnType("nvarchar(max)");
 
@@ -363,8 +355,6 @@ namespace TT.SoMall.Migrations
                     b.HasIndex("CredentialId");
 
                     b.HasIndex("FormId");
-
-                    b.HasIndex("FormId1");
 
                     b.ToTable("Visitor_VisitorLogs");
                 });
@@ -2125,13 +2115,9 @@ namespace TT.SoMall.Migrations
 
             modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.FormItem", b =>
                 {
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", null)
+                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
                         .WithMany("FormItems")
-                        .HasForeignKey("FormId");
-
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", null)
-                        .WithMany()
-                        .HasForeignKey("FromId")
+                        .HasForeignKey("FormId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2140,7 +2126,7 @@ namespace TT.SoMall.Migrations
                 {
                     b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
                         .WithMany("ShopForms")
-                        .HasForeignKey("FromId")
+                        .HasForeignKey("FormId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2157,15 +2143,11 @@ namespace TT.SoMall.Migrations
                         .WithMany()
                         .HasForeignKey("CredentialId");
 
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", null)
-                        .WithMany()
+                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
+                        .WithMany("VisitorLogs")
                         .HasForeignKey("FormId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
-                        .WithMany("VisitorLogs")
-                        .HasForeignKey("FormId1");
                 });
 
             modelBuilder.Entity("TT.SoMall.Products.ProductSku", b =>

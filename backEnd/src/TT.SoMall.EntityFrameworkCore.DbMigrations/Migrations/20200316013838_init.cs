@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TT.SoMall.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -350,6 +350,119 @@ namespace TT.SoMall.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_IdentityServerPersistedGrants", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SoMall_ProductCategory",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    Name = table.Column<string>(maxLength: 64, nullable: false),
+                    Code = table.Column<string>(maxLength: 32, nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoMall_ProductCategory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SoMall_Shops",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(maxLength: 64, nullable: false),
+                    ShortName = table.Column<string>(maxLength: 16, nullable: false),
+                    LogoImage = table.Column<string>(maxLength: 255, nullable: false),
+                    CoverImage = table.Column<string>(maxLength: 255, nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoMall_Shops", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visitor_Credentials",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    Data = table.Column<string>(maxLength: 255, nullable: false),
+                    UseTimes = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visitor_Credentials", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visitor_Forms",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Title = table.Column<string>(maxLength: 64, nullable: false),
+                    Description = table.Column<string>(maxLength: 512, nullable: true),
+                    Theme = table.Column<int>(nullable: false, defaultValue: 0),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visitor_Forms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Weixin_WechatUserinfos",
+                columns: table => new
+                {
+                    appid = table.Column<string>(maxLength: 32, nullable: false),
+                    openid = table.Column<string>(maxLength: 32, nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    unionid = table.Column<string>(maxLength: 32, nullable: true),
+                    nickname = table.Column<string>(maxLength: 32, nullable: true),
+                    headimgurl = table.Column<string>(maxLength: 255, nullable: true),
+                    city = table.Column<string>(maxLength: 255, nullable: true),
+                    province = table.Column<string>(maxLength: 255, nullable: true),
+                    country = table.Column<string>(maxLength: 255, nullable: true),
+                    sex = table.Column<int>(nullable: false),
+                    FromClient = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Weixin_WechatUserinfos", x => new { x.openid, x.appid });
                 });
 
             migrationBuilder.CreateTable(
@@ -778,6 +891,127 @@ namespace TT.SoMall.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SoMall_ProductSpu",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    CategoryId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 64, nullable: false),
+                    Code = table.Column<string>(maxLength: 32, nullable: true),
+                    Desc = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoMall_ProductSpu", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SoMall_ProductSpu_SoMall_ProductCategory_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "SoMall_ProductCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visitor_FormItems",
+                columns: table => new
+                {
+                    FormId = table.Column<Guid>(nullable: false),
+                    ItemId = table.Column<Guid>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    Sort = table.Column<int>(nullable: false),
+                    Label = table.Column<string>(maxLength: 64, nullable: false),
+                    Key = table.Column<string>(maxLength: 64, nullable: false),
+                    PlaceHolder = table.Column<string>(maxLength: 64, nullable: false),
+                    DefaultValue = table.Column<string>(maxLength: 64, nullable: true),
+                    ErrorText = table.Column<string>(maxLength: 64, nullable: true),
+                    IsRequired = table.Column<bool>(nullable: false, defaultValue: true),
+                    IsDisable = table.Column<bool>(nullable: false, defaultValue: false),
+                    IsMulti = table.Column<bool>(nullable: false, defaultValue: false),
+                    SelectionJson = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visitor_FormItems", x => new { x.FormId, x.ItemId });
+                    table.ForeignKey(
+                        name: "FK_Visitor_FormItems_Visitor_Forms_FormId",
+                        column: x => x.FormId,
+                        principalTable: "Visitor_Forms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visitor_ShopForms",
+                columns: table => new
+                {
+                    FormId = table.Column<Guid>(nullable: false),
+                    ShopId = table.Column<Guid>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visitor_ShopForms", x => new { x.FormId, x.ShopId });
+                    table.ForeignKey(
+                        name: "FK_Visitor_ShopForms_Visitor_Forms_FormId",
+                        column: x => x.FormId,
+                        principalTable: "Visitor_Forms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Visitor_ShopForms_SoMall_Shops_ShopId",
+                        column: x => x.ShopId,
+                        principalTable: "SoMall_Shops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visitor_VisitorLogs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    FormId = table.Column<Guid>(nullable: false),
+                    FormJson = table.Column<string>(nullable: true),
+                    CredentialId = table.Column<Guid>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    TenantId = table.Column<Guid>(nullable: true),
+                    ShopId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visitor_VisitorLogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Visitor_VisitorLogs_Visitor_Credentials_CredentialId",
+                        column: x => x.CredentialId,
+                        principalTable: "Visitor_Credentials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Visitor_VisitorLogs_Visitor_Forms_FormId",
+                        column: x => x.FormId,
+                        principalTable: "Visitor_Forms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AbpEntityPropertyChanges",
                 columns: table => new
                 {
@@ -816,6 +1050,35 @@ namespace TT.SoMall.Migrations
                         columns: x => new { x.ApiResourceId, x.Name },
                         principalTable: "IdentityServerApiScopes",
                         principalColumns: new[] { "ApiResourceId", "Name" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SoMall_ProductSku",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ExtraProperties = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    CreationTime = table.Column<DateTime>(nullable: false),
+                    CreatorId = table.Column<Guid>(nullable: true),
+                    LastModificationTime = table.Column<DateTime>(nullable: true),
+                    LastModifierId = table.Column<Guid>(nullable: true),
+                    SpuId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 64, nullable: false),
+                    Code = table.Column<string>(maxLength: 32, nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    TenantId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SoMall_ProductSku", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SoMall_ProductSku_SoMall_ProductSpu_SpuId",
+                        column: x => x.SpuId,
+                        principalTable: "SoMall_ProductSpu",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -955,6 +1218,31 @@ namespace TT.SoMall.Migrations
                 name: "IX_IdentityServerPersistedGrants_SubjectId_ClientId_Type",
                 table: "IdentityServerPersistedGrants",
                 columns: new[] { "SubjectId", "ClientId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SoMall_ProductSku_SpuId",
+                table: "SoMall_ProductSku",
+                column: "SpuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SoMall_ProductSpu_CategoryId",
+                table: "SoMall_ProductSpu",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visitor_ShopForms_ShopId",
+                table: "Visitor_ShopForms",
+                column: "ShopId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visitor_VisitorLogs_CredentialId",
+                table: "Visitor_VisitorLogs",
+                column: "CredentialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visitor_VisitorLogs_FormId",
+                table: "Visitor_VisitorLogs",
+                column: "FormId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1044,6 +1332,21 @@ namespace TT.SoMall.Migrations
                 name: "IdentityServerPersistedGrants");
 
             migrationBuilder.DropTable(
+                name: "SoMall_ProductSku");
+
+            migrationBuilder.DropTable(
+                name: "Visitor_FormItems");
+
+            migrationBuilder.DropTable(
+                name: "Visitor_ShopForms");
+
+            migrationBuilder.DropTable(
+                name: "Visitor_VisitorLogs");
+
+            migrationBuilder.DropTable(
+                name: "Weixin_WechatUserinfos");
+
+            migrationBuilder.DropTable(
                 name: "AbpEntityChanges");
 
             migrationBuilder.DropTable(
@@ -1065,10 +1368,25 @@ namespace TT.SoMall.Migrations
                 name: "IdentityServerIdentityResources");
 
             migrationBuilder.DropTable(
+                name: "SoMall_ProductSpu");
+
+            migrationBuilder.DropTable(
+                name: "SoMall_Shops");
+
+            migrationBuilder.DropTable(
+                name: "Visitor_Credentials");
+
+            migrationBuilder.DropTable(
+                name: "Visitor_Forms");
+
+            migrationBuilder.DropTable(
                 name: "AbpAuditLogs");
 
             migrationBuilder.DropTable(
                 name: "IdentityServerApiResources");
+
+            migrationBuilder.DropTable(
+                name: "SoMall_ProductCategory");
         }
     }
 }

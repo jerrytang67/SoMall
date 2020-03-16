@@ -118,7 +118,7 @@ namespace TT.Abp.VisitorManagement.Application
             var form = await _repository
                 .Include(x => x.ShopForms)
                 .Include(x => x.FormItems)
-                .Where(x => x.ShopForms.Any(y => y.ShopId == shop_id) && x.ShopForms.Any(y => y.FromId == new Guid("4de02c90-c97c-5c7e-d3e4-39f3f28f2e90"))).ToListAsync();
+                .Where(x => x.ShopForms.Any(y => y.ShopId == shop_id) && x.ShopForms.Any(y => y.FormId == new Guid("4de02c90-c97c-5c7e-d3e4-39f3f28f2e90"))).ToListAsync();
 
             if (form.Count == 0)
                 throw new UserFriendlyException("NotFind");

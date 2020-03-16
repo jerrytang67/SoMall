@@ -10,8 +10,8 @@ using TT.SoMall.EntityFrameworkCore;
 namespace TT.SoMall.Migrations
 {
     [DbContext(typeof(SoMallMigrationsDbContext))]
-    [Migration("20200313205544_visitor2")]
-    partial class visitor2
+    [Migration("20200316013838_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -155,13 +155,22 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
+                        .HasColumnName("CreationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("CreatorId")
+                        .HasColumnName("CreatorId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnName("DeleterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnName("DeletionTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
-                        .HasColumnName("Description")
                         .HasColumnType("nvarchar(512)")
                         .HasMaxLength(512);
 
@@ -170,23 +179,29 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnName("LastModificationTime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ShopId")
+                        .HasColumnName("LastModifierId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Theme")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnName("Title")
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
@@ -197,8 +212,8 @@ namespace TT.SoMall.Migrations
 
             modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.FormItem", b =>
                 {
-                    b.Property<Guid>("FromId")
-                        .HasColumnName("FromId")
+                    b.Property<Guid>("FormId")
+                        .HasColumnName("FormId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ItemId")
@@ -218,9 +233,6 @@ namespace TT.SoMall.Migrations
                     b.Property<string>("ErrorText")
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
-
-                    b.Property<Guid?>("FormId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDisable")
                         .ValueGeneratedOnAdd()
@@ -242,6 +254,11 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
                     b.Property<string>("PlaceHolder")
                         .IsRequired()
                         .HasColumnType("nvarchar(64)")
@@ -256,11 +273,30 @@ namespace TT.SoMall.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.HasKey("FromId", "ItemId");
-
-                    b.HasIndex("FormId");
+                    b.HasKey("FormId", "ItemId");
 
                     b.ToTable("Visitor_FormItems");
+                });
+
+            modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.ShopForm", b =>
+                {
+                    b.Property<Guid>("FormId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ShopId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FormId", "ShopId");
+
+                    b.HasIndex("ShopId");
+
+                    b.ToTable("Visitor_ShopForms");
                 });
 
             modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.VisitorLog", b =>
@@ -290,9 +326,6 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("FormId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("FormId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FormJson")
@@ -325,9 +358,58 @@ namespace TT.SoMall.Migrations
 
                     b.HasIndex("FormId");
 
-                    b.HasIndex("FormId1");
-
                     b.ToTable("Visitor_VisitorLogs");
+                });
+
+            modelBuilder.Entity("TT.Abp.WeixinManagement.Domain.WechatUserinfo", b =>
+                {
+                    b.Property<string>("openid")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("appid")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("FromClient")
+                        .HasColumnType("int");
+
+                    b.Property<string>("city")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("country")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("headimgurl")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("nickname")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<string>("province")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("sex")
+                        .HasColumnType("int");
+
+                    b.Property<string>("unionid")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.HasKey("openid", "appid");
+
+                    b.ToTable("Weixin_WechatUserinfos");
                 });
 
             modelBuilder.Entity("TT.SoMall.Products.ProductCategory", b =>
@@ -2035,13 +2117,24 @@ namespace TT.SoMall.Migrations
 
             modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.FormItem", b =>
                 {
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", null)
+                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
                         .WithMany("FormItems")
-                        .HasForeignKey("FormId");
+                        .HasForeignKey("FormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", null)
+            modelBuilder.Entity("TT.Abp.VisitorManagement.Domain.ShopForm", b =>
+                {
+                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
+                        .WithMany("ShopForms")
+                        .HasForeignKey("FormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TT.Abp.ShopManagement.Domain.Shop", "Shop")
                         .WithMany()
-                        .HasForeignKey("FromId")
+                        .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2052,15 +2145,11 @@ namespace TT.SoMall.Migrations
                         .WithMany()
                         .HasForeignKey("CredentialId");
 
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", null)
-                        .WithMany()
+                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
+                        .WithMany("VisitorLogs")
                         .HasForeignKey("FormId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TT.Abp.VisitorManagement.Domain.Form", "Form")
-                        .WithMany("VisitorLogs")
-                        .HasForeignKey("FormId1");
                 });
 
             modelBuilder.Entity("TT.SoMall.Products.ProductSku", b =>

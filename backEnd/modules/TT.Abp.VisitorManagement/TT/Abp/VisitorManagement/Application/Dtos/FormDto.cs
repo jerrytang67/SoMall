@@ -64,7 +64,7 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         }
 
         public Guid ItemId { get; }
-        public Guid FromId { get; }
+        public Guid FormId { get; }
         public VisitorEnums.FormItemType Type { get; set; }
         public int Sort { get; set; }
         public string Label { get; set; }

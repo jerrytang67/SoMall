@@ -21,7 +21,7 @@ namespace TT.Abp.ShopManagement.Domain
         [CanBeNull] public virtual string Description { get; set; }
         
         public virtual Guid? TenantId { get; set; }
-        
+
         protected Shop()
         {
             ExtraProperties = new Dictionary<string, object>();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -6,10 +7,10 @@ namespace TT.Abp.VisitorManagement.Domain
 {
     public class FormItem : CreationAuditedEntity
     {
-        public FormItem(Guid fromId, Guid itemId)
+        public FormItem(Guid formId, Guid itemId)
         {
             ItemId = itemId;
-            FormId = fromId;
+            FormId = formId;
         }
 
         public Guid FormId { get; }
@@ -38,5 +39,7 @@ namespace TT.Abp.VisitorManagement.Domain
         {
             return new object[] {FormId, ItemId};
         }
+
+        [ForeignKey("FormId")] public virtual Form Form { get; set; }
     }
 }
