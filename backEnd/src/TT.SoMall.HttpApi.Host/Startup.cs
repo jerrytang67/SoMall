@@ -11,6 +11,8 @@ using DotNetCore.CAP;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using Microsoft.IdentityModel.Logging;
+using StackExchange.Redis;
+using TT.HttpClient.Weixin;
 
 namespace TT.SoMall
 {
@@ -18,9 +20,11 @@ namespace TT.SoMall
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IRedisClient, RedisClient>();
+
             var configuration = services.GetConfiguration();
             services.AddApplication<SoMallHttpApiHostModule>();
-
+            
             services.AddDbContext<CapDbContext>();
             services.AddCap(x =>
             {
@@ -49,5 +53,4 @@ namespace TT.SoMall
             app.UseCapDashboard();
         }
     }
-
 }

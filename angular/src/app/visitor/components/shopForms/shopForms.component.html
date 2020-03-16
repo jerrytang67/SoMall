@@ -25,22 +25,38 @@
         <thead>
             <tr>
                 <!-- <th>Id</th> -->
-                <th>标题</th>
+                <th>图标</th>
+                <th>cover</th>
+                <th>名称</th>
+                <th>简称</th>
                 <th>介绍</th>
-                <th>主题</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
-                <td>{{item.title}}</td>
+                <td>
+                    <nz-avatar nzShape="square"
+                               [nzSize]="64"
+                               nzSize="large"
+                               nzIcon="user"
+                               [nzSrc]="item.logoImage"></nz-avatar>
+                </td>
+                <td>
+                    <nz-avatar nzShape="square"
+                               [nzSize]="128"
+                               nzSize="large"
+                               nzIcon="user"
+                               [nzSrc]="item.coverImage"></nz-avatar>
+                </td>
+                <td>{{item.name}}</td>
+                <td>{{item.shortName}}</td>
                 <td>{{item.description}}</td>
-                <td>{{item.theme}}</td>
                 <td>
                     <a (click)="edit(item)">{{'edit' | translate}}</a>
                     <nz-divider nzType="vertical"></nz-divider>
-                    <a [routerLink]="['/visitor/shopForms',item.id]">商户</a>
+                    <a (click)="getQr(item)">{{'QR' | translate}}</a>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
                        [nzTitle]="'确定删除吗?'"

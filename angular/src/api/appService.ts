@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-export class IList<T> extends Array<T> { }
-export class List<T> extends Array<T> { }
+export class IList<T> extends Array<T> {}
+export class List<T> extends Array<T> {}
 
 export interface IListResult<T> {
   items?: T[];
@@ -29,7 +29,7 @@ export class PagedResultDto<T> implements IPagedResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApiDefinitionProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -45,7 +45,7 @@ export class AbpApiDefinitionProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -61,7 +61,7 @@ export class AbpApplicationConfigurationProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -77,7 +77,7 @@ export class AbpApplicationConfigurationScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpLanguagesProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -104,7 +104,7 @@ export class AbpLanguagesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpServiceProxyScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -135,7 +135,7 @@ export class AbpServiceProxyScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpTenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -175,7 +175,7 @@ export class AbpTenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AccountProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -196,8 +196,54 @@ export class AccountProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class FeaturesProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+    } = {} as any
+  ): Observable<FeatureListDto> {
+    let url = '/api/abp/features/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<FeatureListDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+      /** requestBody */
+      body?: UpdateFeaturesDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/abp/features/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class FormProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -277,11 +323,28 @@ export class FormProxyService {
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
+  /**
+   *
+   */
+  getShops(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<ShopDto[]> {
+    let url = '/api/app/form/getShops';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ShopDto[]>;
+  }
 }
 
 @Injectable({ providedIn: 'root' })
 export class LoginProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -329,7 +392,7 @@ export class LoginProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class OssProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -350,10 +413,55 @@ export class OssProxyService {
   }
 }
 
+@Injectable({ providedIn: 'root' })
+export class PermissionsProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+    } = {} as any
+  ): Observable<GetPermissionListResultDto> {
+    let url = '/api/abp/permissions/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<GetPermissionListResultDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+      /** requestBody */
+      body?: UpdatePermissionsDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/abp/permissions/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<any>;
+  }
+}
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -448,7 +556,7 @@ export class ProductCategoryProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSkuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -543,7 +651,7 @@ export class ProductSkuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSpuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -638,7 +746,7 @@ export class ProductSpuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProfileProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -661,6 +769,7 @@ export class ProfileProxyService {
   ): Observable<ProfileDto> {
     let url = '/api/identity/my-profile';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -686,7 +795,7 @@ export class ProfileProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class RoleProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -781,7 +890,7 @@ export class RoleProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ShopProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -882,7 +991,7 @@ export class ShopProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class TenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1006,6 +1115,7 @@ export class TenantProxyService {
     let url = '/api/multi-tenancy/tenants//default-connection-string';
     let options: any = {
       params: { id: params.id },
+      body: params.body,
       method: 'put'
     };
     return (this.http.request('put', url, options) as any) as Observable<any>;
@@ -1030,7 +1140,7 @@ export class TenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1197,7 +1307,7 @@ export class UserProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserLookupProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1237,7 +1347,7 @@ export class UserLookupProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class VisitorLogProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1302,7 +1412,7 @@ export class VisitorLogProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class WeixinProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1352,6 +1462,25 @@ export class WeixinProxyService {
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  getUnLimitQr(
+    params: {
+      /**  */
+      scene?: string;
+      /**  */
+      page?: string;
+    } = {} as any
+  ): Observable<string> {
+    let url = '/api/app/weixin/getUnLimitQr';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<string>;
   }
 }
 
@@ -1779,6 +1908,9 @@ export interface FormItemDto {
 
 export interface FormDto {
   /**  */
+  id?: string;
+
+  /**  */
   title?: string;
 
   /**  */
@@ -1789,21 +1921,6 @@ export interface FormDto {
 
   /**  */
   formItems?: FormItemDto[];
-
-  /**  */
-  lastModificationTime?: Date;
-
-  /**  */
-  lastModifierId?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  id?: string;
 }
 
 export interface FormDtoListResultDto {
@@ -1864,6 +1981,47 @@ export interface FormCreateOrEditDto {
 
   /**  */
   formItems?: FormItemCreateOrEditDto[];
+}
+
+export interface ShopDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  logoImage?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+
+  /**  */
+  isDeleted?: boolean;
+
+  /**  */
+  deleterId?: string;
+
+  /**  */
+  deletionTime?: Date;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
 }
 
 export interface UserLoginInfo {
@@ -2187,47 +2345,6 @@ export interface IdentityRoleUpdateDto {
   isPublic?: boolean;
 }
 
-export interface ShopDto {
-  /**  */
-  name?: string;
-
-  /**  */
-  shortName?: string;
-
-  /**  */
-  logoImage?: string;
-
-  /**  */
-  coverImage?: string;
-
-  /**  */
-  description?: string;
-
-  /**  */
-  isDeleted?: boolean;
-
-  /**  */
-  deleterId?: string;
-
-  /**  */
-  deletionTime?: Date;
-
-  /**  */
-  lastModificationTime?: Date;
-
-  /**  */
-  lastModifierId?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  id?: string;
-}
-
 export interface ShopDtoListResultDto {
   /**  */
   items?: ShopDto[];
@@ -2428,7 +2545,7 @@ export interface VisitorLogDtoListResultDto {
   items?: VisitorLogDto[];
 }
 
-export interface CreateVisitorLogDto { }
+export interface CreateVisitorLogDto {}
 
 export interface WeChatMiniProgramAuthenticateModel {
   /**  */
@@ -2444,1323 +2561,6 @@ export interface WeChatMiniProgramAuthenticateModel {
   session_key?: string;
 }
 
-export interface Version {
-  /**  */
-  major?: number;
-
-  /**  */
-  minor?: number;
-
-  /**  */
-  build?: number;
-
-  /**  */
-  revision?: number;
-
-  /**  */
-  majorRevision?: number;
-
-  /**  */
-  minorRevision?: number;
-}
-
-export interface StringStringIEnumerableKeyValuePair {
-  /**  */
-  key?: string;
-
-  /**  */
-  value?: string[];
-}
-
-export interface HttpContent {
-  /**  */
-  headers?: StringStringIEnumerableKeyValuePair[];
-}
-
-export interface HttpMethod {
-  /**  */
-  method?: string;
-}
-
-export interface HttpRequestMessage {
-  /**  */
-  version?: Version;
-
-  /**  */
-  content?: HttpContent;
-
-  /**  */
-  method?: HttpMethod;
-
-  /**  */
-  requestUri?: string;
-
-  /**  */
-  headers?: StringStringIEnumerableKeyValuePair[];
-
-  /**  */
-  properties?: object;
-}
-
-export interface HttpResponseMessage {
-  /**  */
-  version?: Version;
-
-  /**  */
-  content?: HttpContent;
-
-  /**  */
-  statusCode?: HttpStatusCode;
-
-  /**  */
-  reasonPhrase?: string;
-
-  /**  */
-  headers?: StringStringIEnumerableKeyValuePair[];
-
-  /**  */
-  trailingHeaders?: StringStringIEnumerableKeyValuePair[];
-
-  /**  */
-  requestMessage?: HttpRequestMessage;
-
-  /**  */
-  isSuccessStatusCode?: boolean;
-}
-
-export interface IntPtr { }
-
-export interface RuntimeMethodHandle {
-  /**  */
-  value?: IntPtr;
-}
-
-export interface ModuleHandle {
-  /**  */
-  mdStreamVersion?: number;
-}
-
-export interface CustomAttributeTypedArgument {
-  /**  */
-  argumentType?: Type;
-
-  /**  */
-  value?: object;
-}
-
-export interface MemberInfo {
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface CustomAttributeNamedArgument {
-  /**  */
-  memberInfo?: MemberInfo;
-
-  /**  */
-  typedValue?: CustomAttributeTypedArgument;
-
-  /**  */
-  memberName?: string;
-
-  /**  */
-  isField?: boolean;
-}
-
-export interface CustomAttributeData {
-  /**  */
-  attributeType?: Type;
-
-  /**  */
-  constructor?: ConstructorInfo;
-
-  /**  */
-  constructorArguments?: CustomAttributeTypedArgument[];
-
-  /**  */
-  namedArguments?: CustomAttributeNamedArgument[];
-}
-
-export interface Module {
-  /**  */
-  assembly?: Assembly;
-
-  /**  */
-  fullyQualifiedName?: string;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  mdStreamVersion?: number;
-
-  /**  */
-  moduleVersionId?: string;
-
-  /**  */
-  scopeName?: string;
-
-  /**  */
-  moduleHandle?: ModuleHandle;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface ConstructorInfo {
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  attributes?: MethodAttributes;
-
-  /**  */
-  methodImplementationFlags?: MethodImplAttributes;
-
-  /**  */
-  callingConvention?: CallingConventions;
-
-  /**  */
-  isAbstract?: boolean;
-
-  /**  */
-  isConstructor?: boolean;
-
-  /**  */
-  isFinal?: boolean;
-
-  /**  */
-  isHideBySig?: boolean;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  isStatic?: boolean;
-
-  /**  */
-  isVirtual?: boolean;
-
-  /**  */
-  isAssembly?: boolean;
-
-  /**  */
-  isFamily?: boolean;
-
-  /**  */
-  isFamilyAndAssembly?: boolean;
-
-  /**  */
-  isFamilyOrAssembly?: boolean;
-
-  /**  */
-  isPrivate?: boolean;
-
-  /**  */
-  isPublic?: boolean;
-
-  /**  */
-  isConstructedGenericMethod?: boolean;
-
-  /**  */
-  isGenericMethod?: boolean;
-
-  /**  */
-  isGenericMethodDefinition?: boolean;
-
-  /**  */
-  containsGenericParameters?: boolean;
-
-  /**  */
-  methodHandle?: RuntimeMethodHandle;
-
-  /**  */
-  isSecurityCritical?: boolean;
-
-  /**  */
-  isSecuritySafeCritical?: boolean;
-
-  /**  */
-  isSecurityTransparent?: boolean;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface ParameterInfo {
-  /**  */
-  attributes?: ParameterAttributes;
-
-  /**  */
-  member?: MemberInfo;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  parameterType?: Type;
-
-  /**  */
-  position?: number;
-
-  /**  */
-  isIn?: boolean;
-
-  /**  */
-  isLcid?: boolean;
-
-  /**  */
-  isOptional?: boolean;
-
-  /**  */
-  isOut?: boolean;
-
-  /**  */
-  isRetval?: boolean;
-
-  /**  */
-  defaultValue?: object;
-
-  /**  */
-  rawDefaultValue?: object;
-
-  /**  */
-  hasDefaultValue?: boolean;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface ICustomAttributeProvider { }
-
-export interface MethodInfo {
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  returnParameter?: ParameterInfo;
-
-  /**  */
-  returnType?: Type;
-
-  /**  */
-  returnTypeCustomAttributes?: ICustomAttributeProvider;
-
-  /**  */
-  attributes?: MethodAttributes;
-
-  /**  */
-  methodImplementationFlags?: MethodImplAttributes;
-
-  /**  */
-  callingConvention?: CallingConventions;
-
-  /**  */
-  isAbstract?: boolean;
-
-  /**  */
-  isConstructor?: boolean;
-
-  /**  */
-  isFinal?: boolean;
-
-  /**  */
-  isHideBySig?: boolean;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  isStatic?: boolean;
-
-  /**  */
-  isVirtual?: boolean;
-
-  /**  */
-  isAssembly?: boolean;
-
-  /**  */
-  isFamily?: boolean;
-
-  /**  */
-  isFamilyAndAssembly?: boolean;
-
-  /**  */
-  isFamilyOrAssembly?: boolean;
-
-  /**  */
-  isPrivate?: boolean;
-
-  /**  */
-  isPublic?: boolean;
-
-  /**  */
-  isConstructedGenericMethod?: boolean;
-
-  /**  */
-  isGenericMethod?: boolean;
-
-  /**  */
-  isGenericMethodDefinition?: boolean;
-
-  /**  */
-  containsGenericParameters?: boolean;
-
-  /**  */
-  methodHandle?: RuntimeMethodHandle;
-
-  /**  */
-  isSecurityCritical?: boolean;
-
-  /**  */
-  isSecuritySafeCritical?: boolean;
-
-  /**  */
-  isSecurityTransparent?: boolean;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface EventInfo {
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  attributes?: EventAttributes;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  addMethod?: MethodInfo;
-
-  /**  */
-  removeMethod?: MethodInfo;
-
-  /**  */
-  raiseMethod?: MethodInfo;
-
-  /**  */
-  isMulticast?: boolean;
-
-  /**  */
-  eventHandlerType?: Type;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface RuntimeFieldHandle {
-  /**  */
-  value?: IntPtr;
-}
-
-export interface FieldInfo {
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  attributes?: FieldAttributes;
-
-  /**  */
-  fieldType?: Type;
-
-  /**  */
-  isInitOnly?: boolean;
-
-  /**  */
-  isLiteral?: boolean;
-
-  /**  */
-  isNotSerialized?: boolean;
-
-  /**  */
-  isPinvokeImpl?: boolean;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  isStatic?: boolean;
-
-  /**  */
-  isAssembly?: boolean;
-
-  /**  */
-  isFamily?: boolean;
-
-  /**  */
-  isFamilyAndAssembly?: boolean;
-
-  /**  */
-  isFamilyOrAssembly?: boolean;
-
-  /**  */
-  isPrivate?: boolean;
-
-  /**  */
-  isPublic?: boolean;
-
-  /**  */
-  isSecurityCritical?: boolean;
-
-  /**  */
-  isSecuritySafeCritical?: boolean;
-
-  /**  */
-  isSecurityTransparent?: boolean;
-
-  /**  */
-  fieldHandle?: RuntimeFieldHandle;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface PropertyInfo {
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  propertyType?: Type;
-
-  /**  */
-  attributes?: PropertyAttributes;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  canRead?: boolean;
-
-  /**  */
-  canWrite?: boolean;
-
-  /**  */
-  getMethod?: MethodInfo;
-
-  /**  */
-  setMethod?: MethodInfo;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface StructLayoutAttribute {
-  /**  */
-  value?: LayoutKind;
-
-  /**  */
-  typeId?: object;
-}
-
-export interface RuntimeTypeHandle {
-  /**  */
-  value?: IntPtr;
-}
-
-export interface TypeInfo {
-  /**  */
-  genericTypeParameters?: Type[];
-
-  /**  */
-  declaredConstructors?: ConstructorInfo[];
-
-  /**  */
-  declaredEvents?: EventInfo[];
-
-  /**  */
-  declaredFields?: FieldInfo[];
-
-  /**  */
-  declaredMembers?: MemberInfo[];
-
-  /**  */
-  declaredMethods?: MethodInfo[];
-
-  /**  */
-  declaredNestedTypes?: TypeInfo[];
-
-  /**  */
-  declaredProperties?: PropertyInfo[];
-
-  /**  */
-  implementedInterfaces?: Type[];
-
-  /**  */
-  isInterface?: boolean;
-
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  namespace?: string;
-
-  /**  */
-  assemblyQualifiedName?: string;
-
-  /**  */
-  fullName?: string;
-
-  /**  */
-  assembly?: Assembly;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  isNested?: boolean;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  declaringMethod?: MethodBase;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  underlyingSystemType?: Type;
-
-  /**  */
-  isTypeDefinition?: boolean;
-
-  /**  */
-  isArray?: boolean;
-
-  /**  */
-  isByRef?: boolean;
-
-  /**  */
-  isPointer?: boolean;
-
-  /**  */
-  isConstructedGenericType?: boolean;
-
-  /**  */
-  isGenericParameter?: boolean;
-
-  /**  */
-  isGenericTypeParameter?: boolean;
-
-  /**  */
-  isGenericMethodParameter?: boolean;
-
-  /**  */
-  isGenericType?: boolean;
-
-  /**  */
-  isGenericTypeDefinition?: boolean;
-
-  /**  */
-  isSZArray?: boolean;
-
-  /**  */
-  isVariableBoundArray?: boolean;
-
-  /**  */
-  isByRefLike?: boolean;
-
-  /**  */
-  hasElementType?: boolean;
-
-  /**  */
-  genericTypeArguments?: Type[];
-
-  /**  */
-  genericParameterPosition?: number;
-
-  /**  */
-  genericParameterAttributes?: GenericParameterAttributes;
-
-  /**  */
-  attributes?: TypeAttributes;
-
-  /**  */
-  isAbstract?: boolean;
-
-  /**  */
-  isImport?: boolean;
-
-  /**  */
-  isSealed?: boolean;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  isClass?: boolean;
-
-  /**  */
-  isNestedAssembly?: boolean;
-
-  /**  */
-  isNestedFamANDAssem?: boolean;
-
-  /**  */
-  isNestedFamily?: boolean;
-
-  /**  */
-  isNestedFamORAssem?: boolean;
-
-  /**  */
-  isNestedPrivate?: boolean;
-
-  /**  */
-  isNestedPublic?: boolean;
-
-  /**  */
-  isNotPublic?: boolean;
-
-  /**  */
-  isPublic?: boolean;
-
-  /**  */
-  isAutoLayout?: boolean;
-
-  /**  */
-  isExplicitLayout?: boolean;
-
-  /**  */
-  isLayoutSequential?: boolean;
-
-  /**  */
-  isAnsiClass?: boolean;
-
-  /**  */
-  isAutoClass?: boolean;
-
-  /**  */
-  isUnicodeClass?: boolean;
-
-  /**  */
-  isCOMObject?: boolean;
-
-  /**  */
-  isContextful?: boolean;
-
-  /**  */
-  isEnum?: boolean;
-
-  /**  */
-  isMarshalByRef?: boolean;
-
-  /**  */
-  isPrimitive?: boolean;
-
-  /**  */
-  isValueType?: boolean;
-
-  /**  */
-  isSignatureType?: boolean;
-
-  /**  */
-  isSecurityCritical?: boolean;
-
-  /**  */
-  isSecuritySafeCritical?: boolean;
-
-  /**  */
-  isSecurityTransparent?: boolean;
-
-  /**  */
-  structLayoutAttribute?: StructLayoutAttribute;
-
-  /**  */
-  typeInitializer?: ConstructorInfo;
-
-  /**  */
-  typeHandle?: RuntimeTypeHandle;
-
-  /**  */
-  guid?: string;
-
-  /**  */
-  baseType?: Type;
-
-  /**  */
-  isSerializable?: boolean;
-
-  /**  */
-  containsGenericParameters?: boolean;
-
-  /**  */
-  isVisible?: boolean;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface Assembly {
-  /**  */
-  definedTypes?: TypeInfo[];
-
-  /**  */
-  exportedTypes?: Type[];
-
-  /**  */
-  codeBase?: string;
-
-  /**  */
-  entryPoint?: MethodInfo;
-
-  /**  */
-  fullName?: string;
-
-  /**  */
-  imageRuntimeVersion?: string;
-
-  /**  */
-  isDynamic?: boolean;
-
-  /**  */
-  location?: string;
-
-  /**  */
-  reflectionOnly?: boolean;
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  isFullyTrusted?: boolean;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  escapedCodeBase?: string;
-
-  /**  */
-  manifestModule?: Module;
-
-  /**  */
-  modules?: Module[];
-
-  /**  */
-  globalAssemblyCache?: boolean;
-
-  /**  */
-  hostContext?: number;
-
-  /**  */
-  securityRuleSet?: SecurityRuleSet;
-}
-
-export interface Type {
-  /**  */
-  isInterface?: boolean;
-
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  namespace?: string;
-
-  /**  */
-  assemblyQualifiedName?: string;
-
-  /**  */
-  fullName?: string;
-
-  /**  */
-  assembly?: Assembly;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  isNested?: boolean;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  declaringMethod?: MethodBase;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  underlyingSystemType?: Type;
-
-  /**  */
-  isTypeDefinition?: boolean;
-
-  /**  */
-  isArray?: boolean;
-
-  /**  */
-  isByRef?: boolean;
-
-  /**  */
-  isPointer?: boolean;
-
-  /**  */
-  isConstructedGenericType?: boolean;
-
-  /**  */
-  isGenericParameter?: boolean;
-
-  /**  */
-  isGenericTypeParameter?: boolean;
-
-  /**  */
-  isGenericMethodParameter?: boolean;
-
-  /**  */
-  isGenericType?: boolean;
-
-  /**  */
-  isGenericTypeDefinition?: boolean;
-
-  /**  */
-  isSZArray?: boolean;
-
-  /**  */
-  isVariableBoundArray?: boolean;
-
-  /**  */
-  isByRefLike?: boolean;
-
-  /**  */
-  hasElementType?: boolean;
-
-  /**  */
-  genericTypeArguments?: Type[];
-
-  /**  */
-  genericParameterPosition?: number;
-
-  /**  */
-  genericParameterAttributes?: GenericParameterAttributes;
-
-  /**  */
-  attributes?: TypeAttributes;
-
-  /**  */
-  isAbstract?: boolean;
-
-  /**  */
-  isImport?: boolean;
-
-  /**  */
-  isSealed?: boolean;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  isClass?: boolean;
-
-  /**  */
-  isNestedAssembly?: boolean;
-
-  /**  */
-  isNestedFamANDAssem?: boolean;
-
-  /**  */
-  isNestedFamily?: boolean;
-
-  /**  */
-  isNestedFamORAssem?: boolean;
-
-  /**  */
-  isNestedPrivate?: boolean;
-
-  /**  */
-  isNestedPublic?: boolean;
-
-  /**  */
-  isNotPublic?: boolean;
-
-  /**  */
-  isPublic?: boolean;
-
-  /**  */
-  isAutoLayout?: boolean;
-
-  /**  */
-  isExplicitLayout?: boolean;
-
-  /**  */
-  isLayoutSequential?: boolean;
-
-  /**  */
-  isAnsiClass?: boolean;
-
-  /**  */
-  isAutoClass?: boolean;
-
-  /**  */
-  isUnicodeClass?: boolean;
-
-  /**  */
-  isCOMObject?: boolean;
-
-  /**  */
-  isContextful?: boolean;
-
-  /**  */
-  isEnum?: boolean;
-
-  /**  */
-  isMarshalByRef?: boolean;
-
-  /**  */
-  isPrimitive?: boolean;
-
-  /**  */
-  isValueType?: boolean;
-
-  /**  */
-  isSignatureType?: boolean;
-
-  /**  */
-  isSecurityCritical?: boolean;
-
-  /**  */
-  isSecuritySafeCritical?: boolean;
-
-  /**  */
-  isSecurityTransparent?: boolean;
-
-  /**  */
-  structLayoutAttribute?: StructLayoutAttribute;
-
-  /**  */
-  typeInitializer?: ConstructorInfo;
-
-  /**  */
-  typeHandle?: RuntimeTypeHandle;
-
-  /**  */
-  guid?: string;
-
-  /**  */
-  baseType?: Type;
-
-  /**  */
-  isSerializable?: boolean;
-
-  /**  */
-  containsGenericParameters?: boolean;
-
-  /**  */
-  isVisible?: boolean;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface MethodBase {
-  /**  */
-  attributes?: MethodAttributes;
-
-  /**  */
-  methodImplementationFlags?: MethodImplAttributes;
-
-  /**  */
-  callingConvention?: CallingConventions;
-
-  /**  */
-  isAbstract?: boolean;
-
-  /**  */
-  isConstructor?: boolean;
-
-  /**  */
-  isFinal?: boolean;
-
-  /**  */
-  isHideBySig?: boolean;
-
-  /**  */
-  isSpecialName?: boolean;
-
-  /**  */
-  isStatic?: boolean;
-
-  /**  */
-  isVirtual?: boolean;
-
-  /**  */
-  isAssembly?: boolean;
-
-  /**  */
-  isFamily?: boolean;
-
-  /**  */
-  isFamilyAndAssembly?: boolean;
-
-  /**  */
-  isFamilyOrAssembly?: boolean;
-
-  /**  */
-  isPrivate?: boolean;
-
-  /**  */
-  isPublic?: boolean;
-
-  /**  */
-  isConstructedGenericMethod?: boolean;
-
-  /**  */
-  isGenericMethod?: boolean;
-
-  /**  */
-  isGenericMethodDefinition?: boolean;
-
-  /**  */
-  containsGenericParameters?: boolean;
-
-  /**  */
-  methodHandle?: RuntimeMethodHandle;
-
-  /**  */
-  isSecurityCritical?: boolean;
-
-  /**  */
-  isSecuritySafeCritical?: boolean;
-
-  /**  */
-  isSecurityTransparent?: boolean;
-
-  /**  */
-  memberType?: MemberTypes;
-
-  /**  */
-  name?: string;
-
-  /**  */
-  declaringType?: Type;
-
-  /**  */
-  reflectedType?: Type;
-
-  /**  */
-  module?: Module;
-
-  /**  */
-  customAttributes?: CustomAttributeData[];
-
-  /**  */
-  isCollectible?: boolean;
-
-  /**  */
-  metadataToken?: number;
-}
-
-export interface Exception {
-  /**  */
-  targetSite?: MethodBase;
-
-  /**  */
-  stackTrace?: string;
-
-  /**  */
-  message?: string;
-
-  /**  */
-  data?: object;
-
-  /**  */
-  innerException?: Exception;
-
-  /**  */
-  helpLink?: string;
-
-  /**  */
-  source?: string;
-
-  /**  */
-  hResult?: number;
-}
-
-export interface TokenResponse {
-  /**  */
-  accessToken?: string;
-
-  /**  */
-  identityToken?: string;
-
-  /**  */
-  tokenType?: string;
-
-  /**  */
-  refreshToken?: string;
-
-  /**  */
-  errorDescription?: string;
-
-  /**  */
-  expiresIn?: number;
-
-  /**  */
-  httpResponse?: HttpResponseMessage;
-
-  /**  */
-  raw?: string;
-
-  /**  */
-  json?: object;
-
-  /**  */
-  exception?: Exception;
-
-  /**  */
-  isError?: boolean;
-
-  /**  */
-  errorType?: ResponseErrorType;
-
-  /**  */
-  httpStatusCode?: HttpStatusCode;
-
-  /**  */
-  httpErrorReason?: string;
-
-  /**  */
-  error?: string;
-}
-
 export type FormTheme = 0 | 1 | 2;
 
 export type FormItemType = 0 | 1;
@@ -3768,172 +2568,3 @@ export type FormItemType = 0 | 1;
 export type LoginResultType = 1 | 2 | 3 | 4 | 5;
 
 export type CredentialType = 0 | 1 | 2 | 2;
-
-export type HttpStatusCode =
-  | 100
-  | 101
-  | 102
-  | 103
-  | 200
-  | 201
-  | 202
-  | 203
-  | 204
-  | 205
-  | 206
-  | 207
-  | 208
-  | 226
-  | 300
-  | 300
-  | 301
-  | 301
-  | 302
-  | 302
-  | 303
-  | 303
-  | 304
-  | 305
-  | 306
-  | 307
-  | 307
-  | 308
-  | 400
-  | 401
-  | 402
-  | 403
-  | 404
-  | 405
-  | 406
-  | 407
-  | 408
-  | 409
-  | 410
-  | 411
-  | 412
-  | 413
-  | 414
-  | 415
-  | 416
-  | 417
-  | 421
-  | 422
-  | 423
-  | 424
-  | 426
-  | 428
-  | 429
-  | 431
-  | 451
-  | 500
-  | 501
-  | 502
-  | 503
-  | 504
-  | 505
-  | 506
-  | 507
-  | 508
-  | 510
-  | 511;
-
-export type MethodAttributes =
-  | 0
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 8
-  | 16
-  | 32
-  | 64
-  | 128
-  | 256
-  | 256
-  | 512
-  | 1024
-  | 2048
-  | 4096
-  | 8192
-  | 16384
-  | 32768
-  | 53248;
-
-export type MethodImplAttributes = 0 | 0 | 1 | 2 | 3 | 3 | 4 | 4 | 8 | 16 | 32 | 64 | 128 | 256 | 512 | 4096 | 65535;
-
-export type CallingConventions = 1 | 2 | 3 | 32 | 64;
-
-export type MemberTypes = 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 191;
-
-export type EventAttributes = 0 | 512 | 1024 | 1024;
-
-export type ParameterAttributes = 0 | 1 | 2 | 4 | 8 | 16 | 4096 | 8192 | 16384 | 32768 | 61440;
-
-export type FieldAttributes =
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 16
-  | 32
-  | 64
-  | 128
-  | 256
-  | 512
-  | 1024
-  | 4096
-  | 8192
-  | 32768
-  | 38144;
-
-export type PropertyAttributes = 0 | 512 | 1024 | 4096 | 8192 | 16384 | 32768 | 62464;
-
-export type GenericParameterAttributes = 0 | 1 | 2 | 3 | 4 | 8 | 16 | 28;
-
-export type TypeAttributes =
-  | 0
-  | 0
-  | 0
-  | 0
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 7
-  | 7
-  | 8
-  | 16
-  | 24
-  | 32
-  | 32
-  | 128
-  | 256
-  | 1024
-  | 2048
-  | 4096
-  | 8192
-  | 16384
-  | 65536
-  | 131072
-  | 196608
-  | 196608
-  | 262144
-  | 264192
-  | 1048576
-  | 12582912;
-
-export type LayoutKind = 0 | 2 | 3;
-
-export type SecurityRuleSet = 0 | 1 | 2;
-
-export type ResponseErrorType = 0 | 1 | 2 | 3 | 4;

@@ -1,28 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
-using IdentityModel;
 using IdentityModel.Client;
-using IdentityServer4;
 using IdentityServer4.Configuration;
-using IdentityServer4.Models;
 using IdentityServer4.Services;
-using IdentityServer4.Validation;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
-using Serilog;
 using TT.Abp.WeixinManagement.Application.Dtos;
 using TT.Abp.WeixinManagement.Domain;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Identity;
-using Volo.Abp.Identity.Settings;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Settings;
 using Volo.Abp.Uow;
@@ -30,11 +19,6 @@ using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
 namespace TT.Abp.WeixinManagement.Application
 {
-    public interface IWeixinAppService : IApplicationService
-    {
-        Task<string> GetAccessToken(string appid);
-    }
-
     public class WeixinAppService : ApplicationService, IWeixinAppService
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -162,6 +146,18 @@ namespace TT.Abp.WeixinManagement.Application
                 SessionKey = session.session_key
             });
         }
+
+
+        [HttpGet]
+        [Authorize]
+        public async Task<string> GetUnLimitQr(string scene, string page)
+        {
+            
+            
+            return await _weixinManager.Getwxacodeunlimit(scene, page);
+        }
+        
+        
 
         // public async Task<TokenResponse> DelegateAsync(string username)
         // {

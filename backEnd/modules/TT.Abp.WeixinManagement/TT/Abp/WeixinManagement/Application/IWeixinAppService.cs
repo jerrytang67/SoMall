@@ -6,4 +6,8 @@ using Volo.Abp.Application.Services;
 
 namespace TT.Abp.WeixinManagement.Application
 {
+    public interface IWeixinAppService : IApplicationService
+    {
+        Task<string> GetAccessToken(string appid);
+    }
 }

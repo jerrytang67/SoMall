@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using TT.Abp.ShopManagement.Application.Dtos;
 using TT.Abp.ShopManagement.Domain;
 using TT.Abp.VisitorManagement.Application.Dtos;
@@ -26,17 +28,24 @@ namespace TT.Abp.VisitorManagement.Application
         Task<FormDto> UpdateAsync(Guid id, FormCreateOrEditDto body);
 
         Task DeleteAsync(Guid id);
+
+        Task<List<ShopDto>> GetShops(Guid id);
     }
 
     public class FormAppService : ApplicationService, IFormAppService
     {
         private readonly IRepository<Form, Guid> _repository;
+        private readonly IRepository<Shop, Guid> _shopRepository;
         private readonly ICurrentTenant _currentTenant;
 
-        public FormAppService(IRepository<Form, Guid> shopRepository, ICurrentTenant currentTenant)
+        public FormAppService(
+            IRepository<Form, Guid> formRepository,
+            IRepository<Shop, Guid> shopRepository,
+            ICurrentTenant currentTenant)
         {
             ObjectMapperContext = typeof(VisitorManagementModule);
-            _repository = shopRepository;
+            _repository = formRepository;
+            _shopRepository = shopRepository;
             _currentTenant = currentTenant;
         }
 
@@ -92,6 +101,22 @@ namespace TT.Abp.VisitorManagement.Application
             }
 
             await _repository.DeleteAsync(find);
+        }
+
+        /// <summary>
+        /// 取得使用这个表单的商家
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<List<ShopDto>> GetShops(Guid id)
+        {
+            var find = await _repository.Include(x => x.ShopForms).FirstOrDefaultAsync(x => x.Id == id);
+
+            var shopids = find.ShopForms.Select(x => x.ShopId);
+
+            var shops = await _shopRepository.Where(x => shopids.Contains(x.Id)).ToListAsync();
+
+            return ObjectMapper.Map<List<Shop>, List<ShopDto>>(shops);
         }
     }
 }

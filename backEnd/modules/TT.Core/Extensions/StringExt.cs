@@ -22,5 +22,9 @@ namespace TT.Core.Extensions
 
             return sb.ToString();
         }
+        public static bool IsNullOrEmptyOrWhiteSpace(this string str)
+        {
+            return string.IsNullOrWhiteSpace(str) || string.IsNullOrEmpty(str);
+        }
     }
 }
