@@ -9,7 +9,7 @@
       <PackageReference Include="DotNetCore.CAP" Version="3.0.2" />
       <PackageReference Include="DotNetCore.CAP.RabbitMQ" Version="3.0.2" />
       <PackageReference Include="DotNetCore.CAP.SqlServer" Version="3.0.2" />
-      <PackageReference Include="IdentityServer4" Version="3.0.2" />
+      <PackageReference Include="IdentityServer4" Version="3.1.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
       <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
       <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.2.1" />
