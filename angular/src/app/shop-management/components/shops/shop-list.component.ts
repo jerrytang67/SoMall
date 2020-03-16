@@ -40,6 +40,8 @@ export class ShopListComponent implements OnInit {
   create() {
     const modal = this.modalService.create({
       nzTitle: '新建商家',
+      nzWidth: 920,
+
       nzContent: ShopEditComponent,
       nzComponentParams: {
         form: {
@@ -76,6 +78,7 @@ export class ShopListComponent implements OnInit {
   edit(shop: ShopDto) {
     const modal = this.modalService.create({
       nzTitle: '编辑商家',
+      nzWidth: 920,
       nzContent: ShopEditComponent,
       nzComponentParams: {
         id: shop.id!,

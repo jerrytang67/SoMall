@@ -54,6 +54,10 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public bool IsRequired { get; set; }
         public bool IsDisable { get; set; }
         public bool IsMulti { get; set; }
+        
+        
+        //only in dto
+        public string Value { get; set; }
         public List<SelectionItem> Selections { get; set; }
     }
 
@@ -75,6 +79,9 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public bool IsRequired { get; set; }
         public bool IsDisable { get; set; }
         public bool IsMulti { get; set; }
+        
+        
+
         public List<SelectionItem> Selections { get; set; }
     }
 
@@ -83,6 +90,6 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
     {
         public string Label { get; set; }
         public string Value { get; set; }
-        public bool IsChecked { get; set; }
+        public bool IsChecked { get; set; } = false;
     }
 }

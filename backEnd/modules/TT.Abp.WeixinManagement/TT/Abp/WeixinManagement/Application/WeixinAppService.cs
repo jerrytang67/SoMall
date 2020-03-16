@@ -152,12 +152,12 @@ namespace TT.Abp.WeixinManagement.Application
 
         [HttpGet]
         [Authorize]
-        public async Task<string> GetUnLimitQr(Guid scene, string page = null)
+        public async Task<object> GetUnLimitQr(Guid scene, string page = null)
         {
             var shorter = scene.ToShortString();
-            return await _weixinManager.Getwxacodeunlimit(shorter, page);
+            return new {url = await _weixinManager.Getwxacodeunlimit(shorter, page)};
         }
-        
+
         // public async Task<TokenResponse> DelegateAsync(string username)
         // {
         //     var serverClient = _httpClientFactory.CreateClient();

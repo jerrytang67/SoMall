@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormProxyService, FormCreateOrEditDto, FormDto } from 'src/api/appService';
+import { FormProxyService, FormCreateOrEditDto, FormDto, FormTheme } from 'src/api/appService';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { FormEditComponent } from '../form-edit/form-edit.component';
 
@@ -45,7 +45,7 @@ export class FormsComponent implements OnInit {
         form: {
           title: "",
           description: "",
-          theme: 0
+          theme: FormTheme.red
         }
       },
       nzFooter: [

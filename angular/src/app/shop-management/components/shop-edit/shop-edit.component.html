@@ -57,11 +57,12 @@
         </nz-upload>
     </se>
     <se label="介绍">
-        <textarea rows="4"
-                  nz-input
-                  [(ngModel)]="form.description"
-                  name="description"></textarea>
 
+        <ckeditor #edit
+                  [editor]="Editor"
+                  (ready)="onReady($event)"
+                  [(ngModel)]="form.description"
+                  name="description" ></ckeditor>
     </se>
     <se>
         <button nz-button

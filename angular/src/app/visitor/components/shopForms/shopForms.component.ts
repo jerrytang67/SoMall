@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormProxyService, FormDto, WeixinProxyService } from 'src/api/appService';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { FormProxyService, FormDto, WeixinProxyService, ShopDto, FormTheme } from 'src/api/appService';
+import { NzModalService, NzMessageService, NzModalRef } from 'ng-zorro-antd';
 import { FormEditComponent } from '../form-edit/form-edit.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -53,7 +53,7 @@ export class ShopFormsComponent implements OnInit {
         form: {
           title: "",
           description: "",
-          theme: 0
+          theme: FormTheme.red
         }
       },
       nzFooter: [
@@ -112,10 +112,22 @@ export class ShopFormsComponent implements OnInit {
       this.refresh();
     })
   }
-  getQr(shop: FormDto) {
+
+  isVisible = false;
+  qrSrc = "";
+  qrTitle = "";
+
+  getQr(shop: ShopDto) {
+    console.log(shop);
+
+    this.qrSrc = "";
+    this.qrTitle = `${shop.name} 小程序码`;
     this.weixinApi.getUnLimitQr({ scene: `${shop.id}` }).subscribe(res => {
       console.log(res);
-
+      this.qrSrc = `http://${res.url}`;
+      this.isVisible = true;
     })
   }
+
+  handleCancel() { this.isVisible = false; }
 }

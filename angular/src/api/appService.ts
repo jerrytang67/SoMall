@@ -196,52 +196,6 @@ export class AccountProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
-export class FeaturesProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  get(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-    } = {} as any
-  ): Observable<FeatureListDto> {
-    let url = '/api/abp/features/get';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<FeatureListDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-      /** requestBody */
-      body?: UpdateFeaturesDto;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/abp/features/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
 export class FormProxyService {
   constructor(private http: HttpClient) {}
 
@@ -340,6 +294,23 @@ export class FormProxyService {
     };
     return (this.http.request('get', url, options) as any) as Observable<ShopDto[]>;
   }
+  /**
+   *
+   */
+  getShopForm(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/form/getShopForm';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<any>;
+  }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -410,52 +381,6 @@ export class OssProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class PermissionsProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  get(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-    } = {} as any
-  ): Observable<GetPermissionListResultDto> {
-    let url = '/api/abp/permissions/get';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<GetPermissionListResultDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-      /** requestBody */
-      body?: UpdatePermissionsDto;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/abp/permissions/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<any>;
   }
 }
 
@@ -769,7 +694,6 @@ export class ProfileProxyService {
   ): Observable<ProfileDto> {
     let url = '/api/identity/my-profile';
     let options: any = {
-      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -1115,7 +1039,6 @@ export class TenantProxyService {
     let url = '/api/multi-tenancy/tenants//default-connection-string';
     let options: any = {
       params: { id: params.id },
-      body: params.body,
       method: 'put'
     };
     return (this.http.request('put', url, options) as any) as Observable<any>;
@@ -1473,14 +1396,14 @@ export class WeixinProxyService {
       /**  */
       page?: string;
     } = {} as any
-  ): Observable<string> {
+  ): Observable<any> {
     let url = '/api/app/weixin/getUnLimitQr';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<string>;
+    return (this.http.request('get', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1903,6 +1826,9 @@ export interface FormItemDto {
   isMulti?: boolean;
 
   /**  */
+  value?: string;
+
+  /**  */
   selections?: SelectionItem[];
 }
 
@@ -1933,7 +1859,7 @@ export interface FormItemCreateOrEditDto {
   itemId?: string;
 
   /**  */
-  fromId?: string;
+  formId?: string;
 
   /**  */
   type?: FormItemType;
@@ -2561,10 +2487,28 @@ export interface WeChatMiniProgramAuthenticateModel {
   session_key?: string;
 }
 
-export type FormTheme = 0 | 1 | 2;
+export enum FormTheme {
+  'red' = 'red',
+  'black' = 'black',
+  'green' = 'green'
+}
 
-export type FormItemType = 0 | 1;
+export enum FormItemType {
+  'Input' = 'Input',
+  'TextArea' = 'TextArea'
+}
 
-export type LoginResultType = 1 | 2 | 3 | 4 | 5;
+export enum LoginResultType {
+  'Success' = 'Success',
+  'InvalidUserNameOrPassword' = 'InvalidUserNameOrPassword',
+  'NotAllowed' = 'NotAllowed',
+  'LockedOut' = 'LockedOut',
+  'RequiresTwoFactor' = 'RequiresTwoFactor'
+}
 
-export type CredentialType = 0 | 1 | 2 | 2;
+export enum CredentialType {
+  'Default' = 'Default',
+  'Code' = 'Code',
+  'Image' = 'Image',
+  'IdCard' = 'IdCard'
+}

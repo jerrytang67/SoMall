@@ -27,8 +27,8 @@ namespace TT.Abp.VisitorManagement.Domain
             VisitorLogs = new Collection<VisitorLog>();
         }
 
-        public virtual Collection<FormItem> FormItems { get; protected set; }
-        public virtual Collection<VisitorLog> VisitorLogs { get; protected set; }
+        public virtual Collection<FormItem> FormItems { get; set; }
+        public virtual Collection<VisitorLog> VisitorLogs { get; set; }
         public Guid? TenantId { get; protected set; }
 
         internal void SetTitle([NotNull] string title)

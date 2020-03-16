@@ -14,7 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
 // #region third libs
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 
-const THIRDMODULES = [NgZorroAntdModule];
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+const THIRDMODULES = [NgZorroAntdModule , CKEditorModule];
 // #endregion
 
 // #region your componets & directives

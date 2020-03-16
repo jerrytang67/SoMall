@@ -13,14 +13,15 @@
         public enum FormItemType
         {
             Input = 0,
-            TextArea = 1
+            TextArea = 1,
+            Radio = 2
         }
 
         public enum FormTheme
         {
-            Default = 0,
-            Read = 1,
-            Black = 2
+            red = 0,
+            black = 1,
+            green = 2
         }
     }
 }

@@ -15,6 +15,8 @@ using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.MultiTenancy;
 using StackExchange.Redis;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Conventions;
@@ -45,7 +47,7 @@ namespace TT.SoMall
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
 
-            ConfigureConventionalControllers();
+            ConfigureConventionalControllers(context);
             ConfigureAuthentication(context, configuration);
             ConfigureLocalization();
             ConfigureCache(configuration);
@@ -53,9 +55,6 @@ namespace TT.SoMall
             ConfigureRedis(context, configuration, hostingEnvironment);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
-            
-            
-            
         }
 
         private void ConfigureCache(IConfiguration configuration)
@@ -87,9 +86,16 @@ namespace TT.SoMall
             }
         }
 
-        private void ConfigureConventionalControllers()
+        private void ConfigureConventionalControllers(ServiceConfigurationContext context)
         {
             Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly); });
+            
+            context.Services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+
+                options.SerializerSettings.Converters.Add(new StringEnumConverter());
+            });
         }
 
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
@@ -113,6 +119,8 @@ namespace TT.SoMall
                     options.DocInclusionPredicate((docName, description) => true);
                     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 });
+            
+            context.Services.AddSwaggerGenNewtonsoftSupport();
         }
 
         private void ConfigureLocalization()

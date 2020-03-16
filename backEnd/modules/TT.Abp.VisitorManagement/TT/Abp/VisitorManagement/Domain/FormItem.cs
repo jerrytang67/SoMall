@@ -40,6 +40,7 @@ namespace TT.Abp.VisitorManagement.Domain
             return new object[] {FormId, ItemId};
         }
 
+
         [ForeignKey("FormId")] public virtual Form Form { get; set; }
     }
 }

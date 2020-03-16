@@ -15,6 +15,7 @@ namespace TT.Abp.VisitorManagement
 
 
             CreateMap<FormItem, FormItemDto>()
+                .ForMember(x => x.Value, opt => opt.MapFrom(x => x.DefaultValue))
                 .ForMember(x => x.Selections, opt =>
                     opt.MapFrom(x =>
                         JsonConvert.DeserializeObject<List<SelectionItem>>(x.SelectionJson)

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ViewChild, Injector } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Injector, ElementRef } from '@angular/core';
 import { UpdateShopDto, OssProxyService } from 'src/api/appService';
 import { NgForm } from '@angular/forms';
 import base64 from '@core/utils/base64';
 import { UploadXHRArgs } from 'ng-zorro-antd';
 import { HttpRequest, HttpEvent, HttpEventType, HttpResponse, HttpClient } from '@angular/common/http';
-
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 @Component({
   selector: 'app-shop-edit',
   templateUrl: './shop-edit.component.html',
@@ -30,6 +31,19 @@ import { HttpRequest, HttpEvent, HttpEventType, HttpResponse, HttpClient } from 
   ]
 })
 export class ShopEditComponent implements OnInit {
+
+  //public Editor = ClassicEditor;
+
+  public Editor = DecoupledEditor;
+
+  public onReady( editor ) {
+      editor.ui.getEditableElement().parentElement.insertBefore(
+          editor.ui.view.toolbar.element,
+          editor.ui.getEditableElement()
+      );
+  }
+
+
 
   @ViewChild('f', { static: true }) f: NgForm;
 
@@ -127,6 +141,7 @@ export class ShopEditComponent implements OnInit {
 
   onSubmit(f: NgForm) { }
 
-
+  ngOnDestroy(): void {
+  };
 
 }

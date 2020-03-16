@@ -67,3 +67,17 @@
         </tbody>
     </nz-table>
 </nz-card>
+
+<nz-modal [(nzVisible)]="isVisible"
+          [nzTitle]="qrTitle"
+          (nzOnCancel)="handleCancel()">
+    <div>
+        <img [src]="qrSrc"
+             *ngIf="qrSrc" />
+    </div>
+    <div *nzModalFooter>
+        <button nz-button
+                nzType="default"
+                (click)="handleCancel()">关闭</button>
+    </div>
+</nz-modal>

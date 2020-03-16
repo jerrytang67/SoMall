@@ -118,15 +118,18 @@ namespace TT.Abp.VisitorManagement.Application
             var form = await _repository
                 .Include(x => x.ShopForms)
                 .Include(x => x.FormItems)
-                .Where(x => x.ShopForms.Any(y => y.ShopId == shop_id) && x.ShopForms.Any(y => y.FormId == new Guid("4de02c90-c97c-5c7e-d3e4-39f3f28f2e90"))).ToListAsync();
+                .Where(x => x.ShopForms.Any(y => y.ShopId == shop_id) && x.ShopForms.Any(y => y.FormId == new Guid("4de02c90-c97c-5c7e-d3e4-39f3f28f2e90"))).FirstOrDefaultAsync();
 
-            if (form.Count == 0)
+            if (form == null)
                 throw new UserFriendlyException("NotFind");
 
 
             var shop = await _shopRepository.FirstOrDefaultAsync(x => x.Id == shop_id);
 
-            return new {shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = ObjectMapper.Map<Form, FormDto>(form.First())};
+            var formDto = ObjectMapper.Map<Form, FormDto>(form);
+            formDto.FormItems = formDto.FormItems.OrderBy(x => x.Sort).ToList();
+
+            return new {shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = formDto};
         }
     }
 }
