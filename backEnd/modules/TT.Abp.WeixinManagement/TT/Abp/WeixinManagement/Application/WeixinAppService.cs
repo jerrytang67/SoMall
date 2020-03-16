@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TT.Abp.WeixinManagement.Application.Dtos;
 using TT.Abp.WeixinManagement.Domain;
+using TT.Extensions;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Settings;
@@ -150,15 +152,12 @@ namespace TT.Abp.WeixinManagement.Application
 
         [HttpGet]
         [Authorize]
-        public async Task<string> GetUnLimitQr(string scene, string page)
+        public async Task<string> GetUnLimitQr(Guid scene, string page = null)
         {
-            
-            
-            return await _weixinManager.Getwxacodeunlimit(scene, page);
+            var shorter = scene.ToShortString();
+            return await _weixinManager.Getwxacodeunlimit(shorter, page);
         }
         
-        
-
         // public async Task<TokenResponse> DelegateAsync(string username)
         // {
         //     var serverClient = _httpClientFactory.CreateClient();

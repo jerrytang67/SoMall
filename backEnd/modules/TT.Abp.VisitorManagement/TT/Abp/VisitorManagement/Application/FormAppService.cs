@@ -8,6 +8,8 @@ using TT.Abp.ShopManagement.Application.Dtos;
 using TT.Abp.ShopManagement.Domain;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
+using TT.Extensions;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
@@ -16,36 +18,25 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.VisitorManagement.Application
 {
-    public interface IFormAppService : IApplicationService
-    {
-        Task<ListResultDto<FormDto>> GetListAsync();
-
-        Task<FormDto> GetAsync(Guid id);
-
-        Task<FormDto> CreateAsync(FormCreateOrEditDto input);
-
-
-        Task<FormDto> UpdateAsync(Guid id, FormCreateOrEditDto body);
-
-        Task DeleteAsync(Guid id);
-
-        Task<List<ShopDto>> GetShops(Guid id);
-    }
-
     public class FormAppService : ApplicationService, IFormAppService
     {
         private readonly IRepository<Form, Guid> _repository;
+
         private readonly IRepository<Shop, Guid> _shopRepository;
+
+        // private readonly IRepository<ShopForm> _shopFormRepository;
         private readonly ICurrentTenant _currentTenant;
 
         public FormAppService(
             IRepository<Form, Guid> formRepository,
             IRepository<Shop, Guid> shopRepository,
+            // IRepository<ShopForm> shopFormRepository,
             ICurrentTenant currentTenant)
         {
             ObjectMapperContext = typeof(VisitorManagementModule);
             _repository = formRepository;
             _shopRepository = shopRepository;
+            // _shopFormRepository = shopFormRepository;
             _currentTenant = currentTenant;
         }
 
@@ -117,6 +108,25 @@ namespace TT.Abp.VisitorManagement.Application
             var shops = await _shopRepository.Where(x => shopids.Contains(x.Id)).ToListAsync();
 
             return ObjectMapper.Map<List<Shop>, List<ShopDto>>(shops);
+        }
+
+
+        public async Task<object> GetShopForm(string id)
+        {
+            var shop_id = id.FromShortString();
+
+            var form = await _repository
+                .Include(x => x.ShopForms)
+                .Include(x => x.FormItems)
+                .Where(x => x.ShopForms.Any(y => y.ShopId == shop_id) && x.ShopForms.Any(y => y.FromId == new Guid("4de02c90-c97c-5c7e-d3e4-39f3f28f2e90"))).ToListAsync();
+
+            if (form.Count == 0)
+                throw new UserFriendlyException("NotFind");
+
+
+            var shop = await _shopRepository.FirstOrDefaultAsync(x => x.Id == shop_id);
+
+            return new {shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = ObjectMapper.Map<Form, FormDto>(form.First())};
         }
     }
 }

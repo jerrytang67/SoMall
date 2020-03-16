@@ -28,7 +28,7 @@ namespace TT.Abp.VisitorManagement
                     )
                 )
                 .ReverseMap()
-                .ForMember(x => x.FromId, opt => opt.Ignore())
+                .ForMember(x => x.FormId, opt => opt.Ignore())
                 .ForMember(x => x.SelectionJson, opt =>
                     opt.MapFrom(x =>
                         JsonConvert.SerializeObject(x.Selections))

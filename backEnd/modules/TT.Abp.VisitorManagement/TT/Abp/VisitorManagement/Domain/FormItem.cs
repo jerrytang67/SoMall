@@ -9,10 +9,10 @@ namespace TT.Abp.VisitorManagement.Domain
         public FormItem(Guid fromId, Guid itemId)
         {
             ItemId = itemId;
-            FromId = fromId;
+            FormId = fromId;
         }
 
-        public Guid FromId { get; }
+        public Guid FormId { get; }
         public Guid ItemId { get; }
 
         public VisitorEnums.FormItemType Type { get; set; }
@@ -36,7 +36,7 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public override object[] GetKeys()
         {
-            return new object[] {FromId, ItemId};
+            return new object[] {FormId, ItemId};
         }
     }
 }

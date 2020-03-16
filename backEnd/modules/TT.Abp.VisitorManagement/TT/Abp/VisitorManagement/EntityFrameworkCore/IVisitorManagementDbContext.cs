@@ -12,5 +12,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
         DbSet<Credential> Credentials { get; set; }
         DbSet<Form> Forms { get; set; }
         DbSet<FormItem> FormItems { get; set; }
+        DbSet<ShopForm> ShopForms { get; set; }
+
     }
 }

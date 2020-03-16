@@ -40,14 +40,14 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.Property(x => x.Theme).HasDefaultValue(VisitorEnums.FormTheme.Default);
 
                 b.HasMany<VisitorLog>().WithOne().HasForeignKey(qt => qt.FormId);
-                b.HasMany<FormItem>().WithOne().HasForeignKey(qt => qt.FromId);
+                b.HasMany<FormItem>().WithOne().HasForeignKey(qt => qt.FormId);
             });
 
             builder.Entity<FormItem>(b =>
             {
                 b.ToTable(VisitorConsts.DbTablePrefix + "FormItems", VisitorConsts.DbSchema);
 
-                b.Property(x => x.FromId).HasColumnName(nameof(FormItem.FromId));
+                b.Property(x => x.FormId).HasColumnName(nameof(FormItem.FormId));
                 b.Property(x => x.ItemId).HasColumnName(nameof(FormItem.ItemId));
                 b.Property(x => x.Label).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
                 b.Property(x => x.Key).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
@@ -58,7 +58,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.Property(x => x.IsDisable).HasDefaultValue(false);
                 b.Property(x => x.IsMulti).HasDefaultValue(false);
 
-                b.HasKey(x => new {x.FromId, x.ItemId});
+                b.HasKey(x => new {x.FormId, x.ItemId});
             });
 
             builder.Entity<ShopForm>(b =>

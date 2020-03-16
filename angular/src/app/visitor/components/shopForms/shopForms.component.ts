@@ -113,7 +113,7 @@ export class ShopFormsComponent implements OnInit {
     })
   }
   getQr(shop: FormDto) {
-    this.weixinApi.getUnLimitQr({ scene: `${shop.id}_${this.formId}`, page: "/pages/visitor/index" }).subscribe(res => {
+    this.weixinApi.getUnLimitQr({ scene: `${shop.id}` }).subscribe(res => {
       console.log(res);
 
     })
