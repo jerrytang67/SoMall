@@ -7,7 +7,6 @@ using Volo.Abp.DependencyInjection;
 
 namespace TT.SoMall.EntityFrameworkCore
 {
-    [Dependency(ReplaceServices = true)]
     public class EntityFrameworkCoreSoMallDbSchemaMigrator
         : ISoMallDbSchemaMigrator, ITransientDependency
     {

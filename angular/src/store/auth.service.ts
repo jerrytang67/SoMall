@@ -7,7 +7,7 @@ import { ReplaySubject } from 'rxjs';
 
 export function getClientSettings(): UserManagerSettings {
     return {
-        authority: 'https://localhost:44380',
+        authority: 'https://demo.somall.top',
         client_id: 'SoMall_App',
         userStore: new WebStorageStateStore({ store: window.localStorage }),
         redirect_uri: window.location.origin + '/callback.html',

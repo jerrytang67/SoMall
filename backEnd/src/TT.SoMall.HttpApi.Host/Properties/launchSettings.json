@@ -1,9 +1,10 @@
-﻿{
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
+    "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:44340",
+      "sslPort": 0
     }
   },
   "profiles": {
@@ -16,11 +17,16 @@
     },
     "TT.SoMall.HttpApi.Host": {
       "commandName": "Project",
-      "launchBrowser": false,
-      "applicationUrl": "http://localhost:44340",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:44340"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "publishAllPorts": true
     }
   }
 }

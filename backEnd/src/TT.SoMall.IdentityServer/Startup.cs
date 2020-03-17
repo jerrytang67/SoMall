@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Configuration;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using TT.HttpClient.Weixin;
 
 namespace TT.SoMall
 {
@@ -11,7 +13,15 @@ namespace TT.SoMall
     {
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddApplication<SoMallIdentityServerModule>();
+
+            services.PostConfigure<IdentityServerOptions>(option =>
+            {
+                option.PublicOrigin = "https://demo.somall.top";
+                // option.IssuerUri = "https://demo.somall.top";
+            });
         }
 
         public void Configure(IApplicationBuilder app)

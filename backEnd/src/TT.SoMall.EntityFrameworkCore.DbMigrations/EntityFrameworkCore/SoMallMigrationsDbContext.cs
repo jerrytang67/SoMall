@@ -50,11 +50,11 @@ namespace TT.SoMall.EntityFrameworkCore
 
             builder.ConfigureSoMall();
             builder.ConfigureShop();
-
-            // visitor 访客模块
-            builder.ConfigureVisitorManagement();
-
-            // 微信模块
+            //
+            // // visitor 访客模块
+            // builder.ConfigureVisitorManagement();
+            //
+            // // 微信模块
             builder.ConfigureWeixinManagement();
         }
     }

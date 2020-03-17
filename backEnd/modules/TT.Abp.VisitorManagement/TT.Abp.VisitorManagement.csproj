@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\http_modules\TT.HttpClient.Weixin\TT.HttpClient.Weixin.csproj" />
       <ProjectReference Include="..\shop-management\src\TT.Abp.ShopManagement.csproj" />
       <ProjectReference Include="..\TT.Core\TT.Core.csproj" />
     </ItemGroup>

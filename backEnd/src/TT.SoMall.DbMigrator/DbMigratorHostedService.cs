@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TT.SoMall.Data;
 using Serilog;
+using TT.SoMall.Data;
 using Volo.Abp;
 
 namespace TT.SoMall.DbMigrator

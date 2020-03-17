@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using TT.Abp.ShopManagement;
-using Volo.Abp.Account;
+﻿using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -18,7 +16,6 @@ namespace TT.SoMall
         typeof(AbpPermissionManagementApplicationModule),
         typeof(AbpTenantManagementApplicationModule),
         typeof(AbpFeatureManagementApplicationModule)
-        // typeof(ShopManagementModule)
         )]
     public class SoMallApplicationModule : AbpModule
     {

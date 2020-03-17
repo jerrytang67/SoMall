@@ -21,7 +21,7 @@ namespace TT.HttpClient.Weixin
 
         private readonly IDatabase _redis;
 
-        public RedisClient(IOptions<RedisOptions> optionsAccessor)
+        public RedisClient(IOptionsSnapshot<RedisOptions> optionsAccessor)
         {
             _options = optionsAccessor.Value;
             _redis = ConnectionMultiplexer.Connect(_options.ConnectionString).GetDatabase(_options.DatabaseId);
@@ -59,6 +59,7 @@ namespace TT.HttpClient.Weixin
     public class AppOptions
     {
         public string ServerRootAddress { get; set; }
+
         public string ClientRootAddress { get; set; }
     }
 }

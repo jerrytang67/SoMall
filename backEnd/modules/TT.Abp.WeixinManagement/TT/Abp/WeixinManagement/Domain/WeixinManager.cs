@@ -153,8 +153,9 @@ namespace TT.Abp.WeixinManagement.Domain
         
         public virtual async Task<string> Getwxacodeunlimit(string scene, string page = "pages/index/index")
         {
-            var key = "TongMeng:QR:Mini";
+            var key = "SoMall:QR:Mini";
             var cache = await _redisClient.HashGetAsync(key, scene);
+
             if (cache.HasValue)
             {
                 return cache.ToString();

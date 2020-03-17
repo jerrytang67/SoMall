@@ -17,7 +17,7 @@ namespace TT.SoMall
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://122.51.103.18:9200"))
                 {
                     AutoRegisterTemplate = true,
                     AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6

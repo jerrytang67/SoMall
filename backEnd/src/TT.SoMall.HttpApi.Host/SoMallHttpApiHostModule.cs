@@ -141,15 +141,7 @@ namespace TT.SoMall
             IConfiguration configuration,
             IWebHostEnvironment hostingEnvironment)
         {
-            context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:Configuration"]; });
-
-            if (!hostingEnvironment.IsDevelopment())
-            {
-                var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-                context.Services
-                    .AddDataProtection()
-                    .PersistKeysToStackExchangeRedis(redis, "SoMall-Protection-Keys");
-            }
+            context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:ConnectionString"]; });
         }
 
         private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)

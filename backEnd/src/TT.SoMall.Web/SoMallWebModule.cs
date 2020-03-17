@@ -187,16 +187,9 @@ namespace TT.SoMall.Web
         {
             context.Services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = configuration["Redis:Configuration"];
+                options.Configuration = configuration["Redis:ConnectionString"];
             });
 
-            if (!hostingEnvironment.IsDevelopment())
-            {
-                var redis = ConnectionMultiplexer.Connect(configuration["Redis:Configuration"]);
-                context.Services
-                    .AddDataProtection()
-                    .PersistKeysToStackExchangeRedis(redis, "SoMall-Protection-Keys");
-            }
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)

@@ -22,18 +22,22 @@ namespace TT.SoMall
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = services.GetConfiguration();
-            services.AddSingleton<IRedisClient, RedisClient>();
 
             services.AddApplication<SoMallHttpApiHostModule>();
-            
+
             services.AddCap(x =>
             {
                 //配置数据库连接
                 x.UseSqlServer(configuration.GetConnectionString("Default"));
                 x.UseDashboard();
-                
+
                 //配置消息队列RabbitMQ
-                x.UseRabbitMQ("localhost");
+                x.UseRabbitMQ(option =>
+                {
+                    option.HostName = "106.14.137.103";
+                    option.UserName = "agile";
+                    option.Password = "Agile123!";
+                });
             });
         }
 

@@ -6,9 +6,9 @@ using Volo.Abp.Modularity;
 namespace TT.SoMall.EntityFrameworkCore
 {
     [DependsOn(
-        typeof(SoMallEntityFrameworkCoreModule),
-        typeof(VisitorManagementModule),
-        typeof(WeixinManagementModule)
+        typeof(SoMallEntityFrameworkCoreModule)
+        //typeof(VisitorManagementModule)
+        //typeof(WeixinManagementModule)
     )]
     public class SoMallEntityFrameworkCoreDbMigrationsModule : AbpModule
     {
