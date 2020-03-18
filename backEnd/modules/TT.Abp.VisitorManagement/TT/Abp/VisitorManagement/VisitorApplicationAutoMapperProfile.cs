@@ -35,6 +35,10 @@ namespace TT.Abp.VisitorManagement
                         JsonConvert.SerializeObject(x.Selections))
                 )
                 ;
+
+            CreateMap<VisitorLog, VisitorLogDto>()
+                .ForMember(x=>x.Credential,opt=>opt.Ignore())
+                .ForMember(x=>x.Html,opt=>opt.Ignore());
         }
     }
 }

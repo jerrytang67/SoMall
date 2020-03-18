@@ -8,6 +8,7 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
     /// </summary>
     public class VisitorLogDto
     {
+        public Guid Id { get; set; }
         public Guid FormId { get; set; }
         public string FormJson { get; set; }
         public Guid? CredentialId { get; set; }
@@ -17,5 +18,6 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public double? Lng { get; set; }
         public DateTimeOffset? LeaveTime { get; set; }
 
+        public string Html { get; set; }
     }
 }

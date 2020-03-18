@@ -138,7 +138,9 @@ namespace TT.Abp.VisitorManagement.Application
                                                                                    x.CreatorId == this.CurrentUser.Id);
                 if (visitorLog != null)
                 {
-                    return new {visitorLog};
+                    var v = ObjectMapper.Map<VisitorLog, VisitorLogDto>(visitorLog);
+                    v.Html = $"<h2>{shop.ShortName}</h2>{shop.Description}";
+                    return new { visitorLog = v };
                 }
             }
 

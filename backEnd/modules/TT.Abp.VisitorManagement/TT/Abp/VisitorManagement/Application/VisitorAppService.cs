@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TT.Abp.ShopManagement.Application.Dtos;
 using TT.Abp.ShopManagement.Domain;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -72,6 +74,10 @@ namespace TT.Abp.VisitorManagement.Application
             throw new NotImplementedException();
         }
 
+
+
+
+
         [HttpPost]
         public async Task<object> FormSubmit(VisitorFormSumbitRequest input)
         {
@@ -82,6 +88,19 @@ namespace TT.Abp.VisitorManagement.Application
             });
 
             return await Task.FromResult(result);
+        }
+
+        [HttpPost]
+        public async Task<object> Leave(VisitorLogDto input)
+        {
+            var visitlog = await _repository.FirstOrDefaultAsync(x => x.Id == input.Id);
+
+            if (visitlog == null)
+                throw new UserFriendlyException("NotFind");
+
+            visitlog.LeaveTime = DateTimeOffset.Now;
+
+            return new { visitlog.LeaveTime };
         }
     }
 
