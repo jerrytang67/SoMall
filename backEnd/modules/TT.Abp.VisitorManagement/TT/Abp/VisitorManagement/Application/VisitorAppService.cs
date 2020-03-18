@@ -75,13 +75,13 @@ namespace TT.Abp.VisitorManagement.Application
         [HttpPost]
         public async Task<object> FormSubmit(VisitorFormSumbitRequest input)
         {
-            await _repository.InsertAsync(new VisitorLog(Guid.NewGuid(), input.Form.Id, input.Shop?.Id,
+            var result = await _repository.InsertAsync(new VisitorLog(Guid.NewGuid(), input.Form.Id, input.Shop?.Id,
                 _currentTenant.Id)
             {
                 FormJson = JsonConvert.SerializeObject(input.FormItems)
             });
 
-            return await Task.FromResult(input);
+            return await Task.FromResult(result);
         }
     }
 

@@ -21,8 +21,8 @@ namespace TT.Abp.VisitorManagement.Application
     public class FormAppService : ApplicationService, IFormAppService
     {
         private readonly IRepository<Form, Guid> _repository;
-
         private readonly IRepository<Shop, Guid> _shopRepository;
+        private readonly IRepository<VisitorLog, Guid> _visitorLogRepository;
 
         // private readonly IRepository<ShopForm> _shopFormRepository;
         private readonly ICurrentTenant _currentTenant;
@@ -30,12 +30,14 @@ namespace TT.Abp.VisitorManagement.Application
         public FormAppService(
             IRepository<Form, Guid> formRepository,
             IRepository<Shop, Guid> shopRepository,
+            IRepository<VisitorLog, Guid> visitorLogRepository,
             // IRepository<ShopForm> shopFormRepository,
             ICurrentTenant currentTenant)
         {
             ObjectMapperContext = typeof(VisitorManagementModule);
             _repository = formRepository;
             _shopRepository = shopRepository;
+            _visitorLogRepository = visitorLogRepository;
             // _shopFormRepository = shopFormRepository;
             _currentTenant = currentTenant;
         }
@@ -123,13 +125,30 @@ namespace TT.Abp.VisitorManagement.Application
             if (form == null)
                 throw new UserFriendlyException("NotFind");
 
-
             var shop = await _shopRepository.FirstOrDefaultAsync(x => x.Id == shop_id);
+
+            if (shop == null)
+                throw new UserFriendlyException("NotFind");
+
+            if (this.CurrentUser.IsAuthenticated)
+            {
+                var visitorLog = await _visitorLogRepository.OrderByDescending(x => x.CreationTime).FirstOrDefaultAsync(x => x.LeaveTime == null &&
+                                                                                   x.ShopId == shop_id &&
+                                                                                   x.FormId == form.Id &&
+                                                                                   x.CreatorId == this.CurrentUser.Id);
+                if (visitorLog != null)
+                {
+                    return new {visitorLog};
+                }
+            }
+
+
+
 
             var formDto = ObjectMapper.Map<Form, FormDto>(form);
             formDto.FormItems = formDto.FormItems.OrderBy(x => x.Sort).ToList();
 
-            return new {shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = formDto};
+            return new { shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = formDto };
         }
     }
 }

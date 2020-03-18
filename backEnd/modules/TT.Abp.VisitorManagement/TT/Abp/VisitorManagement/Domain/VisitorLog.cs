@@ -35,5 +35,9 @@ namespace TT.Abp.VisitorManagement.Domain
         public Guid? TenantId { get; protected set; }
 
         public Guid? ShopId { get; set; }
+
+        public double? Lat { get; set; }
+        public double? Lng { get; set; }
+        public DateTimeOffset? LeaveTime { get; set; }
     }
 }
