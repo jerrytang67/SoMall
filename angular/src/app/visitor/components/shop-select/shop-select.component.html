@@ -1,0 +1,29 @@
+<nz-table #middleTable
+          nzSize="middle"
+          nzShowSizeChanger
+          [nzFrontPagination]="false"
+          [nzData]="dataItems"
+          [nzTotal]="pageingInfo.totalItems"
+          [(nzPageIndex)]="pageingInfo.pageNumber"
+          [(nzPageSize)]="pageingInfo.pageSize"
+          [nzLoading]="pageingInfo.isTableLoading"
+          (nzPageIndexChange)="refresh()"
+          (nzPageSizeChange)="refresh()">
+    <thead>
+        <tr>
+            <th
+            nzShowCheckbox
+            [(nzChecked)]="isAllDisplayDataChecked"
+            [nzIndeterminate]="isIndeterminate"
+            (nzCheckedChange)="checkAll($event)"
+          ></th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of middleTable.data">
+            <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
+            <td>{{ data.name }}</td>
+        </tr>
+    </tbody>
+</nz-table>

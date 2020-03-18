@@ -4,10 +4,11 @@ import { AuthStore } from './auth.store';
 import { UserManagerSettings, WebStorageStateStore, User, UserManager } from 'oidc-client';
 import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
+import { environment } from '@env/environment';
 
 export function getClientSettings(): UserManagerSettings {
     return {
-        authority: 'https://demo.somall.top',
+        authority: environment.oAuthConfig.issuer,
         client_id: 'SoMall_App',
         userStore: new WebStorageStateStore({ store: window.localStorage }),
         redirect_uri: window.location.origin + '/callback.html',

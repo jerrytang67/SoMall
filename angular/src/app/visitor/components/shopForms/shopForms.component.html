@@ -7,8 +7,8 @@
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
         <button nz-button
-                (click)="create()"
-                nzType="primary">{{'create' | translate}}</button>
+                (click)="addShop()"
+                nzType="primary">{{'add.shop' | translate}}</button>
         <button nz-button
                 (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
@@ -54,9 +54,9 @@
                 <td>{{item.shortName}}</td>
                 <td>{{item.description}}</td>
                 <td>
-                    <a (click)="edit(item)">{{'edit' | translate}}</a>
-                    <nz-divider nzType="vertical"></nz-divider>
                     <a (click)="getQr(item)">{{'QR' | translate}}</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a [routerLink]="['/visitor/visitorlog', formId , item.id]">访客记录</a>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
                        [nzTitle]="'确定删除吗?'"

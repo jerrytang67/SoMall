@@ -9,7 +9,7 @@ namespace TT.Abp.ShopManagement.Application
 {
     public interface IShopAppService : IApplicationService
     {
-        Task<ListResultDto<ShopDto>> GetListAsync();
+        Task<PagedResultDto<ShopDto>> GetListAsync(PagedResultRequestDto input);
 
         Task<ShopDto> GetByShortNameAsync(string shortName);
 

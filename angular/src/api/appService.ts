@@ -196,6 +196,52 @@ export class AccountProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class FeaturesProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+    } = {} as any
+  ): Observable<FeatureListDto> {
+    let url = '/api/abp/features/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<FeatureListDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+      /** requestBody */
+      body?: UpdateFeaturesDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/abp/features/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class FormProxyService {
   constructor(private http: HttpClient) {}
 
@@ -381,6 +427,52 @@ export class OssProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class PermissionsProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+    } = {} as any
+  ): Observable<GetPermissionListResultDto> {
+    let url = '/api/abp/permissions/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<GetPermissionListResultDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      providerName?: string;
+      /**  */
+      providerKey?: string;
+      /** requestBody */
+      body?: UpdatePermissionsDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/abp/permissions/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<any>;
   }
 }
 
@@ -694,6 +786,7 @@ export class ProfileProxyService {
   ): Observable<ProfileDto> {
     let url = '/api/identity/my-profile';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -819,12 +912,21 @@ export class ShopProxyService {
   /**
    *
    */
-  getList(): Observable<ShopDtoListResultDto> {
+  getList(
+    params: {
+      /**  */
+      maxResultCount?: number;
+      /**  */
+      skipCount?: number;
+    } = {} as any
+  ): Observable<ShopDtoPagedResultDto> {
     let url = '/api/app/shop/getList';
+    const _copy: any = { ...params };
     let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<ShopDtoListResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<ShopDtoPagedResultDto>;
   }
   /**
    *
@@ -1039,6 +1141,7 @@ export class TenantProxyService {
     let url = '/api/multi-tenancy/tenants//default-connection-string';
     let options: any = {
       params: { id: params.id },
+      body: params.body,
       method: 'put'
     };
     return (this.http.request('put', url, options) as any) as Observable<any>;
@@ -1275,12 +1378,27 @@ export class VisitorLogProxyService {
   /**
    *
    */
-  getList(): Observable<VisitorLogDtoListResultDto> {
+  getList(
+    params: {
+      /**  */
+      formId?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<VisitorLogDtoPagedResultDto> {
     let url = '/api/app/visitorLog/getList';
+    const _copy: any = { ...params };
     let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<VisitorLogDtoListResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<VisitorLogDtoPagedResultDto>;
   }
   /**
    *
@@ -1302,22 +1420,6 @@ export class VisitorLogProxyService {
   /**
    *
    */
-  create(
-    params: {
-      /** requestBody */
-      body?: CreateVisitorLogDto;
-    } = {} as any
-  ): Observable<VisitorLogDto> {
-    let url = '/api/app/visitorLog/create';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<VisitorLogDto>;
-  }
-  /**
-   *
-   */
   delete(
     params: {
       /**  */
@@ -1330,6 +1432,38 @@ export class VisitorLogProxyService {
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  formSubmit(
+    params: {
+      /** requestBody */
+      body?: VisitorFormSumbitRequest;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/visitorLog/formSubmit';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  leave(
+    params: {
+      /** requestBody */
+      body?: VisitorLogDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/visitorLog/leave';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1385,6 +1519,16 @@ export class WeixinProxyService {
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  checkLogin(): Observable<string> {
+    let url = '/api/app/weixin/checkLogin';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<string>;
   }
   /**
    *
@@ -1826,6 +1970,9 @@ export interface FormItemDto {
   isMulti?: boolean;
 
   /**  */
+  saveToLocal?: boolean;
+
+  /**  */
   value?: string;
 
   /**  */
@@ -1890,6 +2037,9 @@ export interface FormItemCreateOrEditDto {
 
   /**  */
   isMulti?: boolean;
+
+  /**  */
+  saveToLocal?: boolean;
 
   /**  */
   selections?: SelectionItem[];
@@ -2271,7 +2421,10 @@ export interface IdentityRoleUpdateDto {
   isPublic?: boolean;
 }
 
-export interface ShopDtoListResultDto {
+export interface ShopDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
   /**  */
   items?: ShopDto[];
 }
@@ -2454,24 +2607,54 @@ export interface CredentialDto {
 
 export interface VisitorLogDto {
   /**  */
+  id?: string;
+
+  /**  */
   formId?: string;
 
   /**  */
-  formJson?: string;
+  formJson?: FormItemDto[];
 
   /**  */
   credentialId?: string;
 
   /**  */
   credential?: CredentialDto;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  lat?: number;
+
+  /**  */
+  lng?: number;
+
+  /**  */
+  leaveTime?: Date;
+
+  /**  */
+  html?: string;
 }
 
-export interface VisitorLogDtoListResultDto {
+export interface VisitorLogDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
   /**  */
   items?: VisitorLogDto[];
 }
 
-export interface CreateVisitorLogDto {}
+export interface VisitorFormSumbitRequest {
+  /**  */
+  formItems?: FormItemDto[];
+
+  /**  */
+  form?: FormDto;
+
+  /**  */
+  shop?: ShopDto;
+}
 
 export interface WeChatMiniProgramAuthenticateModel {
   /**  */
@@ -2495,7 +2678,11 @@ export enum FormTheme {
 
 export enum FormItemType {
   'Input' = 'Input',
-  'TextArea' = 'TextArea'
+  'TextArea' = 'TextArea',
+  'Radio' = 'Radio',
+  'Checkbox' = 'Checkbox',
+  'Image' = 'Image',
+  'File' = 'File'
 }
 
 export enum LoginResultType {

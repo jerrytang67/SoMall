@@ -15,13 +15,13 @@ namespace TT.SoMall
         {
             services.AddApplication<SoMallIdentityServerModule>();
 
-
             // custom
             var config = services.GetConfiguration();
 
             services.PostConfigure<IdentityServerOptions>(options =>
             {
                 options.PublicOrigin = config["AuthServer:Authority"];
+
             });
         }
 

@@ -79,6 +79,7 @@ namespace TT.Abp.VisitorManagement.Application
 
             find.SetTitle(body.Title);
             find.SetDescription(body.Description);
+            find.Theme = body.Theme;
 
             return ObjectMapper.Map<Form, FormDto>(find);
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
 
@@ -37,8 +38,9 @@ namespace TT.Abp.VisitorManagement
                 ;
 
             CreateMap<VisitorLog, VisitorLogDto>()
-                .ForMember(x=>x.Credential,opt=>opt.Ignore())
-                .ForMember(x=>x.Html,opt=>opt.Ignore());
+                .ForMember(x => x.Credential, opt => opt.Ignore())
+                .ForMember(x => x.FormJson, opt => opt.MapFrom(x => JsonConvert.DeserializeObject<List<FormItemDto>>(x.FormJson)))
+                .ForMember(x => x.Html, opt => opt.Ignore());
         }
     }
 }

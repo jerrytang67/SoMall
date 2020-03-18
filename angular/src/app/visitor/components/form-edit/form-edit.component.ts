@@ -17,8 +17,6 @@ export class FormEditComponent implements OnInit {
     @ViewChild('f', { static: true }) f: NgForm;
 
 
-
-
     @Input() title: string;
 
     @Input() id: string;

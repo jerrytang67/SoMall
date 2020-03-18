@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.ShopManagement.Application.Dtos;
@@ -24,13 +26,18 @@ namespace TT.Abp.ShopManagement.Application
             _repository = shopRepository;
             _currentTenant = currentTenant;
         }
-        
-        public async Task<ListResultDto<ShopDto>> GetListAsync()
+
+        public async Task<PagedResultDto<ShopDto>> GetListAsync(PagedResultRequestDto input)
         {
             var tenantId = _currentTenant.Id;
-            var shops = await _repository.GetListAsync();
+            
+            var query = _repository;
 
-            return new ListResultDto<ShopDto>(
+            var total = await query.CountAsync();
+
+            var shops = await query.PageBy(input).ToListAsync();
+
+            return new PagedResultDto<ShopDto>(total,
                 ObjectMapper.Map<List<Shop>, List<ShopDto>>(shops));
         }
 
@@ -53,6 +60,7 @@ namespace TT.Abp.ShopManagement.Application
             return ObjectMapper.Map<Shop, ShopDto>(find);
         }
 
+        [Authorize]
         public async Task<ShopDto> CreateAsync(CreateShopDto input)
         {
             var newEntity = await _repository.InsertAsync(new Shop(GuidGenerator.Create(), input.Name, input.ShortName, input.LogoImage, input.CoverImage)
@@ -64,6 +72,7 @@ namespace TT.Abp.ShopManagement.Application
             return ObjectMapper.Map<Shop, ShopDto>(newEntity);
         }
 
+        [Authorize]
         public async Task<ShopDto> UpdateAsync(Guid id, UpdateShopDto body)
         {
             var find = await _repository.GetAsync(id);
@@ -82,6 +91,7 @@ namespace TT.Abp.ShopManagement.Application
             return ObjectMapper.Map<Shop, ShopDto>(find);
         }
 
+        [Authorize]
         public async Task DeleteAsync(Guid id)
         {
             var find = await _repository.GetAsync(id);

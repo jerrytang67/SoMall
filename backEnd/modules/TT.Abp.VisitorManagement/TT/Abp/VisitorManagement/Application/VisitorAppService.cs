@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TT.Abp.ShopManagement.Application.Dtos;
 using TT.Abp.ShopManagement.Domain;
@@ -15,16 +14,16 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace TT.Abp.VisitorManagement.Application
 {
     public interface IVisitorLogAppService : IApplicationService
     {
-        Task<ListResultDto<VisitorLogDto>> GetListAsync();
+        Task<PagedResultDto<VisitorLogDto>> GetListAsync(VisitorLogRequestDto input);
 
         Task<VisitorLogDto> GetAsync(Guid id);
-
-        Task<VisitorLogDto> CreateAsync(CreateVisitorLogDto input);
 
         Task DeleteAsync(Guid id);
     }
@@ -50,21 +49,26 @@ namespace TT.Abp.VisitorManagement.Application
             _currentTenant = currentTenant;
         }
 
-        [Authorize]
-        public async Task<ListResultDto<VisitorLogDto>> GetListAsync()
-        {
-            var result = await _repository.GetListAsync();
 
-            return new ListResultDto<VisitorLogDto>(
-                ObjectMapper.Map<List<VisitorLog>, List<VisitorLogDto>>(result));
+
+
+        [Authorize]
+        public async Task<PagedResultDto<VisitorLogDto>> GetListAsync(VisitorLogRequestDto input)
+        {
+            var query = _repository
+                .WhereIf(input.FormId.HasValue, x => x.FormId == input.FormId)
+                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
+                ;
+
+            var total = await query.CountAsync();
+
+            var result = await query.OrderByDescending(x => x.CreationTime).PageBy(input).ToListAsync();
+
+            return new PagedResultDto<VisitorLogDto>(total, ObjectMapper.Map<List<VisitorLog>, List<VisitorLogDto>>(result));
+
         }
 
         public Task<VisitorLogDto> GetAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<VisitorLogDto> CreateAsync(CreateVisitorLogDto input)
         {
             throw new NotImplementedException();
         }
@@ -75,9 +79,7 @@ namespace TT.Abp.VisitorManagement.Application
         }
 
 
-
-
-
+        [Authorize]
         [HttpPost]
         public async Task<object> FormSubmit(VisitorFormSumbitRequest input)
         {
@@ -90,6 +92,7 @@ namespace TT.Abp.VisitorManagement.Application
             return await Task.FromResult(result);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<object> Leave(VisitorLogDto input)
         {
@@ -109,5 +112,13 @@ namespace TT.Abp.VisitorManagement.Application
         public List<FormItemDto> FormItems { get; set; }
         public FormDto Form { get; set; }
         [CanBeNull] public ShopDto Shop { get; set; }
+    }
+
+
+    public class VisitorLogRequestDto : PagedAndSortedResultRequestDto
+    {
+        public Guid? FormId { get; set; }
+
+        public Guid? ShopId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ import { FormProxyService, FormDto, WeixinProxyService, ShopDto, FormTheme } fro
 import { NzModalService, NzMessageService, NzModalRef } from 'ng-zorro-antd';
 import { FormEditComponent } from '../form-edit/form-edit.component';
 import { ActivatedRoute } from '@angular/router';
+import { ShopSelectComponent } from '../shop-select/shop-select.component';
 
 @Component({
   selector: 'app-shop-forms',
@@ -30,7 +31,7 @@ export class ShopFormsComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       console.log(params)
-      this.formId = params.params.id
+      this.formId = params.params.formid
       this.refresh();
     });
 
@@ -45,33 +46,22 @@ export class ShopFormsComponent implements OnInit {
     })
   }
 
-  create() {
+  addShop() {
     const modal = this.modalService.create({
-      nzTitle: '新建表单',
-      nzContent: FormEditComponent,
+      nzTitle: '添加商户',
+      nzContent: ShopSelectComponent,
       nzComponentParams: {
-        form: {
-          title: "",
-          description: "",
-          theme: FormTheme.red
-        }
+        // form: {
+        //   title: "",
+        //   description: "",
+        //   theme: FormTheme.red
+        // }
       },
       nzFooter: [
         {
           label: '确定',
           onClick: instance => {
-            console.log("componentInstance", instance);
-            if (instance.f.valid) {
-              this.api.create({ body: instance.form }).subscribe(res => {
-                this.message.success("新建成功");
-                this.refresh();
-                modal.destroy();
-              })
-            }
-            else {
-              instance.f.ngSubmit.emit(null)
-              this.message.error("表单错误")
-            }
+
           }
         }
       ]
@@ -79,33 +69,7 @@ export class ShopFormsComponent implements OnInit {
     modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
   }
 
-  edit(form: FormDto) {
-    const modal = this.modalService.create({
-      nzTitle: '编辑表单',
-      nzContent: FormEditComponent,
-      nzComponentParams: {
-        id: form.id!,
-        form: { ...form }
-      },
-      nzFooter: [
-        {
-          label: '确定',
-          type: "primary",
-          onClick: instance => {
-            console.log("componentInstance", instance);
-            if (instance.f.valid) {
-              this.api.update({ id: instance.id, body: instance.form }).subscribe(res => {
-                this.message.success("修改成功");
-                this.refresh();
-                modal.destroy();
-              })
-            }
-          }
-        }
-      ]
-    });
-    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
-  }
+
   delete(shop: FormDto) {
     this.api.delete(shop).subscribe(res => {
       this.message.success("删除成功");

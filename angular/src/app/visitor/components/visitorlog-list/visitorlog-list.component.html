@@ -1,0 +1,79 @@
+<page-header [breadcrumb]="breadcrumb">
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/']">首页</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/visitor']">访客系统</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>访客日志</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+</page-header>
+<!-- <div class="alain-default__content-title">
+    <h1>
+        visitorlist
+    </h1>
+</div> -->
+
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button
+                (click)="refresh()">{{'refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable
+              nzShowSizeChanger
+              [nzFrontPagination]="false"
+              [nzData]="dataItems"
+              [nzTotal]="pageingInfo.totalItems"
+              [(nzPageIndex)]="pageingInfo.pageNumber"
+              [(nzPageSize)]="pageingInfo.pageSize"
+              [nzLoading]="pageingInfo.isTableLoading"
+              (nzPageIndexChange)="refresh()"
+              (nzPageSizeChange)="refresh()">
+        <thead>
+            <tr>
+                <!-- <th>Id</th> -->
+                <th>进入时间</th>
+                <th>离开时间</th>
+                <th></th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <!-- <td>{{item.id}}</td> -->
+                <td>
+                    {{item.creationTime | _date}}
+                </td>
+                <td>
+                    {{item.leaveTime | _date}}
+                </td>
+                <td>
+                    <div *ngFor="let x of item.formJson">
+                        <ng-container *ngIf="x.value && x.key === 'visitor_image',else elseTmpl">
+                            凭证:
+                            <ng-container *ngFor="let avatar of  parseJson(x.value)">
+                                <nz-avatar [nzShape]="'square'"
+                                           [nzSize]="128"
+                                           [nzSrc]="avatar"></nz-avatar>
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #elseTmpl>
+                            {{x.key}}:{{x.value}}
+                        </ng-template>
+                    </div>
+                </td>
+
+                <td>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a nz-popconfirm
+                       [nzTitle]="'确定删除吗?'"
+                       (nzOnConfirm)="delete(item)"
+                       nzPlacement="top">{{'delete' | translate}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
