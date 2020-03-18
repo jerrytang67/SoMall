@@ -19,14 +19,18 @@ namespace TT.SoMall
 {
     public class Startup
     {
+
         public void ConfigureServices(IServiceCollection services)
         {
-            var configuration = services.GetConfiguration();
-
+            // ABP
             services.AddApplication<SoMallHttpApiHostModule>();
+            // ABP End
+
+            var configuration = services.GetConfiguration();
 
             services.AddCap(x =>
             {
+                var rabbitOptions = configuration.GetSection("RabbitMQ");
                 //配置数据库连接
                 x.UseSqlServer(configuration.GetConnectionString("Default"));
                 x.UseDashboard();
@@ -34,11 +38,13 @@ namespace TT.SoMall
                 //配置消息队列RabbitMQ
                 x.UseRabbitMQ(option =>
                 {
-                    option.HostName = "106.14.137.103";
-                    option.UserName = "agile";
-                    option.Password = "Agile123!";
+                    option.HostName = rabbitOptions["HostName"];
+                    option.UserName = rabbitOptions["UserName"];
+                    option.Password = rabbitOptions["Password"];
                 });
             });
+
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -48,6 +54,17 @@ namespace TT.SoMall
             app.InitializeApplication();
 
             app.UseCapDashboard();
+
+            app.MapWhen(
+                ctx =>
+                    ctx.Request.Path.ToString().StartsWith("/Home/"),
+                app2 =>
+                {
+                    app2.UseRouting();
+                    app2.UseMvcWithDefaultRouteAndArea();
+                }
+            );
+
         }
     }
 }

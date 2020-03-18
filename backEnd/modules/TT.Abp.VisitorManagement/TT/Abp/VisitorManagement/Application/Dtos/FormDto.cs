@@ -54,6 +54,7 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public bool IsRequired { get; set; }
         public bool IsDisable { get; set; }
         public bool IsMulti { get; set; }
+        public bool SaveToLocal { get; set; }
         
         
         //only in dto
@@ -79,6 +80,7 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public bool IsRequired { get; set; }
         public bool IsDisable { get; set; }
         public bool IsMulti { get; set; }
+        public bool SaveToLocal { get; set; }
         
         
 

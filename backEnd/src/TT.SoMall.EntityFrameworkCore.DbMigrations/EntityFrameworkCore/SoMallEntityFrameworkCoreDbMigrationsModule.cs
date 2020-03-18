@@ -7,8 +7,8 @@ namespace TT.SoMall.EntityFrameworkCore
 {
     [DependsOn(
         typeof(SoMallEntityFrameworkCoreModule)
-        //typeof(VisitorManagementModule)
-        //typeof(WeixinManagementModule)
+        ,typeof(VisitorManagementModule)
+        ,typeof(WeixinManagementModule)
     )]
     public class SoMallEntityFrameworkCoreDbMigrationsModule : AbpModule
     {

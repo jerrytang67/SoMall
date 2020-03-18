@@ -15,11 +15,5 @@ namespace TT.SoMall.Controllers
         {
             return Redirect("/swagger");
         }
-
-        [Authorize]
-        private async Task<ActionResult> LoginCheck()
-        {
-            return Content("ok");
-        }
-    } 
+    }
 }

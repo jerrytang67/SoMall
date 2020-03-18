@@ -52,7 +52,7 @@ namespace TT.SoMall.EntityFrameworkCore
             builder.ConfigureShop();
             //
             // // visitor 访客模块
-            // builder.ConfigureVisitorManagement();
+            builder.ConfigureVisitorManagement();
             //
             // // 微信模块
             builder.ConfigureWeixinManagement();

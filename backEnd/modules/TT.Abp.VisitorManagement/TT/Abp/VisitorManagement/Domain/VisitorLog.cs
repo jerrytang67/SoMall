@@ -10,9 +10,8 @@ using Volo.Abp.MultiTenancy;
 namespace TT.Abp.VisitorManagement.Domain
 {
     // 访客记录
-    public class VisitorLog : AuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant, IMayHaveShop
+    public class VisitorLog : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMayHaveShop
     {
-        public Guid FormId { get; set; }
 
         public string FormJson { get; set; }
 
@@ -23,15 +22,18 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public virtual Credential Credential { get; set; }
 
-        public VisitorLog(Guid id, Guid? tenantId, Guid? shopId)
+        public VisitorLog(Guid id, Guid formId, Guid? shopId, Guid? tenantId = null)
         {
             Id = id;
+            FormId = formId;
             TenantId = tenantId;
             ShopId = shopId;
         }
 
-        public bool IsDeleted { get; set; }
+        public Guid FormId { get; protected set; }
+
         public Guid? TenantId { get; protected set; }
+
         public Guid? ShopId { get; set; }
     }
 }

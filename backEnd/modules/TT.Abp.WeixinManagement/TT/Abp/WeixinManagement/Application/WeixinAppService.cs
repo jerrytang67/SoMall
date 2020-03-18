@@ -8,6 +8,7 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using TT.Abp.WeixinManagement.Application.Dtos;
 using TT.Abp.WeixinManagement.Domain;
 using TT.Extensions;
@@ -23,6 +24,7 @@ namespace TT.Abp.WeixinManagement.Application
 {
     public class WeixinAppService : ApplicationService, IWeixinAppService
     {
+        private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IPasswordHasher<IdentityUser> _passwordHasher;
         private readonly ICurrentTenant _currentTenant;
@@ -37,6 +39,7 @@ namespace TT.Abp.WeixinManagement.Application
 
 
         public WeixinAppService(
+            IConfiguration configuration,
             IHttpClientFactory httpClientFactory,
             IPasswordHasher<IdentityUser> passwordHasher,
             ICurrentTenant currentTenant,
@@ -51,6 +54,7 @@ namespace TT.Abp.WeixinManagement.Application
         )
         {
             ObjectMapperContext = typeof(WeixinManagementModule);
+            _configuration = configuration;
             _httpClientFactory = httpClientFactory;
             _passwordHasher = passwordHasher;
             _currentTenant = currentTenant;
@@ -122,7 +126,8 @@ namespace TT.Abp.WeixinManagement.Application
             }
 
             var serverClient = _httpClientFactory.CreateClient();
-            var disco = await serverClient.GetDiscoveryDocumentAsync("https://localhost:44380");
+
+            var disco = await serverClient.GetDiscoveryDocumentAsync(_configuration["AuthServer:Authority"]);
 
             var result = await serverClient.RequestTokenAsync(
                 new TokenRequest
@@ -152,11 +157,24 @@ namespace TT.Abp.WeixinManagement.Application
 
         [HttpGet]
         [Authorize]
+        public async Task<string> CheckLogin()
+        {
+            return await Task.FromResult("ok");
+        }
+
+
+
+        [HttpGet]
+        [Authorize]
         public async Task<object> GetUnLimitQr(Guid scene, string page = null)
         {
             var shorter = scene.ToShortString();
-            return new {url = await _weixinManager.Getwxacodeunlimit(shorter, page)};
+            return new { url = await _weixinManager.Getwxacodeunlimit(shorter, page) };
         }
+
+
+
+
 
         // public async Task<TokenResponse> DelegateAsync(string username)
         // {

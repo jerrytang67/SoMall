@@ -33,11 +33,14 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public bool IsMulti { get; set; }
 
+        //填写后保存到客户端
+        public bool SaveToLocal { get; set; } = false;
+
         public string SelectionJson { get; set; }
 
         public override object[] GetKeys()
         {
-            return new object[] {FormId, ItemId};
+            return new object[] { FormId, ItemId };
         }
 
 

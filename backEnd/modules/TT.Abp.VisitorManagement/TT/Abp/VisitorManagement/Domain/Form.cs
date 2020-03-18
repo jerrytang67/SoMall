@@ -48,7 +48,7 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public virtual void AddVisitorLog(Guid visitorLogId, Guid shopId)
         {
-            VisitorLogs.Add(new VisitorLog(visitorLogId, TenantId, shopId));
+            VisitorLogs.Add(new VisitorLog(visitorLogId, Id, shopId, TenantId));
         }
 
 
