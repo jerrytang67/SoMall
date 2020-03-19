@@ -19,16 +19,8 @@
           "icon": "anticon-dashboard",
           "children": [
             {
-              "text": "仪表盘V1",
-              "link": "/dashboard/v1"
-            },
-            {
               "text": "分析页",
               "link": "/dashboard/analysis"
-            },
-            {
-              "text": "监控页",
-              "link": "/dashboard/monitor"
             },
             {
               "text": "工作台",
@@ -106,11 +98,11 @@
           ]
         },
         {
-          "text": "Demo",
+          "text": "开发专用",
           "icon": "anticon-dashboard",
           "children": [
             {
-              "text": "demo1",
+              "text": "登录信息",
               "link": "/demo/demo1"
             }
           ]

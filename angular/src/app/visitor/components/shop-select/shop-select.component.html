@@ -11,19 +11,16 @@
           (nzPageSizeChange)="refresh()">
     <thead>
         <tr>
-            <th
-            nzShowCheckbox
-            [(nzChecked)]="isAllDisplayDataChecked"
-            [nzIndeterminate]="isIndeterminate"
-            (nzCheckedChange)="checkAll($event)"
-          ></th>
+            <th></th>
             <th>Name</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let data of middleTable.data">
-            <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data.id]" (nzCheckedChange)="refreshStatus()"></td>
-            <td>{{ data.name }}</td>
+        <tr *ngFor="let item of middleTable.data">
+            <td nzShowCheckbox
+                [(nzChecked)]="mapOfCheckedId[item.id]"
+                (nzCheckedChange)="checked(item,$event)"></td>
+            <td>{{ item.name }}</td>
         </tr>
     </tbody>
 </nz-table>

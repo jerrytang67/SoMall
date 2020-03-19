@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.ShopManagement.Application.Dtos;
 using TT.Abp.ShopManagement.Domain;
@@ -42,7 +43,6 @@ namespace TT.Abp.VisitorManagement.Application
             _currentTenant = currentTenant;
         }
 
-        [Authorize]
         public async Task<ListResultDto<FormDto>> GetListAsync()
         {
             var result = await _repository.GetListAsync();
@@ -58,6 +58,7 @@ namespace TT.Abp.VisitorManagement.Application
             return ObjectMapper.Map<Form, FormDto>(find);
         }
 
+        [Authorize]
         public async Task<FormDto> CreateAsync(FormCreateOrEditDto input)
         {
             var newEntity = await _repository.InsertAsync(new Form(GuidGenerator.Create(),
@@ -68,6 +69,7 @@ namespace TT.Abp.VisitorManagement.Application
             return ObjectMapper.Map<Form, FormDto>(newEntity);
         }
 
+        [Authorize]
         public async Task<FormDto> UpdateAsync(Guid id, FormCreateOrEditDto body)
         {
             var find = await _repository.GetAsync(id);
@@ -84,17 +86,12 @@ namespace TT.Abp.VisitorManagement.Application
             return ObjectMapper.Map<Form, FormDto>(find);
         }
 
-
+        [Authorize]
         public async Task DeleteAsync(Guid id)
         {
-            var find = await _repository.GetAsync(id);
-
-            if (find == null)
-            {
-                throw new EntityNotFoundException(typeof(Shop));
-            }
-
-            await _repository.DeleteAsync(find);
+            if (await _repository.Include(x => x.ShopForms).Where(x => x.Id == id).Select(x => x.ShopForms).CountAsync() > 0)
+                throw new UserFriendlyException("已有商户应用了这个表单,不能删除");
+            await _repository.DeleteAsync(id);
         }
 
         /// <summary>
@@ -134,24 +131,50 @@ namespace TT.Abp.VisitorManagement.Application
             if (this.CurrentUser.IsAuthenticated)
             {
                 var visitorLog = await _visitorLogRepository.OrderByDescending(x => x.CreationTime).FirstOrDefaultAsync(x => x.LeaveTime == null &&
-                                                                                   x.ShopId == shop_id &&
-                                                                                   x.FormId == form.Id &&
-                                                                                   x.CreatorId == this.CurrentUser.Id);
+                                                                                                                             x.ShopId == shop_id &&
+                                                                                                                             x.FormId == form.Id &&
+                                                                                                                             x.CreatorId == this.CurrentUser.Id);
                 if (visitorLog != null)
                 {
                     var v = ObjectMapper.Map<VisitorLog, VisitorLogDto>(visitorLog);
                     v.Html = $"<h2>{shop.ShortName}</h2>{shop.Description}";
-                    return new { visitorLog = v };
+                    return new {visitorLog = v};
                 }
             }
-
-
-
 
             var formDto = ObjectMapper.Map<Form, FormDto>(form);
             formDto.FormItems = formDto.FormItems.OrderBy(x => x.Sort).ToList();
 
-            return new { shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = formDto };
+            return new {shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = formDto};
+        }
+
+        [HttpPost]
+        public async Task AddShop(FormAddShopRequestDto input)
+        {
+            var form = await _repository
+                .Include(x => x.ShopForms)
+                .FirstOrDefaultAsync(x => x.Id == input.FromId);
+            if (form == null)
+            {
+                throw new UserFriendlyException("NotFind");
+            }
+
+            var shops = await _shopRepository.Where(x => input.ShopIds.Contains(x.Id)).ToListAsync();
+            foreach (var shop in shops)
+            {
+                if (form.ShopForms.All(x => x.ShopId != shop.Id))
+                {
+                    form.ShopForms.Add(new ShopForm(form.Id, shop.Id));
+                }
+            }
+
+            await Task.CompletedTask;
+        }
+
+        public class FormAddShopRequestDto
+        {
+            public Guid FromId { get; set; }
+            public List<Guid> ShopIds { get; set; }
         }
     }
 }

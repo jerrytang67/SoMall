@@ -56,8 +56,15 @@ export class DefaultInterceptor implements HttpInterceptor {
     if ((ev.status >= 200 && ev.status < 300) || ev.status === 401) {
       return;
     }
-
-    const errortext = CODEMESSAGE[ev.status] || ev.statusText;
+    let errortext = CODEMESSAGE[ev.status] || ev.statusText;
+    if (ev.status === 403) {
+      //@ts-ignore
+      if (ev.error && ev.error.error && ev.error.error.message) {
+        //@ts-ignore
+        this.notification.error(ev.error.error.message, `请求错误 ${ev.status}`);
+        return;
+      }
+    }
     this.notification.error(`请求错误 ${ev.status}: ${ev.url}`, errortext);
   }
 

@@ -1,8 +1,16 @@
-<div class="alain-default__content-title">
-    <h1>
-        Shop List
-    </h1>
-</div>
+<page-header [breadcrumb]="breadcrumb">
+    <ng-template #breadcrumb>
+        <nz-breadcrumb>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/']">首页</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <a [routerLink]="['/visitor']">访客系统</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>商户列表</nz-breadcrumb-item>
+        </nz-breadcrumb>
+    </ng-template>
+</page-header>
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>

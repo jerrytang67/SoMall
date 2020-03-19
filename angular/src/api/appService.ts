@@ -357,6 +357,22 @@ export class FormProxyService {
     };
     return (this.http.request('get', url, options) as any) as Observable<any>;
   }
+  /**
+   *
+   */
+  addShop(
+    params: {
+      /** requestBody */
+      body?: FormAddShopRequestDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/form/addShop';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -2098,6 +2114,14 @@ export interface ShopDto {
 
   /**  */
   id?: string;
+}
+
+export interface FormAddShopRequestDto {
+  /**  */
+  fromId?: string;
+
+  /**  */
+  shopIds?: string[];
 }
 
 export interface UserLoginInfo {

@@ -98,6 +98,7 @@ export class FormsComponent implements OnInit {
     });
     modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
   }
+  
   delete(shop: FormDto) {
     this.api.delete(shop).subscribe(res => {
       this.message.success("删除成功");

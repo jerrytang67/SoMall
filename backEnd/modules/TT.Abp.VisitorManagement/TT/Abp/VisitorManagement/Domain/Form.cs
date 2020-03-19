@@ -25,6 +25,7 @@ namespace TT.Abp.VisitorManagement.Domain
             TenantId = tenantId;
             FormItems = new Collection<FormItem>();
             VisitorLogs = new Collection<VisitorLog>();
+            ShopForms = new Collection<ShopForm>();
         }
 
         public virtual Collection<FormItem> FormItems { get; set; }

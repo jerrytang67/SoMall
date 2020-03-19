@@ -19,7 +19,7 @@ export class ShopFormsComponent implements OnInit {
     isTableLoading: false
   };
   constructor(
-    private api: FormProxyService,
+    private formApi: FormProxyService,
     private weixinApi: WeixinProxyService,
     private modalService: NzModalService,
     private message: NzMessageService,
@@ -39,7 +39,7 @@ export class ShopFormsComponent implements OnInit {
 
   refresh() {
     this.pageingInfo.isTableLoading = true;
-    this.api.getShops({ id: this.formId }).subscribe(res => {
+    this.formApi.getShops({ id: this.formId }).subscribe(res => {
       console.log(res);
       this.dataItems = res;
       this.pageingInfo.isTableLoading = false;
@@ -61,7 +61,19 @@ export class ShopFormsComponent implements OnInit {
         {
           label: '确定',
           onClick: instance => {
-
+            if (instance.checkedList.length) {
+              const shopIds = instance.checkedList.reduce((p, c) => { return [...p, c.id] }, [])
+              this.formApi.addShop({
+                body: {
+                  fromId: this.formId,
+                  shopIds
+                }
+              }).subscribe(() => {
+                this.message.success("成功");
+                this.refresh();
+              })
+            }
+            modal.close();
           }
         }
       ]
@@ -71,7 +83,7 @@ export class ShopFormsComponent implements OnInit {
 
 
   delete(shop: FormDto) {
-    this.api.delete(shop).subscribe(res => {
+    this.formApi.delete(shop).subscribe(res => {
       this.message.success("删除成功");
       this.refresh();
     })
