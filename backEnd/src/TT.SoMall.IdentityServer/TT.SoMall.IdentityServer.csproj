@@ -47,12 +47,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Autofac" Version="2.2.1" />
-    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="2.2.1" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="2.3.0" />
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic" Version="2.3.0" />
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="2.1.1" />
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="2.2.1" />
-    <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="2.2.1" />
-    <PackageReference Include="Volo.Abp.Account.Application" Version="2.2.1" />
+    <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="2.3.0" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="2.3.0" />
     <ProjectReference Include="..\TT.SoMall.EntityFrameworkCore.DbMigrations\TT.SoMall.EntityFrameworkCore.DbMigrations.csproj" />
   </ItemGroup>
 
