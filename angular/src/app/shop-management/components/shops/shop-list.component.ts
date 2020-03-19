@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
-import { ShopProxyService, ShopDto } from 'src/api/appService';
+import { ShopProxyService, VisitorShopDto } from 'src/api/appService';
 import { ShopEditComponent } from '../shop-edit/shop-edit.component';
 
 @Component({
@@ -75,7 +75,7 @@ export class ShopListComponent implements OnInit {
     modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
   }
 
-  edit(shop: ShopDto) {
+  edit(shop: VisitorShopDto) {
     const modal = this.modalService.create({
       nzTitle: '编辑商家',
       nzWidth: 920,
@@ -103,7 +103,7 @@ export class ShopListComponent implements OnInit {
     });
     modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
   }
-  delete(shop: ShopDto) {
+  delete(shop: VisitorShopDto) {
     this.api.delete(shop).subscribe(res => {
       this.message.success("删除成功");
       this.refresh();

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Injector } from '@angular/core';
-import { UpdateShopDto, OssProxyService, FormCreateOrEditDto } from 'src/api/appService';
+import { VisitorShopCreateOrEditDto, OssProxyService, FormCreateOrEditDto } from 'src/api/appService';
 import { NgForm } from '@angular/forms';
 
 @Component({

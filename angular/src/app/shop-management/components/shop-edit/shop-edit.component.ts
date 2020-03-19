@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Injector, ElementRef } from '@angular/core';
-import { UpdateShopDto, OssProxyService } from 'src/api/appService';
+import { VisitorShopCreateOrEditDto, OssProxyService } from 'src/api/appService';
 import { NgForm } from '@angular/forms';
 import base64 from '@core/utils/base64';
 import { UploadXHRArgs } from 'ng-zorro-antd';
@@ -51,7 +51,7 @@ export class ShopEditComponent implements OnInit {
 
   @Input() id: string;
 
-  @Input() form: UpdateShopDto;
+  @Input() form: VisitorShopCreateOrEditDto;
 
   i: any = {};
 

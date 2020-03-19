@@ -6,8 +6,8 @@ namespace TT.Abp.ShopManagement.Domain
 {
     public interface IShopManager : IDomainService
     {
-        Task<Shop> CreateAsync([NotNull] string name);
+        Task<VisitorShop> CreateAsync([NotNull] string name);
 
-        Task ChangeNameAsync([NotNull] Shop tenant, [NotNull] string name);
+        Task ChangeNameAsync([NotNull] VisitorShop tenant, [NotNull] string name);
     }
 }

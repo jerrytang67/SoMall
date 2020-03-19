@@ -21,7 +21,7 @@ namespace TT.Abp.VisitorManagement.Application
 
         Task DeleteAsync(Guid id);
 
-        Task<List<ShopDto>> GetShops(Guid id);
+        Task<List<VisitorShopDto>> GetShops(Guid id);
 
         Task<object> GetShopForm(string id);
     }

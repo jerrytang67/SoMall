@@ -17,69 +17,84 @@ namespace TT.Abp.ShopManagement.Application
 {
     public class ShopAppService : ApplicationService, IShopAppService
     {
-        private readonly IRepository<Shop, Guid> _repository;
+        private readonly IRepository<VisitorShop, Guid> _repository;
         private readonly ICurrentTenant _currentTenant;
 
-        public ShopAppService(IRepository<Shop, Guid> shopRepository, ICurrentTenant currentTenant)
+        public ShopAppService(IRepository<VisitorShop, Guid> shopRepository, ICurrentTenant currentTenant)
         {
             ObjectMapperContext = typeof(ShopManagementModule);
             _repository = shopRepository;
             _currentTenant = currentTenant;
         }
 
-        public async Task<PagedResultDto<ShopDto>> GetListAsync(PagedResultRequestDto input)
+        public async Task<PagedResultDto<VisitorShopDto>> GetListAsync(PagedResultRequestDto input)
         {
             var tenantId = _currentTenant.Id;
-            
+
             var query = _repository;
 
             var total = await query.CountAsync();
 
             var shops = await query.PageBy(input).ToListAsync();
 
-            return new PagedResultDto<ShopDto>(total,
-                ObjectMapper.Map<List<Shop>, List<ShopDto>>(shops));
+            return new PagedResultDto<VisitorShopDto>(total,
+                ObjectMapper.Map<List<VisitorShop>, List<VisitorShopDto>>(shops));
         }
 
-        public async Task<ShopDto> GetByShortNameAsync(string shortName)
+        Task<VisitorShopDto> IShopAppService.GetByShortNameAsync(string shortName)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<VisitorShopDto> IShopAppService.GetAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PagedResultDto<VisitorShopDto>> IShopAppService.GetListAsync(PagedResultRequestDto input)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<VisitorShopDto> GetByShortNameAsync(string shortName)
         {
             var find = await _repository.FirstOrDefaultAsync(x => x.ShortName == shortName);
 
             if (find == null)
             {
-                throw new EntityNotFoundException(typeof(Shop), shortName);
+                throw new EntityNotFoundException(typeof(VisitorShop), shortName);
             }
 
-            return ObjectMapper.Map<Shop, ShopDto>(find);
+            return ObjectMapper.Map<VisitorShop, VisitorShopDto>(find);
         }
 
-        public async Task<ShopDto> GetAsync(Guid id)
+        public async Task<VisitorShopDto> GetAsync(Guid id)
         {
             var find = await _repository.GetAsync(id);
 
-            return ObjectMapper.Map<Shop, ShopDto>(find);
+            return ObjectMapper.Map<VisitorShop, VisitorShopDto>(find);
         }
 
         [Authorize]
-        public async Task<ShopDto> CreateAsync(CreateShopDto input)
+        public async Task<VisitorShopDto> CreateAsync(VisitorShopCreateOrEditDto input)
         {
-            var newEntity = await _repository.InsertAsync(new Shop(GuidGenerator.Create(), input.Name, input.ShortName, input.LogoImage, input.CoverImage)
+            var newEntity = await _repository.InsertAsync(new VisitorShop(GuidGenerator.Create(), input.Name, input.ShortName, input.LogoImage, input.CoverImage)
             {
                 Description = input.Description,
                 TenantId = _currentTenant.Id
             });
 
-            return ObjectMapper.Map<Shop, ShopDto>(newEntity);
+            return ObjectMapper.Map<VisitorShop, VisitorShopDto>(newEntity);
         }
 
         [Authorize]
-        public async Task<ShopDto> UpdateAsync(Guid id, UpdateShopDto body)
+        public async Task<VisitorShopDto> UpdateAsync(Guid id, VisitorShopCreateOrEditDto body)
         {
             var find = await _repository.GetAsync(id);
 
             if (find == null)
             {
-                throw new EntityNotFoundException(typeof(Shop), body.ShortName);
+                throw new EntityNotFoundException(typeof(VisitorShopCreateOrEditDto), body.ShortName);
             }
 
             find.SetName(body.Name);
@@ -88,7 +103,7 @@ namespace TT.Abp.ShopManagement.Application
             find.SetCoverImage(body.CoverImage);
             find.SetDescription(body.Description);
 
-            return ObjectMapper.Map<Shop, ShopDto>(find);
+            return ObjectMapper.Map<VisitorShop, VisitorShopDto>(find);
         }
 
         [Authorize]
@@ -98,7 +113,7 @@ namespace TT.Abp.ShopManagement.Application
 
             if (find == null)
             {
-                throw new EntityNotFoundException(typeof(Shop));
+                throw new EntityNotFoundException(typeof(VisitorShop));
             }
 
             await _repository.DeleteAsync(find);

@@ -34,7 +34,7 @@ namespace TT.SoMall.EntityFrameworkCore
         public DbSet<ProductSku> ProductSku { get; set; }
         public DbSet<ProductCategory> ProductCategory { get; set; }
 
-        public DbSet<Shop> Shops { get; set; }
+        public DbSet<VisitorShop> Shops { get; set; }
 
         
         public DbSet<WechatUserinfo> WechatUserinfos { get; set; }

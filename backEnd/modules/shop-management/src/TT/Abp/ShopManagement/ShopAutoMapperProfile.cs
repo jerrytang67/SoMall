@@ -9,7 +9,7 @@ namespace TT.Abp.ShopManagement
     {
         public ShopApplicationAutoMapperProfile()
         {
-            CreateMap<Shop, ShopDto>();
+            CreateMap<VisitorShop, VisitorShopDto>();
         }
     }
 }

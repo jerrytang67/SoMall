@@ -31,13 +31,13 @@ namespace TT.Abp.VisitorManagement.Application
     public class VisitorLogAppService : ApplicationService, IVisitorLogAppService
     {
         private readonly IRepository<VisitorLog, Guid> _repository;
-        private readonly IRepository<Shop, Guid> _shopRepository;
+        private readonly IRepository<VisitorShop, Guid> _shopRepository;
         private readonly IRepository<Form, Guid> _formRepository;
         private readonly ICurrentTenant _currentTenant;
 
         public VisitorLogAppService(
             IRepository<VisitorLog, Guid> repository,
-            IRepository<Shop, Guid> shopRepository,
+            IRepository<VisitorShop, Guid> shopRepository,
             IRepository<Form, Guid> formRepository,
             ICurrentTenant currentTenant
             )
@@ -111,7 +111,7 @@ namespace TT.Abp.VisitorManagement.Application
     {
         public List<FormItemDto> FormItems { get; set; }
         public FormDto Form { get; set; }
-        [CanBeNull] public ShopDto Shop { get; set; }
+        [CanBeNull] public VisitorShopDto Shop { get; set; }
     }
 
 

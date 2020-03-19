@@ -34,9 +34,16 @@ export class AbpApiDefinitionProxyService {
   /**
    *
    */
-  apiDefinition(): Observable<ApplicationApiDescriptionModel> {
+  apiDefinition(
+    params: {
+      /**  */
+      includeTypes?: boolean;
+    } = {} as any
+  ): Observable<ApplicationApiDescriptionModel> {
     let url = '/api/abp/api-definition';
+    const _copy: any = { ...params };
     let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<ApplicationApiDescriptionModel>;
@@ -331,14 +338,14 @@ export class FormProxyService {
       /**  */
       id?: string;
     } = {} as any
-  ): Observable<ShopDto[]> {
+  ): Observable<VisitorShopDto[]> {
     let url = '/api/app/form/getShops';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<ShopDto[]>;
+    return (this.http.request('get', url, options) as any) as Observable<VisitorShopDto[]>;
   }
   /**
    *
@@ -833,6 +840,16 @@ export class RoleProxyService {
   /**
    *
    */
+  all(): Observable<IdentityRoleDtoListResultDto> {
+    let url = '/api/identity/roles/all';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<IdentityRoleDtoListResultDto>;
+  }
+  /**
+   *
+   */
   roles(
     params: {
       /**  */
@@ -931,18 +948,18 @@ export class ShopProxyService {
   getList(
     params: {
       /**  */
-      maxResultCount?: number;
-      /**  */
       skipCount?: number;
+      /**  */
+      maxResultCount?: number;
     } = {} as any
-  ): Observable<ShopDtoPagedResultDto> {
+  ): Observable<VisitorShopDtoPagedResultDto> {
     let url = '/api/app/shop/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<ShopDtoPagedResultDto>;
+    return (this.http.request('get', url, options) as any) as Observable<VisitorShopDtoPagedResultDto>;
   }
   /**
    *
@@ -952,14 +969,14 @@ export class ShopProxyService {
       /**  */
       shortName?: string;
     } = {} as any
-  ): Observable<ShopDto> {
+  ): Observable<VisitorShopDto> {
     let url = '/api/app/shop/getByShortName';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
+    return (this.http.request('get', url, options) as any) as Observable<VisitorShopDto>;
   }
   /**
    *
@@ -969,14 +986,14 @@ export class ShopProxyService {
       /**  */
       id?: string;
     } = {} as any
-  ): Observable<ShopDto> {
+  ): Observable<VisitorShopDto> {
     let url = '/api/app/shop/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
+    return (this.http.request('get', url, options) as any) as Observable<VisitorShopDto>;
   }
   /**
    *
@@ -984,15 +1001,15 @@ export class ShopProxyService {
   create(
     params: {
       /** requestBody */
-      body?: CreateShopDto;
+      body?: VisitorShopCreateOrEditDto;
     } = {} as any
-  ): Observable<ShopDto> {
+  ): Observable<VisitorShopDto> {
     let url = '/api/app/shop/create';
     let options: any = {
       body: params.body,
       method: 'post'
     };
-    return (this.http.request('post', url, options) as any) as Observable<ShopDto>;
+    return (this.http.request('post', url, options) as any) as Observable<VisitorShopDto>;
   }
   /**
    *
@@ -1002,16 +1019,16 @@ export class ShopProxyService {
       /**  */
       id?: string;
       /** requestBody */
-      body?: UpdateShopDto;
+      body?: VisitorShopCreateOrEditDto;
     } = {} as any
-  ): Observable<ShopDto> {
+  ): Observable<VisitorShopDto> {
     let url = '/api/app/shop/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
       method: 'put'
     };
-    return (this.http.request('put', url, options) as any) as Observable<ShopDto>;
+    return (this.http.request('put', url, options) as any) as Observable<VisitorShopDto>;
   }
   /**
    *
@@ -1569,7 +1586,7 @@ export class WeixinProxyService {
 
 export interface ControllerInterfaceApiDescriptionModel {
   /**  */
-  typeAsString?: string;
+  type?: string;
 }
 
 export interface MethodParameterApiDescriptionModel {
@@ -1578,6 +1595,12 @@ export interface MethodParameterApiDescriptionModel {
 
   /**  */
   typeAsString?: string;
+
+  /**  */
+  type?: string;
+
+  /**  */
+  typeSimple?: string;
 
   /**  */
   isOptional?: boolean;
@@ -1594,7 +1617,10 @@ export interface ParameterApiDescriptionModel {
   name?: string;
 
   /**  */
-  typeAsString?: string;
+  type?: string;
+
+  /**  */
+  typeSimple?: string;
 
   /**  */
   isOptional?: boolean;
@@ -1614,7 +1640,10 @@ export interface ParameterApiDescriptionModel {
 
 export interface ReturnValueApiDescriptionModel {
   /**  */
-  typeAsString?: string;
+  type?: string;
+
+  /**  */
+  typeSimple?: string;
 }
 
 export interface ActionApiDescriptionModel {
@@ -1648,7 +1677,7 @@ export interface ControllerApiDescriptionModel {
   controllerName?: string;
 
   /**  */
-  typeAsString?: string;
+  type?: string;
 
   /**  */
   interfaces?: ControllerInterfaceApiDescriptionModel[];
@@ -1665,9 +1694,40 @@ export interface ModuleApiDescriptionModel {
   controllers?: object;
 }
 
+export interface PropertyApiDescriptionModel {
+  /**  */
+  name?: string;
+
+  /**  */
+  type?: string;
+
+  /**  */
+  typeSimple?: string;
+}
+
+export interface TypeApiDescriptionModel {
+  /**  */
+  baseType?: string;
+
+  /**  */
+  isEnum?: boolean;
+
+  /**  */
+  enumNames?: string[];
+
+  /**  */
+  enumValues?: object[];
+
+  /**  */
+  properties?: PropertyApiDescriptionModel[];
+}
+
 export interface ApplicationApiDescriptionModel {
   /**  */
   modules?: object;
+
+  /**  */
+  types?: object;
 }
 
 export interface LanguageInfo {
@@ -1779,6 +1839,22 @@ export interface ApplicationFeatureConfigurationDto {
   values?: object;
 }
 
+export interface MultiTenancyInfoDto {
+  /**  */
+  isEnabled?: boolean;
+}
+
+export interface CurrentTenantDto {
+  /**  */
+  id?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  isAvailable?: boolean;
+}
+
 export interface ApplicationConfigurationDto {
   /**  */
   localization?: ApplicationLocalizationConfigurationDto;
@@ -1794,6 +1870,12 @@ export interface ApplicationConfigurationDto {
 
   /**  */
   features?: ApplicationFeatureConfigurationDto;
+
+  /**  */
+  multiTenancy?: MultiTenancyInfoDto;
+
+  /**  */
+  currentTenant?: CurrentTenantDto;
 }
 
 export interface FindTenantResultDto {
@@ -2075,7 +2157,7 @@ export interface FormCreateOrEditDto {
   formItems?: FormItemCreateOrEditDto[];
 }
 
-export interface ShopDto {
+export interface VisitorShopDto {
   /**  */
   name?: string;
 
@@ -2412,6 +2494,11 @@ export interface IdentityRoleDto {
   id?: string;
 }
 
+export interface IdentityRoleDtoListResultDto {
+  /**  */
+  items?: IdentityRoleDto[];
+}
+
 export interface IdentityRoleDtoPagedResultDto {
   /**  */
   totalCount?: number;
@@ -2445,32 +2532,15 @@ export interface IdentityRoleUpdateDto {
   isPublic?: boolean;
 }
 
-export interface ShopDtoPagedResultDto {
+export interface VisitorShopDtoPagedResultDto {
   /**  */
   totalCount?: number;
 
   /**  */
-  items?: ShopDto[];
+  items?: VisitorShopDto[];
 }
 
-export interface CreateShopDto {
-  /**  */
-  name?: string;
-
-  /**  */
-  shortName?: string;
-
-  /**  */
-  logoImage?: string;
-
-  /**  */
-  coverImage?: string;
-
-  /**  */
-  description?: string;
-}
-
-export interface UpdateShopDto {
+export interface VisitorShopCreateOrEditDto {
   /**  */
   name?: string;
 
@@ -2509,6 +2579,12 @@ export interface TenantDtoPagedResultDto {
 }
 
 export interface TenantCreateDto {
+  /**  */
+  adminEmailAddress?: string;
+
+  /**  */
+  adminPassword?: string;
+
   /**  */
   name?: string;
 }
@@ -2580,11 +2656,6 @@ export interface IdentityUserCreateDto {
 
   /**  */
   roleNames?: string[];
-}
-
-export interface IdentityRoleDtoListResultDto {
-  /**  */
-  items?: IdentityRoleDto[];
 }
 
 export interface IdentityUserUpdateRolesDto {
@@ -2677,7 +2748,7 @@ export interface VisitorFormSumbitRequest {
   form?: FormDto;
 
   /**  */
-  shop?: ShopDto;
+  shop?: VisitorShopDto;
 }
 
 export interface WeChatMiniProgramAuthenticateModel {

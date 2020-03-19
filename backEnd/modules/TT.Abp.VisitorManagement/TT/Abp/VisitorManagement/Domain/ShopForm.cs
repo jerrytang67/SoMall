@@ -22,7 +22,7 @@ namespace TT.Abp.VisitorManagement.Domain
         }
 
 
-        [ForeignKey("ShopId")] public virtual Shop Shop { get; set; }
+        [ForeignKey("ShopId")] public virtual VisitorShop VisitorShop { get; set; }
 
         [ForeignKey("FormId")] public virtual Form Form { get; set; }
     }

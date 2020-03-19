@@ -22,7 +22,7 @@ namespace TT.Abp.VisitorManagement.Application
     public class FormAppService : ApplicationService, IFormAppService
     {
         private readonly IRepository<Form, Guid> _repository;
-        private readonly IRepository<Shop, Guid> _shopRepository;
+        private readonly IRepository<VisitorShop, Guid> _shopRepository;
         private readonly IRepository<VisitorLog, Guid> _visitorLogRepository;
 
         // private readonly IRepository<ShopForm> _shopFormRepository;
@@ -30,7 +30,7 @@ namespace TT.Abp.VisitorManagement.Application
 
         public FormAppService(
             IRepository<Form, Guid> formRepository,
-            IRepository<Shop, Guid> shopRepository,
+            IRepository<VisitorShop, Guid> shopRepository,
             IRepository<VisitorLog, Guid> visitorLogRepository,
             // IRepository<ShopForm> shopFormRepository,
             ICurrentTenant currentTenant)
@@ -99,7 +99,7 @@ namespace TT.Abp.VisitorManagement.Application
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<List<ShopDto>> GetShops(Guid id)
+        public async Task<List<VisitorShopDto>> GetShops(Guid id)
         {
             var find = await _repository.Include(x => x.ShopForms).FirstOrDefaultAsync(x => x.Id == id);
 
@@ -107,7 +107,7 @@ namespace TT.Abp.VisitorManagement.Application
 
             var shops = await _shopRepository.Where(x => shopids.Contains(x.Id)).ToListAsync();
 
-            return ObjectMapper.Map<List<Shop>, List<ShopDto>>(shops);
+            return ObjectMapper.Map<List<VisitorShop>, List<VisitorShopDto>>(shops);
         }
 
 
@@ -145,7 +145,7 @@ namespace TT.Abp.VisitorManagement.Application
             var formDto = ObjectMapper.Map<Form, FormDto>(form);
             formDto.FormItems = formDto.FormItems.OrderBy(x => x.Sort).ToList();
 
-            return new {shop = ObjectMapper.Map<Shop, ShopDto>(shop), form = formDto};
+            return new {shop = ObjectMapper.Map<VisitorShop, VisitorShopDto>(shop), form = formDto};
         }
 
         [HttpPost]

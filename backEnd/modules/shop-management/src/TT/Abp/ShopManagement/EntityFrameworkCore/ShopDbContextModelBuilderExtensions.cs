@@ -11,7 +11,7 @@ namespace TT.Abp.ShopManagement.EntityFrameworkCore
         {
             Check.NotNull(builder, nameof(builder));
 
-            builder.Entity<Shop>(b =>
+            builder.Entity<VisitorShop>(b =>
             {
                 b.ToTable(ShopConsts.DbTablePrefix + "Shops", ShopConsts.DbSchema);
 

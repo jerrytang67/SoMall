@@ -7,7 +7,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.ShopManagement.Domain
 {
-    public class Shop : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public class VisitorShop : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
         [NotNull] public virtual string Name { get; protected set; }
 
@@ -22,13 +22,13 @@ namespace TT.Abp.ShopManagement.Domain
         
         public virtual Guid? TenantId { get; set; }
 
-        protected Shop()
+        protected VisitorShop()
         {
             ExtraProperties = new Dictionary<string, object>();
         }
 
 
-        protected internal Shop(Guid id, [NotNull] string name, [NotNull] string shortName, [NotNull] string logoImage, [NotNull] string coverImage)
+        protected internal VisitorShop(Guid id, [NotNull] string name, [NotNull] string shortName, [NotNull] string logoImage, [NotNull] string coverImage)
         {
             Id = id;
             SetName(name);

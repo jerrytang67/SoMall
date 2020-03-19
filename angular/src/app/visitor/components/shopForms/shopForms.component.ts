@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormProxyService, FormDto, WeixinProxyService, ShopDto, FormTheme } from 'src/api/appService';
-import { NzModalService, NzMessageService, NzModalRef } from 'ng-zorro-antd';
-import { FormEditComponent } from '../form-edit/form-edit.component';
+import { FormProxyService, FormDto, WeixinProxyService, VisitorShopDto, } from 'src/api/appService';
+import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { ShopSelectComponent } from '../shop-select/shop-select.component';
 
@@ -93,7 +92,7 @@ export class ShopFormsComponent implements OnInit {
   qrSrc = "";
   qrTitle = "";
 
-  getQr(shop: ShopDto) {
+  getQr(shop: VisitorShopDto) {
     console.log(shop);
 
     this.qrSrc = "";
