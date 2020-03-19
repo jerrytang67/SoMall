@@ -14,7 +14,7 @@ namespace TT.SoMall
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://122.51.103.18:9200"))

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using TT.Abp.WeixinManagement.Application.Dtos;
 using TT.Abp.WeixinManagement.Domain;
 using TT.Extensions;
@@ -133,15 +134,17 @@ namespace TT.Abp.WeixinManagement.Application
                 new TokenRequest
                 {
                     Address = disco.TokenEndpoint,
-                    GrantType = "password",
+                    GrantType = "UserWithTenant",
 
-                    ClientId = "SoMall_App",
-                    ClientSecret = "1q2w3e*",
+                    ClientId = _configuration["AuthServer:ClientId"],
+                    ClientSecret = _configuration["AuthServer:ClientSecret"],
                     Parameters =
                     {
-                        {"UserName", user.UserName},
-                        {"Password", "1q2w3E*"},
-                        {"scope", "SoMall"}
+                        {"user_id", $"{user.Id}"},
+                        {"tenantid", $"{user.TenantId}"},
+                        {
+                            "scope", "SoMall"
+                        }
                     }
                 });
             token = result.AccessToken;
@@ -163,17 +166,13 @@ namespace TT.Abp.WeixinManagement.Application
         }
 
 
-
         [HttpGet]
         [Authorize]
         public async Task<object> GetUnLimitQr(Guid scene, string page = null)
         {
             var shorter = scene.ToShortString();
-            return new { url = await _weixinManager.Getwxacodeunlimit(shorter, page) };
+            return new {url = await _weixinManager.Getwxacodeunlimit(shorter, page)};
         }
-
-
-
 
 
         // public async Task<TokenResponse> DelegateAsync(string username)
