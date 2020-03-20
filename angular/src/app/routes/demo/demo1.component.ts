@@ -6,14 +6,13 @@ import { AuthService } from 'src/store/auth.service';
 
 @Component({
   selector: 'app-demo1',
-  templateUrl: './demo1.component.html',
-  styleUrls: ['./demo1.component.less']
+  templateUrl: './demo1.component.html'
 })
 export class Demo1Component implements OnInit {
 
   auth$: Observable<User>;
   profile$: Observable<any>;
-  constructor(private authQuery: AuthQuery, private authService: AuthService) {
+  constructor(public authQuery: AuthQuery, public authService: AuthService) {
 
   }
 

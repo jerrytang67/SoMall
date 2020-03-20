@@ -7,7 +7,8 @@
         "Post",
         "Delete",
         "Put",
-        "Options"
+        "Options",
+        "Fetch"
       ],
       "DownstreamPathTemplate": "/swagger/{all}",
       "DownstreamScheme": "http",
@@ -28,7 +29,9 @@
         "Post",
         "Delete",
         "Put",
-        "Options"
+        "Options",
+        "Fetch"
+
       ],
       "DownstreamPathTemplate": "/api/{all}",
       "DownstreamScheme": "http",
@@ -43,18 +46,26 @@
       }
     },
     {
-      "DownstreamPathTemplate": "/todos/{id}",
+      "UpstreamPathTemplate": "/{all}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Delete",
+        "Put",
+        "Options",
+        "Fetch"
+      ],
+      "DownstreamPathTemplate": "/{all}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "jsonplaceholder.typicode.com",
-          "Port": 443
+          "host": "localhost",
+          "port": 44380
         }
       ],
-      "UpstreamPathTemplate": "/todos/{id}",
-      "UpstreamHttpMethod": [
-        "Get"
-      ]
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
     }
   ],
   "GlobalConfiguration": {

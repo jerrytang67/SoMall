@@ -1,6 +1,6 @@
 <template>
-   <div class="margin-lg flex-direction justify-center text-center" style="font-size:26upx;">
-      <div class="">盛泽非常水果</div>
+   <div class="margin-lg flex-direction justify-center text-center text-grey" style="font-size:26upx;">
+      <div>盛泽非常水果</div>
       <div class="flex align-center  justify-center margin-tb-xs">
          Powered by <text class="margin-left-xs text-red">SoMall</text>
       </div>

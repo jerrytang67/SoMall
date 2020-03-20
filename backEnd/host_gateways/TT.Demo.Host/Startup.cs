@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace TT.Demo.Host
 {
@@ -41,9 +42,10 @@ namespace TT.Demo.Host
                 app.UseHsts();
             }
 
-            //app.UseMvc();
-            app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            app.UseDefaultFiles();
+
             await app.UseOcelot();
         }
     }

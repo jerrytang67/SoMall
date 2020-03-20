@@ -2,8 +2,8 @@ import utils from "./utils";
 import { UserModule, IAddress } from '@/store/modules/user';
 
 let host = process.env.VUE_APP_BASE_API;
-//host = "http://localhost:8088"
-host = "https://www.lovewujiang.com"
+host = "http://localhost:8088"
+//host = "https://www.lovewujiang.com"
 const TenantId = 2;
 
 const getRequest = utils.httpsPromisify(uni.request);
