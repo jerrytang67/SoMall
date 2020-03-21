@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Formatting.Elasticsearch;
 using Serilog.Sinks.Elasticsearch;
+using Winton.Extensions.Configuration.Consul;
 
 namespace TT.SoMall
 {
@@ -43,10 +45,28 @@ namespace TT.SoMall
 
         internal static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    var env = hostingContext.HostingEnvironment;
+                    hostingContext.Configuration = config.Build();
+                    string consul_url = hostingContext.Configuration["Consul_Url"];
+                    Console.WriteLine(consul_url);
+                    Console.WriteLine(env.ApplicationName);
+                    Console.WriteLine(env.EnvironmentName);
+                    config.AddConsul(
+                            $"demo_somall_top/api_host/appsettings.Production.json", options =>
+                            {
+                                options.ConsulConfigurationOptions =
+                                    cco => { cco.Address = new Uri(consul_url); };
+                                options.Optional = true;
+                                options.ReloadOnChange = true;
+                                options.OnLoadException = exceptionContext => { exceptionContext.Ignore = true; };
+                            })
+                        .AddEnvironmentVariables();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>()
-                        ;
+                    webBuilder.UseStartup<Startup>();
                 })
                 .UseAutofac()
                 .UseSerilog();
