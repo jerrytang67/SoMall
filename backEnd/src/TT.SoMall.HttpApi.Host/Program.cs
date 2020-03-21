@@ -17,18 +17,16 @@ namespace TT.SoMall
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                // .WriteTo.Console(new ElasticsearchJsonFormatter())
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://122.51.103.18:9200"))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://127.0.0.1:9200"))
                 {
                     AutoRegisterTemplate = true,
                     AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
                 })
-                //.WriteTo.Async(c => c.File("Logs/logs.txt"))
                 .CreateLogger();
 
             try
             {
-                Log.Information("Starting TT.SoMall.HttpApi.Host.");
+                Log.Warning("Starting TT.SoMall.HttpApi.Host.");
                 CreateHostBuilder(args).Build().Run();
                 return 0;
             }

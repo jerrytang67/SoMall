@@ -17,7 +17,7 @@ namespace TT.SoMall
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://122.51.103.18:9200"))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://127.0.0.1:9200"))
                 {
                     AutoRegisterTemplate = true,
                     AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
@@ -26,7 +26,7 @@ namespace TT.SoMall
 
             try
             {
-                Log.Information("Starting TT.SoMall.IdentityServer.");
+                Log.Warning("Starting TT.SoMall.IdentityServer.");
                 CreateHostBuilder(args).Build().Run();
                 return 0;
             }
