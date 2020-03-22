@@ -104,6 +104,10 @@
             {
               "text": "登录信息",
               "link": "/demo/demo1"
+            },
+            {
+              "text": "Kibana(Local)",
+              "link": "http://127.0.0.1:5601"
             }
           ]
         }
