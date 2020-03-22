@@ -1,14 +1,7 @@
 <nz-table #middleTable
           nzSize="middle"
           nzShowSizeChanger
-          [nzFrontPagination]="false"
-          [nzData]="dataItems"
-          [nzTotal]="pageingInfo.totalItems"
-          [(nzPageIndex)]="pageingInfo.pageNumber"
-          [(nzPageSize)]="pageingInfo.pageSize"
-          [nzLoading]="pageingInfo.isTableLoading"
-          (nzPageIndexChange)="refresh()"
-          (nzPageSizeChange)="refresh()">
+          [nzData]="dataItems">
     <thead>
         <tr>
             <th></th>

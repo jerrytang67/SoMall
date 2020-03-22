@@ -64,6 +64,7 @@
     "qrious": "^4.0.2",
     "rxjs": "~6.5.4",
     "screenfull": "^5.0.0",
+    "simple-line-icons": "^2.4.1",
     "source-sans-pro": "^3.6.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

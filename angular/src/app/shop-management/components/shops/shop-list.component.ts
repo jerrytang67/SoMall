@@ -31,8 +31,10 @@ export class ShopListComponent implements OnInit {
   refresh() {
     this.pageingInfo.isTableLoading = true;
     this.api.getList().subscribe(res => {
+      // debugger;
       console.log(res);
       this.dataItems = res.items;
+      this.pageingInfo.totalItems = res.totalCount;
       this.pageingInfo.isTableLoading = false;
     })
   }

@@ -20,16 +20,11 @@
         <button nz-button
                 (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
+
     <nz-table #dataTable
-              nzShowSizeChanger
-              [nzFrontPagination]="false"
               [nzData]="dataItems"
-              [nzTotal]="pageingInfo.totalItems"
-              [(nzPageIndex)]="pageingInfo.pageNumber"
-              [(nzPageSize)]="pageingInfo.pageSize"
-              [nzLoading]="pageingInfo.isTableLoading"
-              (nzPageIndexChange)="refresh()"
-              (nzPageSizeChange)="refresh()">
+              nzShowPagination
+              nzShowSizeChanger>
         <thead>
             <tr>
                 <!-- <th>Id</th> -->

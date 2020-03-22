@@ -8,31 +8,32 @@
 // LAYOUT
 
 $content-bg:                    #f5f7fa;
-$aside-bg:                      #fff;
+$aside-bg:                      #001529;
 
 // NAVBAR TOP
 
-$nav-top-bg:                    $info;
+$nav-top-bg:                    #001529;
 $nav-top-bg-start:              $nav-top-bg;
-$nav-top-bg-end:                $info-light;
+$nav-top-bg-end:                #001529;
 $nav-header-bg:                 transparent;
 
 $nav-top-item:                  #fff;
-$nav-top-item-active:           darken($nav-top-bg, 20%);
+$nav-top-item-active:           darken($nav-top-item, 40%);
 
 // SIDEBAR
 
 $sidebar-bg:                      $aside-bg;
 
-$sidebar-item-color:              #515253;
-$sidebar-item-color-active:       $nav-top-bg;
+$sidebar-item-color:              #ccc;
+$sidebar-item-color-active:       #fff;
 $sidebar-item-bg-active:          darken($sidebar-bg, 1%);
 
-$sidebar-icon-color:              inherits;
-$sidebar-icon-color-active:       $nav-top-bg;
+$sidebar-icon-color:              #ccc;
+$sidebar-icon-color-active:       #fff;
 
 $sidebar-bullet-color:            rgba(0,0,0,.25);
 $sidebar-bullet-color-active:     $sidebar-icon-color-active;
+$sidebar-border-left-color:       #23b7e5;
 
 $sidebar-heading-color:           #919DA8;
 $sidebar-label-color:             $sidebar-item-color;
@@ -129,7 +130,7 @@ body, .wrapper .section-container {
         }
 
         &.active {
-            border-left-color: $sidebar-item-color-active;
+            border-left-color: $sidebar-border-left-color;
         }
 
     }

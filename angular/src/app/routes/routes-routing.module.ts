@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'dashboard/workplace', pathMatch: 'full' },
       { path: 'dashboard', redirectTo: 'dashboard/workplace', pathMatch: 'full' },

@@ -28,7 +28,11 @@ export function getClientSettings(): UserManagerSettings {
 })
 export class AuthService {
 
-    private manager = new UserManager(getClientSettings());
+    private setting = getClientSettings();
+
+    private manager = new UserManager(this.setting);
+
+
 
     private currentUser: User;
 
@@ -41,7 +45,6 @@ export class AuthService {
     constructor(private authStore: AuthStore,
         private router: Router
     ) {
-
         this.manager.getUser().then(user => {
             if (user) {
                 this.currentUser = user;

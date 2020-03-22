@@ -1,6 +1,6 @@
 <div nz-row [nzGutter]="24" class="pt-lg">
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-    <g2-card
+    <!-- <g2-card
       [title]="'app.analysis.total-sales' | translate"
       total="¥ 126,560"
       contentHeight="44px"
@@ -24,10 +24,10 @@
           <span class="ml-sm">￥12,423</span>
         </p>
       </ng-template>
-    </g2-card>
+    </g2-card> -->
   </div>
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-    <g2-card
+    <!-- <g2-card
       [title]="'app.analysis.visits' | translate"
       total="8,848"
       contentHeight="46px"
@@ -44,10 +44,10 @@
           <span class="ml-sm">1,234</span>
         </p>
       </ng-template>
-    </g2-card>
+    </g2-card> -->
   </div>
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-    <g2-card
+    <!-- <g2-card
       [title]="'app.analysis.payments' | translate"
       total="6,560"
       contentHeight="46px"
@@ -64,10 +64,10 @@
           <span class="ml-sm">60%</span>
         </p>
       </ng-template>
-    </g2-card>
+    </g2-card> -->
   </div>
   <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
-    <g2-card
+    <!-- <g2-card
       [title]="'app.analysis.operational-effect' | translate"
       total="78%"
       contentHeight="46px"
@@ -90,7 +90,7 @@
           </trend>
         </div>
       </ng-template>
-    </g2-card>
+    </g2-card> -->
   </div>
 </div>
 <nz-card [nzLoading]="loading" [nzBordered]="false" class="ant-card__body-nopadding sales-card">
@@ -103,13 +103,13 @@
       <div nz-row>
         <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="16">
           <div class="bar">
-            <g2-bar
+            <!-- <g2-bar
               *ngIf="tab.show"
               height="295"
               style="width: 100%"
               [title]="'app.analysis.' + tab.key + '-trend' | translate"
               [data]="data.salesData"
-            ></g2-bar>
+            ></g2-bar> -->
           </div>
         </div>
         <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8">
@@ -171,16 +171,16 @@
               ></i>
             </ng-template>
           </number-info>
-          <g2-mini-area *ngIf="data.visitData2" [line]="true" height="45" [data]="data.visitData2"></g2-mini-area>
+          <!-- <g2-mini-area *ngIf="data.visitData2" [line]="true" height="45" [data]="data.visitData2"></g2-mini-area> -->
         </div>
         <div nz-col nzXs="24" nzSm="12" class="mb-md">
-          <number-info
+          <!-- <number-info
             [subTitle]="'app.analysis.per-capita-search' | translate"
             total="2.7"
             subTotal="26.2"
             status="down"
-          ></number-info>
-          <g2-mini-area *ngIf="data.visitData2" [line]="true" height="45" [data]="data.visitData2"></g2-mini-area>
+          ></number-info> -->
+          <!-- <g2-mini-area *ngIf="data.visitData2" [line]="true" height="45" [data]="data.visitData2"></g2-mini-area> -->
         </div>
       </div>
       <st [data]="data.searchData" [columns]="searchColumn" size="small" ps="5" [page]="{ toTopInChange: false }">
@@ -234,7 +234,7 @@
         </div>
       </ng-template>
       <h4 class="margin:8px 0 32px 0;">{{ 'app.analysis.sales' | translate }}</h4>
-      <g2-pie
+      <!-- <g2-pie
         *ngIf="salesPieData"
         [data]="salesPieData"
         [hasLegend]="true"
@@ -244,7 +244,7 @@
         [total]="salesTotal"
         [valueFormat]="handlePieValueFormat"
       >
-      </g2-pie>
+      </g2-pie> -->
     </nz-card>
   </div>
 </div>
@@ -263,7 +263,7 @@
             ></number-info>
           </div>
           <div nz-col [nzSpan]="12" style="padding-top: 36px;">
-            <g2-pie
+            <!-- <g2-pie
               [animate]="false"
               [color]="i !== offlineIdx && '#BDE4FF'"
               [inner]="0.55"
@@ -272,7 +272,7 @@
               [percent]="tab.cvr * 100"
               [height]="64"
             >
-            </g2-pie>
+            </g2-pie> -->
           </div>
         </div>
       </ng-template>

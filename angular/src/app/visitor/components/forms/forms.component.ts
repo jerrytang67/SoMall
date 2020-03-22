@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormProxyService, FormCreateOrEditDto, FormDto, FormTheme } from 'src/api/appService';
+import { Component, OnInit, } from '@angular/core';
+import { FormProxyService, FormDto, FormTheme } from 'src/api/appService';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { FormEditComponent } from '../form-edit/form-edit.component';
 
@@ -8,7 +8,6 @@ import { FormEditComponent } from '../form-edit/form-edit.component';
   templateUrl: './forms.component.html'
 })
 export class FormsComponent implements OnInit {
-
   dataItems: any[] = [];
   pageingInfo = {
     totalItems: 0,
@@ -98,7 +97,7 @@ export class FormsComponent implements OnInit {
     });
     modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
   }
-  
+
   delete(shop: FormDto) {
     this.api.delete(shop).subscribe(res => {
       this.message.success("删除成功");
