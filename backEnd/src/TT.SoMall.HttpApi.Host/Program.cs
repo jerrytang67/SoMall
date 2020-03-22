@@ -14,12 +14,19 @@ namespace TT.SoMall
     {
         public static int Main(string[] args)
         {
+#if DEBUG
+            var elasticsearch = "http://127.0.0.1:9200";
+#else
+             var elasticsearch = "http://elasticsearch:9200";
+#endif
+
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://127.0.0.1:9200"))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearch))
                 {
                     AutoRegisterTemplate = true,
                     AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
