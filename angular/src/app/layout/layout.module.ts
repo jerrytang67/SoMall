@@ -1,42 +1,40 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '@shared';
 
-import { LayoutDefaultComponent } from './default/default.component';
-import { LayoutFullScreenComponent } from './fullscreen/fullscreen.component';
-import { HeaderComponent } from './default/header/header.component';
-import { SidebarComponent } from './default/sidebar/sidebar.component';
-import { HeaderSearchComponent } from './default/header/components/search.component';
-import { HeaderNotifyComponent } from './default/header/components/notify.component';
-import { HeaderTaskComponent } from './default/header/components/task.component';
-import { HeaderIconComponent } from './default/header/components/icon.component';
-import { HeaderFullScreenComponent } from './default/header/components/fullscreen.component';
-import { HeaderStorageComponent } from './default/header/components/storage.component';
-import { HeaderUserComponent } from './default/header/components/user.component';
+import { LayoutComponent } from './layout.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { HeaderComponent } from './header/header.component';
+import { NavsearchComponent } from './header/navsearch/navsearch.component';
+import { OffsidebarComponent } from './offsidebar/offsidebar.component';
+import { UserblockComponent } from './sidebar/userblock/userblock.component';
+import { UserblockService } from './sidebar/userblock/userblock.service';
+import { FooterComponent } from './footer/footer.component';
 
-const COMPONENTS = [
-  LayoutDefaultComponent,
-  LayoutFullScreenComponent,
-  HeaderComponent,
-  SidebarComponent,
-];
-
-const HEADERCOMPONENTS = [
-  HeaderSearchComponent,
-  HeaderNotifyComponent,
-  HeaderTaskComponent,
-  HeaderIconComponent,
-  HeaderFullScreenComponent,
-  HeaderStorageComponent,
-  HeaderUserComponent,
-];
-
-// passport
-import { LayoutPassportComponent } from './passport/passport.component';
-const PASSPORT = [LayoutPassportComponent];
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  imports: [SharedModule],
-  declarations: [...COMPONENTS, ...HEADERCOMPONENTS, ...PASSPORT],
-  exports: [...COMPONENTS, ...PASSPORT],
+    imports: [
+        SharedModule
+    ],
+    providers: [
+        UserblockService
+    ],
+    declarations: [
+        LayoutComponent,
+        SidebarComponent,
+        UserblockComponent,
+        HeaderComponent,
+        NavsearchComponent,
+        OffsidebarComponent,
+        FooterComponent
+    ],
+    exports: [
+        LayoutComponent,
+        SidebarComponent,
+        UserblockComponent,
+        HeaderComponent,
+        NavsearchComponent,
+        OffsidebarComponent,
+        FooterComponent
+    ]
 })
-export class LayoutModule {}
+export class LayoutModule { }

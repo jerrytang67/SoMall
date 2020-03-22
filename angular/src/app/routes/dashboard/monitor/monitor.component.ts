@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { zip } from 'rxjs';
-import { _HttpClient } from '@delon/theme';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-monitor',
   templateUrl: './monitor.component.html',
-  styleUrls: ['./monitor.component.less'],
+  // styleUrls: ['./monitor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardMonitorComponent implements OnInit, OnDestroy {
 
-  constructor(private http: _HttpClient, public msg: NzMessageService, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, public msg: NzMessageService, private cdr: ChangeDetectorRef) { }
   data: any = {};
   tags = [];
   loading = true;

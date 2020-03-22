@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { zip } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd';
-import { _HttpClient } from '@delon/theme';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-workplace',
   templateUrl: './workplace.component.html',
-  styleUrls: ['./workplace.component.less'],
+  // styleUrls: ['./workplace.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardWorkplaceComponent implements OnInit {
@@ -76,9 +76,9 @@ export class DashboardWorkplaceComponent implements OnInit {
   ];
   // endregion
 
-  constructor(private http: _HttpClient, public msg: NzMessageService, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, public msg: NzMessageService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-  
+
   }
 }

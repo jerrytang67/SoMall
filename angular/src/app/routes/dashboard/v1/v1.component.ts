@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { _HttpClient } from '@delon/theme';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-v1',
@@ -50,7 +50,7 @@ export class DashboardV1Component implements OnInit {
   salesData: any[];
   offlineChartData: any[];
 
-  constructor(private http: _HttpClient, private cdr: ChangeDetectorRef) { }
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }

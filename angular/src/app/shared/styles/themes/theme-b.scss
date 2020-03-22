@@ -1,0 +1,180 @@
+// Bootstrap
+@import "../bootstrap/functions";
+@import "../bootstrap/variables";
+@import "../bootstrap/mixins";
+@import '../app/variables';
+
+
+// LAYOUT
+
+$content-bg:                    #f5f7fa;
+$aside-bg:                      #fff;
+
+// NAVBAR TOP
+
+$nav-top-bg:                    $green;
+$nav-top-bg-start:              $nav-top-bg;
+$nav-top-bg-end:                $green-light;
+$nav-header-bg:                 transparent;
+
+$nav-top-item:                  #fff;
+$nav-top-item-active:           darken($nav-top-bg, 20%);
+
+// SIDEBAR
+
+$sidebar-bg:                      $aside-bg;
+
+$sidebar-item-color:              #515253;
+$sidebar-item-color-active:       $nav-top-bg;
+$sidebar-item-bg-active:          darken($sidebar-bg, 1%);
+
+$sidebar-icon-color:              inherits;
+$sidebar-icon-color-active:       $nav-top-bg;
+
+$sidebar-bullet-color:            rgba(0,0,0,.25);
+$sidebar-bullet-color-active:     $sidebar-icon-color-active;
+
+$sidebar-heading-color:           #919DA8;
+$sidebar-label-color:             $sidebar-item-color;
+
+// OFFSIDEBAR
+
+$offsidebar-bg:           #fff;
+$offsidebar-border-color: greyscale(darken($offsidebar-bg, 20%));
+$offsidebar-color:        $body-color;
+
+
+/* ========================================================================
+   Component: layout
+ ========================================================================== */
+body, .wrapper .section-container {
+    background-color: $content-bg;
+}
+
+.wrapper .aside-container {
+    background-color: $aside-bg;
+}
+
+/* ========================================================================
+   Component: top-navbar
+ ========================================================================== */
+.topnavbar {
+    background-color: $nav-top-bg;
+    @include gradient-x($nav-top-bg-start, $nav-top-bg-end);
+
+    @include media-breakpoint-up(lg) {
+        .navbar-nav > .nav-item.show > .nav-link {
+            &, &:hover, &:focus {
+                box-shadow: 0 -3px 0 darken($nav-top-bg, 6%) inset;
+            }
+        }
+    }
+
+    .navbar-nav > .nav-item > .navbar-text {
+        color: $nav-top-item;
+    }
+
+    .navbar-nav > .nav-item > .nav-link,
+    .navbar-nav > .nav-item.show > .nav-link {
+        color: $nav-top-item;
+        &:hover, &:focus {
+            color: $nav-top-item-active;
+        }
+    }
+
+    .dropdown-item.active, .dropdown-item:active {
+        background-color: $nav-top-bg;
+    }
+}
+
+/* ========================================================================
+   Component: sidebar
+ ========================================================================== */
+.sidebar {
+    background-color: $sidebar-bg;
+
+    .nav-heading {
+        color: $sidebar-heading-color;
+    }
+}
+
+// Items
+.sidebar-nav {
+    > li {
+        > a, > .nav-item {
+            color: $sidebar-item-color;
+
+            &:focus, &:hover {
+                color: $sidebar-item-color-active;
+            }
+
+            // Item icon
+            > em {
+                color: $sidebar-icon-color;
+            }
+
+        }
+
+        // Active item state
+        &.active, &.open {
+            &, > a, > .nav-item, .sidebar-nav {
+                background-color: $sidebar-item-bg-active;
+                color: $sidebar-item-color-active;
+            }
+
+            > .nav-item > em, > a > em {
+                color: $sidebar-icon-color-active;
+            }
+
+        }
+
+        &.active {
+            border-left-color: $sidebar-item-color-active;
+        }
+
+    }
+
+}
+
+.sidebar-subnav {
+    background-color: $sidebar-bg;
+
+    > .sidebar-subnav-header {
+        color: $sidebar-item-color;
+    }
+
+    > li {
+        > a, > .nav-item {
+            color: $sidebar-item-color;
+
+            &:focus, &:hover {
+                color: $sidebar-item-color-active;
+            }
+
+        }
+
+        &.active {
+            > a, > .nav-item {
+                color: $sidebar-icon-color-active;
+
+                &:after {
+                    border-color: $sidebar-bullet-color-active;
+                    background-color: $sidebar-bullet-color-active;
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+/* ========================================================================
+   Component: offsidebar
+ ========================================================================== */
+.offsidebar {
+    border-left: 1px solid $offsidebar-border-color;
+    background-color: $offsidebar-bg;
+    color: $offsidebar-color;
+}

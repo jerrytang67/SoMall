@@ -1,40 +1,31 @@
-import { enableProdMode, ViewEncapsulation } from '@angular/core';
+/*!
+ *
+ * Angle - Bootstrap Admin Template
+ *
+ * Version: 4.7.1
+ * Author: @themicon_co
+ * Website: http://themicon.co
+ * License: https://wrapbootstrap.com/help/licenses
+ *
+ */
+
+import './vendor.ts';
+import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-import { preloaderFinished } from '@delon/theme';
-preloaderFinished();
-
-import { hmrBootstrap } from './hmr';
-
 if (environment.production) {
   enableProdMode();
 }
 
-const bootstrap = () => {
-  return platformBrowserDynamic()
-    .bootstrapModule(AppModule, {
-      defaultEncapsulation: ViewEncapsulation.Emulated,
-      preserveWhitespaces: false,
-    })
-    .then(res => {
-      if ((window as any).appBootstrap) {
-        (window as any).appBootstrap();
-      }
-      return res;
-    });
-};
-
-if (environment.hmr) {
-  // tslint:disable-next-line: no-string-literal
-  if (module['hot']) {
-    hmrBootstrap(module, bootstrap);
-  } else {
-    console.error('HMR is not enabled for webpack-dev-server!');
-    console.log('Are you using the --hmr flag for ng serve?');
-  }
-} else {
-  bootstrap();
+export function getBaseUrl() {
+  return document.getElementsByTagName('base')[0].href;
 }
+
+const providers = [{ provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }];
+
+let p = platformBrowserDynamic(providers).bootstrapModule(AppModule);
+p.then(() => { (<any>window).appBootstrap && (<any>window).appBootstrap(); })
+// .catch(err => console.error(err));

@@ -1,0 +1,70 @@
+/* ========================================================================
+     Component: calendar
+ ========================================================================== */
+
+.calendar-app {
+
+    .fc-state-highlight,
+    .fc-day:hover {
+        background-color: #f7f8f9;
+    }
+
+    .fc-today {
+        background-color: transparent !important;
+        .fc-day-number {
+            color: $info;
+        }
+    }
+
+    .fc-day-number {
+        font-size: 18px;
+        font-weight: bold;
+        color: #a1a2a3;
+    }
+
+    .fc-event {
+        color: #fff !important;
+    } // Allow to drag event outside the calendar
+    .fc-view {
+        overflow: visible;
+    }
+
+    @include media-breakpoint-down(lg) {
+        // hide views buttons
+        .fc-right {
+            display: none;
+        }
+    }
+    @include media-breakpoint-down(md) {
+        // hide views buttons and date buttons
+        .fc-right, .fc-left {
+            display: none;
+        }
+    }
+
+}
+
+// Calendar app styles
+// -----------------------
+.external-events {
+    margin: 0;
+    >div {
+        // display: inline-block;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        padding: 6px 10px;
+        color: #fff;
+        font-size: 11px;
+        border-radius: 2px;
+        cursor: move;
+    }
+    &:empty {
+        content: "EMPTY";
+    }
+} // Remove events drop area
+
+#external-event-color-selector {
+    .circle.selected {
+        border: 3px solid rgba(255, 255, 255, .5);
+    }
+}

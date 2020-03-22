@@ -3,14 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '@core';
 
-import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { ShopListComponent } from './components/shops/shop-list.component';
+import { LayoutComponent } from '../layout/layout.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'shop-list', pathMatch: 'full' },
   {
     path: '',
-    component: LayoutDefaultComponent,
+    component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'shop-list', component: ShopListComponent, data: { title: '商家列表', permission: 'Pages' } }

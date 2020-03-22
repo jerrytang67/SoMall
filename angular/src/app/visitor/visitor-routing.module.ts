@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { AuthGuard } from '@core';
 import { FormsComponent } from './components/forms/forms.component';
 import { ShopFormsComponent } from './components/shopForms/shopForms.component';
 import { VisitorlogListComponent } from './components/visitorlog-list/visitorlog-list.component';
+import { LayoutComponent } from '../layout/layout.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'forms', pathMatch: 'full' },
   {
     path: '',
-    component: LayoutDefaultComponent,
+    component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'forms', component: FormsComponent, data: { title: '表单列表', permission: 'Pages' } },

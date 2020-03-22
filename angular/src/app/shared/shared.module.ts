@@ -1,22 +1,22 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-// delon
-import { AlainThemeModule } from '@delon/theme';
-import { DelonABCModule } from '@delon/abc';
-import { DelonChartModule } from '@delon/chart';
-import { DelonACLModule } from '@delon/acl';
-import { DelonFormModule } from '@delon/form';
-// i18n
 import { TranslateModule } from '@ngx-translate/core';
+import { ToastrModule } from 'ngx-toastr';
+import { ColorsService } from './colors/colors.service';
 
 // #region third libs
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
-const THIRDMODULES = [NgZorroAntdModule , CKEditorModule];
+// ngx-bootstrap
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
+
+const BSMODULES = [TooltipModule.forRoot(), ToastrModule.forRoot()]
+
+const THIRDMODULES = [NgZorroAntdModule, CKEditorModule];
 // #endregion
 
 // #region your componets & directives
@@ -30,13 +30,12 @@ const DIRECTIVES = [];
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    AlainThemeModule.forChild(),
-    DelonABCModule,
-    DelonChartModule,
-    DelonACLModule,
-    DelonFormModule,
     // third libs
     ...THIRDMODULES,
+    ...BSMODULES
+  ],
+  providers: [
+    ColorsService
   ],
   declarations: [
     // your components
@@ -48,11 +47,6 @@ const DIRECTIVES = [];
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    AlainThemeModule,
-    DelonABCModule,
-    DelonChartModule,
-    DelonACLModule,
-    DelonFormModule,
     // i18n
     TranslateModule,
     // third libs
@@ -62,4 +56,10 @@ const DIRECTIVES = [];
     ...DIRECTIVES,
   ],
 })
-export class SharedModule { }
+export class SharedModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule
+    };
+  }
+}

@@ -20,5 +20,5 @@ export class AuthQuery extends Query<AuthState> {
 
     constructor(protected store: AuthStore) {
         super(store);
-    }
+    } 
 }

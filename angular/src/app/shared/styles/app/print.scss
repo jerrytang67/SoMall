@@ -1,0 +1,37 @@
+/* ========================================================================
+     Component: print
+ ========================================================================== */
+
+// Put here all rules required to style the print view
+
+@media print {
+
+    .sidebar,
+    .topnavbar,
+    .offsidebar,
+    .btn {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    .wrapper,
+    .wrapper .section-container,
+    .content-wrapper {
+        margin: 0 !important;
+        /* remove margin used for sidebar and expand the content */
+        padding: 0 !important;
+        width: 100% !important;
+        border: 0; /* optional: remove top border used to separate the page heading */
+    }
+
+    .content-wrapper {
+        overflow: hidden !important;
+    }
+
+    /* hide sidebar container */
+    .aside-container { display: none !important; }
+    /* remove space used for the sidebar */
+    .footer-container { margin: 0 !important; }
+
+}

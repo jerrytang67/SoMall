@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Router, NavigationEnd, Routes } from '@angular/router';
-import { LayoutDefaultComponent } from '../layout/default/default.component';
 import { UsersComponent, RolesComponent } from '.';
 import { AuthGuard } from '@core/auth-guard.service';
+import { LayoutComponent } from '../layout/layout.component';
 
 
 const routes: Routes = [
     { path: '', redirectTo: 'users', pathMatch: 'full' },
     {
         path: '',
-        component: LayoutDefaultComponent,
+        component: LayoutComponent,
         canActivate: [AuthGuard],
         children: [
             { path: 'users', component: UsersComponent, data: { title: '用户列表', permission: 'Pages' } },

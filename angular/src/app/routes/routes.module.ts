@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 
-import { SharedModule } from '@shared';
 import { RouteRoutingModule } from './routes-routing.module';
 // dashboard pages
 import { DashboardV1Component } from './dashboard/v1/v1.component';
@@ -10,10 +9,10 @@ import { DashboardWorkplaceComponent } from './dashboard/workplace/workplace.com
 
 // single pages
 import { UserLockComponent } from './passport/lock/lock.component';
-import { CallbackComponent } from './callback/callback.component';
 import { Demo1Component } from './demo/demo1.component';
 import { Exception404Component } from './exception/404.component';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import { SharedModule } from '@shared/shared.module';
 
 const COMPONENTS = [
   DashboardV1Component,
@@ -23,10 +22,9 @@ const COMPONENTS = [
 
   // oidc_callback
   AuthCallbackComponent,
-  
+
   // single pages
   UserLockComponent,
-  CallbackComponent,
   Exception404Component,
   Demo1Component
 ];

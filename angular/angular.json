@@ -1,52 +1,39 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "$schema": "./node_modules/@angular/cl/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-alain": {
+    "ng2angle": {
       "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "less"
-        }
-      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "tsConfig": "tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": false,
             "assets": [
-              "src/assets",
               "src/favicon.ico",
-              "src/silent-refresh.html",
-              {
-                "glob": "**/*",
-                "input": "src/static",
-                "output": "/"
-              },
-              {
-                "glob": "oidc-client.min.js",
-                "input": "node_modules/oidc-client/dist",
-                "output": "/"
-              }
+              "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/app/core/preloader/preloader.scss",
+              "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/@antv/g2/build/g2.js",
-              "node_modules/@antv/data-set/dist/data-set.min.js",
-              "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
-              "node_modules/ajv/dist/ajv.bundle.js",
-              "node_modules/qrious/dist/qrious.min.js"
+              "src/app/core/wrapper/wrapper.js",
+              "src/app/core/preloader/preloader.js"
             ]
           },
           "configurations": {
@@ -62,34 +49,19 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "6mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
-                }
-              ]
-            },
-            "hmr": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.hmr.ts"
                 }
               ]
             }
@@ -98,23 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng-alain:build",
-            "proxyConfig": "proxy.conf.json"
+            "browserTarget": "ng2angle:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng-alain:build:production"
-            },
-            "hmr": {
-              "browserTarget": "ng-alain:build:hmr",
-              "hmr": true
+              "browserTarget": "ng2angle:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng-alain:build"
+            "browserTarget": "ng2angle:build"
           }
         },
         "test": {
@@ -122,17 +89,22 @@
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
-            "karmaConfig": "karma.conf.js",
             "tsConfig": "tsconfig.spec.json",
-            "scripts": [
-              "node_modules/@antv/g2/dist/g2.min.js",
-              "node_modules/@antv/data-set/dist/data-set.min.js",
-              "node_modules/@antv/g2-plugin-slider/dist/g2-plugin-slider.min.js",
-              "node_modules/ajv/dist/ajv.bundle.js",
-              "node_modules/qrious/dist/qrious.min.js"
-            ],
-            "styles": [],
+            "karmaConfig": "karma.conf.js",
             "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/app/core/preloader/preloader.scss",
+              "src/styles.scss"
+            ],
+            "scripts": [
+              "src/app/core/wrapper/wrapper.js",
+              "src/app/core/preloader/preloader.js"
+            ],
+            "assets": [
+              "src/favicon.ico",
               "src/assets"
             ]
           }
@@ -154,16 +126,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-alain:serve"
+            "devServerTarget": "ng2angle:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ng-alain:serve:production"
+              "devServerTarget": "ng2angle:serve:production"
             }
           }
         }
       }
-    }
-  },
-  "defaultProject": "ng-alain"
+    }},
+  "defaultProject": "ng2angle"
 }

@@ -1,19 +1,17 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
-import { STColumn } from '@delon/abc';
-import { getTimeDistance, deepCopy } from '@delon/util';
-import { _HttpClient } from '@delon/theme';
 import { yuan } from '@shared';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-analysis',
   templateUrl: './analysis.component.html',
-  styleUrls: ['./analysis.component.less'],
+  // styleUrls: ['./analysis.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardAnalysisComponent implements OnInit {
   constructor(
-    private http: _HttpClient,
+    private http: HttpClient,
     public msg: NzMessageService,
     private cdr: ChangeDetectorRef,
   ) { }
@@ -32,30 +30,6 @@ export class DashboardAnalysisComponent implements OnInit {
     y1: "app.analysis.traffic",
     y2: "app.analysis.payments"
   };
-  searchColumn: STColumn[] = [
-    { title: '排名', i18n: 'app.analysis.table.rank', index: 'index' },
-    {
-      title: '搜索关键词',
-      i18n: 'app.analysis.table.search-keyword',
-      index: 'keyword',
-      click: (item: any) => this.msg.success(item.keyword),
-    },
-    {
-      type: 'number',
-      title: '用户数',
-      i18n: 'app.analysis.table.users',
-      index: 'count',
-      sorter: (a, b) => a.count - b.count,
-    },
-    {
-      type: 'number',
-      title: '周涨幅',
-      i18n: 'app.analysis.table.weekly-range',
-      index: 'range',
-      render: 'range',
-      sorter: (a, b) => a.range - b.range,
-    },
-  ];
 
   salesType = 'all';
   salesPieData: any;
@@ -70,9 +44,9 @@ export class DashboardAnalysisComponent implements OnInit {
   }
 
   setDate(type: any) {
-    this.date_range = getTimeDistance(type);
     setTimeout(() => this.cdr.detectChanges());
   }
+  
   changeSaleType() {
     this.salesPieData =
       this.salesType === 'all'
