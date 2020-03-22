@@ -45,6 +45,10 @@ namespace TT.SoMall
 
         internal static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     var env = hostingContext.HostingEnvironment;
@@ -54,7 +58,7 @@ namespace TT.SoMall
                     Console.WriteLine(env.ApplicationName);
                     Console.WriteLine(env.EnvironmentName);
                     config.AddConsul(
-                            $"demo_somall_top/api_host/appsettings.Production.json", options =>
+                            $"demo_somall_top/api_host/appsettings.{env.EnvironmentName}.json", options =>
                             {
                                 options.ConsulConfigurationOptions =
                                     cco => { cco.Address = new Uri(consul_url); };
@@ -63,10 +67,6 @@ namespace TT.SoMall
                                 options.OnLoadException = exceptionContext => { exceptionContext.Ignore = true; };
                             })
                         .AddEnvironmentVariables();
-                })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
                 })
                 .UseAutofac()
                 .UseSerilog();
