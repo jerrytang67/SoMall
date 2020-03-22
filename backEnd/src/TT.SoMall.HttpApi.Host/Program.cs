@@ -20,7 +20,6 @@ namespace TT.SoMall
              var elasticsearch = "http://elasticsearch:9200";
 #endif
 
-
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
@@ -36,6 +35,7 @@ namespace TT.SoMall
             try
             {
                 Log.Warning("Starting TT.SoMall.HttpApi.Host.");
+                Log.Warning($"Elastics Url {elasticsearch}");
                 CreateHostBuilder(args).Build().Run();
                 return 0;
             }
@@ -60,10 +60,10 @@ namespace TT.SoMall
                 {
                     var env = hostingContext.HostingEnvironment;
                     hostingContext.Configuration = config.Build();
-                    string consul_url = hostingContext.Configuration["Consul_Url"];
-                    Console.WriteLine(consul_url);
-                    Console.WriteLine(env.ApplicationName);
-                    Console.WriteLine(env.EnvironmentName);
+                    string consul_url = hostingContext.Configuration["Consul_Url"] ?? "http://127.0.0.1:8500";
+                    Console.WriteLine($"Consul Url:{consul_url}");
+                    Console.WriteLine($"ApplicationName:{env.ApplicationName}");
+                    Console.WriteLine($"EnvironmentName:{env.EnvironmentName}");
                     config.AddConsul(
                             $"demo_somall_top/api_host/appsettings.{env.EnvironmentName}.json", options =>
                             {
