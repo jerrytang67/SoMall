@@ -8,15 +8,15 @@ import { LayoutComponent } from '../layout/layout.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'forms', pathMatch: 'full' },
+  { path: '', redirectTo: 'forms', pathMatch: 'full', data: { breadcrumb: "访客管理系统" } },
   {
     path: '',
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'forms', component: FormsComponent, data: { title: '表单列表', permission: 'Pages' } },
-      { path: 'shopForms/:formid', component: ShopFormsComponent, data: { title: '商家列表', permission: 'Pages' } },
-      { path: 'visitorlog/:formid/:shopid', component: VisitorlogListComponent, data: { title: '访客记录', permission: 'Pages' } },
+      { path: 'shopForms/:formid', component: ShopFormsComponent, data: { title: '商家列表', breadcrumb: '商家列表', permission: 'Pages' } },
+      { path: 'visitorlog/:formid/:shopid', component: VisitorlogListComponent, data: { title: '访客记录', breadcrumb: "访客记录", permission: 'Pages' } },
     ]
   }
 ];

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Domain" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.3.0" />
+      <PackageReference Include="Volo.Abp.AutoMapper" Version="2.3.0" />
+      <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="2.3.0" />
+      <PackageReference Include="Volo.Abp.Http.Client" Version="2.3.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\shop-management\src\TT.Abp.ShopManagement.csproj" />
+    </ItemGroup>
+
+</Project>

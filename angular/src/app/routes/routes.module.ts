@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 
 import { RouteRoutingModule } from './routes-routing.module';
 // dashboard pages
-import { DashboardV1Component } from './dashboard/v1/v1.component';
 import { DashboardAnalysisComponent } from './dashboard/analysis/analysis.component';
 import { DashboardMonitorComponent } from './dashboard/monitor/monitor.component';
 import { DashboardWorkplaceComponent } from './dashboard/workplace/workplace.component';
@@ -15,7 +14,6 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { SharedModule } from '@shared/shared.module';
 
 const COMPONENTS = [
-  DashboardV1Component,
   DashboardAnalysisComponent,
   DashboardMonitorComponent,
   DashboardWorkplaceComponent,

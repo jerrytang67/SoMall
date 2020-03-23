@@ -1,21 +1,14 @@
-<page-header [breadcrumb]="breadcrumb">
-    <ng-template #breadcrumb>
-        <nz-breadcrumb>
-            <nz-breadcrumb-item>
-                <a [routerLink]="['/']">首页</a>
-            </nz-breadcrumb-item>
-            <nz-breadcrumb-item>
-                <a [routerLink]="['/visitor']">访客系统</a>
-            </nz-breadcrumb-item>
-            <nz-breadcrumb-item>访客日志</nz-breadcrumb-item>
-        </nz-breadcrumb>
-    </ng-template>
-</page-header>
-<!-- <div class="alain-default__content-title">
-    <h1>
-        visitorlist
-    </h1>
-</div> -->
+<nz-page-header nzTitle="Title">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/visitor']">访客系统</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>访客日志</nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
@@ -23,15 +16,7 @@
                 (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
     <nz-table #dataTable
-              nzShowSizeChanger
-              [nzFrontPagination]="false"
-              [nzData]="dataItems"
-              [nzTotal]="pageingInfo.totalItems"
-              [(nzPageIndex)]="pageingInfo.pageNumber"
-              [(nzPageSize)]="pageingInfo.pageSize"
-              [nzLoading]="pageingInfo.isTableLoading"
-              (nzPageIndexChange)="refresh()"
-              (nzPageSizeChange)="refresh()">
+              [nzData]="dataItems">
         <thead>
             <tr>
                 <!-- <th>Id</th> -->
@@ -45,10 +30,10 @@
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
                 <td>
-                    {{item.creationTime | _date}}
+                    {{item.creationTime }}
                 </td>
                 <td>
-                    {{item.leaveTime | _date}}
+                    {{item.leaveTime }}
                 </td>
                 <td>
                     <div *ngFor="let x of item.formJson">
@@ -69,9 +54,9 @@
                 <td>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
-                       [nzTitle]="'确定删除吗?'"
+                       [nzPopconfirmTitle]="'确定删除吗?'"
                        (nzOnConfirm)="delete(item)"
-                       nzPlacement="top">{{'delete' | translate}}</a>
+                       nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
                 </td>
             </tr>
         </tbody>

@@ -29,14 +29,9 @@ namespace TT.SoMall.EntityFrameworkCore
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside SoMallDbContextModelCreatingExtensions.ConfigureSoMall
          */
-
-        public DbSet<ProductSpu> ProductSpu { get; set; }
-        public DbSet<ProductSku> ProductSku { get; set; }
-        public DbSet<ProductCategory> ProductCategory { get; set; }
-
+        
         public DbSet<VisitorShop> Shops { get; set; }
 
-        
         public DbSet<WechatUserinfo> WechatUserinfos { get; set; }
 
         public SoMallDbContext(DbContextOptions<SoMallDbContext> options)

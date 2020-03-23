@@ -31,8 +31,10 @@ const routes: Routes = [
     ],
   },
   { path: 'identity', loadChildren: () => import('../identity/identity.module').then(m => m.IdentityModule) },
-  { path: 'shop-management', loadChildren: () => import('../shop-management/shop-management.module').then(m => m.ShopManagementModule) },
-  { path: 'visitor', loadChildren: () => import('../visitor/visitor.module').then(m => m.VisitorModule) },
+
+  { path: 'shop-management', loadChildren: () => import(/* webpackChunkName: "ShopManagementModule" */ '../shop-management/shop-management.module').then(m => m.ShopManagementModule), data: { breadcrumb: "商家管理" } },
+
+  { path: 'visitor', loadChildren: () => import(/* webpackChunkName: "VisitorModule" */ '../visitor/visitor.module').then(m => m.VisitorModule), data: { breadcrumb: "访客管理系统" } },
   {
     path: 'demo',
     component: LayoutComponent,
@@ -62,8 +64,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       useHash: environment.useHash,
-      // NOTICE: If you use `reuse-tab` component and turn on keepingScroll you can set to `disabled`
-      // Pls refer to https://ng-alain.com/components/reuse-tab
       scrollPositionRestoration: 'top',
     }),
   ],

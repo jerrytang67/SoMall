@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace TT.SoMall.Products
+namespace TT.Abp.MallManagement.Application.Products.Dtos
 {
     public class CreateUpdateCategoryDto
     {

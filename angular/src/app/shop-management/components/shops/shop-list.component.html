@@ -1,8 +1,15 @@
-<div class="alain-default__content-title">
-    <h1>
-        Shop List
-    </h1>
-</div>
+<nz-page-header nzTitle="商家管理">
+    <nz-breadcrumb nz-page-header-breadcrumb
+                   [nzAutoGenerate]="true">
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+
+
+
+
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
@@ -12,8 +19,6 @@
         <button nz-button
                 (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
-
-
 
     <nz-table #basicTable
               nzShowPagination
@@ -53,9 +58,9 @@
                     <a (click)="edit(item)">{{'edit' | translate}}</a>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
-                       [nzTitle]="'确定删除吗?'"
+                       [nzPopconfirmTitle]="'确定删除吗?'"
                        (nzOnConfirm)="delete(item)"
-                       nzPlacement="top">{{'delete' | translate}}</a>
+                       nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
                 </td>
             </tr>
         </tbody>

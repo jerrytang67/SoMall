@@ -31,7 +31,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 /** 配置 angular i18n **/
-import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
@@ -53,8 +53,7 @@ registerLocaleData(zh);
         deps: [HttpClient]
       }
     }),
-    environment.production ? [] : AkitaNgDevtools,
-    NgZorroAntdModule
+    environment.production ? [] : AkitaNgDevtools
   ],
   providers: [...INTERCEPTOR_PROVIDES,
   { provide: NZ_I18N, useValue: zh_CN }],

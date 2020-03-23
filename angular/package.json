@@ -2,29 +2,18 @@
   "name": "ng-alain",
   "version": "8.9.0",
   "description": "ng-zorro-antd admin panel front-end framework",
-  "author": "cipchk <cipchk@qq.com>",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ng-alain/ng-alain.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ng-alain/ng-alain/issues"
-  },
-  "homepage": "https://ng-alain.com",
+  "author": "tt-tjw@qq.com",
   "license": "MIT",
   "keywords": [
-    "delon",
     "antd",
-    "ng-zorro-antd",
     "angular",
-    "component",
-    "scaffold"
+    "component"
   ],
   "scripts": {
     "ng": "ng",
-    "start": "npm run color-less && ng serve -o",
-    "hmr": "npm run color-less && ng serve -c=hmr",
-    "build": "npm run color-less && node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng build --prod",
+    "start": "ng serve -o",
+    "hmr": "ng serve -c=hmr",
+    "build": "node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng build --prod",
     "analyze": "node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng build --prod --stats-json",
     "lint": "npm run lint:ts && npm run lint:style",
     "lint:ts": "tslint -p tsconfig.app.json -c tslint.json \"src/**/*.ts\" --fix",
@@ -56,6 +45,7 @@
     "ajv": "^6.10.2",
     "file-saver": "^2.0.2",
     "modernizr": "^3.9.1",
+    "moment": "^2.24.0",
     "ng-zorro-antd": "^9.0.0-beta.2",
     "ngx-bootstrap": "^5.5.0",
     "ngx-tinymce": "^7.0.0",

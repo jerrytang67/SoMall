@@ -77,12 +77,17 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // ngx-bootstrap
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
+const BSMODULES = [
+  TooltipModule.forRoot(), 
+  TabsModule.forRoot(),
+  ToastrModule.forRoot()
+]
 
 
-const BSMODULES = [TooltipModule.forRoot(), ToastrModule.forRoot()]
-
-
-const NZMODULES = [NzAffixModule,
+const NZMODULES = [
+  NzAffixModule,
   NzAlertModule,
   NzAnchorModule,
   NzAutocompleteModule,
@@ -149,6 +154,7 @@ const NZMODULES = [NzAffixModule,
 
 const THIRDMODULES = [
   ...NZMODULES,
+  ...BSMODULES,
   // NgZorroAntdModule, 
   CKEditorModule];
 // #endregion
@@ -166,7 +172,6 @@ const DIRECTIVES = [];
     ReactiveFormsModule,
     // third libs
     ...THIRDMODULES,
-    ...BSMODULES
   ],
   providers: [
     ColorsService

@@ -1,16 +1,15 @@
-<page-header [breadcrumb]="breadcrumb">
-    <ng-template #breadcrumb>
-        <nz-breadcrumb>
-            <nz-breadcrumb-item>
-                <a [routerLink]="['/']">首页</a>
-            </nz-breadcrumb-item>
-            <nz-breadcrumb-item>
-                <a [routerLink]="['/visitor']">访客系统</a>
-            </nz-breadcrumb-item>
-            <nz-breadcrumb-item>商户列表</nz-breadcrumb-item>
-        </nz-breadcrumb>
-    </ng-template>
-</page-header>
+<nz-page-header nzTitle="商户列表">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/visitor']">访客系统</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+
+
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
@@ -60,9 +59,9 @@
                     <a [routerLink]="['/visitor/visitorlog', formId , item.id]">访客记录</a>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
-                       [nzTitle]="'确定删除吗?'"
+                       [nzPopconfirmTitle]="'确定删除吗?'"
                        (nzOnConfirm)="delete(item)"
-                       nzPlacement="top">{{'delete' | translate}}</a>
+                       nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
                 </td>
             </tr>
         </tbody>

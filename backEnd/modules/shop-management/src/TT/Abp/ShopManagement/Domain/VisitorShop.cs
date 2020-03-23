@@ -7,11 +7,11 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.ShopManagement.Domain
 {
-    public class VisitorShop : FullAuditedAggregateRoot<Guid>, IMultiTenant
+    public class VisitorShop : FullAuditedAggregateRoot<Guid>, IMultiTenant, IShopData
     {
         [NotNull] public virtual string Name { get; protected set; }
 
-        [NotNull] public virtual string ShortName { get; protected set; }
+        [NotNull] public virtual string ShortName { get; set; }
 
         [NotNull] public virtual string LogoImage { get; protected set; }
 
@@ -19,7 +19,7 @@ namespace TT.Abp.ShopManagement.Domain
 
 
         [CanBeNull] public virtual string Description { get; set; }
-        
+
         public virtual Guid? TenantId { get; set; }
 
         protected VisitorShop()
@@ -63,6 +63,5 @@ namespace TT.Abp.ShopManagement.Domain
         {
             Description = desc;
         }
-
     }
 }

@@ -38,9 +38,9 @@
                     <a (click)="edit(item)">{{'Edit' | translate}}</a>
                     <nz-divider nzType="vertical"></nz-divider>
                     <a nz-popconfirm
-                       [nzTitle]="'UserDeleteWarningMessage'"
+                       [nzPopconfirmTitle]="'UserDeleteWarningMessage'"
                        (nzOnConfirm)="delete(item)"
-                       nzPlacement="top">{{'Delete' | translate}}</a>
+                       nzPopconfirmPlacement="top">{{'Delete' | translate}}</a>
                 </td>
             </tr>
         </tbody>
