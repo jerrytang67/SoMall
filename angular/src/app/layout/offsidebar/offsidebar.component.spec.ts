@@ -17,7 +17,6 @@ export class MockElementRef extends ElementRef {
 }
 
 describe('Component: Offsidebar', () => {
-
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
