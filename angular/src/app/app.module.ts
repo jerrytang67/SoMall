@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID, APP_INITIALIZER, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -36,6 +36,9 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
 
+
+import { SEModule } from '@shared/components/edit/edit.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -53,7 +56,8 @@ registerLocaleData(zh);
         deps: [HttpClient]
       }
     }),
-    environment.production ? [] : AkitaNgDevtools
+    environment.production ? [] : AkitaNgDevtools,
+    SEModule
   ],
   providers: [...INTERCEPTOR_PROVIDES,
   { provide: NZ_I18N, useValue: zh_CN }],

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastrModule } from 'ngx-toastr';
-import { ColorsService } from './colors/colors.service'; 
+import { ColorsService } from './colors/colors.service';
 
 // #region third libs
 // import { NgZorroAntdModule } from 'ng-zorro-antd';
@@ -78,9 +78,11 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 // ngx-bootstrap
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ExceptionComponent } from './components/exception/exception.component';
+import { SEModule } from './components/edit/edit.module';
 
 const BSMODULES = [
-  TooltipModule.forRoot(), 
+  TooltipModule.forRoot(),
   TabsModule.forRoot(),
   ToastrModule.forRoot()
 ]
@@ -160,7 +162,7 @@ const THIRDMODULES = [
 // #endregion
 
 // #region your componets & directives
-const COMPONENTS = [];
+const COMPONENTS = [ExceptionComponent];
 const DIRECTIVES = [];
 // #endregion
 
@@ -172,6 +174,7 @@ const DIRECTIVES = [];
     ReactiveFormsModule,
     // third libs
     ...THIRDMODULES,
+    ...COMPONENTS
   ],
   providers: [
     ColorsService

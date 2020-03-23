@@ -1,4 +1,45 @@
 {
+    // Enable/disable autoclosing of HTML tags.
+    "html.autoClosingTags": true,
+    // List of tags, comma separated, where the content shouldn't be reformatted. 'null' defaults to the 'pre' tag.
+    "html.format.contentUnformatted": "pre,code,textarea",
+    // Enable/disable default HTML formatter.
+    "html.format.enable": true,
+    // End with a newline.
+    "html.format.endWithNewline": false,
+    // List of tags, comma separated, that should have an extra newline before them. 'null' defaults to "head, body, /html".
+    "html.format.extraLiners": "head, body, /html",
+    // Format and indent {{#foo}} and {{/foo}}.
+    "html.format.indentHandlebars": false,
+    // Indent <head> and <body> sections.
+    "html.format.indentInnerHtml": false,
+    // Maximum number of line breaks to be preserved in one chunk. Use 'null' for unlimited.
+    "html.format.maxPreserveNewLines": null,
+    // Controls whether existing line breaks before elements should be preserved. Only works before elements, not inside tags or for text.
+    "html.format.preserveNewLines": true,
+    // List of tags, comma separated, that shouldn't be reformatted. 'null' defaults to all tags listed at https://www.w3.org/TR/html5/dom.html#phrasing-content.
+    "html.format.unformatted": "wbr",
+    // Wrap attributes.
+    //  - auto: Wrap attributes only when line length is exceeded.
+    //  - force: Wrap each attribute except first.
+    //  - force-aligned: Wrap each attribute except first and keep aligned.
+    //  - force-expand-multiline: Wrap each attribute.
+    //  - aligned-multiple: Wrap when line length is exceeded, align attributes vertically.
+    "html.format.wrapAttributes": "auto",
+    // Maximum amount of characters per line (0 = disable).
+    "html.format.wrapLineLength": 120,
+    // Controls whether the built-in HTML language support suggests Angular V1 tags and properties.
+    "html.suggest.angular1": false,
+    // Controls whether the built-in HTML language support suggests HTML5 tags, properties and values.
+    "html.suggest.html5": true,
+    // Controls whether the built-in HTML language support suggests Ionic tags, properties and values.
+    "html.suggest.ionic": false,
+    // Traces the communication between VS Code and the HTML language server.
+    "html.trace.server": "off",
+    // Controls whether the built-in HTML language support validates embedded scripts.
+    "html.validate.scripts": true,
+    // Controls whether the built-in HTML language support validates embedded styles.
+    "html.validate.styles": true,
     "search.exclude": {
         "**/dist": true
     },

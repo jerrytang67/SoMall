@@ -6,8 +6,9 @@
 @import '~@fortawesome/fontawesome-free/css/solid.css';
 @import '~@fortawesome/fontawesome-free/css/fontawesome.css';
 @import '~simple-line-icons/css/simple-line-icons.css';
-
 //== Bootstrap
-@import "./app/shared/styles/bootstrap.scss";
+@import './app/shared/styles/bootstrap.scss';
 //== Application
-@import "./app/shared/styles/app.scss";
+@import './app/shared/styles/app.scss';
+//== ANT-Design
+@import './styles/antd.scss';

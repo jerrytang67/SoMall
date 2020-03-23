@@ -1,71 +1,42 @@
-<!-- <form nz-form
-      #f="ngForm"
-      (ngSubmit)="onSubmit(f)"
-      se-container="1"
-      labelWidth="100">
-    <se label="名称"
-        error="请填写">
-        <input type="text"
-               nz-input
-               [(ngModel)]="form.name"
-               name="name"
-               required>
+<form nz-form #f="ngForm" (ngSubmit)="onSubmit(f)" se-container="1" labelWidth="100">
+    <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+            <input nz-input formControlName="email" id="email" />
+        </nz-form-control>
+    </nz-form-item>
+
+
+
+    <se label="名称" error="请填写">
+        <input type="text" nz-input [(ngModel)]="form.name" name="name" required>
     </se>
-    <se label="简称"
-        error="请填写，最多16位">
-        <input type="text"
-               nz-input
-               [(ngModel)]="form.shortName"
-               name="shortName"
-               required
-               maxlength="16">
+    <se label="简称" error="请填写，最多16位">
+        <input type="text" nz-input [(ngModel)]="form.shortName" name="shortName" required maxlength="16">
     </se>
     <se label="Logo">
-        <nz-upload class="avatar-uploader"
-                   [nzAction]="action"
-                   [nzCustomRequest]="customReq"
-                   nzListType="picture-card"
-                   [nzShowUploadList]="false"
-                   (nzChange)="handleChange2($event)">
+        <nz-upload class="avatar-uploader" [nzAction]="action" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false" (nzChange)="handleChange2($event)">
             <ng-container *ngIf="!form.logoImage">
-                <i class="upload-icon"
-                   nz-icon
-                   [nzType]="loading ? 'loading' : 'plus'"></i>
+                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
                 <div class="ant-upload-text">Upload</div>
             </ng-container>
-            <img *ngIf="form.logoImage"
-                 [src]="form.logoImage"
-                 class="avatar" />
+            <img *ngIf="form.logoImage" [src]="form.logoImage" class="avatar" />
         </nz-upload>
     </se>
     <se label="封面图片">
-        <nz-upload class="avatar-uploader"
-                   [nzAction]="action"
-                   [nzCustomRequest]="customReq"
-                   nzListType="picture-card"
-                   [nzShowUploadList]="false"
-                   (nzChange)="handleChange($event)">
+        <nz-upload class="avatar-uploader" [nzAction]="action" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
             <ng-container *ngIf="!form.coverImage">
-                <i class="upload-icon"
-                   nz-icon
-                   [nzType]="loading ? 'loading' : 'plus'"></i>
+                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
                 <div class="ant-upload-text">Upload</div>
             </ng-container>
-            <img *ngIf="form.coverImage"
-                 [src]="form.coverImage"
-                 class="avatar250" />
+            <img *ngIf="form.coverImage" [src]="form.coverImage" class="avatar250" />
         </nz-upload>
     </se>
     <se label="介绍">
-
-        <ckeditor #edit
-                  [editor]="Editor"
-                  (ready)="onReady($event)"
-                  [(ngModel)]="form.description"
-                  name="description" ></ckeditor>
+        <ckeditor #edit [editor]="Editor" (ready)="onReady($event)" [(ngModel)]="form.description" name="description">
+        </ckeditor>
     </se>
     <se>
-        <button nz-button
-                nzType="primary">Save</button>
+        <button nz-button nzType="primary">Save</button>
     </se>
-</form> -->
+</form>
