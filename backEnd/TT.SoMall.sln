@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TT.SoMall.DbMigrator", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{6B55CB5D-72E2-4AB1-844C-227E2C2934DA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TT.Abp.ShopManagement", "modules\shop-management\src\TT.Abp.ShopManagement.csproj", "{D9204363-35E8-4400-BFC4-4700105AFBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TT.Abp.Shops", "modules\shop-management\src\TT.Abp.Shops.csproj", "{D9204363-35E8-4400-BFC4-4700105AFBC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Abp.OssManagement", "modules\TT.Abp.OssManagement\TT.Abp.OssManagement.csproj", "{7CFCDAA2-B321-4260-A603-1268E3FEF27A}"
 EndProject

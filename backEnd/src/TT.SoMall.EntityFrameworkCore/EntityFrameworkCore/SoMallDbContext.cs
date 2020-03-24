@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.ShopManagement.Domain;
-using TT.Abp.ShopManagement.EntityFrameworkCore;
+using TT.Abp.Shops.EntityFrameworkCore;
+using TT.Abp.VisitorManagement.Domain;
 using TT.Abp.WeixinManagement.Domain;
 using TT.Abp.WeixinManagement.EntityFrameworkCore;
 using TT.SoMall.Products;
@@ -29,7 +29,7 @@ namespace TT.SoMall.EntityFrameworkCore
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside SoMallDbContextModelCreatingExtensions.ConfigureSoMall
          */
-        
+
         public DbSet<VisitorShop> Shops { get; set; }
 
         public DbSet<WechatUserinfo> WechatUserinfos { get; set; }
@@ -50,7 +50,6 @@ namespace TT.SoMall.EntityFrameworkCore
                 b.ToTable("AbpUsers"); //Sharing the same table "AbpUsers" with the IdentityUser
                 b.ConfigureByConvention();
                 b.ConfigureAbpUser();
-
                 //Moved customization to a method so we can share it with the SoMallMigrationsDbContext class
                 b.ConfigureCustomUserProperties();
             });

@@ -1,5 +1,5 @@
 ﻿using System;
-using TT.Abp.ShopManagement.Domain;
+using TT.Abp.Shops;
 using Volo.Abp.Domain.Entities;
 
 namespace TT.Abp.MallManagement.Domain.Shops
@@ -17,14 +17,8 @@ namespace TT.Abp.MallManagement.Domain.Shops
             UpdateInternal(shopData);
         }
 
-        private void UpdateInternal(IShopData shopData)
-        {
-            Name = shopData.Name;
-            ShortName = shopData.ShortName;
-            LogoImage = shopData.LogoImage;
-            Description = shopData.Description;
-        }
-
+        public Guid Id { get; set; }
+        
         public string Name { get; set; }
         public string ShortName { get; set; }
         public string LogoImage { get; set; }
@@ -64,6 +58,14 @@ namespace TT.Abp.MallManagement.Domain.Shops
                    ShortName == shopData.ShortName &&
                    LogoImage == shopData.LogoImage &&
                    Description == shopData.Description;
+        }
+        
+        private void UpdateInternal(IShopData shopData)
+        {
+            Name = shopData.Name;
+            ShortName = shopData.ShortName;
+            LogoImage = shopData.LogoImage;
+            Description = shopData.Description;
         }
     }
 }

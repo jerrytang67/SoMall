@@ -21,7 +21,7 @@ namespace TT.SoMall.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TT.Abp.ShopManagement.Domain.Shop", b =>
+            modelBuilder.Entity("TT.Abp.Shops.Domain.Shop", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2143,7 +2143,7 @@ namespace TT.SoMall.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TT.Abp.ShopManagement.Domain.Shop", "Shop")
+                    b.HasOne("TT.Abp.Shops.Domain.Shop", "Shop")
                         .WithMany()
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)

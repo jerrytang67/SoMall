@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using TT.Abp.ShopManagement.Domain;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace TT.Abp.VisitorManagement.Domain

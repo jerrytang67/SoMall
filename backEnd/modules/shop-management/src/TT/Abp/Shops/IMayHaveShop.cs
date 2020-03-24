@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TT.Abp.ShopManagement
+namespace TT.Abp.Shops
 {
     public interface IMayHaveShop
     {

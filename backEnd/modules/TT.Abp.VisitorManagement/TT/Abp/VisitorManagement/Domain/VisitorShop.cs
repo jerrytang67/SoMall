@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using TT.Abp.Shops;
+using TT.Abp.Shops.Domain;
 using Volo.Abp;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace TT.Abp.ShopManagement.Domain
+namespace TT.Abp.VisitorManagement.Domain
 {
-    public class VisitorShop : FullAuditedAggregateRoot<Guid>, IMultiTenant, IShopData
+    public class VisitorShop : AggregateRoot<Guid>, IShopData
     {
-        [NotNull] public virtual string Name { get; protected set; }
-
+        [NotNull] public virtual string Name { get; set; }
         [NotNull] public virtual string ShortName { get; set; }
-
-        [NotNull] public virtual string LogoImage { get; protected set; }
-
-        [NotNull] public virtual string CoverImage { get; protected set; }
-
-
+        [NotNull] public virtual string LogoImage { get; set; }
+        [NotNull] public virtual string CoverImage { get; set; }
         [CanBeNull] public virtual string Description { get; set; }
 
         public virtual Guid? TenantId { get; set; }

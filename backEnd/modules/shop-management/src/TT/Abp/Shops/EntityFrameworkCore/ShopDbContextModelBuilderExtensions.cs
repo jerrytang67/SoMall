@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.ShopManagement.Domain;
+using TT.Abp.Shops.Domain;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
-namespace TT.Abp.ShopManagement.EntityFrameworkCore
+namespace TT.Abp.Shops.EntityFrameworkCore
 {
     public static class ShopDbContextModelCreatingExtensions
     {
@@ -11,16 +11,14 @@ namespace TT.Abp.ShopManagement.EntityFrameworkCore
         {
             Check.NotNull(builder, nameof(builder));
 
-            builder.Entity<VisitorShop>(b =>
+            builder.Entity<Shop>(b =>
             {
                 b.ToTable(ShopConsts.DbTablePrefix + "Shops", ShopConsts.DbSchema);
-
-                b.ConfigureByConvention();
-
+                b.ConfigureFullAuditedAggregateRoot();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(ShopConsts.MaxNameLength);
                 b.Property(x => x.ShortName).IsRequired().HasMaxLength(ShopConsts.MaxShortNameLength);
                 b.Property(x => x.LogoImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
-                b.Property(x => x.CoverImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
+                b.Property(x => x.CoverImage).HasMaxLength(ShopConsts.MaxImageLength);
             });
         }
     }

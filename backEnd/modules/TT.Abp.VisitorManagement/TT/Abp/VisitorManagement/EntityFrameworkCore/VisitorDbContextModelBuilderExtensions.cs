@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using TT.Abp.ShopManagement.Domain;
+using TT.Abp.Shops;
+using TT.Abp.Shops.Domain;
 using TT.Abp.VisitorManagement.Domain;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
@@ -13,6 +14,17 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
         {
             Check.NotNull(builder, nameof(builder));
 
+
+            builder.Entity<VisitorShop>(b =>
+            {
+                b.ToTable(VisitorConsts.DbTablePrefix + "VisitorShops", ShopConsts.DbSchema);
+                b.ConfigureExtraProperties();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(ShopConsts.MaxNameLength);
+                b.Property(x => x.ShortName).IsRequired().HasMaxLength(ShopConsts.MaxShortNameLength);
+                b.Property(x => x.LogoImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
+                b.Property(x => x.CoverImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
+            });
+            
             builder.Entity<VisitorLog>(b =>
             {
                 b.ToTable(VisitorConsts.DbTablePrefix + "VisitorLogs", VisitorConsts.DbSchema);
@@ -38,7 +50,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.Property(x => x.Title).IsRequired().HasMaxLength(VisitorConsts.MaxTitleLength);
                 b.Property(x => x.Description).HasMaxLength(VisitorConsts.MaxDescriptionLength);
                 b.Property(x => x.Theme).HasDefaultValue(VisitorEnums.FormTheme.red);
-                
+
                 b.HasMany<FormItem>().WithOne().HasForeignKey(qt => qt.FormId);
             });
 

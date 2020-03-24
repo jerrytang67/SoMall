@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TT.Abp.MallManagement.Domain.Products;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
+using TT.Abp.MallManagement.Domain.Products;
+using TT.Abp.MallManagement.Domain.Shops;
 
 namespace TT.Abp.MallManagement.EntityFrameworkCore
 {
@@ -12,6 +12,8 @@ namespace TT.Abp.MallManagement.EntityFrameworkCore
         public DbSet<ProductSpu> ProductSpu { get; set; }
         public DbSet<ProductSku> ProductSku { get; set; }
         public DbSet<ProductCategory> ProductCategory { get; set; }
+
+        public DbSet<MallShop> MallShops { get; set; }
 
         public MallManagementDbContext(DbContextOptions<MallManagementDbContext> options)
             : base(options)
