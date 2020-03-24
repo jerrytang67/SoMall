@@ -1,10 +1,13 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Volo.Abp;
 
 namespace TT.Abp.ShopManagement.Domain
 {
     public interface IShopData
     {
+        Guid Id { get; set; }
+        Guid TenantId { get; set; }
         string Name { get; set; }
 
         string ShortName { get; set; }
