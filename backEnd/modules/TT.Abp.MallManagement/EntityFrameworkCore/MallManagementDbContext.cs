@@ -9,11 +9,12 @@ namespace TT.Abp.MallManagement.EntityFrameworkCore
     [ConnectionStringName("MallManagement")]
     public class MallManagementDbContext : AbpDbContext<MallManagementDbContext>, IMallManagementDbContext
     {
+        public DbSet<MallShop> MallShops { get; set; }
+
         public DbSet<ProductSpu> ProductSpu { get; set; }
         public DbSet<ProductSku> ProductSku { get; set; }
         public DbSet<ProductCategory> ProductCategory { get; set; }
 
-        public DbSet<MallShop> MallShops { get; set; }
 
         public MallManagementDbContext(DbContextOptions<MallManagementDbContext> options)
             : base(options)
@@ -24,7 +25,7 @@ namespace TT.Abp.MallManagement.EntityFrameworkCore
         {
             base.OnModelCreating(builder);
 
-            builder.ConfigureManagement();
+            builder.ConfigureMallManagement();
         }
     }
 

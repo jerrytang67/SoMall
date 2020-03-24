@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Serilog;
-using TT.Abp.ShopManagement.Application;
+using TT.Abp.Shops.Application;
 using TT.Abp.WeixinManagement.Application;
 using TT.Extensions;
 using TT.HttpClient.Weixin;

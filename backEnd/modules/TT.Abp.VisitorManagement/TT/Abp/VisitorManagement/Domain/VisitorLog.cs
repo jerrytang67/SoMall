@@ -1,25 +1,19 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Cryptography;
-using TT.Abp.ShopManagement;
-using TT.Abp.Shops;
-using Volo.Abp;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
+using TT.Abp.Shops;
 
 namespace TT.Abp.VisitorManagement.Domain
 {
     // 访客记录
     public class VisitorLog : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMayHaveShop
     {
-
         public string FormJson { get; set; }
 
         public Guid? CredentialId { get; set; }
 
-        [ForeignKey("FormId")]
-        public virtual Form Form { get; set; }
+        [ForeignKey("FormId")] public virtual Form Form { get; set; }
 
         public virtual Credential Credential { get; set; }
 

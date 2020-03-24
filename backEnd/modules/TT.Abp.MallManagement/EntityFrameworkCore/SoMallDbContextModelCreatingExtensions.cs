@@ -7,7 +7,7 @@ namespace TT.Abp.MallManagement.EntityFrameworkCore
 {
     public static class SoMallDbContextModelCreatingExtensions
     {
-        public static void ConfigureManagement(this ModelBuilder builder)
+        public static void ConfigureMallManagement(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
 

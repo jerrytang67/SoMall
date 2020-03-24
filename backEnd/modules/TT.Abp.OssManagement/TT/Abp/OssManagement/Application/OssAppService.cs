@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using TT.Abp.ShopManagement.Application;
+using TT.Abp.Shops.Application;
 using TT.Core.Extensions;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Settings;

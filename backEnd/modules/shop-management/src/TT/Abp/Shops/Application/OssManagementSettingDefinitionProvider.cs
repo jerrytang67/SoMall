@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Volo.Abp.Settings;
+﻿using Volo.Abp.Settings;
 
-namespace TT.Abp.ShopManagement.Application
+namespace TT.Abp.Shops.Application
 {
     public class OssManagementSettingDefinitionProvider : SettingDefinitionProvider
     {

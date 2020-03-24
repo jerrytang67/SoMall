@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using TT.Abp.ShopManagement;
 using TT.Abp.Shops.Application.Dtos;
 using TT.Abp.Shops.Domain;
 using Volo.Abp.Application.Dtos;
@@ -22,7 +21,7 @@ namespace TT.Abp.Shops.Application
 
         public ShopAppService(IRepository<Shop, Guid> shopRepository, ICurrentTenant currentTenant)
         {
-            ObjectMapperContext = typeof(ShopManagementModule);
+            ObjectMapperContext = typeof(ShopModule);
             _repository = shopRepository;
             _currentTenant = currentTenant;
         }
