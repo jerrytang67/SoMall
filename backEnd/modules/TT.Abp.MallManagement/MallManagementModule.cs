@@ -17,7 +17,7 @@ namespace TT.Abp.MallManagement
         {
             context.Services.AddAutoMapperObjectMapper<MallManagementModule>();
 
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<MallApplicationAutoMapperProfile>(validate: true); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<MallApplicationAutoMapperProfile>(validate: false); });
 
             Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(MallManagementModule).Assembly); });
         }
