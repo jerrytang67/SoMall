@@ -37,8 +37,6 @@ import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
 
 
-import { SEModule } from '@shared/components/edit/edit.module';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -56,8 +54,7 @@ import { SEModule } from '@shared/components/edit/edit.module';
         deps: [HttpClient]
       }
     }),
-    environment.production ? [] : AkitaNgDevtools,
-    SEModule
+    environment.production ? [] : AkitaNgDevtools
   ],
   providers: [...INTERCEPTOR_PROVIDES,
   { provide: NZ_I18N, useValue: zh_CN }],

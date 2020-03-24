@@ -174,7 +174,7 @@ const DIRECTIVES = [];
     ReactiveFormsModule,
     // third libs
     ...THIRDMODULES,
-    ...COMPONENTS
+    SEModule
   ],
   providers: [
     ColorsService
@@ -196,6 +196,7 @@ const DIRECTIVES = [];
     // your components
     ...COMPONENTS,
     ...DIRECTIVES,
+    SEModule
   ],
 })
 export class SharedModule {

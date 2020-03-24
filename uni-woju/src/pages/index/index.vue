@@ -7,12 +7,9 @@
       </view>
    </view>
 </template>
-
-
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import api from "@/utils/api";
-
 @Component({})
 export default class About extends Vue {
    get title() {

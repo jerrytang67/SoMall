@@ -1,18 +1,10 @@
-<form nz-form #f="ngForm" (ngSubmit)="onSubmit(f)" se-container="1" labelWidth="100">
-    <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email">E-mail</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
-            <input nz-input formControlName="email" id="email" />
-        </nz-form-control>
-    </nz-form-item>
-
-
+<<form nz-form #f="ngForm" (ngSubmit)="onSubmit(f)" se-container="1" labelWidth="100">
 
     <se label="名称" error="请填写">
         <input type="text" nz-input [(ngModel)]="form.name" name="name" required>
     </se>
     <se label="简称" error="请填写，最多16位">
-        <input type="text" nz-input [(ngModel)]="form.shortName" name="shortName" required maxlength="16">
+        <input type="text" nz-input class="form-control" [(ngModel)]="form.shortName" name="shortName" required maxlength="16">
     </se>
     <se label="Logo">
         <nz-upload class="avatar-uploader" [nzAction]="action" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false" (nzChange)="handleChange2($event)">
@@ -36,7 +28,4 @@
         <ckeditor #edit [editor]="Editor" (ready)="onReady($event)" [(ngModel)]="form.description" name="description">
         </ckeditor>
     </se>
-    <se>
-        <button nz-button nzType="primary">Save</button>
-    </se>
-</form>
+    </form>

@@ -80,7 +80,7 @@ export class ShopListComponent implements OnInit {
   edit(shop: VisitorShopDto) {
     const modal = this.modalService.create({
       nzTitle: '编辑商家',
-      nzWidth: 920,
+      nzWidth: '80vw',
       nzContent: ShopEditComponent,
       nzComponentParams: {
         id: shop.id!,

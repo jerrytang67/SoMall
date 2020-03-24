@@ -15,6 +15,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    HostBinding,
 } from '@angular/core';
 import { FormControlName, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -70,6 +71,8 @@ export class SEComponent implements OnChanges, AfterContentInit, AfterViewInit, 
     @Input() @InputBoolean() line: boolean;
     @Input() @InputNumber() labelWidth: number;
 
+    @HostBinding('class.container') get container() { return true; }
+
     @Input()
     set id(value: string) {
         this._id = value;
@@ -110,7 +113,6 @@ export class SEComponent implements OnChanges, AfterContentInit, AfterViewInit, 
         this._labelWidth = parent.nzLayout === 'horizontal' ? (labelWidth != null ? labelWidth : parent.labelWidth) : null;
         clsMap.forEach(cls => ren.removeClass(el, cls));
         clsMap.length = 0;
-
         const repCls = [];
 
         clsMap.push(`ant-form-item`, ...repCls, `${prefixCls}__item`);

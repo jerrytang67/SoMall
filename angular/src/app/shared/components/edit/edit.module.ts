@@ -7,12 +7,17 @@ import { SEContainerComponent } from './edit-container.component';
 import { SEErrorComponent } from './edit-error.component';
 import { SETitleComponent } from './edit-title.component';
 import { SEComponent } from './edit.component';
+import { StringTemplateOutletDirective } from '@shared/directives/string_template_outlet';
 
 const COMPONENTS = [SEContainerComponent, SEComponent, SEErrorComponent, SETitleComponent];
 
+
+
+
+
 @NgModule({
     imports: [CommonModule, NzToolTipModule, NzIconModule],
-    declarations: [...COMPONENTS],
-    exports: [...COMPONENTS],
+    declarations: [...COMPONENTS, StringTemplateOutletDirective],
+    exports: [...COMPONENTS, StringTemplateOutletDirective],
 })
 export class SEModule { }

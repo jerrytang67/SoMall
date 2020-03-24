@@ -80,3 +80,127 @@
         overflow: hidden;
     }
 }
+
+.se__.se__title {
+    display: block;
+    float: none;
+    clear: both;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 39.9999px;
+}
+
+.se__item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.se__item-empty::before {
+    display: inline-block;
+    content: '';
+}
+
+.se__item .ant-form-explain {
+    display: block;
+}
+
+.se__label {
+    display: table-cell;
+    flex: 0 0 auto;
+    width: initial;
+    color: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    text-align: right;
+}
+
+.se__label-optional {
+    margin-left: 2px;
+    color: rgba(0, 0, 0, 0.35);
+}
+
+.se__label-optional>.anticon {
+    margin-left: 2px;
+}
+
+.se__control {
+    flex: 1 0 0;
+    width: 100%;
+}
+
+.se__compact .se__item,
+.se__compact .se__title {
+    margin-bottom: 8px;
+}
+
+.se__compact .ant-form-extra {
+    display: none;
+}
+
+.se__line {
+    border-bottom: 1px dashed #e8e8e8;
+}
+
+.se__line .se__control,
+.se__line .se__label {
+    padding-bottom: 8px;
+}
+
+.se__hide-label .se__nolabel,
+.se__inline .se__nolabel,
+.se__vertical .se__nolabel {
+    display: none !important;
+}
+
+.se__horizontal .se__item {
+    display: flex;
+}
+
+.se__horizontal .se__item:last-child {
+    margin-bottom: 0;
+}
+
+.se__horizontal .se__item .se__label {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.se__horizontal .se__item .se__label-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.se__horizontal .se__item .ant-form-item-required::before {
+    line-height: inherit;
+}
+
+.se__horizontal .se__item .ant-form-item-label>label::after {
+    margin-left: 4px;
+}
+
+.se__vertical .se__item {
+    display: block;
+}
+
+.se__inline .ant-form-item-label,
+.se__inline .se__control {
+    flex: none;
+    width: initial !important;
+    text-align: left;
+}
+
+.se__inline .se__item:last-child {
+    margin-right: 0;
+}
+
+@media (max-width: 767px) {
+    .se__horizontal .se__item {
+        display: block;
+    }
+    .se__horizontal .se__control,
+    .se__horizontal .se__label,
+    .se__vertical .se__control,
+    .se__vertical .se__label {
+        width: 100% !important;
+    }
+}

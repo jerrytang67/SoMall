@@ -14,8 +14,7 @@ export default class About extends Vue {
       return "TT";
    }
 
-   created() {
-   }
+   created() {}
 }
 </script>
 

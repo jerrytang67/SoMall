@@ -1,0 +1,28 @@
+.appContainer {
+  width: 750rpx;
+  padding: 0 20rpx;
+}
+
+page {
+  --button-danger-background-color: #fa436a;
+  --button-primary-background-color: #80d640;
+  --button-primary-border-color: #80d640;
+}
+.fill {
+  flex: 1;
+}
+
+.fix-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+}
+
+.uniPopup {
+  padding: 20rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  box-shadow: 2upx 3upx 5upx rgba(40, 40, 40, 0.2);
+}

@@ -9,32 +9,13 @@ import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 @Component({
   selector: 'app-shop-edit',
   templateUrl: './shop-edit.component.html',
-  styles: [
-    `
-      .avatar {
-        width: 128px;
-        height: 128px;
-      }
-      .avatar250 {
-        width: 250px;
-        height: 128px;
-      }
-      .upload-icon {
-        font-size: 32px;
-        color: #999;
-      }
-      .ant-upload-text {
-        margin-top: 8px;
-        color: #666;
-      }
-    `
-  ]
+  styleUrls: ['./shop-edit.component.scss']
 })
 export class ShopEditComponent implements OnInit {
 
-  //public Editor = ClassicEditor;
+  public Editor = ClassicEditor;
 
-  public Editor = DecoupledEditor;
+  //public Editor = DecoupledEditor;
 
   public onReady( editor ) {
       editor.ui.getEditableElement().parentElement.insertBefore(

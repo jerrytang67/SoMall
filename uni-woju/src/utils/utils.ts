@@ -14,20 +14,6 @@ const httpsPromisify = (fn: Function) => {
                 uni.hideLoading();
                 uni.hideNavigationBarLoading();
                 resolve(data)
-
-                // if (data.success) {
-                //     resolve(data.result)
-                // } else {
-                //     if (data.unAuthorizedRequest) {
-                //         uni.navigateTo({
-                //             url: '/pages/index/login'
-                //         });
-                //         reject(data.error.message);
-                //         return;
-                //     }
-                //     errorPrompt(data.error.details || data.error.message)
-                //     reject(data.error.details || data.error.message);
-                // }
             }
             options!.fail = (err: any) => {
                 console.log(err)
