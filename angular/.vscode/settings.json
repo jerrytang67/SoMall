@@ -27,7 +27,7 @@
     //  - aligned-multiple: Wrap when line length is exceeded, align attributes vertically.
     "html.format.wrapAttributes": "auto",
     // Maximum amount of characters per line (0 = disable).
-    "html.format.wrapLineLength": 120,
+    "html.format.wrapLineLength": 200,
     // Controls whether the built-in HTML language support suggests Angular V1 tags and properties.
     "html.suggest.angular1": false,
     // Controls whether the built-in HTML language support suggests HTML5 tags, properties and values.

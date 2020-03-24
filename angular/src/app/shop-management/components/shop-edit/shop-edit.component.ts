@@ -13,9 +13,9 @@ import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 })
 export class ShopEditComponent implements OnInit {
 
-  public Editor = ClassicEditor;
+  //public Editor = ClassicEditor;
 
-  //public Editor = DecoupledEditor;
+  public Editor = DecoupledEditor;
 
   public onReady( editor ) {
       editor.ui.getEditableElement().parentElement.insertBefore(

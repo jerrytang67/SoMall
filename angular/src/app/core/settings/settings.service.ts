@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SettingsService {
 
-    private user: any;
+    public user: any;
     private app: any;
     private layout: any;
 
@@ -12,9 +12,9 @@ export class SettingsService {
         // User Settings
         // -----------------------------------
         this.user = {
-            name: 'John',
+            name: 'TT',
             job: 'ng-developer',
-            picture: 'assets/img/user/02.jpg'
+            picture: 'https://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEIRaX5cTpKvbticN9ghp25GC05Kic8o3Ydoiam0Xmz9lZXo0QxW3iac7X7EFWAX4nsO8VpR2TbYpd9wGQ/132'
         };
 
         // App Settings
