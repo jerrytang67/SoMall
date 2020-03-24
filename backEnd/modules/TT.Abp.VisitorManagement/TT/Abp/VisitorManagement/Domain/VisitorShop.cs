@@ -12,54 +12,64 @@ namespace TT.Abp.VisitorManagement.Domain
 {
     public class VisitorShop : AggregateRoot<Guid>, IShopData
     {
-        [NotNull] public virtual string Name { get; set; }
-        [NotNull] public virtual string ShortName { get; set; }
-        [NotNull] public virtual string LogoImage { get; set; }
+        [NotNull] public virtual string Name { get; private set; }
+        [NotNull] public virtual string ShortName { get; private set; }
+        [NotNull] public virtual string LogoImage { get; private set; }
         [NotNull] public virtual string CoverImage { get; set; }
-        [CanBeNull] public virtual string Description { get; set; }
+        [CanBeNull] public virtual string Description { get; private set; }
 
-        public virtual Guid? TenantId { get; set; }
+        public virtual Guid? TenantId { get; }
 
         protected VisitorShop()
         {
             ExtraProperties = new Dictionary<string, object>();
         }
 
-
-        protected internal VisitorShop(Guid id, [NotNull] string name, [NotNull] string shortName, [NotNull] string logoImage, [NotNull] string coverImage)
+        public VisitorShop(IShopData shopData) : base(shopData.Id)
         {
-            Id = id;
-            SetName(name);
-            SetShortName(shortName);
-            SetLogoImage(logoImage);
-            SetCoverImage(coverImage);
+            TenantId = shopData.TenantId;
+            UpdateInternal(shopData);
             ExtraProperties = new Dictionary<string, object>();
         }
 
-
-        internal void SetName([NotNull] string name)
+        public virtual bool Update(IShopData shopData)
         {
-            Name = Check.NotNullOrWhiteSpace(name, nameof(name), ShopConsts.MaxNameLength);
+            if (Id != shopData.Id)
+            {
+                throw new ArgumentException($"Given User's Id '{shopData.Id}' does not match to this User's Id '{Id}'");
+            }
+
+            if (TenantId != shopData.TenantId)
+            {
+                throw new ArgumentException(
+                    $"Given User's TenantId '{shopData.TenantId}' does not match to this User's TenantId '{TenantId}'");
+            }
+
+            if (Equals(shopData))
+            {
+                return false;
+            }
+
+            UpdateInternal(shopData);
+            return true;
         }
 
-        internal void SetShortName([NotNull] string shortName)
+        protected virtual bool Equals(IShopData shopData)
         {
-            ShortName = Check.NotNullOrWhiteSpace(shortName, nameof(shortName), ShopConsts.MaxShortNameLength);
+            return Id == shopData.Id &&
+                   TenantId == shopData.TenantId &&
+                   Name == shopData.Name &&
+                   ShortName == shopData.ShortName &&
+                   LogoImage == shopData.LogoImage &&
+                   Description == shopData.Description;
         }
 
-        internal void SetLogoImage([NotNull] string logoImage)
+        private void UpdateInternal(IShopData shopData)
         {
-            LogoImage = Check.NotNullOrWhiteSpace(logoImage, nameof(logoImage), ShopConsts.MaxImageLength);
-        }
-
-        internal void SetCoverImage([NotNull] string coverImage)
-        {
-            CoverImage = Check.NotNullOrWhiteSpace(coverImage, nameof(coverImage), ShopConsts.MaxImageLength);
-        }
-
-        internal void SetDescription([CanBeNull] string desc)
-        {
-            Description = desc;
+            Name = shopData.Name;
+            ShortName = shopData.ShortName;
+            LogoImage = shopData.LogoImage;
+            Description = shopData.Description;
         }
     }
 }

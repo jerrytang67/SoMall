@@ -8,6 +8,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
     [ConnectionStringName("VisitorManagement")]
     public class VisitorManagementDbContext : AbpDbContext<VisitorManagementDbContext>, IVisitorManagementDbContext
     {
+        public DbSet<VisitorShop> VisitorShops { get; set; }
         public DbSet<VisitorLog> VisitorLogs { get; set; }
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Form> Forms { get; set; }

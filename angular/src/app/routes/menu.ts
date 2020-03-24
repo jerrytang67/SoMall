@@ -10,6 +10,7 @@ export const menu = [
         text: "管理工具", icon: "fa fa-brain",
         submenu: [
             { text: "ids登录信息", link: "/demo/demo1", icon: "fa fa-user-astronaut" },
+            { text: "swagger", elink: "http://127.0.0.1:44340/swagger/index.html", target: "_blank", icon: "fa fa-restroom" },
             { text: "Kibana(Local)", elink: "http://127.0.0.1:5601", target: "_blank", icon: "fa fa-restroom" },
             { text: "Cap", elink: "http://127.0.0.1:44340/cap", target: "_blank", icon: "fa fa-crown" },
             { text: "Consul", elink: "http://127.0.0.1:8500", target: "_blank", icon: "fa fa-database" },

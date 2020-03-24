@@ -8,11 +8,11 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
     [ConnectionStringName("VisitorManagement")]
     public interface IVisitorManagementDbContext : IEfCoreDbContext
     {
+        DbSet<VisitorShop> VisitorShops { get; set; }
         DbSet<VisitorLog> VisitorLogs { get; set; }
         DbSet<Credential> Credentials { get; set; }
         DbSet<Form> Forms { get; set; }
         DbSet<FormItem> FormItems { get; set; }
         DbSet<ShopForm> ShopForms { get; set; }
-
     }
 }

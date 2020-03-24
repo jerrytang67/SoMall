@@ -3,7 +3,6 @@ using TT.Abp.Shops.EntityFrameworkCore;
 using TT.Abp.VisitorManagement.Domain;
 using TT.Abp.WeixinManagement.Domain;
 using TT.Abp.WeixinManagement.EntityFrameworkCore;
-using TT.SoMall.Products;
 using TT.SoMall.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;

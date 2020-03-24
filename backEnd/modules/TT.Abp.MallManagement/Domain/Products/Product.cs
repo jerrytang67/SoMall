@@ -23,8 +23,6 @@ namespace TT.Abp.MallManagement.Domain.Products
         public virtual string Code { get; set; }
 
         public virtual ICollection<ProductSpu> SpuList { get; set; }
-
-        public virtual bool IsDeleted { get; set; }
         public virtual Guid? TenantId { get; }
     }
 
@@ -49,10 +47,10 @@ namespace TT.Abp.MallManagement.Domain.Products
         public virtual string Code { get; set; }
         public virtual string Desc { get; set; }
 
-        [ForeignKey("CategoryId")] public virtual ProductCategory Category { get; set; }
-
-        public virtual bool IsDeleted { get; set; }
         public virtual Guid? TenantId { get; }
+
+
+        [ForeignKey("CategoryId")] public virtual ProductCategory Category { get; set; }
     }
 
     public class ProductSku : FullAuditedAggregateRoot<Guid>, IMultiTenant

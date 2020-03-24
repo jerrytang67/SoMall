@@ -24,7 +24,7 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.Property(x => x.LogoImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
                 b.Property(x => x.CoverImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
             });
-            
+
             builder.Entity<VisitorLog>(b =>
             {
                 b.ToTable(VisitorConsts.DbTablePrefix + "VisitorLogs", VisitorConsts.DbSchema);

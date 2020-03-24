@@ -14,10 +14,6 @@ namespace TT.SoMall.Users
      */
     public class AppUser : FullAuditedAggregateRoot<Guid>, IUser
     {
-        public virtual string Nickname { get; set; }
-
-        public virtual string HeadImgUrl { get; set; }
-
         #region Base properties
 
         /* These properties are shared with the IdentityUser entity of the Identity module.
@@ -48,6 +44,9 @@ namespace TT.SoMall.Users
          *
          * public virtual string MyProperty { get; set; }
          */
+
+        public virtual string Nickname { get; set; }
+        public virtual string HeadImgUrl { get; set; }
 
         private AppUser()
         {

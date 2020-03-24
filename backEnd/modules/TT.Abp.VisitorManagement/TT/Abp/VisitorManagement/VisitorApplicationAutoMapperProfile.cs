@@ -11,6 +11,8 @@ namespace TT.Abp.VisitorManagement
     {
         public VisitorApplicationAutoMapperProfile()
         {
+            CreateMap<VisitorShop, VisitorShopDto>();
+
             CreateMap<Form, FormDto>()
                 ;
 

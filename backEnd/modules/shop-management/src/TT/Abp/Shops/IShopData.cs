@@ -9,12 +9,12 @@ namespace TT.Abp.Shops
 {
     public interface IShopData : IAggregateRoot<Guid>, IMultiTenant
     {
-        string Name { get; set; }
+        string Name { get; }
 
-        string ShortName { get; set; }
+        string ShortName { get; }
 
-        string LogoImage { get; set; }
+        string LogoImage { get; }
 
-        string Description { get; set; }
+        string Description { get; }
     }
 }
