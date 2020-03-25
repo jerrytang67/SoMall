@@ -13,7 +13,7 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44380',
+    issuer: 'http://localhost:44380',
     clientId: 'SoMall_App',
     dummyClientSecret: '1q2w3e*',
     scope: 'SoMall',

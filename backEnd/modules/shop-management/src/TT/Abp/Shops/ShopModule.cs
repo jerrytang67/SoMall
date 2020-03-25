@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.Shops.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Http.Client;
@@ -15,6 +16,8 @@ namespace TT.Abp.Shops
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddAbpDbContext<ShopDbContext>(options => { options.AddDefaultRepositories(); });
+
             context.Services.AddAutoMapperObjectMapper<ShopModule>();
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<ShopApplicationAutoMapperProfile>(validate: true); });
@@ -23,12 +26,6 @@ namespace TT.Abp.Shops
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(ShopModule).Assembly);
-        }
-
-
-        public override void PreConfigureServices(ServiceConfigurationContext context)
-        {
-            PreConfigure<IMvcBuilder>(mvcBuilder => { mvcBuilder.AddApplicationPartIfNotExists(typeof(ShopModule).Assembly); });
         }
     }
 }

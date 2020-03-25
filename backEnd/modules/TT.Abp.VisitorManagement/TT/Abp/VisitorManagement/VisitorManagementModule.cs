@@ -17,12 +17,6 @@ namespace TT.Abp.VisitorManagement
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            var configuration = context.Services.GetConfiguration();
-
-            context.Services.Configure<RedisOptions>(configuration.GetSection("Redis"));
-
-            context.Services.AddSingleton<IRedisClient, RedisClient>();
-
             context.Services.AddAbpDbContext<VisitorManagementDbContext>(options => { options.AddDefaultRepositories(); });
 
             context.Services.AddAutoMapperObjectMapper<VisitorManagementModule>();
