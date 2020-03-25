@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace TT.Abp.Shops.Domain
 {
-    public class Shop : FullAuditedAggregateRoot<Guid>, IShopData
+    public class Shop : FullAuditedAggregateRoot<Guid>, IShop
     {
         protected Shop()
         {

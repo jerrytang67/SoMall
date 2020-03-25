@@ -28,8 +28,6 @@ namespace TT.Abp.Shops.Application
 
         public async Task<PagedResultDto<ShopDto>> GetListAsync(PagedResultRequestDto input)
         {
-            var tenantId = _currentTenant.Id;
-
             var query = _repository;
 
             var total = await query.CountAsync();

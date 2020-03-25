@@ -10,7 +10,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.VisitorManagement.Domain
 {
-    public class VisitorShop : AggregateRoot<Guid>, IShopData
+    public class VisitorShop : AggregateRoot<Guid>, IShop
     {
         [NotNull] public virtual string Name { get; private set; }
         [NotNull] public virtual string ShortName { get; private set; }
@@ -25,51 +25,51 @@ namespace TT.Abp.VisitorManagement.Domain
             ExtraProperties = new Dictionary<string, object>();
         }
 
-        public VisitorShop(IShopData shopData) : base(shopData.Id)
+        public VisitorShop(IShop shop) : base(shop.Id)
         {
-            TenantId = shopData.TenantId;
-            UpdateInternal(shopData);
+            TenantId = shop.TenantId;
+            UpdateInternal(shop);
             ExtraProperties = new Dictionary<string, object>();
         }
 
-        public virtual bool Update(IShopData shopData)
+        public virtual bool Update(IShop shop)
         {
-            if (Id != shopData.Id)
+            if (Id != shop.Id)
             {
-                throw new ArgumentException($"Given User's Id '{shopData.Id}' does not match to this User's Id '{Id}'");
+                throw new ArgumentException($"Given User's Id '{shop.Id}' does not match to this User's Id '{Id}'");
             }
 
-            if (TenantId != shopData.TenantId)
+            if (TenantId != shop.TenantId)
             {
                 throw new ArgumentException(
-                    $"Given User's TenantId '{shopData.TenantId}' does not match to this User's TenantId '{TenantId}'");
+                    $"Given User's TenantId '{shop.TenantId}' does not match to this User's TenantId '{TenantId}'");
             }
 
-            if (Equals(shopData))
+            if (Equals(shop))
             {
                 return false;
             }
 
-            UpdateInternal(shopData);
+            UpdateInternal(shop);
             return true;
         }
 
-        protected virtual bool Equals(IShopData shopData)
+        protected virtual bool Equals(IShop shop)
         {
-            return Id == shopData.Id &&
-                   TenantId == shopData.TenantId &&
-                   Name == shopData.Name &&
-                   ShortName == shopData.ShortName &&
-                   LogoImage == shopData.LogoImage &&
-                   Description == shopData.Description;
+            return Id == shop.Id &&
+                   TenantId == shop.TenantId &&
+                   Name == shop.Name &&
+                   ShortName == shop.ShortName &&
+                   LogoImage == shop.LogoImage &&
+                   Description == shop.Description;
         }
 
-        private void UpdateInternal(IShopData shopData)
+        private void UpdateInternal(IShop shop)
         {
-            Name = shopData.Name;
-            ShortName = shopData.ShortName;
-            LogoImage = shopData.LogoImage;
-            Description = shopData.Description;
+            Name = shop.Name;
+            ShortName = shop.ShortName;
+            LogoImage = shop.LogoImage;
+            Description = shop.Description;
         }
     }
 }

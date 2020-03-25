@@ -22,6 +22,8 @@ namespace TT.Abp.VisitorManagement.Application
         private readonly IRepository<Form, Guid> _repository;
         private readonly IRepository<VisitorShop, Guid> _shopRepository;
         private readonly IRepository<VisitorLog, Guid> _visitorLogRepository;
+        
+        
 
         // private readonly IRepository<ShopForm> _shopFormRepository;
         private readonly ICurrentTenant _currentTenant;

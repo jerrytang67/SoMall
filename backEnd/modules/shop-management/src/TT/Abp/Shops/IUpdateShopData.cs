@@ -4,6 +4,6 @@ namespace TT.Abp.Shops
 {
     public interface IUpdateShopData
     {
-        bool Update([NotNull] IShopData user);
+        bool Update([NotNull] IShop user);
     }
 }

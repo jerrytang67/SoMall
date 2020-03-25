@@ -4,7 +4,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Shops
 {
-    public interface IShopData : IAggregateRoot<Guid>, IMultiTenant
+    public interface IShop : IAggregateRoot<Guid>, IMultiTenant
     {
         string Name { get; }
 
