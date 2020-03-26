@@ -88,7 +88,7 @@ namespace TT.Abp.Shops
         }
 
 
-        protected abstract TShop CreateUser(IShop externalShop);
+        protected abstract TShop CreateShop(IShop externalShop);
 
         private async Task WithNewUowAsync(Func<Task> func)
         {
@@ -98,13 +98,5 @@ namespace TT.Abp.Shops
                 await uow.SaveChangesAsync();
             }
         }
-    }
-
-    public interface IShopLookupService<TShop>
-        where TShop : class, IShop
-    {
-        Task<TShop> FindByIdAsync(Guid id, CancellationToken cancellationToken = default);
-
-        //TODO: More...
     }
 }

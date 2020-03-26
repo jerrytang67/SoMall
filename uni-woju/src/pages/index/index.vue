@@ -1,10 +1,12 @@
 <template>
    <view class="content">
-      <image class="logo" src="../../static/logo.png"></image>
-      <view>
-         <text class="title">{{title}}</text>
-         <button @click="click">About</button>
-      </view>
+      <navigator url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=1">
+         <image class="logo" src="../../static/head.jpg"></image>
+         <view>
+            <text class="title">{{title}}</text>
+         </view>
+      </navigator>
+
    </view>
 </template>
 <script lang="ts">
@@ -13,11 +15,14 @@ import api from "@/utils/api";
 @Component({})
 export default class About extends Vue {
    get title() {
-      return "Hello";
+      return "TT的直播间";
    }
 
-   created() {
+   get roomId() {
+      return 1;
    }
+
+   created() {}
 
    async click() {
       uni.navigateTo({

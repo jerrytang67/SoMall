@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.Shops;
+using TT.Abp.Shops.Domain;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
 using TT.Extensions;
@@ -19,23 +21,22 @@ namespace TT.Abp.VisitorManagement.Application
 {
     public class FormAppService : ApplicationService, IFormAppService
     {
+        private readonly IVisitorShopLookupService _vShopLookupService;
         private readonly IRepository<Form, Guid> _repository;
         private readonly IRepository<VisitorShop, Guid> _shopRepository;
         private readonly IRepository<VisitorLog, Guid> _visitorLogRepository;
-        
-        
 
-        // private readonly IRepository<ShopForm> _shopFormRepository;
         private readonly ICurrentTenant _currentTenant;
 
         public FormAppService(
+            IVisitorShopLookupService vShopLookupService,
             IRepository<Form, Guid> formRepository,
             IRepository<VisitorShop, Guid> shopRepository,
             IRepository<VisitorLog, Guid> visitorLogRepository,
-            // IRepository<ShopForm> shopFormRepository,
             ICurrentTenant currentTenant)
         {
             ObjectMapperContext = typeof(VisitorManagementModule);
+            _vShopLookupService = vShopLookupService;
             _repository = formRepository;
             _shopRepository = shopRepository;
             _visitorLogRepository = visitorLogRepository;
@@ -151,6 +152,8 @@ namespace TT.Abp.VisitorManagement.Application
         [HttpPost]
         public async Task AddShop(FormAddShopRequestDto input)
         {
+            var find = await _vShopLookupService.FindByIdAsync(input.ShopIds[0]);
+            
             var form = await _repository
                 .Include(x => x.ShopForms)
                 .FirstOrDefaultAsync(x => x.Id == input.FromId);

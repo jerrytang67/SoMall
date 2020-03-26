@@ -23,14 +23,14 @@ namespace TT.SoMall
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = services.GetConfiguration();
-
+            services.Configure<RedisOptions>(configuration.GetSection("Redis"));
+            services.AddSingleton<IRedisClient, RedisClient>();
             // ABP
             services.AddApplication<SoMallHttpApiHostModule>();
             // ABP End
             
             
-            services.Configure<RedisOptions>(configuration.GetSection("Redis"));
-            services.AddSingleton<IRedisClient, RedisClient>();
+
             services.AddCap(x =>
             {
                 var rabbitOptions = configuration.GetSection("RabbitMQ");
