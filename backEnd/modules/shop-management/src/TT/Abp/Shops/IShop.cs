@@ -11,6 +11,8 @@ namespace TT.Abp.Shops
         string ShortName { get; }
 
         string LogoImage { get; }
+        
+         string CoverImage { get; set; }
 
         string Description { get; }
     }

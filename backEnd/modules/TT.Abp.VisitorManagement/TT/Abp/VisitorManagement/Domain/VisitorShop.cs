@@ -10,7 +10,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.VisitorManagement.Domain
 {
-    public class VisitorShop : AggregateRoot<Guid>, IShop
+    public class VisitorShop : AggregateRoot<Guid>, IShop, IUpdateShopData
     {
         [NotNull] public virtual string Name { get; private set; }
         [NotNull] public virtual string ShortName { get; private set; }
@@ -25,14 +25,14 @@ namespace TT.Abp.VisitorManagement.Domain
             ExtraProperties = new Dictionary<string, object>();
         }
 
-        public VisitorShop(IShop shop) : base(shop.Id)
+        public VisitorShop(IShopData shop) : base(shop.Id)
         {
             TenantId = shop.TenantId;
             UpdateInternal(shop);
             ExtraProperties = new Dictionary<string, object>();
         }
 
-        public virtual bool Update(IShop shop)
+        public virtual bool Update(IShopData shop)
         {
             if (Id != shop.Id)
             {
@@ -54,21 +54,23 @@ namespace TT.Abp.VisitorManagement.Domain
             return true;
         }
 
-        protected virtual bool Equals(IShop shop)
+        protected virtual bool Equals(IShopData shop)
         {
             return Id == shop.Id &&
                    TenantId == shop.TenantId &&
                    Name == shop.Name &&
                    ShortName == shop.ShortName &&
                    LogoImage == shop.LogoImage &&
+                   CoverImage == shop.CoverImage &&
                    Description == shop.Description;
         }
 
-        private void UpdateInternal(IShop shop)
+        private void UpdateInternal(IShopData shop)
         {
             Name = shop.Name;
             ShortName = shop.ShortName;
             LogoImage = shop.LogoImage;
+            CoverImage = shop.CoverImage;
             Description = shop.Description;
         }
     }

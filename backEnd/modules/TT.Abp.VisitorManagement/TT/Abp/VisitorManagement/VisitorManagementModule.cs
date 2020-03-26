@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.Shops;
+using TT.Abp.VisitorManagement.Domain;
 using TT.Abp.VisitorManagement.EntityFrameworkCore;
 using TT.HttpClient.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
@@ -17,6 +19,8 @@ namespace TT.Abp.VisitorManagement
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
+            
             context.Services.AddAbpDbContext<VisitorManagementDbContext>(options => { options.AddDefaultRepositories(); });
 
             context.Services.AddAutoMapperObjectMapper<VisitorManagementModule>();

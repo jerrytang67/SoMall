@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using TT.Abp.Shops.Domain;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Uow;
 
@@ -14,7 +15,7 @@ namespace TT.Abp.Shops
     {
         protected bool SkipExternalLookupIfLocalUserExists { get; set; } = true;
 
-        //public IExternalUserLookupServiceProvider ExternalUserLookupServiceProvider { get; set; }
+        public IExternalShopLookupServiceProvider ExternalShopLookupServiceProvider { get; set; }
         public ILogger<ShopLookupService<TShop, TShopRepository>> Logger { get; set; }
 
         private readonly TShopRepository _shopRepository;
@@ -23,10 +24,10 @@ namespace TT.Abp.Shops
         protected ShopLookupService(
             TShopRepository shopRepository,
             IUnitOfWorkManager unitOfWorkManager)
+
         {
             _shopRepository = shopRepository;
             _unitOfWorkManager = unitOfWorkManager;
-
             Logger = NullLogger<ShopLookupService<TShop, TShopRepository>>.Instance;
         }
 
@@ -34,61 +35,59 @@ namespace TT.Abp.Shops
         {
             var localShop = await _shopRepository.FindAsync(id, cancellationToken: cancellationToken);
 
-            return localShop;
+            if (ExternalShopLookupServiceProvider == null)
+            {
+                return localShop;
+            }
 
+            if (SkipExternalLookupIfLocalUserExists && localShop != null)
+            {
+                return localShop;
+            }
 
-            // if (ExternalUserLookupServiceProvider == null)
-            // {
-            //     return localUser;
-            // }
-            //
-            // if (SkipExternalLookupIfLocalUserExists && localUser != null)
-            // {
-            //     return localUser;
-            // }
-            //
-            // IUserData externalUser;
-            //
-            // try
-            // {
-            //     externalUser = await ExternalUserLookupServiceProvider.FindByIdAsync(id, cancellationToken);
-            //     if (externalUser == null)
-            //     {
-            //         if (localUser != null)
-            //         {
-            //             //TODO: Instead of deleting, should be make it inactive or something like that?
-            //             await WithNewUowAsync(() => _userRepository.DeleteAsync(localUser, cancellationToken: cancellationToken));
-            //         }
-            //
-            //         return null;
-            //     }
-            // }
-            // catch (Exception ex)
-            // {
-            //     Logger.LogException(ex);
-            //     return localUser;
-            // }
-            //
-            // if (localUser == null)
-            // {
-            //     await WithNewUowAsync(() => _userRepository.InsertAsync(CreateUser(externalUser), cancellationToken: cancellationToken));
-            //     return await _userRepository.FindAsync(id, cancellationToken: cancellationToken);
-            // }
-            //
-            // if (localUser is IUpdateShopData && ((IUpdateShopData) localUser).Update(externalUser))
-            // {
-            //     await WithNewUowAsync(() => _userRepository.UpdateAsync(localUser, cancellationToken: cancellationToken));
-            // }
-            // else
-            // {
-            //     return localUser;
-            // }
-            //
-            // return await _userRepository.FindAsync(id, cancellationToken: cancellationToken);
+            IShopData externalShop;
+
+            try
+            {
+                externalShop = await ExternalShopLookupServiceProvider.FindByIdAsync(id, cancellationToken);
+                if (externalShop == null)
+                {
+                    if (localShop != null)
+                    {
+                        //TODO: Instead of deleting, should be make it inactive or something like that?
+                        await WithNewUowAsync(() => _shopRepository.DeleteAsync(localShop, cancellationToken: cancellationToken));
+                    }
+
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return localShop;
+            }
+
+            if (localShop == null)
+            {
+                var create = CreateShop(externalShop);
+                await WithNewUowAsync(() => _shopRepository.InsertAsync(create, cancellationToken: cancellationToken));
+                return await _shopRepository.FindAsync(id, cancellationToken: cancellationToken);
+            }
+
+            if (localShop is IUpdateShopData && ((IUpdateShopData) localShop).Update(externalShop))
+            {
+                await WithNewUowAsync(() => _shopRepository.UpdateAsync(localShop, cancellationToken: cancellationToken));
+            }
+            else
+            {
+                return localShop;
+            }
+
+            return await _shopRepository.FindAsync(id, cancellationToken: cancellationToken);
         }
 
 
-        protected abstract TShop CreateShop(IShop externalShop);
+        protected abstract TShop CreateShop(IShopData externalShop);
 
         private async Task WithNewUowAsync(Func<Task> func)
         {
