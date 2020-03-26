@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.FormManagement;
 using TT.Abp.MallManagement;
 using TT.Abp.Shops;
 using TT.Abp.VisitorManagement;
@@ -12,6 +13,7 @@ namespace TT.SoMall.EntityFrameworkCore
         , typeof(ShopModule)
         , typeof(MallManagementModule)
         , typeof(VisitorManagementModule)
+        , typeof(FormManagementModule)
         , typeof(WeixinManagementModule)
     )]
     public class SoMallEntityFrameworkCoreDbMigrationsModule : AbpModule

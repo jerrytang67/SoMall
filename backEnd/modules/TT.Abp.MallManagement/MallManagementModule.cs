@@ -19,7 +19,11 @@ namespace TT.Abp.MallManagement
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<MallApplicationAutoMapperProfile>(validate: false); });
 
-            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(MallManagementModule).Assembly); });
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.MinifyGeneratedScript = true;
+                options.ConventionalControllers.Create(typeof(MallManagementModule).Assembly);
+            });
         }
     }
 }

@@ -18,8 +18,11 @@ namespace TT.SoMall
             // custom
             var config = services.GetConfiguration();
 
-            services.PostConfigure<IdentityServerOptions>(options => { options.PublicOrigin = config["AuthServer:Authority"]; });
-            
+            services.PostConfigure<IdentityServerOptions>(options =>
+            {
+                options.PublicOrigin = config["AuthServer:Authority"];
+                options.IssuerUri = config["AuthServer:Authority"];
+            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -27,5 +30,4 @@ namespace TT.SoMall
             app.InitializeApplication();
         }
     }
-
 }

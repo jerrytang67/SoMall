@@ -15,13 +15,18 @@ namespace TT.Abp.FormManagement
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAutoMapperObjectMapper<FormManagementModule>();
+            // context.Services.AddAbpDbContext<>(options => { options.AddDefaultRepositories(); });
 
+            context.Services.AddAutoMapperObjectMapper<FormManagementModule>();
             // AutoMapper
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<FormApplicationAutoMapperProfile>(validate: true); });
 
             // AppService转APi
-            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(FormManagementModule).Assembly); });
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.MinifyGeneratedScript = true;
+                options.ConventionalControllers.Create(typeof(FormManagementModule).Assembly);
+            });
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(FormManagementModule).Assembly);

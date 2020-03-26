@@ -22,7 +22,11 @@ namespace TT.Abp.Shops
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<ShopApplicationAutoMapperProfile>(validate: true); });
 
-            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(ShopModule).Assembly); });
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.MinifyGeneratedScript = true;
+                options.ConventionalControllers.Create(typeof(ShopModule).Assembly);
+            });
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(ShopModule).Assembly);

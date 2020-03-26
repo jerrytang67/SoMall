@@ -19,7 +19,11 @@ namespace TT.Abp.OssManagement
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<OssApplicationAutoMapperProfile>(validate: true); });
 
-            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(OssManagementModule).Assembly); });
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.MinifyGeneratedScript = true;
+                options.ConventionalControllers.Create(typeof(OssManagementModule).Assembly);
+            });
             
         }
 

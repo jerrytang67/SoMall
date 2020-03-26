@@ -19,17 +19,16 @@ namespace TT.SoMall
 {
     public class Startup
     {
-
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = services.GetConfiguration();
             services.Configure<RedisOptions>(configuration.GetSection("Redis"));
             services.AddSingleton<IRedisClient, RedisClient>();
+            
             // ABP
             services.AddApplication<SoMallHttpApiHostModule>();
             // ABP End
-            
-            
+
 
             services.AddCap(x =>
             {
@@ -50,7 +49,7 @@ namespace TT.SoMall
             services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
             IdentityModelEventSource.ShowPII = true;
 
@@ -67,7 +66,6 @@ namespace TT.SoMall
                     app2.UseMvcWithDefaultRouteAndArea();
                 }
             );
-
         }
     }
 }

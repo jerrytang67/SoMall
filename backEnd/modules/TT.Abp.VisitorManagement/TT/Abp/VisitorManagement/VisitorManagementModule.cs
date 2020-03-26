@@ -27,7 +27,11 @@ namespace TT.Abp.VisitorManagement
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<VisitorApplicationAutoMapperProfile>(validate: true); });
 
-            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(VisitorManagementModule).Assembly); });
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.MinifyGeneratedScript = true;
+                options.ConventionalControllers.Create(typeof(VisitorManagementModule).Assembly);
+            });
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(VisitorManagementModule).Assembly);

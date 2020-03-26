@@ -52,7 +52,7 @@ namespace TT.SoMall
             ConfigureLocalization();
             ConfigureCache(configuration);
             ConfigureVirtualFileSystem(context);
-            ConfigureRedis(context, configuration, hostingEnvironment);
+            ConfigureRedis(context, configuration);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
         }
@@ -65,17 +65,18 @@ namespace TT.SoMall
         private void ConfigureVirtualFileSystem(ServiceConfigurationContext context)
         {
             var hostingEnvironment = context.Services.GetHostingEnvironment();
-
+            
             if (hostingEnvironment.IsDevelopment())
             {
                 Configure<AbpVirtualFileSystemOptions>(options =>
                 {
                     options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain.Shared"));
-
+            
                     options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain"));
-
-                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Application.Contracts"));
-
+            
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath,
+                        $"..{Path.DirectorySeparatorChar}TT.SoMall.Application.Contracts"));
+            
                     options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Application"));
                 });
             }
@@ -83,7 +84,11 @@ namespace TT.SoMall
 
         private void ConfigureConventionalControllers(ServiceConfigurationContext context)
         {
-            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly); });
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.MinifyGeneratedScript = true;
+                options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly);
+            });
 
             context.Services.AddControllers().AddNewtonsoftJson(options =>
             {
@@ -110,7 +115,7 @@ namespace TT.SoMall
             context.Services.AddSwaggerGen(
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "SoMall API", Version = "v1" });
+                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "SoMall API", Version = "v1"});
                     options.DocInclusionPredicate((docName, description) => true);
                     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 });
@@ -130,8 +135,7 @@ namespace TT.SoMall
 
         private void ConfigureRedis(
             ServiceConfigurationContext context,
-            IConfiguration configuration,
-            IWebHostEnvironment hostingEnvironment)
+            IConfiguration configuration)
         {
             context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:ConnectionString"]; });
         }
@@ -191,7 +195,7 @@ namespace TT.SoMall
         {
             var parameters = descriptions
                 .SelectMany(desc => desc.ParameterDescriptions)
-                .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
+                .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
                     ApiParameterDescriptionEqualityComparer.Instance)
                 .ToList();
             var description = descriptions.First();

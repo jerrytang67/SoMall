@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Autofac;
@@ -23,6 +24,10 @@ namespace TT.SoMall
             {
                 options.IsJobExecutionEnabled = false;
             });
+
+            // var hostingEnvironment = Mock.Of<IWebHostEnvironment>(e => e.ApplicationName == name);
+            
+            context.Services.AddSingleton<IWebHostEnvironment>();
 
             context.Services.AddAlwaysAllowAuthorization();
         }

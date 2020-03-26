@@ -30,7 +30,11 @@ namespace TT.Abp.WeixinManagement
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<WeixinApplicationAutoMapperProfile>(validate: true); });
 
-            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(WeixinManagementModule).Assembly); });
+            Configure<AbpAspNetCoreMvcOptions>(options =>
+            {
+                options.MinifyGeneratedScript = true;
+                options.ConventionalControllers.Create(typeof(WeixinManagementModule).Assembly);
+            });
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(WeixinManagementModule).Assembly);

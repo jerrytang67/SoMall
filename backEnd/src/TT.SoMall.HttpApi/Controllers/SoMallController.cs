@@ -18,7 +18,7 @@ namespace TT.SoMall.Controllers
         [Authorize]
         private async Task<ActionResult> LoginCheck()
         {
-            return Content("ok");
+            return await Task.FromResult(Content("ok"));
         }
     }
 }

@@ -27,8 +27,8 @@ namespace TT.SoMall.Samples
             IdentityUser adminUser;
 
             /* Need to manually start Unit Of Work because
-             * FirstOrDefaultAsync should be executed while db connection / context is available.
-             */
+            * FirstOrDefaultAsync should be executed while db connection / context is available.
+            */
             await WithUnitOfWorkAsync(async () =>
             {
                 adminUser = await _identityUserRepository
