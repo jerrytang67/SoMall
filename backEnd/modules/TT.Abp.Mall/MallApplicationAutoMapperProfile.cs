@@ -24,9 +24,9 @@ namespace TT.Abp.Mall
             CreateMap<ProductSku, ProductSkuDto>();
 
 
-            CreateMap<CreateUpdateCategoryDto, ProductCategory>();
-            CreateMap<CreateUpdateSpuDto, ProductSpu>();
-            CreateMap<CreateUpdateSkuDto, ProductSku>();
+            CreateMap<CategoryCreateOrUpdateDto, ProductCategory>();
+            CreateMap<SpuCreateOrUpdateDto, ProductSpu>();
+            CreateMap<SkuCreateOrUpdateDto, ProductSku>();
 
             #endregion
         }

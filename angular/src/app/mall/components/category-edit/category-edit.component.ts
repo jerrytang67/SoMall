@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input, Injector } from '@angular/core';
-import { ProductCategoryDtoPagedResultDto, CreateUpdateCategoryDto } from 'src/api/appService';
+import { CategoryCreateOrUpdateDto } from 'src/api/appService';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
@@ -17,7 +17,7 @@ export class CategoryEditComponent implements OnInit {
 
   @Input() id: string;
 
-  @Input() form: CreateUpdateCategoryDto;
+  @Input() form: CategoryCreateOrUpdateDto;
 
   i: any = {};
 

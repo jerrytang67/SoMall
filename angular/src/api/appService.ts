@@ -542,7 +542,7 @@ export class ProductCategoryProxyService {
   create(
     params: {
       /** requestBody */
-      body?: CreateUpdateCategoryDto;
+      body?: CategoryCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductCategoryDto> {
     let url = '/api/mall/productCategory/create';
@@ -560,7 +560,7 @@ export class ProductCategoryProxyService {
       /**  */
       id?: string;
       /** requestBody */
-      body?: CreateUpdateCategoryDto;
+      body?: CategoryCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductCategoryDto> {
     let url = '/api/mall/productCategory/update';
@@ -637,7 +637,7 @@ export class ProductSkuProxyService {
   create(
     params: {
       /** requestBody */
-      body?: CreateUpdateSkuDto;
+      body?: SkuCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductSkuDto> {
     let url = '/api/mall/productSku/create';
@@ -655,7 +655,7 @@ export class ProductSkuProxyService {
       /**  */
       id?: string;
       /** requestBody */
-      body?: CreateUpdateSkuDto;
+      body?: SkuCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductSkuDto> {
     let url = '/api/mall/productSku/update';
@@ -688,6 +688,41 @@ export class ProductSkuProxyService {
 export class ProductSpuProxyService {
   constructor(private http: HttpClient) {}
 
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: SpuCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductSpuDto> {
+    let url = '/api/mall/productSpu/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<ProductSpuDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: SpuCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductSpuDto> {
+    let url = '/api/mall/productSpu/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductSpuDto>;
+  }
   /**
    *
    */
@@ -725,41 +760,6 @@ export class ProductSpuProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<ProductSpuDtoPagedResultDto>;
-  }
-  /**
-   *
-   */
-  create(
-    params: {
-      /** requestBody */
-      body?: CreateUpdateSpuDto;
-    } = {} as any
-  ): Observable<ProductSpuDto> {
-    let url = '/api/mall/productSpu/create';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<ProductSpuDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      id?: string;
-      /** requestBody */
-      body?: CreateUpdateSpuDto;
-    } = {} as any
-  ): Observable<ProductSpuDto> {
-    let url = '/api/mall/productSpu/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<ProductSpuDto>;
   }
   /**
    *
@@ -2301,7 +2301,7 @@ export interface ProductCategoryDtoPagedResultDto {
   items?: ProductCategoryDto[];
 }
 
-export interface CreateUpdateCategoryDto {
+export interface CategoryCreateOrUpdateDto {
   /**  */
   name?: string;
 
@@ -2378,7 +2378,7 @@ export interface ProductSkuDtoPagedResultDto {
   items?: ProductSkuDto[];
 }
 
-export interface CreateUpdateSkuDto {
+export interface SkuCreateOrUpdateDto {
   /**  */
   spuId?: string;
 
@@ -2392,15 +2392,7 @@ export interface CreateUpdateSkuDto {
   price?: number;
 }
 
-export interface ProductSpuDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: ProductSpuDto[];
-}
-
-export interface CreateUpdateSpuDto {
+export interface SpuCreateOrUpdateDto {
   /**  */
   categoryId?: string;
 
@@ -2412,6 +2404,14 @@ export interface CreateUpdateSpuDto {
 
   /**  */
   desc?: string;
+}
+
+export interface ProductSpuDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: ProductSpuDto[];
 }
 
 export interface ProfileDto {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductSpuProxyService, ProductSpuDto } from 'src/api/appService';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-spu-list',
@@ -7,9 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpuListComponent implements OnInit {
 
-  constructor() { }
+  dataItems: any[] = [];
+  pageingInfo = {
+    totalItems: 0,
+    pageNumber: 0,
+    pageSize: 0,
+    isTableLoading: false
+  };
+  constructor(
+    private api: ProductSpuProxyService,
+    private message: NzMessageService
+  ) {
 
-  ngOnInit(): void {
   }
 
+  ngOnInit() {
+    this.refresh();
+  }
+
+  refresh() {
+    this.pageingInfo.isTableLoading = true;
+    this.api.getList().subscribe(res => {
+      console.log(res);
+      this.dataItems = res.items;
+      this.pageingInfo.isTableLoading = false;
+    })
+  }
+
+  delete(item: ProductSpuDto) {
+    this.api.delete({ id: item.id }).subscribe(() => {
+      this.message.success("删除成功");
+      this.refresh();
+    })
+  }
 }

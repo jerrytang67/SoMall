@@ -80,6 +80,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ExceptionComponent } from './components/exception/exception.component';
 import { SEModule } from './components/edit/edit.module';
+import { ShopSelectComponent } from '../visitor/components/shop-select/shop-select.component';
 
 const BSMODULES = [
   TooltipModule.forRoot(),
@@ -162,7 +163,7 @@ const THIRDMODULES = [
 // #endregion
 
 // #region your componets & directives
-const COMPONENTS = [ExceptionComponent];
+const COMPONENTS = [ExceptionComponent, ShopSelectComponent];
 const DIRECTIVES = [];
 // #endregion
 

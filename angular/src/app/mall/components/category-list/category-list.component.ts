@@ -9,7 +9,6 @@ import { CategoryEditComponent } from '../category-edit/category-edit.component'
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent implements OnInit {
-  formId: string;
   dataItems: any[] = [];
   pageingInfo = {
     totalItems: 0,
@@ -40,9 +39,8 @@ export class CategoryListComponent implements OnInit {
 
   add() {
     const modal = this.modalService.create({
-      nzTitle: '新建商家',
+      nzTitle: '新建分类',
       nzWidth: 500,
-
       nzContent: CategoryEditComponent,
       nzComponentParams: {
         form: {
@@ -65,6 +63,35 @@ export class CategoryListComponent implements OnInit {
             else {
               instance.f.ngSubmit.emit(null)
               this.message.error("表单错误")
+            }
+          }
+        }
+      ]
+    });
+    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+  }
+
+  edit(item: ProductCategoryDto) {
+    const modal = this.modalService.create({
+      nzTitle: '编辑商家',
+      nzWidth: '80vw',
+      nzContent: CategoryEditComponent,
+      nzComponentParams: {
+        id: item.id,
+        form: { ...item }
+      },
+      nzFooter: [
+        {
+          label: '确定',
+          type: "primary",
+          onClick: instance => {
+            console.log("componentInstance", instance);
+            if (instance.f.valid) {
+              this.api.update({ id: instance.id, body: instance.form }).subscribe(res => {
+                this.message.success("修改成功");
+                this.refresh();
+                modal.destroy();
+              })
             }
           }
         }

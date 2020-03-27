@@ -4,7 +4,7 @@
             <a [routerLink]="['/']">首页</a>
         </nz-breadcrumb-item>
         <nz-breadcrumb-item>
-            <a [routerLink]="['/visitor']">商城</a>
+            <a [routerLink]="['/mall']">商城</a>
         </nz-breadcrumb-item>
     </nz-breadcrumb>
 </nz-page-header>
@@ -31,7 +31,12 @@
                 <td>{{item.code}}</td>
                 <td>{{item.shopId}}</td>
                 <td>
-                    <a nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)" nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
+                    <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/spu-create', item.id]">{{'spu.create' | translate}}</button>
+                    <nz-divider nzType=" vertical"></nz-divider>
+                    <button nz-button nzType="primary" nzSize="small" (click)="edit(item)">{{'edit' | translate}}</button>
+                    <nz-divider nzType=" vertical"></nz-divider>
+                    <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
+                        nzPopconfirmPlacement="top">{{'delete' | translate}}</button>
                 </td>
             </tr>
         </tbody>

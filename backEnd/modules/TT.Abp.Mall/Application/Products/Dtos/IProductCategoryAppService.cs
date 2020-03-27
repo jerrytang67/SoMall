@@ -8,8 +8,8 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         ProductCategoryDto,
         Guid,
         PagedAndSortedResultRequestDto,
-        CreateUpdateCategoryDto,
-        CreateUpdateCategoryDto>
+        CategoryCreateOrUpdateDto,
+        CategoryCreateOrUpdateDto>
     {
 
     }
@@ -18,8 +18,8 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         ProductSpuDto,
         Guid,
         PagedAndSortedResultRequestDto,
-        CreateUpdateSpuDto,
-        CreateUpdateSpuDto>
+        SpuCreateOrUpdateDto,
+        SpuCreateOrUpdateDto>
     {
 
     }
@@ -28,8 +28,8 @@ namespace TT.Abp.Mall.Application.Products.Dtos
        ProductSkuDto,
        Guid,
        PagedAndSortedResultRequestDto,
-       CreateUpdateSkuDto,
-       CreateUpdateSkuDto>
+       SkuCreateOrUpdateDto,
+       SkuCreateOrUpdateDto>
     {
 
     }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TT.Abp.Mall.Application.Products.Dtos
 {
-    public class CreateUpdateCategoryDto
+    public class CategoryCreateOrUpdateDto
     {
         [Required] [StringLength(64)] public string Name { get; set; }
 
@@ -11,7 +11,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         [StringLength(32)] public string Code { get; set; }
     }
 
-    public class CreateUpdateSpuDto
+    public class SpuCreateOrUpdateDto
     {
         public Guid CategoryId { get; set; }
 
@@ -22,7 +22,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public string Desc { get; set; }
     }
 
-    public class CreateUpdateSkuDto
+    public class SkuCreateOrUpdateDto
     {
         public Guid SpuId { get; set; }
 
