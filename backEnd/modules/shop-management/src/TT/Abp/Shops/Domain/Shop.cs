@@ -34,8 +34,8 @@ namespace TT.Abp.Shops.Domain
 
         public virtual string CoverImage { get; set; }
 
-        public Guid? TenantId { get; }
 
+        public Guid? TenantId { get; internal set; }
 
         internal void SetName([NotNull] string name)
         {

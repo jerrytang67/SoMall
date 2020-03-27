@@ -18,7 +18,7 @@ namespace TT.Abp.VisitorManagement.Domain
         [NotNull] public virtual string CoverImage { get; set; }
         [CanBeNull] public virtual string Description { get; private set; }
 
-        public virtual Guid? TenantId { get; }
+        public virtual Guid? TenantId { get; internal set; }
 
         protected VisitorShop()
         {

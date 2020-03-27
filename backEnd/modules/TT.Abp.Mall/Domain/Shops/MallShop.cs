@@ -20,12 +20,12 @@ namespace TT.Abp.Mall.Domain.Shops
             ExtraProperties = new Dictionary<string, object>();
         }
 
-        public string Name { get; set; }
-        public string ShortName { get; set; }
-        public string LogoImage { get; set; }
+        public string Name { get; internal set; }
+        public string ShortName { get; internal set; }
+        public string LogoImage { get; internal set; }
         public string CoverImage { get; set; }
-        public string Description { get; set; }
-        public Guid? TenantId { get; }
+        public string Description { get; private set; }
+        public Guid? TenantId { get; internal set; }
 
 
         public virtual bool Update(IShopData shop)

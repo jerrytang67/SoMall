@@ -7,6 +7,17 @@ namespace TT.SoMall.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<Guid>(
+                name: "TenantId",
+                table: "Visitor_VisitorShops",
+                nullable: true);
+
+            migrationBuilder.AddColumn<Guid>(
+                name: "TenantId",
+                table: "SoMall_Shops",
+                nullable: true);
+            
+            
             migrationBuilder.DropForeignKey(
                 name: "FK_Visitor_ShopForms_SoMall_Shops_ShopId",
                 table: "Visitor_ShopForms");
@@ -166,6 +177,14 @@ namespace TT.SoMall.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "TenantId",
+                table: "Visitor_VisitorShops");
+
+            migrationBuilder.DropColumn(
+                name: "TenantId",
+                table: "SoMall_Shops");
+            
             migrationBuilder.DropForeignKey(
                 name: "FK_Visitor_ShopForms_Visitor_VisitorShops_ShopId",
                 table: "Visitor_ShopForms");
