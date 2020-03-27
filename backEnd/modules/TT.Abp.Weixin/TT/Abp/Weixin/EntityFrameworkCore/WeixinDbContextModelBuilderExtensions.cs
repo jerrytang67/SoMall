@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.WeixinManagement.Domain;
+using TT.Abp.Weixin.Domain;
 using Volo.Abp;
 
-namespace TT.Abp.WeixinManagement.EntityFrameworkCore
+namespace TT.Abp.Weixin.EntityFrameworkCore
 {
     public static class WeixinDbContextModelBuilderExtensions
     {

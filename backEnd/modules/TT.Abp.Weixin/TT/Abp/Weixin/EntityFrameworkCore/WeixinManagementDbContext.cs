@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.WeixinManagement.Domain;
+using TT.Abp.Weixin.Domain;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace TT.Abp.WeixinManagement.EntityFrameworkCore
+namespace TT.Abp.Weixin.EntityFrameworkCore
 {
-    [ConnectionStringName("WeixinManagement")]
+    [ConnectionStringName("Weixin")]
     public class WeixinManagementDbContext : AbpDbContext<WeixinManagementDbContext>, IWeixinManagementDbContext
     {
         public DbSet<WechatUserinfo> WechatUserinfos { get; set; }

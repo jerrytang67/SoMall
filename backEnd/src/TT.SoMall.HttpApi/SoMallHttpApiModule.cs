@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using TT.Abp.OssManagement;
 using TT.Abp.Shops;
 using TT.Abp.VisitorManagement;
-using TT.Abp.WeixinManagement;
+using TT.Abp.Weixin;
 using Volo.Abp.Account;
 using Volo.Abp.AspNetCore.Mvc.Conventions;
 using Volo.Abp.FeatureManagement;
@@ -24,7 +24,7 @@ namespace TT.SoMall
         typeof(ShopModule),
         typeof(OssManagementModule),
         typeof(VisitorManagementModule),
-        typeof(WeixinManagementModule),
+        typeof(WeixinModule),
         typeof(AbpFeatureManagementHttpApiModule)
     )]
     public class SoMallHttpApiModule : AbpModule

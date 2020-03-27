@@ -1,8 +1,8 @@
 ﻿using Volo.Abp.Settings;
 
-namespace TT.Abp.WeixinManagement.Application
+namespace TT.Abp.Weixin.Application
 {
-    public class WeixinManagementSettingDefinitionProvider : SettingDefinitionProvider
+    public class WeixinSettingDefinitionProvider : SettingDefinitionProvider
     {
         public override void Define(ISettingDefinitionContext context)
         {

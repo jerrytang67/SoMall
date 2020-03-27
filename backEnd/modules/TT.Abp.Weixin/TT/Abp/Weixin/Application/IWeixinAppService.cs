@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using TT.Abp.WeixinManagement.Application.Dtos;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace TT.Abp.WeixinManagement.Application
+namespace TT.Abp.Weixin.Application
 {
     public interface IWeixinAppService : IApplicationService
     {

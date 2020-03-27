@@ -1,6 +1,6 @@
-﻿namespace TT.Abp.WeixinManagement.Application.Dtos
+﻿namespace TT.Abp.Weixin.Application.Dtos
 {
-    public class UpdateShopDto
+    public class CreateShopDto
     {
         public string Name { get; set; }
         public string ShortName { get; set; }

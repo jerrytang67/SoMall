@@ -1,8 +1,9 @@
 ﻿using EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Abp.Shops.EntityFrameworkCore;
 using TT.Abp.VisitorManagement.EntityFrameworkCore;
-using TT.Abp.WeixinManagement.EntityFrameworkCore;
+using TT.Abp.Weixin.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -55,7 +56,7 @@ namespace TT.SoMall.EntityFrameworkCore
             builder.ConfigureShop();
 
             // 商城模块
-            builder.ConfigureMallManagement();
+            builder.ConfigureMall();
             // visitor 访客模块
             builder.ConfigureVisitorManagement();
             // // 微信模块

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using DotNetCore.CAP;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Serilog;
 using TT.Abp.Shops.Application;
-using TT.Abp.WeixinManagement.Application;
+using TT.Abp.Weixin.Application;
 using TT.Extensions;
 using TT.HttpClient.Weixin;
 using TT.HttpClient.Weixin.Helpers;
@@ -20,7 +19,7 @@ using Volo.Abp.MultiTenancy;
 using Volo.Abp.Settings;
 using Volo.Abp.Uow;
 
-namespace TT.Abp.WeixinManagement.Domain
+namespace TT.Abp.Weixin.Domain
 {
     public class WeixinManager : ITransientDependency
     {

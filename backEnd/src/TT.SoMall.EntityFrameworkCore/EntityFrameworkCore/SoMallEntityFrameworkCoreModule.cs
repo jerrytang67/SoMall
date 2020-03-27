@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TT.Abp.MallManagement;
+using TT.Abp.Mall;
 using TT.Abp.Shops;
 using TT.Abp.VisitorManagement;
-using TT.Abp.WeixinManagement;
+using TT.Abp.Weixin;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -29,8 +29,8 @@ namespace TT.SoMall.EntityFrameworkCore
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
         typeof(AbpFeatureManagementEntityFrameworkCoreModule),
         typeof(ShopModule),
-        typeof(MallManagementModule),
-        typeof(WeixinManagementModule),
+        typeof(MallModule),
+        typeof(WeixinModule),
         typeof(VisitorManagementModule),
         typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]

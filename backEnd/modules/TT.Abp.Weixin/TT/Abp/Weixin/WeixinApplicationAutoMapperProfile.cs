@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using TT.Abp.WeixinManagement.Domain;
+using TT.Abp.Weixin.Domain;
 using TT.HttpClient.Weixin;
 
-namespace TT.Abp.WeixinManagement
+namespace TT.Abp.Weixin
 {
     public class WeixinApplicationAutoMapperProfile : Profile
     {

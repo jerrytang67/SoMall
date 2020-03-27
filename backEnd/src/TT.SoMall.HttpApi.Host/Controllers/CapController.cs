@@ -3,7 +3,6 @@ using DotNetCore.CAP;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Serilog;
-using TT.Abp.WeixinManagement.Domain;
 using TT.HttpClient.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Uow;

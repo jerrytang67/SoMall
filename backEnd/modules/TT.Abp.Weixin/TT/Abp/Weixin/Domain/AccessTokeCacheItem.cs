@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TT.Abp.WeixinManagement.Domain
+namespace TT.Abp.Weixin.Domain
 {
     public class AccessTokeCacheItem
     {

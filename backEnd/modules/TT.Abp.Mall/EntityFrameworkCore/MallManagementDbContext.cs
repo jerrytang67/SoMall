@@ -26,7 +26,7 @@ namespace EntityFrameworkCore
         {
             base.OnModelCreating(builder);
 
-            builder.ConfigureMallManagement();
+            builder.ConfigureMall();
         }
     }
 

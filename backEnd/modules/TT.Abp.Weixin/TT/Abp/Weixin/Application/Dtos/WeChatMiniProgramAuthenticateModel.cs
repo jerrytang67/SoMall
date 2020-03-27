@@ -1,4 +1,4 @@
-﻿namespace TT.Abp.WeixinManagement.Application.Dtos
+﻿namespace TT.Abp.Weixin.Application.Dtos
 {
     public class WeChatMiniProgramAuthenticateModel
     {

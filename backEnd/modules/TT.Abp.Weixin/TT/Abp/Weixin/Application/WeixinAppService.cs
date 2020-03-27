@@ -9,19 +9,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using TT.Abp.WeixinManagement.Application.Dtos;
-using TT.Abp.WeixinManagement.Domain;
+using TT.Abp.Weixin.Application.Dtos;
+using TT.Abp.Weixin.Domain;
 using TT.Extensions;
 using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Settings;
 using Volo.Abp.Uow;
 using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
-namespace TT.Abp.WeixinManagement.Application
+namespace TT.Abp.Weixin.Application
 {
     public class WeixinAppService : ApplicationService, IWeixinAppService
     {
@@ -54,7 +52,7 @@ namespace TT.Abp.WeixinManagement.Application
             IUnitOfWorkManager unitOfWorkManager
         )
         {
-            ObjectMapperContext = typeof(WeixinManagementModule);
+            ObjectMapperContext = typeof(WeixinModule);
             _configuration = configuration;
             _httpClientFactory = httpClientFactory;
             _passwordHasher = passwordHasher;

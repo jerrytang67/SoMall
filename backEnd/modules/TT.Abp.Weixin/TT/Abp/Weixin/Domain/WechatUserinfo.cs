@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace TT.Abp.WeixinManagement.Domain
+namespace TT.Abp.Weixin.Domain
 {
     public class WechatUserinfo : CreationAuditedEntity
     {

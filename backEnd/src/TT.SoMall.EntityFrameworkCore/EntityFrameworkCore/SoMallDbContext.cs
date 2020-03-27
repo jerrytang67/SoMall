@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TT.Abp.Shops.EntityFrameworkCore;
 using TT.Abp.VisitorManagement.Domain;
-using TT.Abp.WeixinManagement.Domain;
-using TT.Abp.WeixinManagement.EntityFrameworkCore;
+using TT.Abp.Weixin.Domain;
+using TT.Abp.Weixin.EntityFrameworkCore;
 using TT.SoMall.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;

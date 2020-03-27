@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TT.Abp.MallManagement;
 using TT.Abp.Shops;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;

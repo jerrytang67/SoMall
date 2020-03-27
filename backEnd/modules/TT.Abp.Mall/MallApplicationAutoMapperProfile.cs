@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Domain.Products;
-using TT.Abp.MallManagement.Application.Products.Dtos;
 
-namespace TT.Abp.MallManagement
+namespace TT.Abp.Mall
 {
     public class MallApplicationAutoMapperProfile : Profile
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Volo.Abp.Application.Dtos;
 
-namespace TT.Abp.MallManagement.Application.Products.Dtos
+namespace TT.Abp.Mall.Application.Products.Dtos
 {
     public class ProductCategoryDto : AuditedEntityDto<Guid>
     {
@@ -33,7 +33,4 @@ namespace TT.Abp.MallManagement.Application.Products.Dtos
 
         public ProductSpuDto Spu { get; set; }
     }
-
-
-
 }

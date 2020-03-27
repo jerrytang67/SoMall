@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TT.Abp.Mall.Domain.Products;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
-namespace EntityFrameworkCore
+namespace TT.Abp.Mall.EntityFrameworkCore
 {
     public static class SoMallDbContextModelCreatingExtensions
     {
-        public static void ConfigureMallManagement(this ModelBuilder builder)
+        public static void ConfigureMall(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
 

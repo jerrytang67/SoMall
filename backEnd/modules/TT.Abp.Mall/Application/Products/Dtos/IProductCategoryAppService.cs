@@ -2,7 +2,7 @@
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
-namespace TT.Abp.MallManagement.Application.Products.Dtos
+namespace TT.Abp.Mall.Application.Products.Dtos
 {
     public interface IProductCategoryAppService : ICrudAppService<
         ProductCategoryDto,
