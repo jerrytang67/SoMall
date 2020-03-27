@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using TT.Abp.Mall.Application.Products.Dtos;
+using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Products;
+using TT.Abp.Mall.Domain.Shops;
 
 namespace TT.Abp.Mall
 {
@@ -8,6 +10,13 @@ namespace TT.Abp.Mall
     {
         public MallApplicationAutoMapperProfile()
         {
+            #region Shops
+
+            CreateMap<MallShop, MallShopDto>();
+
+            #endregion
+
+
             #region Products
 
             CreateMap<ProductCategory, ProductCategoryDto>();

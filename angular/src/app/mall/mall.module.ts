@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MallRoutingModule } from './mall-routing.module';
 import { ShopListComponent } from '../mall/components/shop-list/shop-list.component';
+import { SpuListComponent } from '../mall/components/spu-list/spu-list.component';
 
 
 const COMPONENTS = [ShopListComponent]
@@ -10,7 +11,7 @@ const COMPONENTS = [ShopListComponent]
 const ENTRYCOMPONENTS = []
 
 @NgModule({
-  declarations: [...COMPONENTS, ...ENTRYCOMPONENTS],
+  declarations: [...COMPONENTS, ...ENTRYCOMPONENTS, SpuListComponent],
   imports: [
     CommonModule,
     MallRoutingModule

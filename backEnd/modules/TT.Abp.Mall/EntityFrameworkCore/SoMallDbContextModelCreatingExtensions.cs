@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops;
-using TT.Abp.VisitorManagement;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
@@ -17,7 +16,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             
             builder.Entity<MallShop>(b =>
             {
-                b.ToTable(MallConsts.DbTablePrefix + "VisitorShops", MallConsts.DbSchema);
+                b.ToTable(MallConsts.DbTablePrefix + "MallShops", MallConsts.DbSchema);
                 b.ConfigureExtraProperties();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(ShopConsts.MaxNameLength);
                 b.Property(x => x.ShortName).IsRequired().HasMaxLength(ShopConsts.MaxShortNameLength);

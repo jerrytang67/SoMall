@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Shouldly;
+using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Shops;
-using TT.Abp.VisitorManagement.Domain;
+using TT.Abp.Shops.Application.Dtos;
 using TT.SoMall;
 using Xunit;
-using IVisitorShopLookupService = TT.Abp.VisitorManagement.Domain.IVisitorShopLookupService;
 
 namespace TT.Abp.Modules.Tests.Samples
 {
@@ -19,10 +20,13 @@ namespace TT.Abp.Modules.Tests.Samples
         private readonly IMallShopLookupService _ShopLookupService;
         private readonly IMallShopRepository _ShopRepository;
 
+        private readonly IMallShopAppService _shopAppService;
+
         public MallModuleTests()
         {
             _ShopLookupService = GetRequiredService<IMallShopLookupService>();
             _ShopRepository = GetRequiredService<IMallShopRepository>();
+            _shopAppService = GetRequiredService<IMallShopAppService>();
         }
 
         [Fact]
@@ -45,10 +49,29 @@ namespace TT.Abp.Modules.Tests.Samples
 
             var result = await _ShopRepository.FindByShortNameAsync("TS");
 
+
             //Assert
             result.ShouldNotBe(null);
             result.Name.ShouldBe("TestShop");
             result.ShortName.ShouldBe("TS");
+        }
+
+        [Fact]
+        public async Task ShopSync_MUST_Copy_Default_Shop()
+        {
+            //Act
+            await WithUnitOfWorkAsync(async () =>
+            {
+                await _shopAppService.ShopSync(new ShopSyncRequestDto()
+                {
+                    ShopIds = new List<Guid>() {TestConsts.Shop1Id, TestConsts.Shop2Id}
+                });
+            });
+
+            var list = await _shopAppService.GetListAsync();
+
+            //Assert
+            list.Items.Count.ShouldBe(2);
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.Shops;
+using TT.Abp.Shops.Application.Dtos;
 using TT.Abp.Shops.Domain;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
@@ -153,7 +154,7 @@ namespace TT.Abp.VisitorManagement.Application
         public async Task AddShop(FormAddShopRequestDto input)
         {
             var find = await _vShopLookupService.FindByIdAsync(input.ShopIds[0]);
-            
+
             var form = await _repository
                 .Include(x => x.ShopForms)
                 .FirstOrDefaultAsync(x => x.Id == input.FromId);
@@ -174,10 +175,9 @@ namespace TT.Abp.VisitorManagement.Application
             await Task.CompletedTask;
         }
 
-        public class FormAddShopRequestDto
+        public class FormAddShopRequestDto : ShopSyncRequestDto
         {
             public Guid FromId { get; set; }
-            public List<Guid> ShopIds { get; set; }
         }
     }
 }

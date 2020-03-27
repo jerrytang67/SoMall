@@ -1,1 +1,83 @@
-<p>shop-list works!</p>
+<nz-page-header nzTitle="商户列表">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/visitor']">访客系统</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+
+
+
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button
+                (click)="addShop()"
+                nzType="primary">{{'add.shop' | translate}}</button>
+        <button nz-button
+                (click)="refresh()">{{'refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable
+              nzShowPagination
+              [nzData]="dataItems">
+        <thead>
+            <tr>
+                <!-- <th>Id</th> -->
+                <th>图标</th>
+                <th>cover</th>
+                <th>名称</th>
+                <th>简称</th>
+                <th>介绍</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <!-- <td>{{item.id}}</td> -->
+                <td>
+                    <nz-avatar nzShape="square"
+                               [nzSize]="64"
+                               nzSize="large"
+                               nzIcon="user"
+                               [nzSrc]="item.logoImage"></nz-avatar>
+                </td>
+                <td>
+                    <nz-avatar nzShape="square"
+                               [nzSize]="128"
+                               nzSize="large"
+                               nzIcon="user"
+                               [nzSrc]="item.coverImage"></nz-avatar>
+                </td>
+                <td>{{item.name}}</td>
+                <td>{{item.shortName}}</td>
+                <td>{{item.description}}</td>
+                <td>
+                    <a (click)="getQr(item)">{{'QR' | translate}}</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a [routerLink]="['/visitor/visitorlog', formId , item.id]">访客记录</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <a nz-popconfirm
+                       [nzPopconfirmTitle]="'确定删除吗?'"
+                       (nzOnConfirm)="delete(item)"
+                       nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
+
+<nz-modal [(nzVisible)]="isVisible"
+          [nzTitle]="qrTitle"
+          (nzOnCancel)="handleCancel()">
+    <div>
+        <img [src]="qrSrc"
+             *ngIf="qrSrc" />
+    </div>
+    <div *nzModalFooter>
+        <button nz-button
+                nzType="default"
+                (click)="handleCancel()">关闭</button>
+    </div>
+</nz-modal>

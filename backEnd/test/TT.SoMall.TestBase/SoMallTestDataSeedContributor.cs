@@ -31,6 +31,18 @@ namespace TT.SoMall
                         "null description"
                     )));
 
+            var shop2 = await _shopRepository.InsertAsync(
+                new Shop(
+                    new ShopData(
+                        TestConsts.Shop2Id,
+                        null,
+                        "TestShop2",
+                        "TS2",
+                        "logo2",
+                        "cover2",
+                        "null description2"
+                    )));
+
             // return Task.CompletedTask;
         }
     }

@@ -46,7 +46,7 @@
     "file-saver": "^2.0.2",
     "modernizr": "^3.9.1",
     "moment": "^2.24.0",
-    "ng-zorro-antd": "^9.0.0-beta.2",
+    "ng-zorro-antd": "^9.0.0-beta.3",
     "ngx-bootstrap": "^5.5.0",
     "ngx-tinymce": "^7.0.0",
     "ngx-toastr": "^12.0.0",
