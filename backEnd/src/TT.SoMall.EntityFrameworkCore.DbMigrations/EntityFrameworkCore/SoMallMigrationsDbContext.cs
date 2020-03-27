@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.MallManagement.EntityFrameworkCore;
+﻿using EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TT.Abp.Shops.EntityFrameworkCore;
 using TT.Abp.VisitorManagement.EntityFrameworkCore;
 using TT.Abp.WeixinManagement.EntityFrameworkCore;

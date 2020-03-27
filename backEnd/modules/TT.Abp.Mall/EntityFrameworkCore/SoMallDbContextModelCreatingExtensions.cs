@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.MallManagement.Domain.Products;
+using TT.Abp.Mall.Domain.Products;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
-namespace TT.Abp.MallManagement.EntityFrameworkCore
+namespace EntityFrameworkCore
 {
     public static class SoMallDbContextModelCreatingExtensions
     {

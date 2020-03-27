@@ -19,7 +19,7 @@ namespace TT.SoMall.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TT.Abp.MallManagement.Domain.Products.ProductCategory", b =>
+            modelBuilder.Entity("TT.Abp.Mall.Domain.Products.ProductCategory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,7 +78,7 @@ namespace TT.SoMall.Migrations
                     b.ToTable("Mall_ProductCategory");
                 });
 
-            modelBuilder.Entity("TT.Abp.MallManagement.Domain.Products.ProductSku", b =>
+            modelBuilder.Entity("TT.Abp.Mall.Domain.Products.ProductSku", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace TT.SoMall.Migrations
                     b.ToTable("Mall_ProductSku");
                 });
 
-            modelBuilder.Entity("TT.Abp.MallManagement.Domain.Products.ProductSpu", b =>
+            modelBuilder.Entity("TT.Abp.Mall.Domain.Products.ProductSpu", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -608,7 +608,7 @@ namespace TT.SoMall.Migrations
                     b.ToTable("Visitor_VisitorShops");
                 });
 
-            modelBuilder.Entity("TT.Abp.WeixinManagement.Domain.WechatUserinfo", b =>
+            modelBuilder.Entity("TT.Abp.Weixin.Domain.WechatUserinfo", b =>
                 {
                     b.Property<string>("openid")
                         .HasColumnType("nvarchar(32)")
@@ -2189,18 +2189,18 @@ namespace TT.SoMall.Migrations
                     b.ToTable("AbpTenantConnectionStrings");
                 });
 
-            modelBuilder.Entity("TT.Abp.MallManagement.Domain.Products.ProductSku", b =>
+            modelBuilder.Entity("TT.Abp.Mall.Domain.Products.ProductSku", b =>
                 {
-                    b.HasOne("TT.Abp.MallManagement.Domain.Products.ProductSpu", "Spu")
+                    b.HasOne("TT.Abp.Mall.Domain.Products.ProductSpu", "Spu")
                         .WithMany()
                         .HasForeignKey("SpuId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TT.Abp.MallManagement.Domain.Products.ProductSpu", b =>
+            modelBuilder.Entity("TT.Abp.Mall.Domain.Products.ProductSpu", b =>
                 {
-                    b.HasOne("TT.Abp.MallManagement.Domain.Products.ProductCategory", "Category")
+                    b.HasOne("TT.Abp.Mall.Domain.Products.ProductCategory", "Category")
                         .WithMany("SpuList")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)

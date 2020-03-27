@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using TT.Abp.Mall.Domain.Products;
 using TT.Abp.MallManagement.Application.Products.Dtos;
-using TT.Abp.MallManagement.Domain.Products;
 
 namespace TT.Abp.MallManagement
 {

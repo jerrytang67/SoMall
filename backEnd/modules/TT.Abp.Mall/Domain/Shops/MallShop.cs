@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using TT.Abp.Shops;
+using TT.Abp.Shops.Domain;
 using Volo.Abp.Domain.Entities;
 
-namespace TT.Abp.MallManagement.Domain.Shops
+namespace TT.Abp.Mall.Domain.Shops
 {
-    public class MallShop : AggregateRoot<Guid>, IShop
+    public class MallShop : AggregateRoot<Guid>, IShop, IUpdateShopData
     {
         public MallShop()
         {
+            ExtraProperties = new Dictionary<string, object>();
         }
 
-        public MallShop(IShop shop) : base(shop.Id)
+        public MallShop(IShopData shop) : base(shop.Id)
         {
             TenantId = shop.TenantId;
             UpdateInternal(shop);
@@ -23,11 +25,10 @@ namespace TT.Abp.MallManagement.Domain.Shops
         public string LogoImage { get; set; }
         public string CoverImage { get; set; }
         public string Description { get; set; }
-
         public Guid? TenantId { get; }
 
 
-        public virtual bool Update(IShop shop)
+        public virtual bool Update(IShopData shop)
         {
             if (Id != shop.Id)
             {
@@ -49,21 +50,23 @@ namespace TT.Abp.MallManagement.Domain.Shops
             return true;
         }
 
-        protected virtual bool Equals(IShop shop)
+        protected virtual bool Equals(IShopData shop)
         {
             return Id == shop.Id &&
                    TenantId == shop.TenantId &&
                    Name == shop.Name &&
                    ShortName == shop.ShortName &&
                    LogoImage == shop.LogoImage &&
+                   CoverImage == shop.CoverImage &&
                    Description == shop.Description;
         }
 
-        private void UpdateInternal(IShop shop)
+        private void UpdateInternal(IShopData shop)
         {
             Name = shop.Name;
             ShortName = shop.ShortName;
             LogoImage = shop.LogoImage;
+            CoverImage = shop.CoverImage;
             Description = shop.Description;
         }
     }

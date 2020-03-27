@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.Domain.Products;
+using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using TT.Abp.MallManagement.Domain.Products;
-using TT.Abp.MallManagement.Domain.Shops;
 
-namespace TT.Abp.MallManagement.EntityFrameworkCore
+namespace EntityFrameworkCore
 {
-    [ConnectionStringName("MallManagement")]
-    public class MallManagementDbContext : AbpDbContext<MallManagementDbContext>, IMallManagementDbContext
+    [ConnectionStringName("Mall")]
+    public class MallDbContext : AbpDbContext<MallDbContext>, IMallDbContext
     {
         public DbSet<MallShop> MallShops { get; set; }
 
@@ -16,7 +17,7 @@ namespace TT.Abp.MallManagement.EntityFrameworkCore
         public DbSet<ProductCategory> ProductCategory { get; set; }
 
 
-        public MallManagementDbContext(DbContextOptions<MallManagementDbContext> options)
+        public MallDbContext(DbContextOptions<MallDbContext> options)
             : base(options)
         {
         }

@@ -381,7 +381,7 @@ namespace TT.SoMall.Migrations
                     b.ToTable("Visitor_VisitorLogs");
                 });
 
-            modelBuilder.Entity("TT.Abp.WeixinManagement.Domain.WechatUserinfo", b =>
+            modelBuilder.Entity("TT.Abp.Weixin.Domain.WechatUserinfo", b =>
                 {
                     b.Property<string>("openid")
                         .HasColumnType("nvarchar(32)")

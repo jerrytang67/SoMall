@@ -11,7 +11,7 @@
     <ProjectReference Include="..\..\modules\shop-management\src\TT.Abp.Shops.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.OssManagement\TT.Abp.OssManagement.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.VisitorManagement\TT.Abp.VisitorManagement.csproj" />
-    <ProjectReference Include="..\..\modules\TT.Abp.WeixinManagement\TT.Abp.WeixinManagement.csproj" />
+    <ProjectReference Include="..\..\modules\TT.Abp.Weixin\TT.Abp.Weixin.csproj" />
     <ProjectReference Include="..\TT.SoMall.Application.Contracts\TT.SoMall.Application.Contracts.csproj" />
   </ItemGroup>
 

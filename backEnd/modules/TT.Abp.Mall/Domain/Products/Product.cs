@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace TT.Abp.MallManagement.Domain.Products
+namespace TT.Abp.Mall.Domain.Products
 {
     public class ProductCategory : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {

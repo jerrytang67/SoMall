@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <OutputType>Library</OutputType>
+        <AssemblyName>TT.Abp.Mall</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

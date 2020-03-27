@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.MallManagement.Domain.Products;
+using TT.Abp.Mall.Domain.Products;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace TT.Abp.MallManagement.EntityFrameworkCore
+namespace TT.Abp.Mall.EntityFrameworkCore
 {
-    [ConnectionStringName("MallManagement")]
-    public interface IMallManagementDbContext : IEfCoreDbContext
+    [ConnectionStringName("Mall")]
+    public interface IMallDbContext : IEfCoreDbContext
     {
         DbSet<ProductSpu> ProductSpu { get; set; }
         DbSet<ProductSku> ProductSku { get; set; }
