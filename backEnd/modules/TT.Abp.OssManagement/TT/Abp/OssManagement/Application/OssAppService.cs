@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using TT.Abp.Shops.Application;
 using TT.Core.Extensions;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Settings;
 
@@ -28,9 +29,15 @@ namespace TT.Abp.OssManagement.Application
         public async Task<object> GetSignature(string data)
         {
             var password = await _setting.GetOrNullAsync(OssManagementSettings.AccessKey);
+
+            if (password.IsNullOrEmptyOrWhiteSpace())
+            {
+                throw new UserFriendlyException("Oss AccessKey is Empty");
+            }
+
             var hmac = new HMACSHA1(Encoding.UTF8.GetBytes(password.GetMd5()));
             var hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(data));
-            return await Task.FromResult(new { signature = Convert.ToBase64String(hashBytes) });
+            return await Task.FromResult(new {signature = Convert.ToBase64String(hashBytes)});
         }
 
         public async Task<object> Test()
