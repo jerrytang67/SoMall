@@ -1,0 +1,39 @@
+<nz-page-header nzTitle="商品分类">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/visitor']">商城</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button (click)="add()" nzType="primary">{{'add.category' | translate}}</button>
+        <button nz-button (click)="refresh()">{{'refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable nzShowPagination [nzData]="dataItems">
+        <thead>
+            <tr>
+                <!-- <th>Id</th> -->
+                <th>Name</th>
+                <th>Code</th>
+                <th>ShopId</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <!-- <td>{{item.id}}</td> -->
+                <td>{{item.name}}</td>
+                <td>{{item.code}}</td>
+                <td>{{item.shopId}}</td>
+                <td>
+                    <a nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)" nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>
