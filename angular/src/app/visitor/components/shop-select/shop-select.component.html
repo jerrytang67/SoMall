@@ -1,7 +1,4 @@
-<nz-table #middleTable
-          nzSize="middle"
-          nzShowSizeChanger
-          [nzData]="dataItems">
+<nz-table #middleTable nzSize="middle" nzShowSizeChanger [nzData]="dataItems">
     <thead>
         <tr>
             <th></th>
@@ -10,9 +7,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let item of middleTable.data">
-            <td nzShowCheckbox
-                [(nzChecked)]="mapOfCheckedId[item.id]"
-                (nzCheckedChange)="checked(item,$event)"></td>
+            <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[item.id]" (nzCheckedChange)="checked(item,$event)"></td>
             <td>{{ item.name }}</td>
         </tr>
     </tbody>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShopProxyService, VisitorShopDto } from 'src/api/appService';
+import { ShopProxyService, VisitorShopDto, ShopDto } from 'src/api/appService';
 
 @Component({
   selector: 'app-shop-select',
@@ -9,8 +9,8 @@ export class ShopSelectComponent implements OnInit {
 
   constructor(private api: ShopProxyService) { }
 
-  dataItems: VisitorShopDto[] = [];
-  checkedList: VisitorShopDto[] = [];
+  dataItems: ShopDto[] = [];
+  checkedList: ShopDto[] = [];
   pageingInfo = {
     totalItems: 0,
     pageNumber: 1,
@@ -38,7 +38,7 @@ export class ShopSelectComponent implements OnInit {
   }
 
   isIndeterminate = false;
-  listOfDisplayData: VisitorShopDto[] = [];
+  listOfDisplayData: ShopDto[] = [];
 
   mapOfCheckedId: { [key: string]: boolean } = {};
 

@@ -256,7 +256,7 @@ export class FormProxyService {
    *
    */
   getList(): Observable<FormDtoListResultDto> {
-    let url = '/api/app/form/getList';
+    let url = '/api/Visitor/form/getList';
     let options: any = {
       method: 'get'
     };
@@ -271,7 +271,7 @@ export class FormProxyService {
       id?: string;
     } = {} as any
   ): Observable<FormDto> {
-    let url = '/api/app/form/get';
+    let url = '/api/Visitor/form/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -288,7 +288,7 @@ export class FormProxyService {
       body?: FormCreateOrEditDto;
     } = {} as any
   ): Observable<FormDto> {
-    let url = '/api/app/form/create';
+    let url = '/api/Visitor/form/create';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -306,7 +306,7 @@ export class FormProxyService {
       body?: FormCreateOrEditDto;
     } = {} as any
   ): Observable<FormDto> {
-    let url = '/api/app/form/update';
+    let url = '/api/Visitor/form/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -323,7 +323,7 @@ export class FormProxyService {
       id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/form/delete';
+    let url = '/api/Visitor/form/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -339,7 +339,7 @@ export class FormProxyService {
       id?: string;
     } = {} as any
   ): Observable<VisitorShopDto[]> {
-    let url = '/api/app/form/getShops';
+    let url = '/api/Visitor/form/getShops';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -356,7 +356,7 @@ export class FormProxyService {
       id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/form/getShopForm';
+    let url = '/api/Visitor/form/getShopForm';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -373,7 +373,7 @@ export class FormProxyService {
       body?: FormAddShopRequestDto;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/form/addShop';
+    let url = '/api/Visitor/form/addShop';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -1420,7 +1420,7 @@ export class VisitorLogProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<VisitorLogDtoPagedResultDto> {
-    let url = '/api/app/visitorLog/getList';
+    let url = '/api/Visitor/visitorLog/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1437,7 +1437,7 @@ export class VisitorLogProxyService {
       id?: string;
     } = {} as any
   ): Observable<VisitorLogDto> {
-    let url = '/api/app/visitorLog/get';
+    let url = '/api/Visitor/visitorLog/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1454,7 +1454,7 @@ export class VisitorLogProxyService {
       id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/visitorLog/delete';
+    let url = '/api/Visitor/visitorLog/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -1470,7 +1470,7 @@ export class VisitorLogProxyService {
       body?: VisitorFormSumbitRequest;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/visitorLog/formSubmit';
+    let url = '/api/Visitor/visitorLog/formSubmit';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -1486,7 +1486,7 @@ export class VisitorLogProxyService {
       body?: VisitorLogDto;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/visitorLog/leave';
+    let url = '/api/Visitor/visitorLog/leave';
     let options: any = {
       body: params.body,
       method: 'post'

@@ -20,7 +20,7 @@ namespace TT.Abp.VisitorManagement
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
-            
+
             context.Services.AddAbpDbContext<VisitorManagementDbContext>(options => { options.AddDefaultRepositories(); });
 
             context.Services.AddAutoMapperObjectMapper<VisitorManagementModule>();
@@ -30,7 +30,7 @@ namespace TT.Abp.VisitorManagement
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;
-                options.ConventionalControllers.Create(typeof(VisitorManagementModule).Assembly);
+                options.ConventionalControllers.Create(typeof(VisitorManagementModule).Assembly, opt => { opt.RootPath = "Visitor"; });
             });
 
             //创建动态客户端代理
