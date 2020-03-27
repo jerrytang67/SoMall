@@ -2,7 +2,7 @@
 
 namespace TT.Abp.Mall.Domain.Shops
 {
-    public interface IVisitorShopLookupService : IShopLookupService<MallShop>
+    public interface IMallShopLookupService : IShopLookupService<MallShop>
     {
     }
 }

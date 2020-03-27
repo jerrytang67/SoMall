@@ -5,7 +5,7 @@ using Volo.Abp.Uow;
 namespace TT.Abp.Mall.Domain.Shops
 {
     public class MallShopLookupService : ShopLookupService<MallShop, IMallShopRepository>,
-        IVisitorShopLookupService
+        IMallShopLookupService
     {
         public MallShopLookupService(
             IExternalShopLookupServiceProvider externalShopLookupServiceProvider,

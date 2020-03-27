@@ -29,12 +29,4 @@ namespace EntityFrameworkCore
             builder.ConfigureMall();
         }
     }
-
-
-    public static class MallConsts
-    {
-        public const string DbTablePrefix = "Mall_";
-
-        public const string DbSchema = null;
-    }
 }

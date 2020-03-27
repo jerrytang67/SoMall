@@ -33,6 +33,7 @@ const routes: Routes = [
   { path: 'identity', loadChildren: () => import('../identity/identity.module').then(m => m.IdentityModule) },
 
   { path: 'shop-management', loadChildren: () => import(/* webpackChunkName: "ShopManagementModule" */ '../shop-management/shop-management.module').then(m => m.ShopManagementModule), data: { breadcrumb: "商家管理" } },
+  { path: 'mall', loadChildren: () => import(/* webpackChunkName: "MallModule" */ '../mall/mall.module').then(m => m.MallModule), data: { breadcrumb: "商城系统" } },
 
   { path: 'visitor', loadChildren: () => import(/* webpackChunkName: "VisitorModule" */ '../visitor/visitor.module').then(m => m.VisitorModule), data: { breadcrumb: "访客管理系统" } },
   {

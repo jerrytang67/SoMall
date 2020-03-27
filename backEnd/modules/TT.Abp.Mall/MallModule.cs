@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.Shops;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
@@ -16,7 +17,7 @@ namespace TT.Abp.Mall
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
+            context.Services.AddAbpDbContext<MallDbContext>(options => { options.AddDefaultRepositories(); });
 
             context.Services.AddAutoMapperObjectMapper<MallModule>();
 
@@ -25,8 +26,11 @@ namespace TT.Abp.Mall
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;
-                options.ConventionalControllers.Create(typeof(MallModule).Assembly);
+                options.ConventionalControllers.Create(typeof(MallModule).Assembly
+                    , opts => { opts.RootPath = "mall"; });
             });
+
+            context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
         }
     }
 }

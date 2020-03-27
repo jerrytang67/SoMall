@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Shouldly;
 using TT.Abp.VisitorManagement.Domain;
 using TT.SoMall;
-using Volo.Abp.Identity;
 using Xunit;
 
 namespace TT.Abp.Modules.Tests.Samples
@@ -13,12 +12,12 @@ namespace TT.Abp.Modules.Tests.Samples
      * (like IIdentityUserAppService here).
      * Only test your own application services.
      */
-    public class SampleAppServiceTests : SoMallModulesTestBase
+    public class VisitorModuleTests : SoMallModulesTestBase
     {
         private readonly IVisitorShopLookupService _visitorShopLookupService;
         private readonly IVisitorShopRepository _visitorShopRepository;
 
-        public SampleAppServiceTests()
+        public VisitorModuleTests()
         {
             _visitorShopLookupService = GetRequiredService<IVisitorShopLookupService>();
             _visitorShopRepository = GetRequiredService<IVisitorShopRepository>();
