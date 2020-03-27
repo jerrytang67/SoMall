@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Shouldly;
 using TT.Abp.VisitorManagement.Domain;
+using TT.SoMall;
 using Volo.Abp.Identity;
 using Xunit;
 
@@ -15,22 +16,38 @@ namespace TT.Abp.Modules.Tests.Samples
     public class SampleAppServiceTests : SoMallModulesTestBase
     {
         private readonly IVisitorShopLookupService _visitorShopLookupService;
+        private readonly IVisitorShopRepository _visitorShopRepository;
 
         public SampleAppServiceTests()
         {
             _visitorShopLookupService = GetRequiredService<IVisitorShopLookupService>();
+            _visitorShopRepository = GetRequiredService<IVisitorShopRepository>();
         }
 
         [Fact]
-        public async Task Initial_Data_Should_Contain_Admin_User()
+        public async Task VisitorShopLookupService_MUST_Copy_Default_Shop()
         {
             //Act
-            var result = await _visitorShopLookupService.FindByIdAsync(Guid.NewGuid());
+            var result = await _visitorShopLookupService.FindByIdAsync(TestConsts.Shop1Id);
 
-            result.ShouldBeNull();
             //Assert
-            // result.TotalCount.ShouldBeGreaterThan(0);
-            // result.Items.ShouldContain(u => u.UserName == "admin");
+            result.ShouldNotBe(null);
+            result.Name.ShouldBe("TestShop");
+            result.ShortName.ShouldBe("TS");
+        }
+
+        [Fact]
+        public async Task VisitorShopLookupService_MUST_Copy_Default_Shop_FindBy_ShortName()
+        {
+            //Act
+            await _visitorShopLookupService.FindByIdAsync(TestConsts.Shop1Id);
+
+            var result = await _visitorShopRepository.FindByShortNameAsync("TS");
+
+            //Assert
+            result.ShouldNotBe(null);
+            result.Name.ShouldBe("TestShop");
+            result.ShortName.ShouldBe("TS");
         }
     }
 }

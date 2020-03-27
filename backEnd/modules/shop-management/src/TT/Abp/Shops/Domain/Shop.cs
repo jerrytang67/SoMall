@@ -24,6 +24,20 @@ namespace TT.Abp.Shops.Domain
             ExtraProperties = new Dictionary<string, object>();
         }
 
+
+        public Shop(ShopData shopData)
+        {
+            Id = shopData.Id;
+            Name = shopData.Name;
+            ShortName = shopData.ShortName;
+            LogoImage = shopData.ShortName;
+            CoverImage = shopData.CoverImage;
+            Description = shopData.Description;
+            TenantId = shopData.TenantId;
+            ExtraProperties = new Dictionary<string, object>();
+        }
+
+
         [NotNull] public string Name { get; internal set; }
 
         [NotNull] public string ShortName { get; internal set; }

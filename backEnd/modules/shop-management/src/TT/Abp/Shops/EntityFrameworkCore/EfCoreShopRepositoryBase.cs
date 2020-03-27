@@ -18,14 +18,14 @@ namespace TT.Abp.Shops.EntityFrameworkCore
         {
         }
 
-        public Task<TShop> FindByShortNameAsync(string shortName, CancellationToken cancellationToken = default)
+        public async Task<TShop> FindByShortNameAsync(string shortName, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await DbSet.FirstOrDefaultAsync(x => x.ShortName == shortName, cancellationToken);
         }
 
-        public Task<List<TShop>> GetListAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
+        public async Task<List<TShop>> GetListAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await DbSet.Where(x => ids.Contains(x.Id)).ToListAsync(cancellationToken);
         }
     }
 }
