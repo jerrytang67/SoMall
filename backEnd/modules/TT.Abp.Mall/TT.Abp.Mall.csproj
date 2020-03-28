@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\shop-management\src\TT.Abp.Shops.csproj" />
+      <ProjectReference Include="..\TT.Core\TT.Core.csproj" />
     </ItemGroup>
 
 </Project>

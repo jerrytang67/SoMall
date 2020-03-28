@@ -29,17 +29,21 @@ export class SpuCreateComponent implements OnInit {
     private router: Router,
   ) { }
 
+  guid = '00000000-0000-0000-0000-000000000000';
+
+  optionList: any[]
   ngOnInit(): void {
+
     this.route.paramMap.subscribe((params: any) => {
       console.log(params)
-      this.categoryId = params.params.categoryId
 
-      this.form = {
-        name: "",
-        code: "",
-        categoryId: this.categoryId,
-        desc: ""
-      }
+      this.api.getForEdit({ id: this.guid }).subscribe(
+        res => {
+          this.form = res.data;
+          this.optionList = res.schema.categoryId;
+          this.form.categoryId = params.params.categoryId;
+        }
+      )
     });
   }
 

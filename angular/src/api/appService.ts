@@ -726,6 +726,23 @@ export class ProductSpuProxyService {
   /**
    *
    */
+  getForEdit(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<SpuCreateOrUpdateDtoGetForEditOutput> {
+    let url = '/api/mall/productSpu/getForEdit';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<SpuCreateOrUpdateDtoGetForEditOutput>;
+  }
+  /**
+   *
+   */
   get(
     params: {
       /**  */
@@ -2404,6 +2421,14 @@ export interface SpuCreateOrUpdateDto {
 
   /**  */
   desc?: string;
+}
+
+export interface SpuCreateOrUpdateDtoGetForEditOutput {
+  /**  */
+  data?: SpuCreateOrUpdateDto;
+
+  /**  */
+  schema?: any | null;
 }
 
 export interface ProductSpuDtoPagedResultDto {
