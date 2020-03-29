@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Shops;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Application.Products.Dtos
 {

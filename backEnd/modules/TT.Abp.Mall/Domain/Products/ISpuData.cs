@@ -1,5 +1,7 @@
 ﻿using System;
 using JetBrains.Annotations;
+using TT.Abp.Shops;
+using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Domain.Products
 {
@@ -9,37 +11,32 @@ namespace TT.Abp.Mall.Domain.Products
         /// 商品名称
         /// </summary>
         [NotNull]
-        string Name { get; set; }
+        string Name { get; }
 
         /// <summary>
         /// 商品编码
         /// </summary>
         [NotNull]
-        string Code { get; set; }
+        string Code { get; }
 
         /// <summary>
         /// 开售时间
         /// </summary>
-        DateTimeOffset? DateTimeStart { get; set; }
+        DateTimeOffset? DateTimeStart { get; }
 
         /// <summary>
         /// 结束售卖时间
         /// </summary>
-        DateTimeOffset? DateTimeEnd { get; set; }
-
-        /// <summary>
-        /// 库存
-        /// </summary>
-        int? StockCount { get; set; }
+        DateTimeOffset? DateTimeEnd { get; }
 
         /// <summary>
         /// 总售出
         /// </summary>
-        int SoldCount { get; set; }
+        int SoldCount { get; }
 
         /// <summary>
         /// 限购
         /// </summary>
-        int? LimitBuyCount { get; set; }
+        int? LimitBuyCount { get; }
     }
 }

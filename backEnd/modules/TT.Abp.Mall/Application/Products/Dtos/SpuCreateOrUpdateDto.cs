@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TT.Abp.Shops;
 
 namespace TT.Abp.Mall.Application.Products.Dtos
 {
@@ -7,9 +9,13 @@ namespace TT.Abp.Mall.Application.Products.Dtos
     {
         public Guid CategoryId { get; set; }
 
-        [Required] [StringLength(64)] public string Name { get; set; }
+        [Required]
+        [StringLength(MallConsts.MaxNameLength)]
+        public string Name { get; set; }
 
-        [Required] [StringLength(32)] public string Code { get; set; }
+        [Required]
+        [StringLength(MallConsts.MaxCodeLength)]
+        public string Code { get; set; }
 
         /// <summary>
         /// 商品详情
@@ -45,5 +51,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         /// 限购
         /// </summary>
         public int? LimitBuyCount { get; set; }
+
+        public List<SkuCreateOrUpdateDto> Skus { get; set; } = new List<SkuCreateOrUpdateDto>();
     }
 }

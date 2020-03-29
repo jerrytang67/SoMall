@@ -18,18 +18,19 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             {
                 b.ToTable(MallConsts.DbTablePrefix + "MallShops", MallConsts.DbSchema);
                 b.ConfigureExtraProperties();
-                b.Property(x => x.Name).IsRequired().HasMaxLength(ShopConsts.MaxNameLength);
-                b.Property(x => x.ShortName).IsRequired().HasMaxLength(ShopConsts.MaxShortNameLength);
-                b.Property(x => x.LogoImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
-                b.Property(x => x.CoverImage).IsRequired().HasMaxLength(ShopConsts.MaxImageLength);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.ShortName).IsRequired().HasMaxLength(MallConsts.MaxShortNameLength);
+                b.Property(x => x.LogoImage).IsRequired().HasMaxLength(MallConsts.MaxImageLength);
+                b.Property(x => x.CoverImage).IsRequired().HasMaxLength(MallConsts.MaxImageLength);
             });
 
             builder.Entity<ProductCategory>(b =>
             {
                 b.ToTable(MallConsts.DbTablePrefix + "ProductCategory", MallConsts.DbSchema);
                 b.ConfigureFullAuditedAggregateRoot();
-                b.Property(x => x.Name).IsRequired().HasMaxLength(64);
-                b.Property(x => x.Code).HasMaxLength(32);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.Code).HasMaxLength(MallConsts.MaxCodeLength);
+                b.Property(x => x.LogoImageUrl).HasMaxLength(MallConsts.MaxImageLength);
 
                 b.HasMany(x => x.SpuList).WithOne(x => x.Category);
             });
@@ -38,9 +39,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             {
                 b.ToTable(MallConsts.DbTablePrefix + "ProductSpu", MallConsts.DbSchema);
                 b.ConfigureFullAuditedAggregateRoot();
-                b.Property(x => x.Name).IsRequired().HasMaxLength(64);
-                b.Property(x => x.Code).IsRequired().HasMaxLength(32);
-                b.Property(x => x.StockCount).HasDefaultValue(null);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.Code).IsRequired().HasMaxLength(MallConsts.MaxCodeLength);
                 b.Property(x => x.SoldCount).HasDefaultValue(0);
                 b.Property(x => x.LimitBuyCount).HasDefaultValue(null);
 
@@ -57,8 +57,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             {
                 b.ToTable(MallConsts.DbTablePrefix + "ProductSku", MallConsts.DbSchema);
                 b.ConfigureFullAuditedAggregateRoot();
-                b.Property(x => x.Name).IsRequired().HasMaxLength(64);
-                b.Property(x => x.Code).HasMaxLength(32);
+                b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.Code).HasMaxLength(MallConsts.MaxCodeLength);
 
                 // Many-To-One
                 b.HasOne(x => x.Spu).WithMany(x => x.Skus).HasForeignKey(qt => qt.SpuId);

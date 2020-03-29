@@ -13,7 +13,7 @@ namespace TT.Abp.Mall.Domain.Products
         {
         }
 
-        public ProductCategory(string name, string code, Guid? shopId, Guid? tenantId)
+        public ProductCategory(string name, string code, Guid? shopId = null, Guid? tenantId = null)
         {
             Name = name;
             Code = code;
@@ -21,11 +21,12 @@ namespace TT.Abp.Mall.Domain.Products
             TenantId = tenantId;
         }
 
-        public virtual string Name { get; set; }
-        public virtual string Code { get; set; }
+        public virtual string Name { get; protected set; }
+        public virtual string Code { get; protected set; }
 
+        public virtual string LogoImageUrl { get; set; }
         public virtual ICollection<ProductSpu> SpuList { get; set; }
-        public virtual Guid? TenantId { get; internal set; }
-        public Guid? ShopId { get; internal set; }
+        public virtual Guid? TenantId { get; protected set; }
+        public virtual Guid? ShopId { get; protected set; }
     }
 }
