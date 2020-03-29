@@ -25,8 +25,10 @@ namespace TT.Abp.Mall
 
 
             CreateMap<CategoryCreateOrUpdateDto, ProductCategory>();
-            CreateMap<SpuCreateOrUpdateDto, ProductSpu>();
-            CreateMap<SkuCreateOrUpdateDto, ProductSku>();
+            CreateMap<SpuCreateOrUpdateDto, ProductSpu>()
+                .ReverseMap();
+            CreateMap<SkuCreateOrUpdateDto, ProductSku>()
+                .ReverseMap();
 
             #endregion
         }

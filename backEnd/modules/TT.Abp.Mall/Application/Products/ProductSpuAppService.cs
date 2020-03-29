@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using TT.Abp.Mall.Application.Products.Dtos;
@@ -57,16 +58,16 @@ namespace TT.Abp.Mall.Application.Products
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        public async Task<GetForEditOutput<SpuCreateOrUpdateDto>> GetForEdit(EntityDto<Guid> input)
+        public async Task<GetForEditOutput<SpuCreateOrUpdateDto>> GetForEdit(Guid id)
         {
-            var find = await Repository.FirstOrDefaultAsync(z => z.Id == input.Id);
+            var find = await Repository.FirstOrDefaultAsync(z => z.Id == id);
 
             var schema = JToken.FromObject(new { });
 
             var categoryList = await _categoryRepository.GetListAsync();
-            schema["categoryId"] = categoryList.GetSelection("number", "categoryId", @"{0}", new[] {"Name"}, "Id");
+            schema["categoryId"] = categoryList.GetSelection("string", "categoryId", @"{0}", new[] {"Name"}, "Id");
 
-            return new GetForEditOutput<SpuCreateOrUpdateDto>(ObjectMapper.Map<ProductSpu, SpuCreateOrUpdateDto>(find), schema);
+            return new GetForEditOutput<SpuCreateOrUpdateDto>(ObjectMapper.Map<ProductSpu, SpuCreateOrUpdateDto>(find ?? new ProductSpu()), schema);
         }
 
 

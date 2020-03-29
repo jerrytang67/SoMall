@@ -12,7 +12,12 @@ export class SpuCreateComponent implements OnInit {
 
   categoryId: string;
 
-  form: SpuCreateOrUpdateDto;
+  form: SpuCreateOrUpdateDto = {
+    name: "",
+    code: "",
+    categoryId: "",
+    desc: ""
+  };
 
   public Editor = DecoupledEditor;
 
@@ -36,12 +41,11 @@ export class SpuCreateComponent implements OnInit {
 
     this.route.paramMap.subscribe((params: any) => {
       console.log(params)
-
       this.api.getForEdit({ id: this.guid }).subscribe(
         res => {
           this.form = res.data;
           this.optionList = res.schema.categoryId;
-          this.form.categoryId = params.params.categoryId;
+          this.form = Object.assign({}, this.form, { categoryId: params.params.categoryId });
         }
       )
     });

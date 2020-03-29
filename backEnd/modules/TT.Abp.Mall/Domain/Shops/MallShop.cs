@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TT.Abp.Shops;
 using TT.Abp.Shops.Domain;
 using Volo.Abp.Domain.Entities;
@@ -27,6 +28,20 @@ namespace TT.Abp.Mall.Domain.Shops
         public string Description { get; private set; }
         public Guid? TenantId { get; internal set; }
 
+        /// <summary>
+        /// 营业时间
+        /// </summary>
+        public string BussinessHours { get; set; }
+
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public string Address { get; set; }
+
+        public double? Lat { get; set; }
+        public double? Lng { get; set; }
+
+      
 
         public virtual bool Update(IShopData shop)
         {

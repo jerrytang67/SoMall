@@ -14,7 +14,7 @@ namespace TT.Abp.Mall.Application.Products
         SpuCreateOrUpdateDto,
         SpuCreateOrUpdateDto>
     {
-        Task<GetForEditOutput<SpuCreateOrUpdateDto>> GetForEdit(EntityDto<Guid> input);
+        Task<GetForEditOutput<SpuCreateOrUpdateDto>> GetForEdit(Guid id);
     }
 
     public class GetForEditOutput<T> : IHaveSchema

@@ -51,7 +51,9 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
                 b.Property(x => x.Description).HasMaxLength(VisitorConsts.MaxDescriptionLength);
                 b.Property(x => x.Theme).HasDefaultValue(VisitorEnums.FormTheme.red);
 
-                b.HasMany<FormItem>().WithOne().HasForeignKey(qt => qt.FormId);
+                b.HasMany<FormItem>().WithOne(x => x.Form)
+                    // .HasForeignKey(qt => qt.FormId)
+                    ;
             });
 
             builder.Entity<FormItem>(b =>
