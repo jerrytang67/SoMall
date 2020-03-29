@@ -232,7 +232,7 @@ namespace TT.SoMall.Migrations
                         .HasColumnName("DeletionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DescCommom")
+                    b.Property<string>("DescCommon")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ExtraProperties")
@@ -263,7 +263,7 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<string>("PurchaseNotesCommom")
+                    b.Property<string>("PurchaseNotesCommon")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ShopId")

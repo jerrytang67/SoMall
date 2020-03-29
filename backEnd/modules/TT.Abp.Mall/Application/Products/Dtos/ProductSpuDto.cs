@@ -20,6 +20,9 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public int? LimitBuyCount { get; set; }
     }
 
+    /// <summary>
+    /// <see cref="ProductSpu"/>
+    /// </summary>
     public class ProductSpuDto : AuditedEntityDto<Guid>, ISpuData
     {
         public ProductCategoryDto Category { get; set; }

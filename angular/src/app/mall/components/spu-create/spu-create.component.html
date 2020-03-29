@@ -21,8 +21,12 @@
     <se label="商品编码" error="请填写">
         <input type="text" nz-input [(ngModel)]="form.code" name="code" required>
     </se>
+    <se label="购买须知">
+        <ckeditor [editor]="Editor2" (ready)="onReady($event)" [(ngModel)]="form.purchaseNotesCommon" name="purchaseNotesCommon">
+        </ckeditor>
+    </se>
     <se label="介绍" error="请填写">
-        <ckeditor #edit [editor]="Editor" (ready)="onReady($event)" [(ngModel)]="form.desc" name="desc">
+        <ckeditor [editor]="Editor" (ready)="onReady($event)" [(ngModel)]="form.descCommon" name="descCommon">
         </ckeditor>
     </se>
     <se>

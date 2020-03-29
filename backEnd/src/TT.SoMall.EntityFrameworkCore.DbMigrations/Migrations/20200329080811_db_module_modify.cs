@@ -36,7 +36,7 @@ namespace TT.SoMall.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "DescCommom",
+                name: "DescCommon",
                 table: "Mall_ProductSpu",
                 nullable: true);
 
@@ -46,7 +46,7 @@ namespace TT.SoMall.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "PurchaseNotesCommom",
+                name: "PurchaseNotesCommon",
                 table: "Mall_ProductSpu",
                 nullable: true);
 
@@ -157,7 +157,7 @@ namespace TT.SoMall.Migrations
                 table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                name: "DescCommom",
+                name: "DescCommon",
                 table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
@@ -165,7 +165,7 @@ namespace TT.SoMall.Migrations
                 table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                name: "PurchaseNotesCommom",
+                name: "PurchaseNotesCommon",
                 table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(

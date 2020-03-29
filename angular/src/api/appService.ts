@@ -2287,12 +2287,88 @@ export interface UpdatePermissionsDto {
   permissions?: UpdatePermissionDto[];
 }
 
+export interface ShopDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  logoImage?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+
+  /**  */
+  isDeleted?: boolean;
+
+  /**  */
+  deleterId?: string;
+
+  /**  */
+  deletionTime?: Date;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ProductSpuDtoBase {
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
+}
+
 export interface ProductCategoryDto {
   /**  */
   name?: string;
 
   /**  */
   code?: string;
+
+  /**  */
+  logoImageUrl?: string;
+
+  /**  */
+  shop?: ShopDto;
+
+  /**  */
+  spus?: ProductSpuDtoBase[];
+
+  /**  */
+  totalCount?: number;
 
   /**  */
   lastModificationTime?: Date;
@@ -2324,9 +2400,65 @@ export interface CategoryCreateOrUpdateDto {
 
   /**  */
   code?: string;
+
+  /**  */
+  logoImageUrl?: string;
+
+  /**  */
+  shopId?: string;
+}
+
+export interface MallShop {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  logoImage?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  bussinessHours?: string;
+
+  /**  */
+  address?: string;
+
+  /**  */
+  lat?: number;
+
+  /**  */
+  lng?: number;
+
+  /**  */
+  extraProperties?: object;
+
+  /**  */
+  concurrencyStamp?: string;
+
+  /**  */
+  id?: string;
 }
 
 export interface ProductSpuDto {
+  /**  */
+  category?: ProductCategoryDto;
+
+  /**  */
+  shop?: MallShop;
+
+  /**  */
+  skus?: ProductSkuDto[];
+
   /**  */
   name?: string;
 
@@ -2334,10 +2466,25 @@ export interface ProductSpuDto {
   code?: string;
 
   /**  */
-  desc?: string;
+  descCommon?: string;
 
   /**  */
-  category?: ProductCategoryDto;
+  purchaseNotesCommon?: string;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
 
   /**  */
   lastModificationTime?: Date;
@@ -2367,6 +2514,36 @@ export interface ProductSkuDto {
 
   /**  */
   price?: number;
+
+  /**  */
+  desc?: string;
+
+  /**  */
+  purchaseNotes?: string;
+
+  /**  */
+  originPrice?: number;
+
+  /**  */
+  vipPrice?: number;
+
+  /**  */
+  coverImageUrls?: string[];
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
 
   /**  */
   spu?: ProductSpuDto;
@@ -2407,6 +2584,15 @@ export interface SkuCreateOrUpdateDto {
 
   /**  */
   price?: number;
+
+  /**  */
+  originPrice?: number;
+
+  /**  */
+  vipPrice?: number;
+
+  /**  */
+  coverImageUrls?: string[];
 }
 
 export interface SpuCreateOrUpdateDto {
@@ -2420,7 +2606,28 @@ export interface SpuCreateOrUpdateDto {
   code?: string;
 
   /**  */
-  desc?: string;
+  descCommon?: string;
+
+  /**  */
+  purchaseNotesCommon?: string;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
+
+  /**  */
+  skus?: SkuCreateOrUpdateDto[];
 }
 
 export interface SpuCreateOrUpdateDtoGetForEditOutput {
@@ -2537,47 +2744,6 @@ export interface IdentityRoleUpdateDto {
 
   /**  */
   isPublic?: boolean;
-}
-
-export interface ShopDto {
-  /**  */
-  name?: string;
-
-  /**  */
-  shortName?: string;
-
-  /**  */
-  logoImage?: string;
-
-  /**  */
-  coverImage?: string;
-
-  /**  */
-  description?: string;
-
-  /**  */
-  isDeleted?: boolean;
-
-  /**  */
-  deleterId?: string;
-
-  /**  */
-  deletionTime?: Date;
-
-  /**  */
-  lastModificationTime?: Date;
-
-  /**  */
-  lastModifierId?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  id?: string;
 }
 
 export interface ShopDtoPagedResultDto {

@@ -18,10 +18,11 @@ namespace TT.Abp.Mall.Domain.Products
             CategoryId = categoryId;
             Name = name;
             Code = code;
-            DescCommom = desc;
+            DescCommon = desc;
             ShopId = shopId;
             TenantId = tenantId;
         }
+
         public virtual Guid CategoryId { get; internal set; }
         public virtual Guid? TenantId { get; internal set; }
         public virtual Guid? ShopId { get; internal set; }
@@ -35,12 +36,12 @@ namespace TT.Abp.Mall.Domain.Products
         /// <summary>
         /// 共用商品详情
         /// </summary>
-        public virtual string DescCommom { get; set; }
+        public virtual string DescCommon { get; set; }
 
         /// <summary>
         /// 共用购买须知
         /// </summary>
-        public virtual string PurchaseNotesCommom { get; set; }
+        public virtual string PurchaseNotesCommon { get; set; }
 
         /// <summary>
         /// 开售时间

@@ -16,12 +16,21 @@ export class SpuCreateComponent implements OnInit {
     name: "",
     code: "",
     categoryId: "",
-    desc: ""
+    purchaseNotesCommon: "",
+    descCommon: "",
   };
 
   public Editor = DecoupledEditor;
+  public Editor2 = DecoupledEditor;
 
   public onReady(editor) {
+    editor.ui.getEditableElement().parentElement.insertBefore(
+      editor.ui.view.toolbar.element,
+      editor.ui.getEditableElement()
+    );
+  }
+
+  public onReady2(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
       editor.ui.view.toolbar.element,
       editor.ui.getEditableElement()
