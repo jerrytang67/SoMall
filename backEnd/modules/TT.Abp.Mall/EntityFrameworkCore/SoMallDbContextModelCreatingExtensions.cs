@@ -1,5 +1,7 @@
-﻿using EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops;
@@ -59,6 +61,13 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.ConfigureFullAuditedAggregateRoot();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Code).HasMaxLength(MallConsts.MaxCodeLength);
+                
+                b.Property(x => x.CoverImageUrls).HasConversion(
+                    v => JsonConvert.SerializeObject(v,
+                        new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}),
+                    v => JsonConvert.DeserializeObject<List<string>>(v,
+                        new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}));
+
 
                 // Many-To-One
                 b.HasOne(x => x.Spu).WithMany(x => x.Skus).HasForeignKey(qt => qt.SpuId);

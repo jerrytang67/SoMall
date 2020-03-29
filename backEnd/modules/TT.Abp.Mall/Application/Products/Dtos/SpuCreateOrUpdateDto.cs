@@ -20,12 +20,12 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         /// <summary>
         /// 商品详情
         /// </summary>
-        public virtual string Desc { get; set; }
+        public virtual string DescCommon { get; set; }
 
         /// <summary>
         /// 购买须知
         /// </summary>
-        public string PurchaseNotes { get; set; }
+        public string PurchaseNotesCommon { get; set; }
 
         /// <summary>
         /// 开售时间
