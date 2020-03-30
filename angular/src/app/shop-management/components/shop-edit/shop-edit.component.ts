@@ -106,7 +106,7 @@ export class ShopEditComponent implements OnInit {
     console.log(e);
     if (e.type === "success") {
       const url = e.file.response.url;
-      this.form.coverImage = `http://img1.wujiangapp.com${url}!w500`
+      this.form.coverImage = `http://img.somall.top${url}!w500`
     }
 
   }
@@ -115,7 +115,7 @@ export class ShopEditComponent implements OnInit {
     console.log(e);
     if (e.type === "success") {
       const url = e.file.response.url;
-      this.form.logoImage = `http://img1.wujiangapp.com${url}!w500`
+      this.form.logoImage = `http://img.somall.top${url}!w500`
     }
 
   }

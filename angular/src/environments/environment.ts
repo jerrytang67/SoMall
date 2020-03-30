@@ -13,7 +13,7 @@ export const environment = {
     logoUrl: '',
   },
   oAuthConfig: {
-    issuer: 'http://localhost:44380',
+    issuer: 'http://127.0.0.1:44380',
     clientId: 'SoMall_App',
     dummyClientSecret: '1q2w3e*',
     scope: 'SoMall',
@@ -23,7 +23,7 @@ export const environment = {
   },
   apis: {
     default: {
-      url: 'http://localhost:44340',
+      url: 'http://127.0.0.1:44340',
     },
   },
   localization: {

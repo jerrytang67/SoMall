@@ -26,16 +26,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              {
-                "glob": "**/*",
-                "input": "src/static",
-                "output": "/"
-              },
-              {
-                "glob": "oidc-client.min.js",
-                "input": "node_modules/oidc-client/dist",
-                "output": "/"
-              }
+              {"glob": "**/*","input": "src/static","output": "/"},
+              { "glob": "**/*","input": "node_modules/@ant-design/icons-angular/src/inline-svg","output": "/assets/"},
+              { "glob": "oidc-client.min.js","input": "node_modules/oidc-client/dist","output": "/"}
             ],
             "styles": [
               "node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
@@ -102,10 +95,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
             "styles": [
               "src/app/core/preloader/preloader.scss",
               "src/styles.scss"
@@ -117,11 +106,10 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
-                "output": "/assets/"
-              }
+              { "glob": "**/*", "input": "node_modules/tinymce/skins", "output": "/tinymce/skins/" },
+              { "glob": "**/*", "input": "node_modules/tinymce/themes", "output": "/tinymce/themes/" },
+              { "glob": "**/*", "input": "node_modules/tinymce/plugins", "output": "/tinymce/plugins/"},
+              { "glob": "**/*","input": "node_modules/@ant-design/icons-angular/src/inline-svg/","output": "/assets/"}
             ]
           }
         },

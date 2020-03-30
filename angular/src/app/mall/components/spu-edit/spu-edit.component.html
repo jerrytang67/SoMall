@@ -22,11 +22,12 @@
         <input type="text" nz-input [(ngModel)]="form.code" name="code" required>
     </se>
     <se label="购买须知">
-        <ckeditor [editor]="Editor2" (ready)="onReady($event)" [(ngModel)]="form.purchaseNotesCommon" name="purchaseNotesCommon">
+        <ckeditor [config]="ckeConfig" [(ngModel)]="form.purchaseNotesCommon" name="purchaseNotesCommon">
         </ckeditor>
     </se>
     <se label="介绍" error="请填写">
-        <ckeditor [editor]="Editor" (ready)="onReady($event)" [(ngModel)]="form.descCommon" name="descCommon">
+        <ckeditor [config]="ckeConfig" [(ngModel)]="form.descCommon" name="descCommon"
+         (fileUploadRequest)="onFileUploadRequest($event)"  (fileUploadResponse)="onFileUploadResponse($event)">
         </ckeditor>
     </se>
     <se>

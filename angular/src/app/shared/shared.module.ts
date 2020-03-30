@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -73,8 +73,9 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
+
+import { CKEditorModule } from 'ng2-ckeditor';
 // ngx-bootstrap
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -159,7 +160,9 @@ const THIRDMODULES = [
   ...NZMODULES,
   ...BSMODULES,
   // NgZorroAntdModule, 
-  CKEditorModule];
+  CKEditorModule,
+  SEModule
+];
 // #endregion
 
 // #region your componets & directives
@@ -174,8 +177,7 @@ const DIRECTIVES = [];
     RouterModule,
     ReactiveFormsModule,
     // third libs
-    ...THIRDMODULES,
-    SEModule
+    ...THIRDMODULES
   ],
   providers: [
     ColorsService
@@ -196,9 +198,12 @@ const DIRECTIVES = [];
     ...THIRDMODULES,
     // your components
     ...COMPONENTS,
-    ...DIRECTIVES,
-    SEModule
+    ...DIRECTIVES
   ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

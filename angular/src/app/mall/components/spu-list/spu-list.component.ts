@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductSpuProxyService, ProductSpuDto } from 'src/api/appService';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-spu-list',
@@ -18,7 +19,8 @@ export class SpuListComponent implements OnInit {
   };
   constructor(
     private api: ProductSpuProxyService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private router: Router
   ) {
 
   }
@@ -41,5 +43,9 @@ export class SpuListComponent implements OnInit {
       this.message.success("删除成功");
       this.refresh();
     })
+  }
+
+  add() {
+    this.router.navigate(["/mall/spu-create", ""])
   }
 }
