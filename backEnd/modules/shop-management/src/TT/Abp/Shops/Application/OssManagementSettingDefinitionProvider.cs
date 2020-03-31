@@ -7,6 +7,7 @@ namespace TT.Abp.Shops.Application
         public override void Define(ISettingDefinitionContext context)
         {
             context.Add(
+                new SettingDefinition(OssManagementSettings.UploadHost),
                 new SettingDefinition(OssManagementSettings.BucketName),
                 new SettingDefinition(OssManagementSettings.DomainHost),
                 new SettingDefinition(OssManagementSettings.AccessId),
@@ -19,6 +20,7 @@ namespace TT.Abp.Shops.Application
     {
         private const string GroupName = "OssManagement";
 
+        public const string UploadHost = GroupName + ".UploadHost";
         public const string BucketName = GroupName + ".BucketName";
         public const string DomainHost = GroupName + ".DomainHost";
         public const string AccessId = GroupName + ".AccessId";

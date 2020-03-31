@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthQuery } from 'src/store/auth.query';
+import { AuthQuery } from 'src/store/auth/auth.query';
 import { User } from 'oidc-client';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/store/auth.service';
+import { AuthService } from 'src/store/auth/auth.service';
 
 @Component({
   selector: 'app-demo1',

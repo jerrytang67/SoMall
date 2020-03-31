@@ -8,7 +8,7 @@ import { MenuService } from './menu/menu.service';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
 import { AuthGuard } from './auth-guard.service';
-import { AuthService } from 'src/store/auth.service';
+import { AuthService } from 'src/store/auth/auth.service';
 
 @NgModule({
   imports: [

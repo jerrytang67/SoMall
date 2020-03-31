@@ -70,25 +70,7 @@ export class SpuEditComponent implements OnInit {
         }
       )
     });
-    // @ts-ignore
-    let date = new Date().toGMTString();
-
-    let opts = {
-      "save-key": "/somall/{year}/{mon}/{day}/upload_{random32}{.suffix}",
-      bucket: this.bucket,
-      expiration: Math.round(new Date().getTime() / 1000) + 3600,
-      date: date
-    };
-
-    this.policy = base64.encode(JSON.stringify(opts));
-    let data = ["POST", "/" + this.bucket, date, this.policy].join("&");
-
-    this.ossApi.getSignature({ data: data }).subscribe(res => {
-      this.signature = res.signature;
-    });
   }
-
-
   onSubmit(form: any) {
     console.log(form.value)
 
@@ -98,60 +80,5 @@ export class SpuEditComponent implements OnInit {
     }).subscribe(res => {
       if (res.id) { this.router.navigate(['/mall/spus']) }
     })
-  }
-
-  onFileUploadRequest(evt: any) {
-    console.log("onFileUploadRequest");
-    console.log(event)
-
-    // evt.requestData.authorization = `UPYUN ${this.operator}:${this.signature}`;
-    // evt.requestData.policy = this.policy;
-
-    //  formData.append('file', evt.data.fileLoader.file.name);
-    //     formData.append('file', evt.data.fileLoader.file as any);
-    //     formData.append('authorization', `UPYUN ${this.operator}:${this.signature}`);
-    //     formData.append('policy', this.policy);
-
-    let fileLoader = evt.data.fileLoader,
-      formData = new FormData()
-
-    //xhr.open('PUT', fileLoader.uploadUrl, true);
-    formData.append('file', evt.data.fileLoader.file.name);
-    formData.append('file', evt.data.fileLoader.file as any);
-    formData.append('authorization', `UPYUN ${this.operator}:${this.signature}`);
-    formData.append('policy', this.policy);
-
-    fileLoader.xhr.send(formData);
-
-    // event.preventDefault();  
-    evt.stop();
-  }
-
-  onFileUploadResponse(evt) {
-    console.log(evt)
-    // Prevent the default response handler.
-    evt.stop();
-    // Get XHR and response.
-    var data = evt.data,
-      xhr = data.fileLoader.xhr,
-      response = JSON.parse(xhr.responseText.split('|')[0]);
-    console.log(response);
-    if (response) {
-      // An error occurred during upload.
-      data.url = `http://img.somall.top${response.url}!w500`;
-    }
-    else {
-      evt.cancel();
-    }
-  }
-
-  onDrop(evt) {
-    console.log(evt)
-
-  }
-
-  onPaste(evt) {
-    console.log(evt)
-
   }
 }

@@ -4,11 +4,8 @@ import { Injectable } from '@angular/core';
 import { setStore } from '@shared';
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class SessionService {
-
     constructor(private sessionStore: SessionStore,
         private http: HttpClient) { }
 

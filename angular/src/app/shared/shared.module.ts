@@ -75,13 +75,13 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 
-import { CKEditorModule } from 'ng2-ckeditor';
 // ngx-bootstrap
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ExceptionComponent } from './components/exception/exception.component';
 import { SEModule } from './components/edit/edit.module';
 import { ShopSelectComponent } from '../visitor/components/shop-select/shop-select.component';
+import { CKEditorModule } from './ckeditor';
 
 const BSMODULES = [
   TooltipModule.forRoot(),
@@ -161,11 +161,12 @@ const THIRDMODULES = [
   ...BSMODULES,
   // NgZorroAntdModule, 
   CKEditorModule,
-  SEModule
+  SEModule,
 ];
 // #endregion
 
 // #region your componets & directives
+
 const COMPONENTS = [ExceptionComponent, ShopSelectComponent];
 const DIRECTIVES = [];
 // #endregion

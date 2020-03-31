@@ -240,6 +240,7 @@ export class FeaturesProxyService {
   ): Observable<any> {
     let url = '/api/abp/features/update';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -420,6 +421,16 @@ export class OssProxyService {
   /**
    *
    */
+  getConfig(): Observable<any> {
+    let url = '/api/app/oss/getConfig';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
   getSignature(
     params: {
       /**  */
@@ -440,6 +451,7 @@ export class OssProxyService {
   test(): Observable<any> {
     let url = '/api/app/oss/test';
     let options: any = {
+      body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;

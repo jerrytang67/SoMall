@@ -87,7 +87,7 @@ import { NzNotificationService } from 'ng-zorro-antd';
 import { environment } from '@env/environment';
 import { getStore } from '@shared';
 import { User } from 'oidc-client';
-import { AuthService } from 'src/store/auth.service';
+import { AuthService } from 'src/store/auth/auth.service';
 
 const CODEMESSAGE = {
   200: '服务器成功返回请求的数据。',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthQuery } from 'src/store/auth.query';
-import { AuthService } from 'src/store/auth.service';
+import { AuthQuery } from 'src/store/auth/auth.query';
+import { AuthService } from 'src/store/auth/auth.service';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -28,3 +28,18 @@ export class AuthGuard implements CanActivate {
         });
     }
 }
+
+
+// canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+//     return this.authQuery.selectLoading().pipe(
+//         skipWhile(loading => loading),
+//         switchMap(() => this.authQuery.isLoggedIn$),
+//         map(isLoggedIn => {
+//             if (!isLoggedIn) {
+//                 this._router.navigate(['/']);
+//             }
+//             return isLoggedIn;
+//         }),
+//         take(1)
+//     );
+// }
