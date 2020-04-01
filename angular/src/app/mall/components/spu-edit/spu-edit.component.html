@@ -116,18 +116,22 @@
                         </nz-form-control>
                     </nz-form-item>
                 </div>
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="3" nzFor="purchaseNotes">购买须知</nz-form-label>
-                    <nz-form-control>
-                        <ckeditor height="300" formControlName="purchaseNotes"></ckeditor>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="3" nzFor="desc">介绍</nz-form-label>
-                    <nz-form-control>
-                        <ckeditor height="500" formControlName="desc"></ckeditor>
-                    </nz-form-control>
-                </nz-form-item>
+                <div nz-row>
+                    <nz-form-item nz-col [nzSpan]="24">
+                        <nz-form-label [nzSpan]="3" nzFor="purchaseNotes">购买须知</nz-form-label>
+                        <nz-form-control>
+                            <ckeditor height="300" formControlName="purchaseNotes"></ckeditor>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-row>
+                    <nz-form-item nz-col [nzSpan]="24">
+                        <nz-form-label [nzSpan]="3" nzFor="desc">介绍</nz-form-label>
+                        <nz-form-control>
+                            <ckeditor height="500" formControlName="desc"></ckeditor>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
             </div>
         </tab>
         <!-- <tab>

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
-using TT.Core.Extensions;
+using TT.Extensions;
 
 namespace TT.HttpClient.Weixin
 {

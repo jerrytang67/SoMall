@@ -240,7 +240,6 @@ export class FeaturesProxyService {
   ): Observable<any> {
     let url = '/api/abp/features/update';
     let options: any = {
-      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -451,7 +450,6 @@ export class OssProxyService {
   test(): Observable<any> {
     let url = '/api/app/oss/test';
     let options: any = {
-      body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;
@@ -496,7 +494,6 @@ export class PermissionsProxyService {
   ): Observable<any> {
     let url = '/api/abp/permissions/update';
     let options: any = {
-      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -831,7 +828,6 @@ export class ProfileProxyService {
   ): Observable<ProfileDto> {
     let url = '/api/identity/my-profile';
     let options: any = {
-      params: { id: params.id },
       body: params.body,
       method: 'put'
     };

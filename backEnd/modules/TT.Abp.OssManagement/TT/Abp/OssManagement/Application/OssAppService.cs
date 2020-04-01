@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using TT.Abp.Shops.Application;
-using TT.Core.Extensions;
+using TT.Extensions;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Settings;

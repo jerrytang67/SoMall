@@ -1,7 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
-namespace TT.Core.Extensions
+namespace TT.Extensions
 {
     public static class StringExt
     {
@@ -22,9 +23,45 @@ namespace TT.Core.Extensions
 
             return sb.ToString();
         }
+
         public static bool IsNullOrEmptyOrWhiteSpace(this string str)
         {
             return string.IsNullOrWhiteSpace(str) || string.IsNullOrEmpty(str);
+        }
+
+        public static Random random = new Random();
+
+        /// <summary>
+        /// 取随机数
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string BuildRandomStr(int length)
+        {
+            int num;
+
+            lock (random)
+            {
+                num = random.Next();
+            }
+
+            string str = num.ToString();
+
+            if (str.Length > length)
+            {
+                str = str.Substring(0, length);
+            }
+            else if (str.Length < length)
+            {
+                int n = length - str.Length;
+                while (n > 0)
+                {
+                    str = str.Insert(0, "0");
+                    n--;
+                }
+            }
+
+            return str;
         }
     }
 }

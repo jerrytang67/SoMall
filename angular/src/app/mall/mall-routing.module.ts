@@ -6,7 +6,6 @@ import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { SpuListComponent } from './components/spu-list/spu-list.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { SpuEditComponent } from './components/spu-edit/spu-edit.component';
-import { SpuCreateComponent } from './components/spu-create/spu-create.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'shops', pathMatch: 'full', data: { breadcrumb: "商城" } },
