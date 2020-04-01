@@ -1,6 +1,7 @@
 {
     "offsidebar.setting.SETTINGS": "设置",
     "create": "新建",
+    "submit": "提交",
     "refresh": "刷新",
     "edit": "编辑",
     "delete": "删除",
@@ -157,5 +158,6 @@
     "validation.date.required": "请选择起止日期",
     "validation.goal.required": "请输入目标描述",
     "validation.standard.required": "请输入衡量标准",
-    "spu.create":"添加商品"
+    "mall.spu.create": "添加产品",
+    "mall.sku.add": "添加商品"
 }

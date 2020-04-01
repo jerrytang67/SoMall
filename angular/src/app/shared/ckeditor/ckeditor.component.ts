@@ -37,7 +37,6 @@ declare var CKEDITOR: any;
     },
   ],
   template: `
-  {{_value}}
     <textarea #host></textarea>
   `,
 })

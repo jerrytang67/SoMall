@@ -1,43 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SpuCreateOrUpdateDto, ProductSpuProxyService, OssProxyService } from 'src/api/appService';
+import { SpuCreateOrUpdateDto, ProductSpuProxyService, OssProxyService, SkuCreateOrUpdateDto } from 'src/api/appService';
 import base64 from '@core/utils/base64';
+import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-spu-edit',
-  templateUrl: './spu-edit.component.html',
-  styleUrls: ['../spu-create/spu-create.component.scss']
+  templateUrl: './spu-edit.component.html'
 })
 export class SpuEditComponent implements OnInit {
 
   spuId: string;
-
   categoryId: string;
-
-  ckeConfig: any = {
-    uploadUrl: "https://v0.api.upyun.com/ttwork",
-    height: 500,
-    allowedContent: false,
-    forcePasteAsPlainText: true,
-    font_names: 'Arial;Times New Roman;Verdana',
-    toolbarGroups: [
-      { name: 'document', groups: ['mode', 'document', 'doctools'] },
-      { name: 'clipboard', groups: ['clipboard', 'undo'] },
-      { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
-      { name: 'forms', groups: ['forms'] },
-      { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
-      { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
-      { name: 'links', groups: ['links'] },
-      { name: 'insert', groups: ['insert'] },
-      '/',
-      { name: 'styles', groups: ['styles'] },
-      { name: 'colors', groups: ['colors'] },
-      { name: 'tools', groups: ['tools'] },
-      { name: 'others', groups: ['others'] },
-      { name: 'about', groups: ['about'] }
-    ],
-    removeButtons: 'Save,NewPage,Preview,Print,Templates,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Strike,Subscript,Superscript,CopyFormatting,Outdent,Indent,CreateDiv,Blockquote,BidiLtr,BidiRtl,Language,Unlink,Anchor,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About'
-  };
+  title: string;
+  public skus: FormArray;
+  public validateForm: FormGroup;
 
   form: SpuCreateOrUpdateDto = {
     name: "",
@@ -45,40 +23,105 @@ export class SpuEditComponent implements OnInit {
     categoryId: "",
     purchaseNotesCommon: "",
     descCommon: "",
+    skus: []
   };
 
-  operator = "somall";
-  bucket: string = "ttwork";
-  signature: string;
-  policy: string;
+
   constructor(
     private api: ProductSpuProxyService,
-    private ossApi: OssProxyService,
     private route: ActivatedRoute,
     private router: Router,
+    private fb: FormBuilder,
+    private message: NzMessageService
   ) { }
 
-  optionList: any[]
+  guid = '00000000-0000-0000-0000-000000000000';
+  optionList: any[];
+
   ngOnInit(): void {
+    this.validateForm = this.fb.group({
+      categoryId: null,
+      name: [null, [Validators.required, Validators.minLength(2)]],
+      code: [null, [Validators.required, Validators.minLength(5)]],
+      purchaseNotesCommon: "",
+      descCommon: "",
+      skus: this.fb.array([])
+    });
     this.route.paramMap.subscribe((params: any) => {
       console.log(params)
-      this.spuId = params.params.id;
+      this.title = params.params.id ? "编辑产品" : "添加产品"
+      this.spuId = params.params.id || this.guid;
+
       this.api.getForEdit({ id: this.spuId }).subscribe(
         res => {
           this.form = res.data;
           this.optionList = res.schema.categoryId;
+          this.form.skus.forEach(item => {
+            this.skus = this.validateForm.get('skus') as FormArray;
+            this.skus.push(this.createItem(item));
+          })
+          this.validateForm.setValue({
+            categoryId: this.form.categoryId,
+            name: this.form.name,
+            code: this.form.code,
+            purchaseNotesCommon: this.form.purchaseNotesCommon,
+            descCommon: this.form.descCommon,
+            skus: this.form.skus
+          })
         }
       )
     });
   }
-  onSubmit(form: any) {
-    console.log(form.value)
 
-    this.api.update({
-      id: this.spuId,
-      body: form.value
-    }).subscribe(res => {
-      if (res.id) { this.router.navigate(['/mall/spus']) }
-    })
+  createItem(item: SkuCreateOrUpdateDto = {}): FormGroup {
+    return this.fb.group({
+      "id": item.id,
+      "coverImageUrls": [],
+      "spuId": item.spuId,
+      "price": [item.price, [Validators.required, Validators.min(0)]],
+      "vipPrice": item.vipPrice,
+      "originPrice": item.originPrice,
+      "name": [item.name, [Validators.required, Validators.minLength(2)]],
+      "code": [item.code,],
+      "desc": item.desc,
+      "purchaseNotes": item.purchaseNotes,
+      "dateTimeStart": item.dateTimeStart,
+      "dateTimeEnd": item.dateTimeEnd,
+      "soldCount": [item.soldCount, [Validators.required, Validators.min(0)]],
+      "stockCount": item.stockCount,
+      "limitBuyCount": item.limitBuyCount,
+    });
   }
+
+  onSubmit() {
+    console.log(this.validateForm.value)
+    if (this.validateForm.valid) {
+      if (this.spuId)
+        this.api.update({
+          id: this.spuId,
+          body: this.validateForm.value
+        }).subscribe(res => {
+          if (res.id) { this.router.navigate(['/mall/spus']) }
+        })
+      else
+        this.api.create({
+          body: this.validateForm.value
+        }).subscribe(res => {
+          if (res.id) { this.router.navigate(['/mall/spus']) }
+        })
+    }
+    else {
+      this.message.error("请检查表单")
+    }
+  }
+  addSku() {
+    this.skus = this.validateForm.get('skus') as FormArray;
+    this.skus.push(this.createItem());
+  }
+
+  deleteSku(index) {
+    this.skus = this.validateForm.get('skus') as FormArray;
+    this.skus.removeAt(index);
+  }
+
 }

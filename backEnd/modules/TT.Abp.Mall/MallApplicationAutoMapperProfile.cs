@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Products;
@@ -25,8 +26,11 @@ namespace TT.Abp.Mall
 
 
             CreateMap<CategoryCreateOrUpdateDto, ProductCategory>();
+
             CreateMap<SpuCreateOrUpdateDto, ProductSpu>()
+                .ForMember(x => x.Skus, opt => opt.Ignore())
                 .ReverseMap();
+
             CreateMap<SkuCreateOrUpdateDto, ProductSku>()
                 .ReverseMap();
 

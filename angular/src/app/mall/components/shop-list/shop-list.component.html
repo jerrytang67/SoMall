@@ -11,8 +11,8 @@
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <button nz-button (click)="addShop()" nzType="primary">{{'add.shop' | translate}}</button>
-        <button nz-button (click)="refresh()">{{'refresh' | translate}}</button>
+        <button nz-button nzSize="large"  class="mr-4" (click)="addShop()" nzType="primary">{{'add.shop' | translate}}</button>
+        <button nz-button nzSize="large"  (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
     <nz-table #dataTable nzShowPagination [nzData]="dataItems">
         <thead>

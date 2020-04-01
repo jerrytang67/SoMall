@@ -1,4 +1,4 @@
-<nz-page-header nzTitle="修改商品">
+<nz-page-header [nzTitle]="title">
     <nz-breadcrumb nz-page-header-breadcrumb>
         <nz-breadcrumb-item>
             <a [routerLink]="['/']">首页</a>
@@ -9,27 +9,131 @@
     </nz-breadcrumb>
 </nz-page-header>
 
-<form nz-form #f="ngForm" (ngSubmit)="onSubmit(f)" se-container="1" labelWidth="100">
-    <se label="商品分类" error="请填写">
-        <nz-select [(ngModel)]="form.categoryId" nzPlaceHolder="商品分类" name="categoryId">
-            <nz-option *ngFor="let option of optionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
-        </nz-select>
-    </se>
-    <se label="名称" error="请填写">
-        <input type="text" nz-input [(ngModel)]="form.name" name="name" required>
-    </se>
-    <se label="商品编码" error="请填写">
-        <input type="text" nz-input [(ngModel)]="form.code" name="code" required>
-    </se>
-    <se label="购买须知">
-        <ckeditor [height]="300" [(ngModel)]="form.purchaseNotesCommon" name="purchaseNotesCommon">
-        </ckeditor>
-    </se>
-    <se label="介绍" error="请填写">
-        <ckeditor [height]="500" [(ngModel)]="form.descCommon" name="descCommon">
-        </ckeditor>
-    </se>
-    <se>
-        <button nz-button nzType="primary" [disabled]="!f.valid">提交</button>
-    </se>
+<div class="d-flex justify-content-end">
+    <button nz-button nzSize="large" (click)="addSku()" class="mr-4">{{ "mall.sku.add" | translate}}</button>
+    <button nz-button nzSize="large" nzType="primary" (click)="onSubmit()">{{ "submit" | translate}}</button>
+</div>
+<form nz-form (ngSubmit)="onSubmit()" [formGroup]="validateForm">
+    <tabset [justified]="false">
+        <tab>
+            <ng-template tabHeading>
+                <i class="fas fa-info-circle mr-1"></i> 产品基础属性
+            </ng-template>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="3" nzFor="categoryId" nzRequired>商品分类</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="categoryId" nzPlaceHolder="请选择商品分类" name="categoryId">
+                        <nz-option *ngFor="let option of optionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="3" nzFor="name" nzRequired>商品名称</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="name" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="3" nzFor="code" nzRequired>商品编号</nz-form-label>
+                <nz-form-control>
+                    <input nz-input formControlName="code" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="3" nzFor="purchaseNotesCommon">购买须知</nz-form-label>
+                <nz-form-control>
+                    <ckeditor height="300" formControlName="purchaseNotesCommon"></ckeditor>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="3" nzFor="descCommon">介绍</nz-form-label>
+                <nz-form-control>
+                    <ckeditor height="500" formControlName="descCommon"></ckeditor>
+                </nz-form-control>
+            </nz-form-item>
+        </tab>
+        <tab *ngFor="let sku of validateForm.get('skus').controls;let idx= index" formArrayName="skus">
+            <ng-template tabHeading>
+                <span>
+                    商品 {{idx+1}}
+                </span>
+                <a nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="deleteSku(idx)" nzPopconfirmPlacement="top" class="ml-3"><i
+                        class="fas fa-times"></i></a>
+            </ng-template>
+            <div [formGroupName]="idx">
+                <div nz-row>
+                    <nz-form-item nz-col [nzSpan]="12">
+                        <nz-form-label [nzSpan]="4" nzFor="name" nzRequired>SKU名称</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input formControlName="name" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="12">
+                        <nz-form-label [nzSpan]="4" nzFor="code">SKU编号</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input formControlName="code" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-row>
+                    <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="originPrice" nzRequired>原价</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input type="number" formControlName="originPrice" />
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="price" nzRequired>售价</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input type="number" formControlName="price" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="vipPrice" nzRequired>会员价</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input type="number" formControlName="vipPrice" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-row>
+                    <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="soldCount" nzRequired>已售</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input type="number" formControlName="soldCount" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="dateTimeStart">开售时间</nz-form-label>
+                        <nz-form-control>
+                            <nz-date-picker nzSize="large" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="dateTimeStart"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="dateTimeEnd">结束时间</nz-form-label>
+                        <nz-form-control>
+                            <nz-date-picker nzSize="large" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="dateTimeEnd"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="3" nzFor="purchaseNotes">购买须知</nz-form-label>
+                    <nz-form-control>
+                        <ckeditor height="300" formControlName="purchaseNotes"></ckeditor>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="3" nzFor="desc">介绍</nz-form-label>
+                    <nz-form-control>
+                        <ckeditor height="500" formControlName="desc"></ckeditor>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </tab>
+        <!-- <tab>
+            <ng-template tabHeading>
+                <i class="fas fa-add fa-lg"></i>+
+            </ng-template>
+        </tab> -->
+    </tabset>
 </form>

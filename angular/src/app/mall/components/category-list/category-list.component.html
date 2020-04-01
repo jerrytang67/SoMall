@@ -11,8 +11,8 @@
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <button nz-button (click)="add()" nzType="primary">{{'add.category' | translate}}</button>
-        <button nz-button (click)="refresh()">{{'refresh' | translate}}</button>
+        <button nzSize="large"  class="mr-4" nz-button (click)="add()" nzType="primary">{{'add.category' | translate}}</button>
+        <button nzSize="large" nz-button (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
     <nz-table #dataTable nzShowPagination [nzData]="dataItems">
         <thead>
@@ -31,7 +31,7 @@
                 <td>{{item.code}}</td>
                 <td>{{item.shopId}}</td>
                 <td>
-                    <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/spu-create', item.id]">{{'spu.create' | translate}}</button>
+                    <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/spu-create', item.id]">{{'mall.spu.create' | translate}}</button>
                     <nz-divider nzType=" vertical"></nz-divider>
                     <button nz-button nzType="primary" nzSize="small" (click)="edit(item)">{{'edit' | translate}}</button>
                     <nz-divider nzType=" vertical"></nz-divider>

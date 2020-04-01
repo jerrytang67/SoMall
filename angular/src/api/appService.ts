@@ -496,6 +496,7 @@ export class PermissionsProxyService {
   ): Observable<any> {
     let url = '/api/abp/permissions/update';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -830,6 +831,7 @@ export class ProfileProxyService {
   ): Observable<ProfileDto> {
     let url = '/api/identity/my-profile';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -2581,6 +2583,9 @@ export interface ProductSkuDtoPagedResultDto {
 
 export interface SkuCreateOrUpdateDto {
   /**  */
+  id?: string;
+
+  /**  */
   spuId?: string;
 
   /**  */
@@ -2599,7 +2604,28 @@ export interface SkuCreateOrUpdateDto {
   vipPrice?: number;
 
   /**  */
+  desc?: string;
+
+  /**  */
+  purchaseNotes?: string;
+
+  /**  */
   coverImageUrls?: string[];
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
 }
 
 export interface SpuCreateOrUpdateDto {

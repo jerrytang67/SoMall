@@ -9,8 +9,13 @@ namespace TT.Abp.Mall.Domain.Products
 {
     public class ProductSku : FullAuditedAggregateRoot<Guid>, ISkuData, IMultiTenant, IMultiShop
     {
-        public ProductSku()
+        protected ProductSku()
         {
+        }
+
+        public ProductSku(string name)
+        {
+            Name = name;
         }
 
         public ProductSku(Guid spuId, string name, string code, decimal price, Guid? shopId, Guid? tenantId)
@@ -24,24 +29,26 @@ namespace TT.Abp.Mall.Domain.Products
 
         #region ISkuData
 
-        public Guid SpuId { get; protected set; }
-        public string Name { get; protected set; }
-        public string Code { get; protected set; }
-        public decimal Price { get; protected set; }
-        public string Desc { get; set; }
-        public string PurchaseNotes { get; set; }
-        public decimal? OriginPrice { get; protected set; }
-        public decimal? VipPrice { get; protected set; }
-        public List<string> CoverImageUrls { get; set; }
-        public DateTimeOffset? DateTimeStart { get; set; }
-        public DateTimeOffset? DateTimeEnd { get; set; }
-        public int? StockCount { get; protected set; }
-        public int SoldCount { get; protected set; }
-        public int? LimitBuyCount { get; protected set; }
-        
-        public Guid? TenantId { get; protected set; }
-        
-        public Guid? ShopId { get; protected set; }
+        public virtual Guid SpuId { get; protected set; }
+        public virtual string Name { get; protected set; }
+        public virtual string Code { get; protected set; }
+        public virtual decimal Price { get; protected set; }
+        public virtual string Desc { get; set; }
+        public virtual string PurchaseNotes { get; set; }
+        public virtual decimal? OriginPrice { get; protected set; }
+        public virtual decimal? VipPrice { get; protected set; }
+        public virtual List<string> CoverImageUrls { get; set; }
+        public virtual DateTimeOffset? DateTimeStart { get; set; }
+        public virtual DateTimeOffset? DateTimeEnd { get; set; }
+        public virtual int? StockCount { get; protected set; }
+        public virtual int SoldCount { get; protected set; }
+        public virtual int? LimitBuyCount { get; protected set; }
+
+        public virtual string Unit { get; set; }
+
+        public virtual Guid? TenantId { get; protected set; }
+
+        public virtual Guid? ShopId { get; protected set; }
 
         #endregion
 
@@ -70,6 +77,12 @@ namespace TT.Abp.Mall.Domain.Products
             if (StockCount == 0)
                 return true;
             return false;
+        }
+
+
+        public void NewId()
+        {
+            Id = Guid.NewGuid();
         }
 
         [ForeignKey("SpuId")] public virtual ProductSpu Spu { get; set; }

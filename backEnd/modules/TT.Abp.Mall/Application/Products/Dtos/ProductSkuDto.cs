@@ -86,6 +86,11 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         /// </summary>
         public int? LimitBuyCount { get; set; }
 
+        /// <summary>
+        /// 计价单位
+        /// </summary>
+        public string Unit { get; set; }
+
         #endregion
 
         public ProductSpuDto Spu { get; set; }

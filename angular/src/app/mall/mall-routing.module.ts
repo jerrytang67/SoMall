@@ -19,7 +19,8 @@ const routes: Routes = [
       { path: 'categories', component: CategoryListComponent, data: { title: '商品分类', permission: 'Pages' } },
       { path: 'spus', component: SpuListComponent, data: { title: '商品列表', permission: 'Pages' } },
       { path: 'spu-edit/:id', component: SpuEditComponent, data: { title: '修改商品', permission: 'Pages' } },
-      { path: 'spu-create/:categoryId', component: SpuCreateComponent, data: { title: '添加商品', permission: 'Pages' } },
+      { path: 'spu-create/:categoryId', component: SpuEditComponent, data: { title: '添加商品', permission: 'Pages' } },
+      { path: 'spu-create', component: SpuEditComponent, data: { title: '添加商品', permission: 'Pages' } },
     ]
   }
 ]

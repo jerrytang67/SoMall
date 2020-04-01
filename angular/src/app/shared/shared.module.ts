@@ -78,6 +78,8 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 // ngx-bootstrap
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 import { ExceptionComponent } from './components/exception/exception.component';
 import { SEModule } from './components/edit/edit.module';
 import { ShopSelectComponent } from '../visitor/components/shop-select/shop-select.component';
@@ -86,6 +88,8 @@ import { CKEditorModule } from './ckeditor';
 const BSMODULES = [
   TooltipModule.forRoot(),
   TabsModule.forRoot(),
+  DatepickerModule.forRoot(),
+  BsDatepickerModule.forRoot(),
   ToastrModule.forRoot()
 ]
 

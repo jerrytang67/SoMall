@@ -61,7 +61,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.ConfigureFullAuditedAggregateRoot();
                 b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Code).HasMaxLength(MallConsts.MaxCodeLength);
-                
+                b.Property(x => x.Unit).HasMaxLength(MallConsts.MaxShortNameLength);
                 b.Property(x => x.CoverImageUrls).HasConversion(
                     v => JsonConvert.SerializeObject(v,
                         new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}),

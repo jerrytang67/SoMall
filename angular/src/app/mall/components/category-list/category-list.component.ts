@@ -62,7 +62,7 @@ export class CategoryListComponent implements OnInit {
             }
             else {
               instance.f.ngSubmit.emit(null)
-              this.message.error("表单错误")
+              this.message.warning("表单错误")
             }
           }
         }

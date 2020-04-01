@@ -95,6 +95,8 @@ namespace TT.SoMall
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
+
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
         }
 
