@@ -1,5 +1,4 @@
-<<form nz-form #f="ngForm" (ngSubmit)="onSubmit(f)" se-container="1" labelWidth="100">
-
+<form nz-form #f="ngForm" (ngSubmit)="onSubmit(f)" se-container="1" labelWidth="100">
     <se label="名称" error="请填写">
         <input type="text" nz-input [(ngModel)]="form.name" name="name" required>
     </se>
@@ -7,7 +6,8 @@
         <input type="text" nz-input class="form-control" [(ngModel)]="form.shortName" name="shortName" required maxlength="16">
     </se>
     <se label="Logo">
-        <nz-upload class="avatar-uploader" [nzAction]="action" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false" (nzChange)="handleChange2($event)">
+        <nz-upload class="avatar-uploader" [nzAction]="action" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false"
+            (nzChange)="handleChange2($event)">
             <ng-container *ngIf="!form.logoImage">
                 <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
                 <div class="ant-upload-text">Upload</div>
@@ -16,7 +16,8 @@
         </nz-upload>
     </se>
     <se label="封面图片">
-        <nz-upload class="avatar-uploader" [nzAction]="action" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false" (nzChange)="handleChange($event)">
+        <nz-upload class="avatar-uploader" [nzAction]="action" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false"
+            (nzChange)="handleChange($event)">
             <ng-container *ngIf="!form.coverImage">
                 <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
                 <div class="ant-upload-text">Upload</div>
@@ -25,7 +26,7 @@
         </nz-upload>
     </se>
     <se label="介绍">
-        <ckeditor #edit [editor]="Editor" (ready)="onReady($event)" [(ngModel)]="form.description" name="description">
+        <ckeditor height="500" [(ngModel)]="form.description" name="description">
         </ckeditor>
     </se>
-    </form>
+</form>

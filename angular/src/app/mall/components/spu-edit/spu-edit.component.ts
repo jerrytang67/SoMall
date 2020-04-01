@@ -41,8 +41,8 @@ export class SpuEditComponent implements OnInit {
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       categoryId: null,
-      name: [null, [Validators.required, Validators.minLength(2)]],
-      code: [null, [Validators.required, Validators.minLength(5)]],
+      name: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
+      code: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(32)]],
       purchaseNotesCommon: "",
       descCommon: "",
       skus: this.fb.array([])
@@ -81,8 +81,9 @@ export class SpuEditComponent implements OnInit {
       "price": [item.price, [Validators.required, Validators.min(0)]],
       "vipPrice": item.vipPrice,
       "originPrice": item.originPrice,
-      "name": [item.name, [Validators.required, Validators.minLength(2)]],
-      "code": [item.code,],
+      "unit": [item.unit, [Validators.maxLength(32)]],
+      "name": [item.name, [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
+      "code": [item.code, [Validators.maxLength(32)]],
       "desc": item.desc,
       "purchaseNotes": item.purchaseNotes,
       "dateTimeStart": item.dateTimeStart,

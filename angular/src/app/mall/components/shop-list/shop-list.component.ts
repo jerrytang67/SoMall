@@ -81,21 +81,12 @@ export class ShopListComponent implements OnInit {
     modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
   }
 
-
-  // delete(shop: MallShopDto) {
-  //   this.mallApi.delete(shop).subscribe(res => {
-  //     this.message.success("删除成功");
-  //     this.refresh();
-  //   })
-  // }
-
   isVisible = false;
   qrSrc = "";
   qrTitle = "";
 
   getQr(shop: MallShopDto) {
     console.log(shop);
-
     this.qrSrc = "";
     this.qrTitle = `${shop.name} 小程序码`;
     this.weixinApi.getUnLimitQr({ scene: `${shop.id}` }).subscribe(res => {

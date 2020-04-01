@@ -40,7 +40,6 @@ export class CategoryListComponent implements OnInit {
   add() {
     const modal = this.modalService.create({
       nzTitle: '新建分类',
-      nzWidth: 500,
       nzContent: CategoryEditComponent,
       nzComponentParams: {
         form: {
@@ -73,8 +72,7 @@ export class CategoryListComponent implements OnInit {
 
   edit(item: ProductCategoryDto) {
     const modal = this.modalService.create({
-      nzTitle: '编辑商家',
-      nzWidth: '80vw',
+      nzTitle: '编辑分类',
       nzContent: CategoryEditComponent,
       nzComponentParams: {
         id: item.id,

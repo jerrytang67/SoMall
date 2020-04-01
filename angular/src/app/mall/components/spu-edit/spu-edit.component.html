@@ -76,23 +76,29 @@
                     </nz-form-item>
                 </div>
                 <div nz-row>
-                    <nz-form-item nz-col [nzSpan]="8">
+                    <nz-form-item nz-col [nzSpan]="6">
                         <nz-form-label [nzSpan]="4" nzFor="originPrice" nzRequired>原价</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input type="number" formControlName="originPrice" />
                         </nz-form-control>
                     </nz-form-item>
 
-                    <nz-form-item nz-col [nzSpan]="8">
+                    <nz-form-item nz-col [nzSpan]="6">
                         <nz-form-label [nzSpan]="4" nzFor="price" nzRequired>售价</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input type="number" formControlName="price" />
                         </nz-form-control>
                     </nz-form-item>
-                    <nz-form-item nz-col [nzSpan]="8">
+                    <nz-form-item nz-col [nzSpan]="6">
                         <nz-form-label [nzSpan]="4" nzFor="vipPrice" nzRequired>会员价</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input type="number" formControlName="vipPrice" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="6">
+                        <nz-form-label [nzSpan]="4" nzFor="unit" nzRequired>计价单位</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input formControlName="unit" />
                         </nz-form-control>
                     </nz-form-item>
                 </div>
