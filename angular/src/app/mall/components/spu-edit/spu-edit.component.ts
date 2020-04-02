@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SpuCreateOrUpdateDto, ProductSpuProxyService, OssProxyService, SkuCreateOrUpdateDto } from 'src/api/appService';
-import base64 from '@core/utils/base64';
+import { SpuCreateOrUpdateDto, ProductSpuProxyService, SkuCreateOrUpdateDto } from 'src/api/appService';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-spu-edit',
@@ -121,8 +120,16 @@ export class SpuEditComponent implements OnInit {
   }
 
   deleteSku(index) {
+
     this.skus = this.validateForm.get('skus') as FormArray;
-    this.skus.removeAt(index);
+    if (this.skus.length > 1) {
+      this.skus.removeAt(index);
+    }
+    else {
+      this.message.warning("至少要保留一个商品信息")
+    }
   }
+
+
 
 }

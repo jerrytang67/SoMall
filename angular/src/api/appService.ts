@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-export class IList<T> extends Array<T> {}
-export class List<T> extends Array<T> {}
+export class IList<T> extends Array<T> { }
+export class List<T> extends Array<T> { }
 
 export interface IListResult<T> {
   items?: T[];
@@ -29,7 +29,7 @@ export class PagedResultDto<T> implements IPagedResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApiDefinitionProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -52,7 +52,7 @@ export class AbpApiDefinitionProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -68,7 +68,7 @@ export class AbpApplicationConfigurationProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationScriptProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -84,7 +84,7 @@ export class AbpApplicationConfigurationScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpLanguagesProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -111,7 +111,7 @@ export class AbpLanguagesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpServiceProxyScriptProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -142,7 +142,7 @@ export class AbpServiceProxyScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpTenantProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -182,7 +182,7 @@ export class AbpTenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AccountProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -204,7 +204,7 @@ export class AccountProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class FeaturesProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -249,7 +249,7 @@ export class FeaturesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class FormProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -383,7 +383,7 @@ export class FormProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class MallShopProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -415,7 +415,7 @@ export class MallShopProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class OssProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -458,7 +458,7 @@ export class OssProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -503,7 +503,7 @@ export class PermissionsProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -598,7 +598,7 @@ export class ProductCategoryProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSkuProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -693,7 +693,7 @@ export class ProductSkuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSpuProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -805,7 +805,7 @@ export class ProductSpuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProfileProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -853,7 +853,7 @@ export class ProfileProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class RoleProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -958,7 +958,7 @@ export class RoleProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ShopProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -1068,7 +1068,7 @@ export class ShopProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class TenantProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -1216,7 +1216,7 @@ export class TenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -1383,7 +1383,7 @@ export class UserProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserLookupProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -1423,7 +1423,7 @@ export class UserLookupProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class VisitorLogProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -1519,7 +1519,7 @@ export class VisitorLogProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class WeixinProxyService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    *
@@ -2586,7 +2586,7 @@ export interface SkuCreateOrUpdateDto {
 
   /**  */
   name?: string;
-
+  unit?: string;
   /**  */
   code?: string;
 

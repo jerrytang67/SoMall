@@ -40,13 +40,19 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSpan]="3" nzFor="purchaseNotesCommon">购买须知</nz-form-label>
+                <nz-form-label [nzSpan]="3" nzFor="purchaseNotesCommon">
+                    <tt-tooltip text="此内容与商品独立属性合并后显示"></tt-tooltip>
+                    共用购买须知
+                </nz-form-label>
                 <nz-form-control>
                     <ckeditor height="300" formControlName="purchaseNotesCommon"></ckeditor>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label [nzSpan]="3" nzFor="descCommon">介绍</nz-form-label>
+                <nz-form-label [nzSpan]="3" nzFor="descCommon">
+                    <tt-tooltip text="此内容与商品独立属性合并后显示"></tt-tooltip>
+                    共用介绍
+                </nz-form-label>
                 <nz-form-control>
                     <ckeditor height="500" formControlName="descCommon"></ckeditor>
                 </nz-form-control>
@@ -61,15 +67,16 @@
                         class="fas fa-times"></i></a>
             </ng-template>
             <div [formGroupName]="idx">
+                <tt-upload formControlName="coverImageUrls" [length]="3"></tt-upload>
                 <div nz-row>
                     <nz-form-item nz-col [nzSpan]="12">
-                        <nz-form-label [nzSpan]="4" nzFor="name" nzRequired>SKU名称</nz-form-label>
+                        <nz-form-label nzFor="name" nzRequired>SKU名称</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input formControlName="name" />
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item nz-col [nzSpan]="12">
-                        <nz-form-label [nzSpan]="4" nzFor="code">SKU编号</nz-form-label>
+                        <nz-form-label nzFor="code">SKU编号</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input formControlName="code" />
                         </nz-form-control>
@@ -77,26 +84,26 @@
                 </div>
                 <div nz-row>
                     <nz-form-item nz-col [nzSpan]="6">
-                        <nz-form-label [nzSpan]="4" nzFor="originPrice" nzRequired>原价</nz-form-label>
+                        <nz-form-label nzFor="originPrice">原价</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input type="number" formControlName="originPrice" />
                         </nz-form-control>
                     </nz-form-item>
 
                     <nz-form-item nz-col [nzSpan]="6">
-                        <nz-form-label [nzSpan]="4" nzFor="price" nzRequired>售价</nz-form-label>
+                        <nz-form-label nzFor="price" nzRequired>售价</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input type="number" formControlName="price" />
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item nz-col [nzSpan]="6">
-                        <nz-form-label [nzSpan]="4" nzFor="vipPrice" nzRequired>会员价</nz-form-label>
+                        <nz-form-label nzFor="vipPrice">会员价</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input type="number" formControlName="vipPrice" />
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item nz-col [nzSpan]="6">
-                        <nz-form-label [nzSpan]="4" nzFor="unit" nzRequired>计价单位</nz-form-label>
+                        <nz-form-label nzFor="unit">计价单位</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <input nz-input formControlName="unit" />
                         </nz-form-control>
@@ -111,13 +118,13 @@
                     </nz-form-item>
                     <nz-form-item nz-col [nzSpan]="8">
                         <nz-form-label [nzSpan]="4" nzFor="dateTimeStart">开售时间</nz-form-label>
-                        <nz-form-control>
+                        <nz-form-control [nzSpan]="18">
                             <nz-date-picker nzSize="large" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="dateTimeStart"></nz-date-picker>
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item nz-col [nzSpan]="8">
                         <nz-form-label [nzSpan]="4" nzFor="dateTimeEnd">结束时间</nz-form-label>
-                        <nz-form-control>
+                        <nz-form-control [nzSpan]="18">
                             <nz-date-picker nzSize="large" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="dateTimeEnd"></nz-date-picker>
                         </nz-form-control>
                     </nz-form-item>

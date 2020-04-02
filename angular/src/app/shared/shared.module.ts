@@ -84,6 +84,8 @@ import { ExceptionComponent } from './components/exception/exception.component';
 import { SEModule } from './components/edit/edit.module';
 import { ShopSelectComponent } from '../visitor/components/shop-select/shop-select.component';
 import { CKEditorModule } from './ckeditor';
+import { TtTooltip } from './components/tt-tooltip/tt-tooltip.component';
+import { TtUploadComponent } from './components/tt-upload/tt-upload.component';
 
 const BSMODULES = [
   TooltipModule.forRoot(),
@@ -172,6 +174,7 @@ const THIRDMODULES = [
 // #region your componets & directives
 
 const COMPONENTS = [ExceptionComponent, ShopSelectComponent];
+const MyCOMPONENTS = [TtTooltip, TtUploadComponent];
 const DIRECTIVES = [];
 // #endregion
 
@@ -190,6 +193,7 @@ const DIRECTIVES = [];
   declarations: [
     // your components
     ...COMPONENTS,
+    ...MyCOMPONENTS,
     ...DIRECTIVES,
   ],
   exports: [
@@ -203,6 +207,7 @@ const DIRECTIVES = [];
     ...THIRDMODULES,
     // your components
     ...COMPONENTS,
+    ...MyCOMPONENTS,
     ...DIRECTIVES
   ],
   schemas: [

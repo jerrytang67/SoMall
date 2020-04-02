@@ -28,7 +28,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
 
         #endregion
 
-        /// <summary>
+        /// <summary> 
         /// 原价,非空则显示
         /// </summary>
         public decimal? OriginPrice { get; set; }

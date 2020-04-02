@@ -69,15 +69,18 @@ namespace TT.Abp.Mall.Application.Products
 
             await CheckUpdatePolicyAsync();
 
-            var entity = await GetEntityByIdAsync(id);
-            MapToEntity(input, entity);
+            var entity = await Repository.Include(x => x.Skus).FirstOrDefaultAsync(x => x.Id == id);
+            ObjectMapper.Map(input, entity);
             await Repository.UpdateAsync(entity, autoSave: true);
+
+            var dbIds = entity.Skus.Select(x => x.Id).ToList();
 
             foreach (var skuInput in input.Skus)
             {
-                var sku = await _skuRepository.FirstOrDefaultAsync(x => x.Id == skuInput.Id);
+                var sku = entity.Skus.FirstOrDefault(x => x.Id == skuInput.Id);
                 if (sku != null)
                 {
+                    dbIds.Remove(sku.Id);
                     skuInput.Id = sku.Id;
                     ObjectMapper.Map(skuInput, sku);
                     await _skuRepository.UpdateAsync(sku, autoSave: true);
@@ -89,6 +92,12 @@ namespace TT.Abp.Mall.Application.Products
                     sku.NewId();
                     await _skuRepository.InsertAsync(sku);
                 }
+            }
+
+            //删除前端已删除的
+            foreach (var noUsed in dbIds)
+            {
+                await _skuRepository.DeleteAsync(noUsed);
             }
 
             return MapToGetOutputDto(entity);
