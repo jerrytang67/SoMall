@@ -67,6 +67,8 @@
                         class="fas fa-times"></i></a>
             </ng-template>
             <div [formGroupName]="idx">
+
+                <div>{{sku.coverImageUrls | json}}</div>
                 <tt-upload formControlName="coverImageUrls" [length]="3"></tt-upload>
                 <div nz-row>
                     <nz-form-item nz-col [nzSpan]="12">
