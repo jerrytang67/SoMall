@@ -1,7 +1,6 @@
 import { Component, OnInit, forwardRef, OnChanges, SimpleChanges, NgZone, Input, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UploadFile, UploadXHRArgs } from 'ng-zorro-antd';
-import { OssService } from 'src/store/oss/oss.service';
 import { OssQuery } from 'src/store/oss/oss.query';
 import { HttpRequest, HttpClient, HttpEvent, HttpResponse, HttpEventType } from '@angular/common/http';
 @Component({
@@ -15,9 +14,9 @@ import { HttpRequest, HttpClient, HttpEvent, HttpResponse, HttpEventType } from 
     ],
     template: `
 <div class="clearfix">
-    <nz-upload nzListType="picture-card" [(nzFileList)]="imgList"
-    [nzAction]="ossQuery.uploadUrl$ | async" [nzCustomRequest]="customReq" (nzChange)="handleChange($event)"
-        [nzShowButton]="imgList.length < length" [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview">
+    <nz-upload nzListType="picture-card" [(nzFileList)]="imgList" 
+    [nzAction]="ossQuery.uploadUrl$ | async" [nzCustomRequest]="customReq" (nzChange)="handleChange($event)" [nzRemove]="handleRemove"
+        [nzShowButton]="imgList.length < length" [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview" >
         <i nz-icon nzType="plus"></i>
         <div class="ant-upload-text">{{ "upload" | translate}}</div>
     </nz-upload>
@@ -51,7 +50,6 @@ export class TtUploadComponent implements OnChanges {
 
     @Input()
     set value(v) {
-        debugger
         if (v !== this._value) {
             this._value = v;
             this.onChange(v);
@@ -68,9 +66,7 @@ export class TtUploadComponent implements OnChanges {
     updateValue(value: any) {
         this.zone.run(() => {
             this.value = value;
-
             this.onChange(value);
-
             this.onTouched();
             this.change.emit(value);
         });
@@ -81,18 +77,16 @@ export class TtUploadComponent implements OnChanges {
      */
     writeValue(value: any) {
         this._value = value;
-
         if (this._value && this._value.length) {
-            let result = this._value.map(v => {
+            this.imgList = this._value.map(v => {
                 return {
-                    uid: -1,
-                    name: "file",
+                    uid: v,
+                    name: v,
                     status: 'done',
-                    url: v
+                    url: v,
+                    thumbUrl: v,
                 }
-            })
-            this.imgList = result;
-            console.log(this.imgList)
+            });
         }
     }
     onChange(_: any) {
@@ -117,6 +111,7 @@ export class TtUploadComponent implements OnChanges {
     handlePreview = (file: UploadFile) => {
         this.previewImage = file.url || file.thumbUrl;
         this.previewVisible = true;
+        console.log(this.imgList)
     };
 
 
@@ -154,12 +149,18 @@ export class TtUploadComponent implements OnChanges {
     };
 
     handleChange(e) {
-        debugger;
-        console.log(e);
+        // console.log(e);
+        // console.log(this.value);
+        // console.log(this._value);
         if (e.type === "success") {
             const url = e.file.response.url;
-            this.updateValue([`http://img.somall.top${url}!w500`])
+            this.updateValue([...this._value, `http://img.somall.top${url}`])
             //this.change.emit([...this._value, `http://img.somall.top${url}!w500`]);
         }
+    }
+
+    handleRemove = (item: any) => {
+        console.log(item, this.value)
+        this.updateValue([...this._value.filter(x => x !== item.uid)])
     }
 }
