@@ -24,14 +24,10 @@ const request = (
         header: {
             "content-type": "application/json",
             "Authorization": `Bearer ${uni.getStorageSync("token") || ''}`,
-            "Abp.TenantId": `${TenantId}`,
         }
     });
 };
 
-
 export default {
-    init: (data: any) => request('GET', `/api/services/app/Client/init`, data),
-    project_Get: (data: { id: number }) => request('GET', `http://localhost:21020/api/products/GetProduct`, data),
-    project_GetAll: (data: any) => request('GET', `http://localhost:21020/api/products/GetAll`, data),
+    init: (data: any) => request('GET', `/api/services/app/Client/init`, data)
 };

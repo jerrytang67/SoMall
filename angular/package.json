@@ -42,7 +42,6 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
-    "@tinymce/tinymce-angular": "^3.5.0",
     "ajv": "^6.10.2",
     "file-saver": "^2.0.2",
     "modernizr": "^3.9.1",

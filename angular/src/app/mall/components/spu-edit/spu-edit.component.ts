@@ -6,6 +6,8 @@ import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-spu-edit',
+  styles: [`
+  `],
   templateUrl: './spu-edit.component.html'
 })
 export class SpuEditComponent implements OnInit {

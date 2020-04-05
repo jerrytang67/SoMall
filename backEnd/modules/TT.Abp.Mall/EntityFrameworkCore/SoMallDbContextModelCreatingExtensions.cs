@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
-using TT.Abp.Shops;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 

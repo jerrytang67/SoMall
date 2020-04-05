@@ -6,24 +6,19 @@
         <input type="text" nz-input class="form-control" [(ngModel)]="form.shortName" name="shortName" required maxlength="16">
     </se>
     <se label="Logo">
-        <nz-upload class="avatar-uploader" [nzAction]="ossQuery.uploadUrl$ | async" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false"
+        <!-- <nz-upload class="avatar-uploader" [nzAction]="ossQuery.uploadUrl$ | async" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false"
             (nzChange)="handleChange2($event)">
             <ng-container *ngIf="!form.logoImage">
                 <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
                 <div class="ant-upload-text">Upload</div>
             </ng-container>
             <img *ngIf="form.logoImage" [src]="form.logoImage" class="avatar" />
-        </nz-upload>
+        </nz-upload> -->
+        <tt-upload [(ngModel)]="form.logoImage" name="logoImage" [length]="1"></tt-upload>
+
     </se>
     <se label="封面图片">
-        <nz-upload class="avatar-uploader" [nzAction]="ossQuery.uploadUrl$ | async" [nzCustomRequest]="customReq" nzListType="picture-card" [nzShowUploadList]="false"
-            (nzChange)="handleChange($event)">
-            <ng-container *ngIf="!form.coverImage">
-                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
-                <div class="ant-upload-text">Upload</div>
-            </ng-container>
-            <img *ngIf="form.coverImage" [src]="form.coverImage" class="avatar250" />
-        </nz-upload>
+        <tt-upload class="coverImage" [(ngModel)]="form.coverImage" name="coverImage" [length]="1"></tt-upload>
     </se>
     <se label="介绍">
         <ckeditor height="500" [(ngModel)]="form.description" name="description">

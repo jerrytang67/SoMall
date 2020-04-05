@@ -69,7 +69,7 @@
             <div [formGroupName]="idx">
 
                 <div>{{sku.coverImageUrls | json}}</div>
-                <tt-upload formControlName="coverImageUrls" [length]="3"></tt-upload>
+                <tt-upload class="coverImage" formControlName="coverImageUrls" [length]="3"></tt-upload>
                 <div nz-row>
                     <nz-form-item nz-col [nzSpan]="12">
                         <nz-form-label nzFor="name" nzRequired>SKU名称</nz-form-label>
