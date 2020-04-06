@@ -55,11 +55,6 @@ namespace TT.Abp.Mall.Application.Products
             return MapToGetOutputDto(entity);
         }
 
-        protected override IQueryable<ProductSpu> CreateFilteredQuery(MallPagedAndSortedResultRequestDto input)
-        {
-            return Repository
-                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
-        }
 
         public override async Task<ProductSpuDto> UpdateAsync(Guid id, SpuCreateOrUpdateDto input)
         {
@@ -133,14 +128,11 @@ namespace TT.Abp.Mall.Application.Products
         }
 
 
-        public override Task<ProductSpuDto> GetAsync(Guid id)
+        protected override IQueryable<ProductSpu> CreateFilteredQuery(MallPagedAndSortedResultRequestDto input)
         {
-            return base.GetAsync(id);
-        }
-
-        protected IQueryable<ProductSpu> CreateFilteredQuery(PagedAndSortedResultRequestDto input)
-        {
-            return Repository.Include(x => x.Category);
+            return Repository
+                .Include(x => x.Category)
+                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
         }
     }
 }
