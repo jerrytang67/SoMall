@@ -1,6 +1,7 @@
 ﻿using EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.Shops;
+using TT.Abp.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Http.Client;
@@ -11,7 +12,9 @@ namespace TT.Abp.Mall
     [DependsOn(
         typeof(AbpHttpClientModule),
         typeof(AbpAspNetCoreMvcModule),
-        typeof(AbpAutoMapperModule)
+        typeof(AbpAutoMapperModule),
+        typeof(AbpHttpClientModule),
+        typeof(WeixinModule)
     )]
     public class MallModule : AbpModule
     {
@@ -31,6 +34,11 @@ namespace TT.Abp.Mall
             });
 
             context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
+            
+            //创建动态客户端代理
+            context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
+
+            
         }
     }
 }

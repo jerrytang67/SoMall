@@ -23,6 +23,18 @@
 			"style": {
 				"navigationBarTitleText": "订单"
 			}
+		},
+		{
+			"path": "pages/mall/shop",
+			"style": {
+				"navigationBarTitleText": "商家"
+			}
+		},
+		{
+			"path": "pages/mall/spu-detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
 		}
 	],
 	"globalStyle": {

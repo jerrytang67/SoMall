@@ -84,43 +84,48 @@ namespace TT.Abp.Weixin.Application
         }
 
         [HttpPost]
-        public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel)
+        [UnitOfWork(IsDisabled = false)]
+        public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appid = null, string appSec = null)
         {
-            var appId = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
-            var appSec = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppSecret);
+            if (appid.IsNullOrEmpty())
+            {
+                appid = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
+            }
 
-            var session = await _weixinManager.Mini_Code2Session(loginModel.code, appId, appSec);
+            if (appSec.IsNullOrEmpty())
+            {
+                appSec = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppSecret);
+            }
+
+            var session = await _weixinManager.Mini_Code2Session(loginModel.code, appid, appSec);
 
             // 解密用户信息
             var miniUserInfo =
-                await _weixinManager.Mini_GetUserInfo(appId, loginModel.encryptedData, session.session_key, loginModel.iv);
+                await _weixinManager.Mini_GetUserInfo(appid, loginModel.encryptedData, session.session_key, loginModel.iv);
 
             // 更新数据库
             await _capBus.PublishAsync("weixin.services.mini.getuserinfo", miniUserInfo);
             var token = "";
 
-            var user = await _identityUserStore.FindByLoginAsync($"{appId}_unionid", miniUserInfo.unionid);
+            var user = await _identityUserStore.FindByLoginAsync($"unionid", miniUserInfo.unionid);
             if (user == null)
             {
                 var userId = Guid.NewGuid();
-                user = new IdentityUser(userId, miniUserInfo.unionid, $"{miniUserInfo.unionid}@somall.top", _currentTenant.Id);
+                user = new IdentityUser(userId, miniUserInfo.unionid, $"{miniUserInfo.unionid}@somall.top", _currentTenant.Id)
+                {
+                    Name = miniUserInfo.nickName
+                };
 
-                using (var uow = _unitOfWorkManager.Begin())
+                using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
                 {
                     var passHash = _passwordHasher.HashPassword(user, "1q2w3E*");
                     await _identityUserStore.CreateAsync(user);
                     await _identityUserStore.SetPasswordHashAsync(user, passHash);
-                    await _identityUserStore.AddLoginAsync(user, new UserLoginInfo($"{appId}_unionid", miniUserInfo.unionid, "unionid"));
-                    await _identityUserStore.AddLoginAsync(user, new UserLoginInfo($"{appId}_openid", miniUserInfo.openid, "openid"));
+                    await _identityUserStore.AddLoginAsync(user, new UserLoginInfo($"unionid", miniUserInfo.unionid, "unionid"));
+                    await _identityUserStore.AddLoginAsync(user, new UserLoginInfo($"{appid}_openid", miniUserInfo.openid, "openid"));
 
                     await _unitOfWorkManager.Current.SaveChangesAsync();
                     await uow.CompleteAsync();
-                    return await Task.FromResult(new
-                    {
-                        AccessToken = "retry",
-                        ExternalUser = miniUserInfo,
-                        SessionKey = session.session_key
-                    });
                 }
             }
 
@@ -158,9 +163,14 @@ namespace TT.Abp.Weixin.Application
 
         [HttpGet]
         [Authorize]
-        public async Task<string> CheckLogin()
+        public async Task<object> CheckLogin(bool? dbCheck = false)
         {
-            return await Task.FromResult("ok");
+            if (!dbCheck.HasValue)
+            {
+                return await Task.FromResult("ok");
+            }
+
+            return await Task.FromResult(CurrentUser);
         }
 
 

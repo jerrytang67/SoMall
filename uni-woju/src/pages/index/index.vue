@@ -1,5 +1,27 @@
 <template>
    <view class="content">
+      <view class="cu-card" v-for="(x,idx) in shops" :key="idx">
+         <view class="cu-item shadow">
+            <view class="title">
+               <view class="text-cut">{{x.name}}</view>
+            </view>
+            <view class="content">
+               <image :src="x.logoImage" mode="widthFix" style="width:150upx;"></image>
+               <view class="desc">
+                  <view class="text-content">
+                     <wxparser :rich-text="x.description" />
+                  </view>
+               </view>
+            </view>
+         </view>
+      </view>
+      <view class="padding-xl">
+         <button v-if="!openid" class="cu-btn block margin-tb-sm lg" :class="'bg-' + theme" open-type="getUserInfo" @getuserinfo="bindGetUserInfo">
+            {{loginBtnTest}}</button>
+         <button v-else class="cu-btn block margin-tb-sm lg" :class="'bg-' + theme" @tap.stop="submit">
+            <text class="cuIcon-loading2 cuIconfont-spin" v-if="loadding"></text>
+            提交</button>
+      </view>
       <navigator url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=1">
          <image class="logo" src="../../static/head.jpg"></image>
          <view>
@@ -10,16 +32,24 @@
    </view>
 </template>
 <script lang="ts">
+// pageBase
+import { BaseView } from "@/pages/baseView.ts";
+
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
+import { ShopModule } from "@/store/modules/shop";
 import api from "@/utils/api";
-@Component({})
-export default class About extends Vue {
+@Component
+export default class About extends BaseView {
    get title() {
       return "TT的直播间";
    }
 
    get roomId() {
       return 1;
+   }
+
+   get shops() {
+      return ShopModule.shops;
    }
 
    created() {}

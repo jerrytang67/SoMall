@@ -11,7 +11,7 @@ using Volo.Abp.Application.Services;
 
 namespace TT.Abp.Mall.Application.Shops
 {
-    public interface IMallShopAppService
+    public interface IMallShopAppService 
     {
         Task<ListResultDto<MallShopDto>> GetListAsync();
 

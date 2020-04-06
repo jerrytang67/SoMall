@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using TT.Abp.Mall.Application.Products.Dtos;
@@ -17,7 +15,7 @@ using Volo.Abp.Domain.Repositories;
 namespace TT.Abp.Mall.Application.Products
 {
     public class ProductSpuAppService
-        : CrudAppService<ProductSpu, ProductSpuDto, Guid, PagedAndSortedResultRequestDto, SpuCreateOrUpdateDto, SpuCreateOrUpdateDto>, IProductSpuAppService
+        : CrudAppService<ProductSpu, ProductSpuDto, Guid, MallPagedAndSortedResultRequestDto, SpuCreateOrUpdateDto, SpuCreateOrUpdateDto>, IProductSpuAppService
     {
         private readonly IRepository<ProductSku, Guid> _skuRepository;
         private readonly IRepository<ProductCategory, Guid> _categoryRepository;
@@ -55,6 +53,12 @@ namespace TT.Abp.Mall.Application.Products
             }
 
             return MapToGetOutputDto(entity);
+        }
+
+        protected override IQueryable<ProductSpu> CreateFilteredQuery(MallPagedAndSortedResultRequestDto input)
+        {
+            return Repository
+                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
         }
 
         public override async Task<ProductSpuDto> UpdateAsync(Guid id, SpuCreateOrUpdateDto input)
@@ -129,9 +133,9 @@ namespace TT.Abp.Mall.Application.Products
         }
 
 
-        protected override IQueryable<ProductSpu> CreateFilteredQuery(PagedAndSortedResultRequestDto input)
+        protected IQueryable<ProductSpu> CreateFilteredQuery(PagedAndSortedResultRequestDto input)
         {
-            return base.CreateFilteredQuery(input).Include(x => x.Category);
+            return Repository.Include(x => x.Category);
         }
     }
 }

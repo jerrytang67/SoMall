@@ -30,14 +30,12 @@ namespace TT.Abp.Weixin
                 options.ConventionalControllers.Create(typeof(WeixinModule).Assembly);
             });
             
-            
-            
             // HTTPClient
             context.Services.AddHttpClient<IWeixinApi, WeixinApi>(
                 cfg => { cfg.BaseAddress = new Uri("https://api.weixin.qq.com/"); });
             
             //创建动态客户端代理
-            context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
+            // context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
 
             // CAP
             context.Services.AddTransient<WexinCapSubscriberService>();

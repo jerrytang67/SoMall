@@ -1,9 +1,13 @@
 <script lang="ts">
 import Vue from "vue";
+import { AppModule } from "./store/modules/app";
+import { UserModule } from './store/modules/user';
 export default Vue.extend({
    mpType: "app",
-   onLaunch() {
+   async onLaunch() {
       console.log("App Launch");
+      UserModule.CheckLogin();
+      AppModule.Init();
    },
    onShow() {
       console.log("App Show");

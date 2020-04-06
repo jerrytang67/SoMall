@@ -2,14 +2,12 @@ import utils from "./utils";
 
 let host = process.env.VUE_APP_BASE_API;
 
-const TenantId = 2;
-
 const getRequest = utils.httpsPromisify(uni.request);
 
 const request = (
     method: 'OPTIONS' | 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'TRACE' | 'CONNECT',
     url: string,
-    data: string | object | ArrayBuffer) => {
+    data?: string | object | ArrayBuffer | undefined) => {
 
     uni.showLoading();
     uni.showNavigationBarLoading();
@@ -29,5 +27,8 @@ const request = (
 };
 
 export default {
-    init: (data: any) => request('GET', `/api/services/app/Client/init`, data)
+    init: (data: any) => request('POST', `/api/mall/client/init`, data),
+    checkLogin: () => request("GET", `/api/app/weixin/checkLogin?dbCheck=true`),
+    //user 
+    weixin_miniAuth: (data: any) => request("POST", `/api/mall/client/miniAuth`, data),
 };
