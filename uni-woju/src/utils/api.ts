@@ -31,4 +31,10 @@ export default {
     checkLogin: () => request("GET", `/api/app/weixin/checkLogin?dbCheck=true`),
     //user 
     weixin_miniAuth: (data: any) => request("POST", `/api/mall/client/miniAuth`, data),
+
+    //mallShop
+    mallShop_get: (id: string) => request("GET", `/api/mall/mallShop/get`, { id: id }),
+
+    //mallspu
+    spu_getList: (data: any) => request("GET", `/api/mall/productSpu/getList`, data),
 };

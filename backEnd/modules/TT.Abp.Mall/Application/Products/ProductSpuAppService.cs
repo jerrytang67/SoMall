@@ -133,6 +133,11 @@ namespace TT.Abp.Mall.Application.Products
         }
 
 
+        public override Task<ProductSpuDto> GetAsync(Guid id)
+        {
+            return base.GetAsync(id);
+        }
+
         protected IQueryable<ProductSpu> CreateFilteredQuery(PagedAndSortedResultRequestDto input)
         {
             return Repository.Include(x => x.Category);

@@ -1,7 +1,7 @@
 <template>
    <view class="content">
       <view class="cu-card" v-for="(x,idx) in shops" :key="idx">
-         <view class="cu-item shadow">
+         <view class="cu-item shadow" @tap="toShop(x.id)">
             <view class="title">
                <view class="text-cut">{{x.name}}</view>
             </view>

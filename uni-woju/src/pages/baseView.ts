@@ -47,6 +47,10 @@ export class BaseView extends Vue {
         uni.switchTab({ url: "/pages/orders/index" });
     }
 
+    toShop(shopId: string) {
+        uni.navigateTo({ url: `/pages/mall/shop?shopid=${shopId}`, })
+    }
+
     toHome() {
         uni.switchTab({ url: "/pages/index/index" })
     }

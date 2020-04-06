@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops.Application.Dtos;
+using TT.Abp.Shops.Domain;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace TT.Abp.Mall.Application.Shops
 {
-    public interface IMallShopAppService 
+    public interface IMallShopAppService
     {
+        Task<MallShopDto> GetAsync(Guid id);
+        
         Task<ListResultDto<MallShopDto>> GetListAsync();
 
         Task ShopSync(ShopSyncRequestDto input);
@@ -31,6 +34,14 @@ namespace TT.Abp.Mall.Application.Shops
             _mallShopLookupService = mallShopLookupService;
             _mallShopRepository = mallShopRepository;
         }
+
+
+        public async Task<MallShopDto> GetAsync(Guid id)
+        {
+            var shop = await _mallShopRepository.GetAsync(id, true);
+            return ObjectMapper.Map<MallShop, MallShopDto>(shop);
+        }
+
 
         public async Task<ListResultDto<MallShopDto>> GetListAsync()
         {
