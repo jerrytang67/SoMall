@@ -10,6 +10,7 @@
 
 **管理后台Angular9 - Ant Design**
 ![image](_temp/angular/index.png)
+![image](_temp/angular/spu_edit.jpg)
 
 #### 技术栈:
 
