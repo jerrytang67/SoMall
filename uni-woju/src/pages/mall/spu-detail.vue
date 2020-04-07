@@ -95,6 +95,13 @@
 
       <view class="detail-desc">
          <view class="d-header">
+            <text>购前须知</text>
+         </view>
+         <rich-text :nodes="purchaseNotes"></rich-text>
+      </view>
+
+      <view class="detail-desc">
+         <view class="d-header">
             <text>图文详情</text>
          </view>
          <rich-text :nodes="desc"></rich-text>
@@ -133,8 +140,11 @@
                   <text class="stock">库存：{{sku.stockCount}}件</text>
                   <view class="selected">
                      已选：
-                     <text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
+                     <!-- <text class="selected-text" v-for="(sItem, sIndex) in specSelected" :key="sIndex">
                         {{sItem.name}}
+                     </text> -->
+                     <text class="selected-text">
+                        {{sku.name}}
                      </text>
                   </view>
                </view>
@@ -213,6 +223,10 @@ export default class About extends Vue {
       return `${this.currentSpu.descCommon}${this.sku.desc}`;
    }
 
+   get purchaseNotes() {
+      return `${this.currentSpu.purchaseNotesCommon}${this.sku.purchaseNotes}`;
+   }
+
    get cut() {
       if (this.sku.originPrice)
          return ((this.sku.price! / this.sku.originPrice) * 10).toFixed(0);
@@ -257,7 +271,6 @@ export default class About extends Vue {
       // 如果没有选择过规格
       if (this.selected === undefined) {
          this.toggleSpec();
-         this.selected = true;
       } else {
          uni.navigateTo({ url: "/pages/mall/create-order" });
       }
@@ -268,6 +281,7 @@ export default class About extends Vue {
 
    //规格弹窗开关
    toggleSpec() {
+      this.selected = true;
       if (this.specClass === "show") {
          this.specClass = "hide";
          setTimeout(() => {
