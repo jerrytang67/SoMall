@@ -132,6 +132,7 @@ namespace TT.Abp.Mall.Application.Products
         {
             return Repository
                 .Include(x => x.Category)
+                .Include(x => x.Skus)
                 .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
         }
     }

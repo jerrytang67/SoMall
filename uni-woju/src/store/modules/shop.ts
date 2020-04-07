@@ -20,9 +20,12 @@ class Shop extends VuexModule {
 
     currentShop: IMallShop = { name: "", shortName: "" };
 
+    spuList: any[] = []
+
     get shops() { return this.shopList }
 
     get getCurrentShop() { return this.currentShop }
+    get getSpuList() { return this.spuList }
 
     @Mutation
     SET_LIST(payload: any[]) {
@@ -35,6 +38,12 @@ class Shop extends VuexModule {
         this.currentShop = payload;
     }
 
+    @Mutation
+    SET_SPU_LIST(payload: any[]) {
+        console.log("mutaction:SET_SPU_LIST", payload)
+        this.spuList = payload;
+    }
+
     @Action({ commit: 'SET_LIST' })
     public SetList(shops: any[]) {
         return shops;
@@ -44,6 +53,13 @@ class Shop extends VuexModule {
     public async GetAndSetCurrentShop(shopId: string) {
         await api.mallShop_get(shopId).then((res: any) => {
             this.SET_CURRENT_SHOP(res);
+        })
+    }
+
+    @Action
+    public async GetAndSetSpuList(shopId: string) {
+        await api.spu_getList({ shopId }).then((res: any) => {
+            this.SET_SPU_LIST(res.items);
         })
     }
 

@@ -140,6 +140,12 @@ namespace TT.SoMall.Migrations
                 principalTable: "Mall_ProductCategory",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
+            
+            migrationBuilder.AddColumn<string>(
+                name: "Unit",
+                table: "Mall_ProductSku",
+                maxLength: 16,
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -254,6 +260,10 @@ namespace TT.SoMall.Migrations
                 principalTable: "Mall_ProductCategory",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
+            
+            migrationBuilder.DropColumn(
+                name: "Unit",
+                table: "Mall_ProductSku");
         }
     }
 }

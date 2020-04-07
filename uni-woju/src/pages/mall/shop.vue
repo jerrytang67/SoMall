@@ -10,22 +10,30 @@
       <view>
          <image :src="currentShop.logoImage" mode="widthFix" style="width:150upx;"></image>
       </view>
-      <!-- <wxparser :rich-text="currentShop.description" /> -->
       <view v-html="currentShop.description" />
+      <view class="flex justify-around">
+         <spu :data="x" v-for="(x,index) in spuList" :key="index"></spu>
+      </view>
    </view>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import { ShopModule } from "@/store/modules/shop";
+import spu from "@/components/spu.vue";
 
-@Component
+@Component({ components: { spu } })
 export default class Shop extends Vue {
    async onLoad(query: any) {
       console.log(query);
       if (query.shopid) {
          await ShopModule.GetAndSetCurrentShop(query.shopid);
+         await ShopModule.GetAndSetSpuList(query.shopid);
       }
+   }
+
+   get spuList() {
+      return ShopModule.getSpuList;
    }
 
    get currentShop() {

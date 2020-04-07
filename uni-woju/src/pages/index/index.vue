@@ -8,8 +8,7 @@
             <view class="content">
                <image :src="x.logoImage" mode="widthFix" style="width:150upx;"></image>
                <view class="desc">
-                  <view class="text-content">
-                     <wxparser :rich-text="x.description" />
+                  <view class="text-content" v-html="x.description">
                   </view>
                </view>
             </view>
@@ -40,6 +39,7 @@ import { ShopModule } from "@/store/modules/shop";
 import api from "@/utils/api";
 @Component
 export default class About extends BaseView {
+   theme = "black";
    get title() {
       return "TT的直播间";
    }
