@@ -128,6 +128,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.LocationLable).IsRequired().HasMaxLength(MallConsts.MaxComentLength);
+                b.Property(x => x.LocationAddress).HasMaxLength(MallConsts.MaxImageLength);
                 b.Property(x => x.NickName).HasMaxLength(MallConsts.MaxNameLength);
             });
 

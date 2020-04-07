@@ -42,11 +42,8 @@ export interface IAddress {
     StoreId?: number;
 }
 
-
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule {
-
-
     userInfo: IUserInfo = uni.getStorageSync("userInfo") || {
         openid: "",
         unionid: ""

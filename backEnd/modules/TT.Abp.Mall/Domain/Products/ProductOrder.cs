@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Metadata;
 using TT.Abp.Shops;
 using Volo.Abp.Domain.Entities;
@@ -72,29 +71,6 @@ namespace TT.Abp.Mall.Domain.Products
         [ForeignKey("OrderId")] public virtual ProductOrder Order { get; set; }
     }
 
-
-    public class Address : FullAuditedEntity<Guid>, IMultiTenant
-    {
-        [NotNull] public string RealName { get; set; }
-        [NotNull] public string Phone { get; set; }
-        [NotNull] public string LocationLable { get; set; }
-
-        public string NickName { get; set; }
-
-        //是否为默认地址
-        public bool IsDefault { get; set; } = false;
-
-        //最后一次使用这个地址时间
-        public DateTime? DatetimeLast { get; set; }
-
-        public double? Lat { get; set; }
-
-        public double? Lng { get; set; }
-
-        public LocationType LocationType { get; set; }
-
-        public Guid? TenantId { get; protected set; }
-    }
 
     public enum OrderState : int
     {

@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops.Application.Dtos;
-using TT.Abp.Shops.Domain;
-using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 

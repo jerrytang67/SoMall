@@ -12,31 +12,43 @@ namespace TT.Abp.Mall.Domain.Partners
 {
     public class Partner : FullAuditedEntity<Guid>, IMultiTenant
     {
-        [NotNull] public string RealName { get; set; }
+        protected Partner()
+        {
+        }
 
-        [NotNull] public string Phone { get; set; }
+        public Partner(string realName, string phone, string nickname, string headImageUrl)
+        {
+            RealName = realName;
+            Phone = phone;
+            Nickname = nickname;
+            HeadImageUrl = headImageUrl;
+        }
 
-        public string Nickname { get; set; }
-        public string HeadImageUrl { get; set; }
+        [NotNull] public string RealName { get; protected set; }
+
+        [NotNull] public string Phone { get; protected set; }
+
+        public string Nickname { get; protected set; }
+        public string HeadImageUrl { get; protected set; }
 
         public DateTime UpdateDate { get; set; } = DateTime.Now;
 
-        public MallEnums.PartnerState State { get; set; } = MallEnums.PartnerState.待审核;
+        public MallEnums.PartnerState State { get; protected set; } = MallEnums.PartnerState.待审核;
 
         /// <summary>
         /// 可用余额
         /// </summary>
-        public virtual decimal AvblBalance { get; set; } = 0;
+        public virtual decimal AvblBalance { get; protected set; } = 0;
 
         /// <summary>
         /// 不可用余额
         /// </summary>
-        public virtual decimal UnavblBalance { get; set; } = 0;
+        public virtual decimal UnavblBalance { get; protected set; } = 0;
 
         /// <summary>
         /// 已提现总数
         /// </summary>
-        public virtual decimal TotalWithdrawals { get; set; } = 0;
+        public virtual decimal TotalWithdrawals { get; protected set; } = 0;
 
         public DateTime? LastLoginDate { get; set; }
 
@@ -50,11 +62,10 @@ namespace TT.Abp.Mall.Domain.Partners
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
 
         public int Views { get; set; } = 0;
-        
-        public PartnerDetail Detail { get; set; }
-        
-        public Guid? TenantId { get; protected set; }
 
+        public PartnerDetail Detail { get; set; }
+
+        public Guid? TenantId { get; protected set; }
     }
 
     [Owned]

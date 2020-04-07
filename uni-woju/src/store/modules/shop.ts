@@ -119,6 +119,7 @@ class Shop extends VuexModule {
     async GetAndSetCurrentSpu(id: string) {
         await api.spu_get({ id: id }).then((res: any) => {
             this.SET_CURRENT_SPU(res);
+            this.SET_SELECT_INDEX(0);
         })
     }
 
