@@ -181,6 +181,10 @@ namespace TT.SoMall.Migrations
                     b.Property<Guid?>("TenantId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(16)")
+                        .HasMaxLength(16);
+
                     b.Property<decimal?>("VipPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -830,6 +834,8 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CorrelationId")
@@ -938,6 +944,7 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(256);
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1031,6 +1038,7 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(64);
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1047,6 +1055,8 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
@@ -1214,6 +1224,7 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(256);
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1241,6 +1252,7 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1418,6 +1430,7 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(1024);
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -1449,6 +1462,7 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(196);
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId", "LoginProvider");
@@ -1467,6 +1481,7 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId", "RoleId");
@@ -1490,6 +1505,7 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(128);
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Value")
@@ -2055,6 +2071,8 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(200);
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreationTime")
@@ -2207,6 +2225,7 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(64);
 
                     b.Property<Guid?>("TenantId")
+                        .HasColumnName("TenantId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");

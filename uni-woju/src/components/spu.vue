@@ -25,7 +25,7 @@
         <text class="price">¥1000</text>  -->
          </view>
          <view class="col-2">
-            <text class="tag">立即购买 {{openid}}</text>
+            <text class="tag">立即购买</text>
          </view>
       </view>
    </view>
@@ -65,7 +65,7 @@ export default class SpuComponent extends BaseView {
 
    go(x: any) {
       if (x) {
-         wx.navigateTo({ url: "/pages/mall/spu-detail?id=" + x.id });
+         this.toSpu(x.id);
       }
    }
 }

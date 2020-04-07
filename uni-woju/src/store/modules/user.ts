@@ -158,7 +158,9 @@ class User extends VuexModule {
     CheckLogin() {
         api.checkLogin().then((res: any) => {
             if (res)
-                console.log("login")
+            {
+                // console.log("login")
+            }
             else {
                 console.log("notlogin... to logout")
                 this.LOGOUT();

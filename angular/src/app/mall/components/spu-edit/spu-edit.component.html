@@ -119,6 +119,18 @@
                         </nz-form-control>
                     </nz-form-item>
                     <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="stockCount">库存</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input type="number" formControlName="stockCount" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="8">
+                        <nz-form-label [nzSpan]="4" nzFor="limitBuyCount">限购</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input type="number" formControlName="limitBuyCount" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="8">
                         <nz-form-label [nzSpan]="4" nzFor="dateTimeStart">开售时间</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <nz-date-picker nzSize="large" nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" formControlName="dateTimeStart"></nz-date-picker>

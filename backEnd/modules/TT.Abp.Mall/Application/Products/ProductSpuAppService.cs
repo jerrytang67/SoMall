@@ -30,6 +30,13 @@ namespace TT.Abp.Mall.Application.Products
             _categoryRepository = categoryRepository;
         }
 
+        public override async Task<ProductSpuDto> GetAsync(Guid id)
+        {
+            await CheckGetPolicyAsync();
+            var entity = await Repository.Include(x => x.Skus).FirstOrDefaultAsync(x => x.Id == id);
+            return MapToGetOutputDto(entity);
+        }
+
 
         public override async Task<ProductSpuDto> CreateAsync(SpuCreateOrUpdateDto input)
         {

@@ -37,4 +37,5 @@ export default {
 
     //mallspu
     spu_getList: (data: any) => request("GET", `/api/mall/productSpu/getList`, data),
+    spu_get: (data: any) => request("GET", `/api/mall/productSpu/get`, data),
 };

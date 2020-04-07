@@ -38,10 +38,10 @@
 		}
 	],
 	"globalStyle": {
-		"backgroundTextStyle": "dark",
-		"navigationBarBackgroundColor": "#39b54a",
+		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "莴聚",
-		"navigationBarTextStyle": "white"
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#f8f8f8"
 	},
 	"tabBar": {
 		"selectedColor": "#FE3112",

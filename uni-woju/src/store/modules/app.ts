@@ -9,7 +9,7 @@ class App extends VuexModule {
     @Action
     public Init() {
         api.init({}).then((res: any) => {
-            console.log(res);
+            //console.log(res);
             ShopModule.SetList(res.shops);
         });
     }

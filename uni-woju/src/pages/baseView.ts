@@ -1,12 +1,11 @@
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { UserModule } from '@/store/modules/user';
-import api from '@/utils/api';
 import { Tips } from '@/utils/tips';
 
 @Component
 export class BaseView extends Vue {
-
     public modalName: string = "";
+    
     public loginBtnTest: string = "登录";
 
     get token() {
@@ -15,6 +14,11 @@ export class BaseView extends Vue {
 
     get openid() {
         return UserModule.getOpenid;
+    }
+
+    initUser() {
+        if (this.token) {
+        }
     }
 
     bindGetUserInfo(e: any) {
@@ -34,11 +38,6 @@ export class BaseView extends Vue {
         }
     };
 
-    initUser() {
-        if (this.token) {
-        }
-    }
-
     toLogin() {
         uni.navigateTo({ url: "/pages/index/login" })
     }
@@ -49,6 +48,10 @@ export class BaseView extends Vue {
 
     toShop(shopId: string) {
         uni.navigateTo({ url: `/pages/mall/shop?shopid=${shopId}`, })
+    }
+
+    toSpu(id: string) {
+        uni.navigateTo({ url: "/pages/mall/spu-detail?id=" + id });
     }
 
     toHome() {

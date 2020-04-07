@@ -60,6 +60,10 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Code).HasMaxLength(MallConsts.MaxCodeLength);
                 b.Property(x => x.Unit).HasMaxLength(MallConsts.MaxShortNameLength);
+                b.Property(x => x.Price).HasColumnType("decimal(18,2)");
+                b.Property(x => x.OriginPrice).HasColumnType("decimal(18,2)");
+                b.Property(x => x.VipPrice).HasColumnType("decimal(18,2)");
+                
                 b.Property(x => x.CoverImageUrls).HasConversion(
                     v => JsonConvert.SerializeObject(v,
                         new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}),

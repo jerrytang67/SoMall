@@ -11,24 +11,60 @@ export interface IMallShop {
     description?: string;
 }
 
+export interface ISpu {
+    id?: string;
+    category?: string;
+    shop?: IMallShop;
+    skus?: ISku[];
+    name?: string;
+    code?: string;
+    descCommon?: string;
+    purchaseNotesCommon?: string;
+    dateTimeStart?: Date;
+    dateTimeEnd?: Date;
+    stockCount?: number;
+    soldCount?: number;
+    limitBuyCount?: number;
+}
+export interface ISku {
+    id?: string;
+    coverImageUrls?: string[];
+    spuId?: string;
+    name?: string;
+    code?: string;
+    price?: number;
+    desc?: string;
+    purchaseNotes?: string;
+    originPrice?: number;
+    vipPrice?: number;
+    dateTimeStart?: Date;
+    dateTimeEnd?: Date;
+    stockCount?: number;
+    soldCount?: number;
+    limitBuyCount?: number;
+    unit?: string;
+
+}
 
 
 @Module({ dynamic: true, store, name: 'shop' })
 class Shop extends VuexModule {
 
-    shopList: any[] = [];
+    shopList: IMallShop[] = [];
 
     currentShop: IMallShop = { name: "", shortName: "" };
+    currentSpu: ISpu = {};
 
-    spuList: any[] = []
+    spuList: ISpu[] = []
 
     get shops() { return this.shopList }
 
     get getCurrentShop() { return this.currentShop }
+    get getCurrentSpu() { return this.currentSpu }
     get getSpuList() { return this.spuList }
 
     @Mutation
-    SET_LIST(payload: any[]) {
+    SET_LIST(payload: IMallShop[]) {
         this.shopList = [...payload];
     }
 
@@ -39,27 +75,41 @@ class Shop extends VuexModule {
     }
 
     @Mutation
-    SET_SPU_LIST(payload: any[]) {
+    SET_SPU_LIST(payload: ISpu[]) {
         console.log("mutaction:SET_SPU_LIST", payload)
         this.spuList = payload;
     }
 
+    @Mutation
+    SET_CURRENT_SPU(payload: ISpu) {
+        console.log("mutaction:SET_CURRENT_SPU", payload)
+        this.currentSpu = payload;
+    }
+
     @Action({ commit: 'SET_LIST' })
-    public SetList(shops: any[]) {
+    SetList(shops: IMallShop[]) {
         return shops;
     }
 
     @Action
-    public async GetAndSetCurrentShop(shopId: string) {
+    async GetAndSetCurrentShop(shopId: string) {
         await api.mallShop_get(shopId).then((res: any) => {
             this.SET_CURRENT_SHOP(res);
         })
     }
 
     @Action
-    public async GetAndSetSpuList(shopId: string) {
+    async GetAndSetSpuList(shopId: string) {
         await api.spu_getList({ shopId }).then((res: any) => {
             this.SET_SPU_LIST(res.items);
+        })
+    }
+
+
+    @Action
+    async GetAndSetCurrentSpu(id: string) {
+        await api.spu_get({ id: id }).then((res: any) => {
+            this.SET_CURRENT_SPU(res);
         })
     }
 
