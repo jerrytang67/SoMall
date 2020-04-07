@@ -1,12 +1,11 @@
 # SoMall
 
-**预计三月底可以上DEMO站**
 
 **一个社交( Socail)+商城(Mall) 的开源学习项目**
 
 **后端采用 abp二代 模块化开发**
 
-**商城小程序+H5**
+**商城小程序+H5(页面比较多,第一个DEMO应该是小程序和后台一起上了)**
 ![image](_temp/mall/mall_1.jpg)
 
 **管理后台Angular9 - Ant Design**
