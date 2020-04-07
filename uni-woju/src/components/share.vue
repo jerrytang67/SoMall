@@ -154,7 +154,7 @@ export default class ShareComponent extends Vue {
    &:after {
       content: "";
       width: 240upx;
-      heighg: 0;
+      height: 0;
       border-top: 1px solid $border-color-base;
       transform: scaleY(0.5);
       margin-right: 30upx;

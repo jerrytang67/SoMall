@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops.Domain;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -42,25 +44,22 @@ namespace TT.Abp.Mall.Domain.Partners
         public virtual double? Lat { get; set; }
 
         public virtual double? Lng { get; set; }
-
         public virtual string LocationLabel { get; set; }
-
         public virtual string LocationAddress { get; set; }
 
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
 
-        public virtual ICollection<Shop> Shops { get; set; }
-
-        public virtual int? RealNameInfoId { get; set; }
-
-        [ForeignKey("RealNameInfoId")] public virtual RealNameInfo RealNameInfo { get; set; }
+        public virtual ICollection<MallShop> Shops { get; set; }
 
         public int Views { get; set; } = 0;
-
+        
+        public PartnerDetail Detail { get; set; }
+        
         public Guid? TenantId { get; protected set; }
+
     }
 
-
+    [Owned]
     public class PartnerDetail
     {
         public virtual string NoticeContent { get; set; }

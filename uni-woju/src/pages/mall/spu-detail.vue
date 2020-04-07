@@ -2,7 +2,7 @@
 <template>
    <view>
       <view class="carousel">
-         <swiper indicator-dots circular=true duration="400">
+         <swiper indicator-dots :circular="true" :autoplay="true" :current="current" @change="swiperChange">
             <swiper-item class="swiper-item" v-for="(item,index) in sku.coverImageUrls" :key="index">
                <view class="image-wrapper">
                   <image :src="item" class="loaded" mode="aspectFill"></image>
@@ -50,17 +50,16 @@
             </view>
             <text class="yticon icon-you"></text>
          </view>
-         <view class="c-row b-b">
+         <!-- <view class="c-row b-b">
             <text class="tit">优惠券</text>
             <text class="con t-r red">领取优惠券</text>
             <text class="yticon icon-you"></text>
-         </view>
+         </view> -->
          <view class="c-row b-b">
             <text class="tit">促销活动</text>
             <view class="con-list">
                <text>新人首单送20元无门槛代金券</text>
-               <text>订单满50减10</text>
-               <text>订单满100减30</text>
+               <text>订单满100减10</text>
                <text>单笔购买满两件免邮费</text>
             </view>
          </view>
@@ -174,10 +173,10 @@ export default class About extends Vue {
    index = 0;
 
    loaded = false;
-
+   current = 0;
    data: any = {};
+   selected: boolean | undefined = undefined;
    specClass = "none";
-   specSelected: any[] = [];
    shareList = [
       {
          type: 1,
@@ -214,7 +213,7 @@ export default class About extends Vue {
 
    get cut() {
       if (this.sku.originPrice)
-         return ((this.sku.price! / this.sku.originPrice) * 10).toFixed(1);
+         return ((this.sku.price! / this.sku.originPrice) * 10).toFixed(0);
    }
 
    get sku() {
@@ -239,19 +238,26 @@ export default class About extends Vue {
    //选择规格
    selectSpec(index: any, id: any) {
       this.index = index;
+      this.current = 0;
       let list = this.currentSpu.skus;
-      list!.forEach(item => {
-         this.$set(item, "selected", false);
-      });
+      // list!.forEach(item => {
+      //    this.$set(item, "selected", false);
+      // });
 
-      this.$set(list![index], "selected", true);
+      // this.$set(list![index], "selected", true);
    }
 
    // 收藏
    toFavorite() {}
 
    // 立即购买
-   buy() {}
+   buy() {
+      // 如果没有选择过规格
+      if (this.selected === undefined) {
+         this.toggleSpec();
+         this.selected = true;
+      }
+   }
 
    // 加入购物车
    addCart() {}
@@ -267,6 +273,11 @@ export default class About extends Vue {
          this.specClass = "show";
       }
    }
+
+   swiperChange(e: any) {
+      this.current = e.detail.current;
+   }
+
    stopPrevent() {}
 }
 </script>

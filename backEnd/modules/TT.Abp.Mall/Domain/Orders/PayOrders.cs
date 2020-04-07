@@ -7,15 +7,16 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Domain.Orders
 {
-    public class PayOrders : FullAuditedEntity<Guid>, IMultiTenant, IMultiShop
+    public class PayOrder : FullAuditedEntity<Guid>, IMultiTenant, IMultiShop
     {
         [StringLength(128)] public string Body { get; protected set; }
+
+        public Guid OrderId { get; protected set; }
 
         /// <summary>
         /// 单位:分
         /// </summary>
         public int TotalPrice { get; protected set; }
-
 
         [StringLength(48)] public string BillNo { get; protected set; }
 
@@ -25,20 +26,18 @@ namespace TT.Abp.Mall.Domain.Orders
 
         public MallEnums.OrderType Type { get; protected set; } = MallEnums.OrderType.Product;
 
-        public int OrderId { get; set; }
-
         public MallEnums.PayType PayType { get; protected set; } = MallEnums.PayType.微信;
 
         public int State { get; protected set; }
 
-        #region 支付
+        #region 支付成功
 
         public bool IsSuccessPay { get; protected set; } = false;
         public DateTime? SuccessPayTime { get; protected set; } = null;
 
         #endregion
 
-        #region 退款
+        #region 退款相关
 
         public bool IsRefund { get; protected set; }
         public DateTime? RefundTime { get; protected set; }
@@ -52,9 +51,13 @@ namespace TT.Abp.Mall.Domain.Orders
         #endregion
 
         public Guid? ShareFromUserId { get; set; }
-
+        public Guid? PartnerId { get; set; }
 
         public string FromClient { get; protected set; }
+
+        public Guid? TenantId { get; protected set; }
+
+        public Guid? ShopId { get; protected set; }
 
         #region 私有方法
 
@@ -62,16 +65,12 @@ namespace TT.Abp.Mall.Domain.Orders
         {
             BillNo = $"{mchId}{DateTime.Now:yyyyMMddHHmmss}{StringExt.BuildRandomStr(6)}";
         }
-
-        #endregion
-
+        
         public void RefundComplate()
         {
             RefundComplateTime = DateTime.Now;
         }
 
-        public Guid? TenantId { get; protected set; }
-
-        public Guid? ShopId { get; protected set; }
+        #endregion
     }
 }
