@@ -49,8 +49,6 @@ namespace TT.Abp.Mall.Domain.Partners
 
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
 
-        public virtual ICollection<MallShop> Shops { get; set; }
-
         public int Views { get; set; } = 0;
         
         public PartnerDetail Detail { get; set; }

@@ -157,8 +157,26 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.OwnsOne(p => p.Detail,
                     ob => ob.ToTable(MallConsts.DbTablePrefix + "PartnerDetails", MallConsts.DbSchema));
             });
-            
-            
+
+            // 分销员 产品
+            builder.Entity<PartnerProduct>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "PartnerProducts", MallConsts.DbSchema);
+                b.ConfigureCreationAudited();
+
+                b.Property(x => x.State).HasDefaultValue(1);
+
+                // b.Property(x => x.Price).HasColumnType("decimal(18,2)");
+                
+                b.HasKey(x => new {x.PartnerId, x.SpuId});
+
+                // many to many 
+                b.HasOne(bc => bc.Partner)
+                    .WithMany(b => b.PartnerProducts)
+                    .HasForeignKey(bc => bc.PartnerId);
+            });
+
+
             // 实名信息
             builder.Entity<RealNameInfo>(b =>
             {
@@ -168,7 +186,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.PhoneBackup).HasMaxLength(MallConsts.MaxNameLength);
-                
+
                 b.Property(x => x.IDCardFrontUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.IDCardBackUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.IDCardHandUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);

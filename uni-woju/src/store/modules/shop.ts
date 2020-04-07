@@ -43,9 +43,7 @@ export interface ISku {
     soldCount?: number;
     limitBuyCount?: number;
     unit?: string;
-
 }
-
 
 @Module({ dynamic: true, store, name: 'shop' })
 class Shop extends VuexModule {
@@ -55,12 +53,18 @@ class Shop extends VuexModule {
     currentShop: IMallShop = { name: "", shortName: "" };
     currentSpu: ISpu = {};
 
+    selectIndex: number = 0;
+
     spuList: ISpu[] = []
 
     get shops() { return this.shopList }
 
     get getCurrentShop() { return this.currentShop }
+
     get getCurrentSpu() { return this.currentSpu }
+
+    get getCurrentSku() { return this.currentSpu.id ? this.currentSpu.skus![this.selectIndex] : { coverImageUrls: [] } }
+
     get getSpuList() { return this.spuList }
 
     @Mutation
@@ -84,6 +88,11 @@ class Shop extends VuexModule {
     SET_CURRENT_SPU(payload: ISpu) {
         console.log("mutaction:SET_CURRENT_SPU", payload)
         this.currentSpu = payload;
+    }
+    @Mutation
+    SET_SELECT_INDEX(payload: number) {
+        console.log("mutaction:SET_SELECT_INDEX", payload)
+        this.selectIndex = payload;
     }
 
     @Action({ commit: 'SET_LIST' })
@@ -111,6 +120,12 @@ class Shop extends VuexModule {
         await api.spu_get({ id: id }).then((res: any) => {
             this.SET_CURRENT_SPU(res);
         })
+    }
+
+
+    @Action
+    async SetSelectSkuIndex(index: number) {
+        this.SET_SELECT_INDEX(index);
     }
 
 }

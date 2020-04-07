@@ -35,6 +35,12 @@
 			"style": {
 				"navigationBarTitleText": "商品详情"
 			}
+		},
+		{
+			"path": "pages/mall/create-order",
+			"style": {
+				"navigationBarTitleText": "创建订单"
+			}
 		}
 	],
 	"globalStyle": {

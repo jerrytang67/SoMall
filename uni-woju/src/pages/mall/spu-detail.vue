@@ -170,8 +170,6 @@ export default class About extends Vue {
       }
    }
 
-   index = 0;
-
    loaded = false;
    current = 0;
    data: any = {};
@@ -207,6 +205,10 @@ export default class About extends Vue {
       }
    ];
 
+   get index() {
+      return ShopModule.selectIndex;
+   }
+
    get desc() {
       return `${this.currentSpu.descCommon}${this.sku.desc}`;
    }
@@ -217,7 +219,7 @@ export default class About extends Vue {
    }
 
    get sku() {
-      if (this.currentSpu.id) return this.currentSpu!.skus![this.index];
+      if (ShopModule.getCurrentSku) return ShopModule.getCurrentSku;
       else return { coverImageUrls: [] };
    }
 
@@ -237,7 +239,7 @@ export default class About extends Vue {
 
    //选择规格
    selectSpec(index: any, id: any) {
-      this.index = index;
+      ShopModule.SetSelectSkuIndex(index);
       this.current = 0;
       let list = this.currentSpu.skus;
       // list!.forEach(item => {
@@ -256,6 +258,8 @@ export default class About extends Vue {
       if (this.selected === undefined) {
          this.toggleSpec();
          this.selected = true;
+      } else {
+         uni.navigateTo({ url: "/pages/mall/create-order" });
       }
    }
 

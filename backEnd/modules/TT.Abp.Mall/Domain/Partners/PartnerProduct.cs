@@ -8,13 +8,9 @@ namespace TT.Abp.Mall.Domain.Partners
 {
     public class PartnerProduct : CreationAuditedEntity, IMultiTenant
     {
-        public int PartnerId { get; set; }
-        public int SpuId { get; set; }
-
-        [ForeignKey("PartnerId")] public virtual Partner Partner { get; set; }
-
-        [ForeignKey("SpuId")] public virtual ProductSpu ProductSpu { get; set; }
-
+        public Guid PartnerId { get; set; }
+        public Guid SpuId { get; set; }
+        
         public int Count { get; set; } = 0;
 
         public decimal? Price { get; set; }
@@ -26,6 +22,10 @@ namespace TT.Abp.Mall.Domain.Partners
             return new object[] {PartnerId, SpuId};
         }
 
+        [ForeignKey("PartnerId")] public virtual Partner Partner { get; set; }
+
+        [ForeignKey("SpuId")] public virtual ProductSpu ProductSpu { get; set; }
+        
         public Guid? TenantId { get; protected set; }
     }
 }
