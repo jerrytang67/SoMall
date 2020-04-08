@@ -1,5 +1,5 @@
-﻿using EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Abp.Shops;
 using TT.Abp.Weixin;
 using Volo.Abp.AspNetCore.Mvc;

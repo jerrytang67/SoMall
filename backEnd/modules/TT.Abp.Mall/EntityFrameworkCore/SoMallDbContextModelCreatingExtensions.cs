@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;

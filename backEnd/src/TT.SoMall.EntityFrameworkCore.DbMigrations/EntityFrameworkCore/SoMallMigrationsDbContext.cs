@@ -1,5 +1,4 @@
-﻿using EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Abp.Shops.EntityFrameworkCore;
 using TT.Abp.VisitorManagement.EntityFrameworkCore;

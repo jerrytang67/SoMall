@@ -8,6 +8,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.Domain.Addresses;
 
 namespace TT.Abp.Mall.Application.Addresses
 {
@@ -33,17 +34,7 @@ namespace TT.Abp.Mall.Application.Addresses
 
         public override async Task<PagedResultDto<AddressDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
-            if (await AuthorizationService.IsGrantedAsync(GetListPolicyName))
-            {
-                return await base.GetListAsync(input);
-            }
-
-            var query = CreateFilteredQuery(input);
-            var list = await query.Where(x => x.CreatorId == CurrentUser.Id).ToListAsync();
-            return new PagedResultDto<AddressDto>(
-                list.Count,
-                list.Select(MapToGetListOutputDto).ToList()
-            );
+            return await base.GetListAsync(input);
         }
 
         public override async Task<AddressDto> CreateAsync(AddressCreateOrUpdateDto input)

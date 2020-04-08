@@ -292,6 +292,12 @@ namespace TT.SoMall.Migrations
                 name: "IX_Mall_ProductOrderItems_OrderId",
                 table: "Mall_ProductOrderItems",
                 column: "OrderId");
+            
+            migrationBuilder.AddColumn<string>(
+                name: "LocationAddress",
+                table: "Mall_Addresses",
+                maxLength: 255,
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -322,6 +328,10 @@ namespace TT.SoMall.Migrations
 
             migrationBuilder.DropTable(
                 name: "Mall_ProductOrders");
+            
+            migrationBuilder.DropColumn(
+                name: "LocationAddress",
+                table: "Mall_Addresses");
         }
     }
 }

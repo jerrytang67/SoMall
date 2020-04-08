@@ -462,6 +462,10 @@ namespace TT.SoMall.Migrations
                     b.Property<double?>("Lng")
                         .HasColumnType("float");
 
+                    b.Property<string>("LocationAddress")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
                     b.Property<string>("LocationLable")
                         .IsRequired()
                         .HasColumnType("nvarchar(1024)")

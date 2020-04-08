@@ -102,7 +102,7 @@ class Shop extends VuexModule {
 
     @Action
     async GetAndSetCurrentShop(shopId: string) {
-        await api.mallShop_get(shopId).then((res: any) => {
+        await api.shop_get(shopId).then((res: any) => {
             this.SET_CURRENT_SHOP(res);
         })
     }

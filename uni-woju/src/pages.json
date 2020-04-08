@@ -41,6 +41,12 @@
 			"style": {
 				"navigationBarTitleText": "创建订单"
 			}
+		},
+		{
+			"path": "pages/address/address",
+			"style": {
+				"navigationBarTitleText": "address"
+			}
 		}
 	],
 	"globalStyle": {

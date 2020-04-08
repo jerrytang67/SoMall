@@ -36,6 +36,7 @@ export interface IAddress {
     Lat?: number;
     Lng?: number;
     LocationLable?: string;
+    LocationAddress?: string;
     NickName?: string;
     Phone?: string;
     RealName?: string;
@@ -52,6 +53,7 @@ class User extends VuexModule {
     sessionKey: string = uni.getStorageSync("sessionKey") || "";
     phone: string = uni.getStorageSync("phone") || "";
 
+    addressList: IAddress[] = []
 
     get getUserInfo() {
         return this.userInfo;
@@ -69,6 +71,10 @@ class User extends VuexModule {
         return this.userInfo.openid;
     }
 
+
+    get getAddressList() {
+        return this.addressList;
+    }
 
     @Mutation
     private SET_USERINFO(v: IUserInfo) {
@@ -90,6 +96,9 @@ class User extends VuexModule {
         uni.setStorageSync("token", v);
         this.token = v;
     }
+
+    @Mutation
+    private SET_ADDRESSLIST(payload: IAddress[]) { this.addressList = payload }
 
     @Mutation
     private LOGOUT() {
@@ -119,7 +128,7 @@ class User extends VuexModule {
                             this.SET_USERINFO(res1.userInfo);
                             if (res1) {
                                 api
-                                    .weixin_miniAuth({
+                                    .client_miniAuth({
                                         code: res1.code,
                                         iv: res1.iv,
                                         encryptedData: res1.encryptedData
@@ -154,8 +163,7 @@ class User extends VuexModule {
     @Action
     CheckLogin() {
         api.checkLogin().then((res: any) => {
-            if (res)
-            {
+            if (res) {
                 // console.log("login")
             }
             else {
@@ -166,6 +174,13 @@ class User extends VuexModule {
             console.log("notlogin")
             this.LOGOUT();
         })
+    }
+
+    @Action
+    GetAndSetAddressList() {
+        api.client_getUserAddressList().then((res: any) => {
+            this.SET_ADDRESSLIST(res.items);
+        });
     }
 
 }

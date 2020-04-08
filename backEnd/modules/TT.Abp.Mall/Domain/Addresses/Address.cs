@@ -1,13 +1,19 @@
 ﻿using System;
 using JetBrains.Annotations;
+using TT.Abp.Mall.Domain.Products;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace TT.Abp.Mall.Domain.Products
+namespace TT.Abp.Mall.Domain.Addresses
 {
     public class Address : FullAuditedEntity<Guid>, IMultiTenant
     {
-        protected Address([NotNull] string realName, [NotNull] string phone, [NotNull] string locationLable, [NotNull] string locationAddress)
+        protected Address()
+        {
+            
+        }
+        
+        public Address([NotNull] string realName, [NotNull] string phone, [NotNull] string locationLable, [NotNull] string locationAddress)
         {
             RealName = realName;
             Phone = phone;
