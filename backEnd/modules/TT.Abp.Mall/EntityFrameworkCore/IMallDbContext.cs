@@ -5,6 +5,7 @@ using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Domain.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
     [ConnectionStringName("Mall")]
     public interface IMallDbContext : IEfCoreDbContext
     {
+        public DbSet<MallUser> MallUsers { get; set; }
         public DbSet<MallShop> MallShops { get; set; }
         
         DbSet<ProductSpu> ProductSpu { get; set; }

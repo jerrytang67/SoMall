@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
@@ -7,8 +8,10 @@ using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Domain.Users;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Volo.Abp.Users;
 
 namespace TT.Abp.Mall.EntityFrameworkCore
 {
@@ -17,6 +20,15 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         public static void ConfigureMall(this ModelBuilder builder)
         {
             Check.NotNull(builder, nameof(builder));
+
+            builder.Entity<MallUser>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "Users", MallConsts.DbSchema);
+
+                b.ConfigureAbpUser();
+                b.ConfigureExtraProperties();
+            });
+
 
             builder.Entity<MallShop>(b =>
             {
@@ -169,7 +181,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.State).HasDefaultValue(1);
 
                 // b.Property(x => x.Price).HasColumnType("decimal(18,2)");
-                
+
                 b.HasKey(x => new {x.PartnerId, x.SpuId});
 
                 // many to many 
@@ -194,6 +206,22 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.IDCardHandUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.BusinessLicenseUrl).HasMaxLength(MallConsts.MaxNameLength);
             });
+        }
+    }
+
+    public static class AbpUsersDbContextModelCreatingExtensions
+    {
+        public static void ConfigureAbpUser<TUser>(this EntityTypeBuilder<TUser> b)
+            where TUser : class, IUser
+        {
+            b.Property(u => u.TenantId).HasColumnName(nameof(IUser.TenantId));
+            b.Property(u => u.UserName).IsRequired().HasMaxLength(AbpUserConsts.MaxUserNameLength).HasColumnName(nameof(IUser.UserName));
+            b.Property(u => u.Email).IsRequired().HasMaxLength(AbpUserConsts.MaxEmailLength).HasColumnName(nameof(IUser.Email));
+            b.Property(u => u.Name).HasMaxLength(AbpUserConsts.MaxNameLength).HasColumnName(nameof(IUser.Name));
+            b.Property(u => u.Surname).HasMaxLength(AbpUserConsts.MaxSurnameLength).HasColumnName(nameof(IUser.Surname));
+            b.Property(u => u.EmailConfirmed).HasDefaultValue(false).HasColumnName(nameof(IUser.EmailConfirmed));
+            b.Property(u => u.PhoneNumber).HasMaxLength(AbpUserConsts.MaxPhoneNumberLength).HasColumnName(nameof(IUser.PhoneNumber));
+            b.Property(u => u.PhoneNumberConfirmed).HasDefaultValue(false).HasColumnName(nameof(IUser.PhoneNumberConfirmed));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using TT.Abp.Mall.Application.Addresses;
+using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Addresses;

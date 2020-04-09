@@ -19,27 +19,26 @@
             <tr>
                 <!-- <th>Id</th> -->
                 <th>Realname</th>
+                <th>phone</th>
+                <th>locationAddress</th>
+                <th>locationLable</th>
                 <th>Lat</th>
                 <th>Lng</th>
+                <!-- <th></th> -->
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
-                <td>
-                    <nz-avatar nzShape="square" [nzSize]="64" nzSize="large" nzIcon="user" [nzSrc]="item.logoImage"></nz-avatar>
-                </td>
-                <td>
-                    <nz-avatar nzShape="square" [nzSize]="128" nzSize="large" nzIcon="user" [nzSrc]="item.coverImage"></nz-avatar>
-                </td>
-                <td>{{item.realname}}</td>
+                <td> {{item.realName}} </td>
+                <td> {{item.phone}} </td>
+                <td>{{item.locationAddress}}</td>
+                <td>{{item.locationLable}}</td>
                 <td>{{item.lat}}</td>
                 <td>{{item.lng}}</td>
-                <td>
+                <!-- <td>
                     <a (click)="edit(item)">{{'edit' | translate}}</a>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <a nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)" nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
-                </td>
+                </td> -->
             </tr>
         </tbody>
     </nz-table>

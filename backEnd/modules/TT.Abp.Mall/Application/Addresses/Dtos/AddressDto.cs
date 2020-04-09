@@ -1,9 +1,13 @@
 ﻿using System;
+using TT.Abp.Mall.Application.Users;
 using TT.Abp.Mall.Domain.Products;
 using Volo.Abp.Application.Dtos;
 
-namespace TT.Abp.Mall.Application.Addresses
+namespace TT.Abp.Mall.Application.Addresses.Dtos
 {
+    /// <summary>
+    /// <see cref="TT.Abp.Mall.Domain.Addresses.Address"/>
+    /// </summary>
     public class AddressDto : EntityDto<Guid>
     {
         public string RealName { get; set; }
@@ -27,5 +31,9 @@ namespace TT.Abp.Mall.Application.Addresses
         public double? Lng { get; set; }
 
         public LocationType LocationType { get; set; }
+
+        public Guid? CreatorId { get; set; }
+
+        public MallUserDto MallUser { get; set; }
     }
 }
