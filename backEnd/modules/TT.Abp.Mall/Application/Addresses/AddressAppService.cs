@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Users;
 using TT.Abp.Mall.Domain.Addresses;
@@ -37,6 +36,10 @@ namespace TT.Abp.Mall.Application.Addresses
             : base(repository)
         {
             UserLookupService = userLookupService;
+
+            base.CreatePolicyName = MallPermissions.Addresses.Create;
+            base.UpdatePolicyName = MallPermissions.Addresses.Update;
+            base.DeletePolicyName = MallPermissions.Addresses.Delete;
         }
 
         public override async Task<PagedResultDto<AddressDto>> GetListAsync(PagedAndSortedResultRequestDto input)
@@ -78,7 +81,7 @@ namespace TT.Abp.Mall.Application.Addresses
                     }
                 }
             }
-            
+
             return addresslist;
         }
 
@@ -127,7 +130,7 @@ namespace TT.Abp.Mall.Application.Addresses
 
         protected override IQueryable<Address> CreateFilteredQuery(PagedAndSortedResultRequestDto input)
         {
-            return base.CreateFilteredQuery(input).Include(x => x.CreatorId);
+            return base.CreateFilteredQuery(input);
         }
     }
 }
