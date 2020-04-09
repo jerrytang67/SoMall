@@ -4,9 +4,11 @@ using TT.Abp.Mall.Application.Addresses;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Application.Users;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Domain.Users;
 
 namespace TT.Abp.Mall
 {
@@ -14,6 +16,8 @@ namespace TT.Abp.Mall
     {
         public MallApplicationAutoMapperProfile()
         {
+            CreateMap<MallUser, MallUserDto>();
+
             #region Shops
 
             CreateMap<MallShop, MallShopDto>();
@@ -42,7 +46,8 @@ namespace TT.Abp.Mall
 
             #region Address
 
-            CreateMap<Address, AddressDto>();
+            CreateMap<Address, AddressDto>()
+                .ForMember(x => x.MallUser, opt => opt.Ignore());
 
             CreateMap<AddressCreateOrUpdateDto, Address>()
                 .ReverseMap();
