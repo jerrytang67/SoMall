@@ -7,7 +7,7 @@ class Address extends VuexModule {
 
     @Action
     public GetAndSetUserAddressList() {
-        api.mall_address_getList().then(res => {
+        api.client_getUserAddressList().then((res: any) => {
 
         });
     }

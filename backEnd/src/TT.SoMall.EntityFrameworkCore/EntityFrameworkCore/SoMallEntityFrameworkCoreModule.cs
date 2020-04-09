@@ -28,11 +28,11 @@ namespace TT.SoMall.EntityFrameworkCore
         typeof(AbpAuditLoggingEntityFrameworkCoreModule),
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
         typeof(AbpFeatureManagementEntityFrameworkCoreModule),
+        typeof(AbpFeatureManagementEntityFrameworkCoreModule),
         typeof(ShopModule),
         typeof(MallModule),
         typeof(WeixinModule),
-        typeof(VisitorManagementModule),
-        typeof(AbpFeatureManagementEntityFrameworkCoreModule)
+        typeof(VisitorManagementModule)
     )]
     public class SoMallEntityFrameworkCoreModule : AbpModule
     {

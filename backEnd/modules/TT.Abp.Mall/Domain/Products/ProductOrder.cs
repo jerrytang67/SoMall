@@ -39,13 +39,12 @@ namespace TT.Abp.Mall.Domain.Products
         public Guid? ManId { get; set; }
 
         public int PrintCount { get; set; } = 0; //打印次数统计
-        
+
         public Guid? TenantId { get; protected set; }
 
         public Guid? ShopId { get; protected set; }
-        
+
         public virtual ICollection<ProductOrderItem> OrderItems { get; set; }
-        
     }
 
     public class ProductOrderItem : FullAuditedEntity<Guid>
@@ -103,7 +102,8 @@ namespace TT.Abp.Mall.Domain.Products
 
     public enum LocationType
     {
-        baidu = 0,
-        weixin = 1
+        bd09 = 0,
+        gcj02 = 1,
+        wgs84 = 2
     }
 }

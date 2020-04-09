@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using TT.Abp.Weixin.Application.Dtos;
 using TT.Abp.Weixin.Domain;
 using TT.Extensions;
+using TT.HttpClient.Weixin.Helpers;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
@@ -182,52 +183,10 @@ namespace TT.Abp.Weixin.Application
             return new {url = await _weixinManager.Getwxacodeunlimit(shorter, page)};
         }
 
-
-        // public async Task<TokenResponse> DelegateAsync(string username)
-        // {
-        //     var serverClient = _httpClientFactory.CreateClient();
-        //     var disco = await serverClient.GetDiscoveryDocumentAsync("https://localhost:44380");
-        //
-        //     //send custom grant to token endpoint, return response
-        //     return await serverClient.RequestTokenAsync(
-        //         new TokenRequest
-        //         {
-        //             Address = disco.TokenEndpoint,
-        //             GrantType = "password",
-        //
-        //             ClientId = "SoMall_App",
-        //             ClientSecret = "1q2w3e*",
-        //             Parameters =
-        //             {
-        //                 {"UserName", username},
-        //                 {"Password", "1q2w3E*"},
-        //                 {"scope", "SoMall"}
-        //             }
-        //         });
-        // }
-
-        //
-        // public async Task<string> LoginAs(IdentityUser user)
-        // {
-        //     var Request = new TokenCreationRequest();
-        //     var IdentityPricipal = await _principalFactory.CreateAsync(user);
-        //     var IdentityUser = new IdentityServerUser(user.Id.ToString());
-        //     IdentityUser.AdditionalClaims = IdentityPricipal.Claims.ToArray();
-        //     IdentityUser.DisplayName = user.UserName;
-        //     IdentityUser.AuthenticationTime = System.DateTime.UtcNow;
-        //     IdentityUser.IdentityProvider = IdentityServerConstants.LocalIdentityProvider;
-        //     Request.Subject = IdentityUser.CreatePrincipal();
-        //     Request.IncludeAllIdentityClaims = true;
-        //     Request.ValidatedRequest = new ValidatedRequest();
-        //     Request.ValidatedRequest.Subject = Request.Subject;
-        //     Request.ValidatedRequest.SetClient(GetClient());
-        //     Request.Resources = new Resources(GetIdentityResources(), GetApiResources());
-        //     Request.ValidatedRequest.Options = _options;
-        //     Request.ValidatedRequest.ClientClaims = IdentityUser.AdditionalClaims;
-        //     var Token = await _ts.CreateAccessTokenAsync(Request);
-        //     Token.Issuer = "http://localhost:44380";
-        //     var TokenValue = await _ts.CreateSecurityTokenAsync(Token);
-        //     return TokenValue;
-        // }
+        public async Task<object> GetPhone([FromBody] WeChatMiniProgramAuthenticateModel data)
+        {
+            var json = Encryption.AES_decrypt(data.encryptedData, data.session_key, data.iv);
+            return await Task.FromResult(json);
+        }
     }
 }

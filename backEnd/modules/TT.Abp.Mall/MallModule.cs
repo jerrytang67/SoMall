@@ -20,7 +20,7 @@ namespace TT.Abp.Mall
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAbpDbContext<MallDbContext>(options => { options.AddDefaultRepositories(); });
+            context.Services.AddAbpDbContext<MallDbContext>(options => { options.AddDefaultRepositories(true); });
 
             context.Services.AddAutoMapperObjectMapper<MallModule>();
 
@@ -37,8 +37,6 @@ namespace TT.Abp.Mall
             
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
-
-            
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TT.Abp.Shops
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAbpDbContext<ShopDbContext>(options => { options.AddDefaultRepositories(); });
+            context.Services.AddAbpDbContext<ShopDbContext>(options => { options.AddDefaultRepositories(true); });
 
             context.Services.AddAutoMapperObjectMapper<ShopModule>();
 

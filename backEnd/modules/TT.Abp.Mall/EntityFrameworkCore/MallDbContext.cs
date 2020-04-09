@@ -13,27 +13,27 @@ namespace TT.Abp.Mall.EntityFrameworkCore
     [ConnectionStringName("Mall")]
     public class MallDbContext : AbpDbContext<MallDbContext>, IMallDbContext
     {
-        public DbSet<MallShop> MallShops { get; set; }
+        public virtual DbSet<MallShop> MallShops { get; set; }
 
-        public DbSet<ProductSpu> ProductSpu { get; set; }
+        public virtual DbSet<ProductSpu> ProductSpu { get; set; }
         
-        public DbSet<ProductSku> ProductSku { get; set; }
+        public virtual DbSet<ProductSku> ProductSku { get; set; }
         
-        public DbSet<ProductCategory> ProductCategory { get; set; }
+        public virtual DbSet<ProductCategory> ProductCategory { get; set; }
         
-        public DbSet<PayOrder> PayOrders { get; set; }
+        public virtual DbSet<PayOrder> PayOrders { get; set; }
         
-        public DbSet<ProductOrder> ProductOrders { get; set; }
+        public virtual DbSet<ProductOrder> ProductOrders { get; set; }
         
-        public DbSet<ProductOrderItem> ProductOrderItems { get; set; }
+        public virtual DbSet<ProductOrderItem> ProductOrderItems { get; set; }
         
-        public DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
         
-        public DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
         
-        public DbSet<Partner> Partners { get; set; }
+        public virtual DbSet<Partner> Partners { get; set; }
         
-        public DbSet<RealNameInfo> RealNameInfos { get; set; }
+        public virtual DbSet<RealNameInfo> RealNameInfos { get; set; }
         
         public MallDbContext(DbContextOptions<MallDbContext> options)
             : base(options)

@@ -5,7 +5,7 @@
     "refresh": "刷新",
     "edit": "编辑",
     "delete": "删除",
-    "upload":"上传",
+    "upload": "上传",
     "add.shop": "添加商户",
     "add.category": "添加分类",
     "delete.warning": "你确定删除吗?",
@@ -160,5 +160,6 @@
     "validation.goal.required": "请输入目标描述",
     "validation.standard.required": "请输入衡量标准",
     "mall.spu.create": "添加产品",
-    "mall.sku.add": "添加商品"
+    "mall.sku.add": "添加商品",
+    "mall.address.add": "添加地址"
 }

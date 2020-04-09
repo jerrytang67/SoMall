@@ -1,7 +1,9 @@
 ﻿using System;
 using AutoMapper;
+using TT.Abp.Mall.Application.Addresses;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 
@@ -32,6 +34,16 @@ namespace TT.Abp.Mall
                 .ReverseMap();
 
             CreateMap<SkuCreateOrUpdateDto, ProductSku>()
+                .ReverseMap();
+
+            #endregion
+
+
+            #region Address
+
+            CreateMap<Address, AddressDto>();
+
+            CreateMap<AddressCreateOrUpdateDto, Address>()
                 .ReverseMap();
 
             #endregion

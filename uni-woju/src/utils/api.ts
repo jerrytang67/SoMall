@@ -30,7 +30,7 @@ export default {
     // default
     init: (data: any) => request('POST', `/api/mall/client/init`, data),
     checkLogin: () => request("GET", `/api/app/weixin/checkLogin?dbCheck=true`),
-    getPhone: (data: any) => request("GET", `/api/app/weixin/getPhone`),
+    getPhone: (data: any) => request("POST", `/api/app/weixin/getPhone`,data),
 
     // auth
     client_miniAuth: (data: any) => request("POST", `/api/mall/client/miniAuth`, data),
@@ -47,8 +47,8 @@ export default {
 
 
     //address
-    address_delete: (data: any) => request("DELETE", `/api/mall/address/delete`, data),
-    address_create: (data: any) => request("POST", `/api/mall/productSpu/create`, data),
-    address_update: (data: any) => request("PUT", `/api/mall/productSpu/update`, data),
-    address_setDefault: (data: any) => request("POST", `/api/mall/productSpu/setDefault`, data)
+    address_delete: (data: any) => request("DELETE", `/api/mall/address/delete?id=${data.id}`),
+    address_create: (data: any) => request("POST", `/api/mall/address/create`, data),
+    address_update: (data: any) => request("PUT", `/api/mall/address/update?id=${data.id}`, data),
+    address_setDefault: (data: any) => request("POST", `/api/mall/address/setDefault`, data)
 };

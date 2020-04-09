@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
-using TT.Abp.Mall.Domain.Products;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -79,42 +77,5 @@ namespace TT.Abp.Mall.Application.Addresses
                 await DeleteByIdAsync(id);
             }
         }
-    }
-
-    public class AddressCreateOrUpdateDto
-    {
-        [NotNull] public string RealName { get; set; }
-        [NotNull] public string Phone { get; set; }
-        [NotNull] public string LocationLable { get; set; }
-        [NotNull] public string LocationAddress { get; set; }
-        public string NickName { get; set; }
-        public double? Lat { get; set; }
-        public double? Lng { get; set; }
-        public LocationType LocationType { get; set; }
-    }
-
-    public class AddressDto : EntityDto<Guid>
-    {
-        public string RealName { get; set; }
-
-        public string Phone { get; set; }
-
-        public string LocationLable { get; set; }
-
-        public string LocationAddress { get; set; }
-
-        public string NickName { get; set; }
-
-        //是否为默认地址
-        public bool IsDefault { get; set; } = false;
-
-        //最后一次使用这个地址时间
-        public DateTime? DatetimeLast { get; set; }
-
-        public double? Lat { get; set; }
-
-        public double? Lng { get; set; }
-
-        public LocationType LocationType { get; set; }
     }
 }

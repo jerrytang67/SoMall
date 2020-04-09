@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-export class IList<T> extends Array<T> { }
-export class List<T> extends Array<T> { }
+export class IList<T> extends Array<T> {}
+export class List<T> extends Array<T> {}
 
 export interface IListResult<T> {
   items?: T[];
@@ -29,7 +29,7 @@ export class PagedResultDto<T> implements IPagedResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApiDefinitionProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -52,7 +52,7 @@ export class AbpApiDefinitionProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -68,7 +68,7 @@ export class AbpApplicationConfigurationProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpApplicationConfigurationScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -84,7 +84,7 @@ export class AbpApplicationConfigurationScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpLanguagesProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -111,7 +111,7 @@ export class AbpLanguagesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpServiceProxyScriptProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -142,7 +142,7 @@ export class AbpServiceProxyScriptProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AbpTenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -182,7 +182,7 @@ export class AbpTenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class AccountProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -203,8 +203,146 @@ export class AccountProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class AddressProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<AddressDtoPagedResultDto> {
+    let url = '/api/mall/address/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<AddressDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: AddressCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<AddressDto> {
+    let url = '/api/mall/address/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<AddressDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: AddressCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<AddressDto> {
+    let url = '/api/mall/address/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<AddressDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/address/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<AddressDto> {
+    let url = '/api/mall/address/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<AddressDto>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class ClientProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  init(): Observable<any> {
+    let url = '/api/mall/client/init';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  miniAuth(
+    params: {
+      /** requestBody */
+      body?: WeChatMiniProgramAuthenticateModel;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/client/miniAuth';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  getUserAddressList(): Observable<AddressDtoListResultDto> {
+    let url = '/api/mall/client/getUserAddressList';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<AddressDtoListResultDto>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class FeaturesProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -240,6 +378,7 @@ export class FeaturesProxyService {
   ): Observable<any> {
     let url = '/api/abp/features/update';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -249,7 +388,7 @@ export class FeaturesProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class FormProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -383,8 +522,25 @@ export class FormProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class MallShopProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<MallShopDto> {
+    let url = '/api/mall/mallShop/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<MallShopDto>;
+  }
   /**
    *
    */
@@ -415,7 +571,7 @@ export class MallShopProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class OssProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -450,6 +606,7 @@ export class OssProxyService {
   test(): Observable<any> {
     let url = '/api/app/oss/test';
     let options: any = {
+      body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;
@@ -458,7 +615,7 @@ export class OssProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -494,6 +651,7 @@ export class PermissionsProxyService {
   ): Observable<any> {
     let url = '/api/abp/permissions/update';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -503,7 +661,7 @@ export class PermissionsProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -598,7 +756,7 @@ export class ProductCategoryProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSkuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -693,8 +851,25 @@ export class ProductSkuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProductSpuProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<ProductSpuDto> {
+    let url = '/api/mall/productSpu/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ProductSpuDto>;
+  }
   /**
    *
    */
@@ -750,25 +925,10 @@ export class ProductSpuProxyService {
   /**
    *
    */
-  get(
-    params: {
-      /**  */
-      id?: string;
-    } = {} as any
-  ): Observable<ProductSpuDto> {
-    let url = '/api/mall/productSpu/get';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<ProductSpuDto>;
-  }
-  /**
-   *
-   */
   getList(
     params: {
+      /**  */
+      shopId?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -805,7 +965,7 @@ export class ProductSpuProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ProfileProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -828,6 +988,7 @@ export class ProfileProxyService {
   ): Observable<ProfileDto> {
     let url = '/api/identity/my-profile';
     let options: any = {
+      params: { id: params.id },
       body: params.body,
       method: 'put'
     };
@@ -853,7 +1014,7 @@ export class ProfileProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class RoleProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -958,7 +1119,7 @@ export class RoleProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class ShopProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1068,7 +1229,7 @@ export class ShopProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class TenantProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1192,6 +1353,7 @@ export class TenantProxyService {
     let url = '/api/multi-tenancy/tenants//default-connection-string';
     let options: any = {
       params: { id: params.id },
+      body: params.body,
       method: 'put'
     };
     return (this.http.request('put', url, options) as any) as Observable<any>;
@@ -1216,7 +1378,7 @@ export class TenantProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1383,7 +1545,7 @@ export class UserProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class UserLookupProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1423,7 +1585,7 @@ export class UserLookupProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class VisitorLogProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1519,7 +1681,7 @@ export class VisitorLogProxyService {
 
 @Injectable({ providedIn: 'root' })
 export class WeixinProxyService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -1559,6 +1721,10 @@ export class WeixinProxyService {
    */
   miniAuth(
     params: {
+      /**  */
+      appid?: string;
+      /**  */
+      appSec?: string;
       /** requestBody */
       body?: WeChatMiniProgramAuthenticateModel;
     } = {} as any
@@ -1573,12 +1739,19 @@ export class WeixinProxyService {
   /**
    *
    */
-  checkLogin(): Observable<string> {
+  checkLogin(
+    params: {
+      /**  */
+      dbCheck?: boolean;
+    } = {} as any
+  ): Observable<any> {
     let url = '/api/app/weixin/checkLogin';
+    const _copy: any = { ...params };
     let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<string>;
+    return (this.http.request('get', url, options) as any) as Observable<any>;
   }
   /**
    *
@@ -1706,6 +1879,9 @@ export interface ControllerApiDescriptionModel {
 export interface ModuleApiDescriptionModel {
   /**  */
   rootPath?: string;
+
+  /**  */
+  remoteServiceName?: string;
 
   /**  */
   controllers?: object;
@@ -1980,6 +2156,97 @@ export interface IdentityUserDto {
 
   /**  */
   id?: string;
+
+  /**  */
+  extraProperties?: object;
+}
+
+export interface AddressDto {
+  /**  */
+  realName?: string;
+
+  /**  */
+  phone?: string;
+
+  /**  */
+  locationLable?: string;
+
+  /**  */
+  locationAddress?: string;
+
+  /**  */
+  nickName?: string;
+
+  /**  */
+  isDefault?: boolean;
+
+  /**  */
+  datetimeLast?: Date;
+
+  /**  */
+  lat?: number;
+
+  /**  */
+  lng?: number;
+
+  /**  */
+  locationType?: LocationType;
+
+  /**  */
+  id?: string;
+}
+
+export interface AddressDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: AddressDto[];
+}
+
+export interface AddressCreateOrUpdateDto {
+  /**  */
+  realName?: string;
+
+  /**  */
+  phone?: string;
+
+  /**  */
+  locationLable?: string;
+
+  /**  */
+  locationAddress?: string;
+
+  /**  */
+  nickName?: string;
+
+  /**  */
+  lat?: number;
+
+  /**  */
+  lng?: number;
+
+  /**  */
+  locationType?: LocationType;
+}
+
+export interface WeChatMiniProgramAuthenticateModel {
+  /**  */
+  code?: string;
+
+  /**  */
+  encryptedData?: string;
+
+  /**  */
+  iv?: string;
+
+  /**  */
+  session_key?: string;
+}
+
+export interface AddressDtoListResultDto {
+  /**  */
+  items?: AddressDto[];
 }
 
 export interface IValueValidator {
@@ -2551,6 +2818,9 @@ export interface ProductSkuDto {
   limitBuyCount?: number;
 
   /**  */
+  unit?: string;
+
+  /**  */
   spu?: ProductSpuDto;
 
   /**  */
@@ -2586,7 +2856,7 @@ export interface SkuCreateOrUpdateDto {
 
   /**  */
   name?: string;
-  unit?: string;
+
   /**  */
   code?: string;
 
@@ -2622,6 +2892,9 @@ export interface SkuCreateOrUpdateDto {
 
   /**  */
   limitBuyCount?: number;
+
+  /**  */
+  unit?: string;
 }
 
 export interface SpuCreateOrUpdateDto {
@@ -2690,6 +2963,9 @@ export interface ProfileDto {
 
   /**  */
   phoneNumber?: string;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface UpdateProfileDto {
@@ -2707,6 +2983,9 @@ export interface UpdateProfileDto {
 
   /**  */
   phoneNumber?: string;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface ChangePasswordInput {
@@ -2735,6 +3014,9 @@ export interface IdentityRoleDto {
 
   /**  */
   id?: string;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface IdentityRoleDtoListResultDto {
@@ -2759,6 +3041,9 @@ export interface IdentityRoleCreateDto {
 
   /**  */
   isPublic?: boolean;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface IdentityRoleUpdateDto {
@@ -2773,6 +3058,9 @@ export interface IdentityRoleUpdateDto {
 
   /**  */
   isPublic?: boolean;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface ShopDtoPagedResultDto {
@@ -2806,11 +3094,17 @@ export interface TenantDto {
 
   /**  */
   id?: string;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface TenantUpdateDto {
   /**  */
   name?: string;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface TenantDtoPagedResultDto {
@@ -2830,6 +3124,9 @@ export interface TenantCreateDto {
 
   /**  */
   name?: string;
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface IdentityUserUpdateDto {
@@ -2862,6 +3159,9 @@ export interface IdentityUserUpdateDto {
 
   /**  */
   roleNames?: string[];
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface IdentityUserDtoPagedResultDto {
@@ -2899,6 +3199,9 @@ export interface IdentityUserCreateDto {
 
   /**  */
   roleNames?: string[];
+
+  /**  */
+  extraProperties?: object;
 }
 
 export interface IdentityUserUpdateRolesDto {
@@ -2994,18 +3297,9 @@ export interface VisitorFormSumbitRequest {
   shop?: VisitorShopDto;
 }
 
-export interface WeChatMiniProgramAuthenticateModel {
-  /**  */
-  code?: string;
-
-  /**  */
-  encryptedData?: string;
-
-  /**  */
-  iv?: string;
-
-  /**  */
-  session_key?: string;
+export enum LocationType {
+  'baidu' = 'baidu',
+  'weixin' = 'weixin'
 }
 
 export enum FormTheme {

@@ -6,6 +6,7 @@ import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { SpuListComponent } from './components/spu-list/spu-list.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { SpuEditComponent } from './components/spu-edit/spu-edit.component';
+import { AddressListComponent } from './components/addresses/address-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'shops', pathMatch: 'full', data: { breadcrumb: "商城" } },
@@ -20,6 +21,7 @@ const routes: Routes = [
       { path: 'spu-edit/:id', component: SpuEditComponent, data: { title: '修改商品', permission: 'Pages' } },
       { path: 'spu-create/:categoryId', component: SpuEditComponent, data: { title: '添加商品', permission: 'Pages' } },
       { path: 'spu-create', component: SpuEditComponent, data: { title: '添加商品', permission: 'Pages' } },
+      { path: 'addresses', component: AddressListComponent, data: { title: '用户地址列表', permission: 'Pages' } },
     ]
   }
 ]

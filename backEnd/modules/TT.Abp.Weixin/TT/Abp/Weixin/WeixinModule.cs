@@ -21,7 +21,7 @@ namespace TT.Abp.Weixin
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAbpDbContext<WeixinManagementDbContext>(options => { options.AddDefaultRepositories(); });
+            context.Services.AddAbpDbContext<WeixinManagementDbContext>(options => { options.AddDefaultRepositories(true); });
             context.Services.AddAutoMapperObjectMapper<WeixinModule>();
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<WeixinApplicationAutoMapperProfile>(validate: true); });
             Configure<AbpAspNetCoreMvcOptions>(options =>

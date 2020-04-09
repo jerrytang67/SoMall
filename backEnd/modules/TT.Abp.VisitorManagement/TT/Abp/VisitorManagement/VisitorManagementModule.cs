@@ -21,7 +21,7 @@ namespace TT.Abp.VisitorManagement
         {
             context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
 
-            context.Services.AddAbpDbContext<VisitorManagementDbContext>(options => { options.AddDefaultRepositories(); });
+            context.Services.AddAbpDbContext<VisitorManagementDbContext>(options => { options.AddDefaultRepositories(true); });
 
             context.Services.AddAutoMapperObjectMapper<VisitorManagementModule>();
 

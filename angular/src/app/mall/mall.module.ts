@@ -9,9 +9,10 @@ import { LayoutModule } from '../layout/layout.module';
 import { CategoryListComponent } from '../mall/components/category-list/category-list.component';
 import { CategoryEditComponent } from '../mall/components/category-edit/category-edit.component';
 import { SpuEditComponent } from '../mall/components/spu-edit/spu-edit.component';
+import { AddressListComponent } from './components/addresses/address-list.component';
 
 
-const COMPONENTS = [ShopListComponent, CategoryListComponent, SpuListComponent, SpuEditComponent]
+const COMPONENTS = [ShopListComponent, CategoryListComponent, SpuListComponent, SpuEditComponent, AddressListComponent]
 
 const ENTRYCOMPONENTS = [CategoryEditComponent]
 

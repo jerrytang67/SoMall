@@ -21,7 +21,7 @@ namespace TT.SoMall.Migrations
                     DeletionTime = table.Column<DateTime>(nullable: true),
                     RealName = table.Column<string>(maxLength: 64, nullable: false),
                     Phone = table.Column<string>(maxLength: 64, nullable: false),
-                    LocationLable = table.Column<string>(maxLength: 1024, nullable: false),
+                    LocationLable = table.Column<string>(maxLength: 255, nullable: false),
                     NickName = table.Column<string>(maxLength: 64, nullable: true),
                     IsDefault = table.Column<bool>(nullable: false),
                     DatetimeLast = table.Column<DateTime>(nullable: true),

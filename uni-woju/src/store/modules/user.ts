@@ -27,20 +27,23 @@ export interface IShopMember {
 }
 
 export interface IAddress {
-    Id?: number;
-    MemberId?: number;
-    IsDefault?: boolean;
-    DateTimeCreate?: Date;
-    DateTimeLat?: Date;
-    IsUserDelete?: boolean;
-    Lat?: number;
-    Lng?: number;
-    LocationLable?: string;
-    LocationAddress?: string;
-    NickName?: string;
-    Phone?: string;
-    RealName?: string;
-    StoreId?: number;
+    id?: string;
+    /**  */
+    realName?: string;
+    /**  */
+    phone?: string;
+    /**  */
+    locationLable?: string;
+    /**  */
+    locationAddress?: string;
+    /**  */
+    nickName?: string;
+    /**  */
+    lat?: number;
+    /**  */
+    lng?: number;
+    /**  */
+    locationType?: "bd09" | "gcj02" | "wgs84";
 }
 
 @Module({ dynamic: true, store, name: 'user' })
@@ -71,6 +74,10 @@ class User extends VuexModule {
         return this.userInfo.openid;
     }
 
+    get getSessionKey() {
+        return this.sessionKey;
+    }
+
 
     get getAddressList() {
         return this.addressList;
@@ -95,6 +102,12 @@ class User extends VuexModule {
     private SET_TOKEN(v: string) {
         uni.setStorageSync("token", v);
         this.token = v;
+    }
+
+    @Mutation
+    private SET_PHONE(payload: string) {
+        uni.setStorageSync("phone", payload);
+        this.phone = payload;
     }
 
     @Mutation
@@ -174,6 +187,11 @@ class User extends VuexModule {
             console.log("notlogin")
             this.LOGOUT();
         })
+    }
+
+    @Action
+    SetPhone(phone: string) {
+        this.SET_PHONE(phone);
     }
 
     @Action
