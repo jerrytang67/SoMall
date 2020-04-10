@@ -40,7 +40,7 @@
                      <button class='cu-btn bg-green shadow sm' @getphonenumber="getPhoneNumber" open-type="getPhoneNumber">微信获取</button>
                   </view>
                   <view class="cu-form-group">
-                     <view class="title">小区</view>
+                     <view class="title">地址</view>
                      <input placeholder="请点击地图获取" :value="form.locationAddress" @input="onInput" data-name="locationAddress" />
                      <button class='cu-btn bg-green shadow sm' @tap="getAddress">地图</button>
                   </view>
@@ -164,7 +164,6 @@ export default class MyAddress extends BaseView {
             session_key: UserModule.getSessionKey
          }).then((res: any) => {
             console.log(res);
-
             Tips.info("获取成功");
             this.form = Object.assign({}, this.form, {
                phone: res.phoneNumber

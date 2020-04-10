@@ -13,8 +13,20 @@ export class IdentityService {
     ) {
     }
 
+
+    getRoles(params = {}): Observable<Identity.RoleResponse> {
+        return this.http.request<Identity.RoleResponse>('get', "/api/identity/roles/all", params)
+            .pipe(
+                tap(res => {
+                    this.identityStore.update(
+                        { roles: res.items }
+                    );
+                }));
+    }
+
+
     getUsers(params = {}): Observable<Identity.UserResponse> {
-        return this.http.request<Identity.UserResponse>('get', "/api/identity/users")
+        return this.http.request<Identity.UserResponse>('get', "/api/identity/users", params)
             .pipe(
                 tap(res => {
                     this.identityStore.update(

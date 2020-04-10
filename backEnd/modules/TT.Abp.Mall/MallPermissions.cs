@@ -35,14 +35,14 @@ namespace TT.Abp.Mall
     {
         public override void Define(IPermissionDefinitionContext context)
         {
-            var bloggingGroup = context.AddGroup(MallPermissions.GroupName, L("Permission:Mall"));
+            var mallGroup = context.AddGroup(MallPermissions.GroupName, L("Permission:Mall"));
 
-            var users = bloggingGroup.AddPermission(MallPermissions.Users.Default, L("Permission:MallUsers"));
+            var users = mallGroup.AddPermission(MallPermissions.Users.Default, L("Permission:MallUsers"));
             users.AddChild(MallPermissions.Users.Update, L("Permission:Edit"));
             users.AddChild(MallPermissions.Users.Delete, L("Permission:Delete"));
             users.AddChild(MallPermissions.Users.Create, L("Permission:Create"));
 
-            var addresses = bloggingGroup.AddPermission(MallPermissions.Addresses.Default, L("Permission:Addresses"));
+            var addresses = mallGroup.AddPermission(MallPermissions.Addresses.Default, L("Permission:Addresses"));
             addresses.AddChild(MallPermissions.Addresses.Update, L("Permission:Edit"));
             addresses.AddChild(MallPermissions.Addresses.Delete, L("Permission:Delete"));
             addresses.AddChild(MallPermissions.Addresses.Create, L("Permission:Create"));

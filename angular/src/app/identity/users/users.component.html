@@ -8,11 +8,11 @@
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <button nz-button nzSize="large" (click)="create()" nzType="primary">{{'create' | translate}}</button>
-        <nz-divider nzType="vertical"></nz-divider>
+        <!-- <button nz-button nzSize="large" (click)="create()" nzType="primary">{{'create' | translate}}</button>
+        <nz-divider nzType="vertical"></nz-divider> -->
         <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
-    <nz-table #dataTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
+    <nz-table #dataTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="dataItems$ | async" [nzTotal]="pageingInfo.totalItems"
         [(nzPageIndex)]="pageingInfo.pageNumber" [(nzPageSize)]="pageingInfo.pageSize" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
         (nzPageSizeChange)="refresh()">
         <thead>

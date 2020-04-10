@@ -68,6 +68,7 @@
     "@angularclass/hmr": "^2.1.3",
     "@datorama/akita-ngdevtools": "^4.0.0",
     "@types/node": "^12.11.1",
+    "akita-schematics": "^2.0.1",
     "codecov": "^3.6.1",
     "codelyzer": "^5.1.2",
     "gh-pages": "^2.1.1",

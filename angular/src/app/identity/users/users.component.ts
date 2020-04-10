@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { IdentityService } from '../store/identity.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { Identity } from '../models/identity';
-import { switchMap, pluck, take } from 'rxjs/operators';
+import { switchMap, pluck, take, mergeMap } from 'rxjs/operators';
+import { IdentityQuery } from '../store/identity.query';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +12,8 @@ import { switchMap, pluck, take } from 'rxjs/operators';
 })
 export class UsersComponent implements OnInit {
 
-  dataItems: any[] = [];
+  dataItems$: Observable<Identity.UserItem[]>;
+
   pageingInfo = {
     totalItems: 0,
     pageNumber: 0,
@@ -23,6 +26,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private identityService: IdentityService,
+    private identityQuery: IdentityQuery,
     private modalService: NzModalService
   ) {
 
@@ -30,13 +34,12 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.refresh();
+    this.dataItems$ = this.identityQuery.users$;
   }
 
   refresh() {
-    this.identityService.getUsers().subscribe(res => {
-      console.log(res);
-      this.dataItems = res.items;
-    })
+    this.identityService.getUsers().subscribe();
+    this.identityService.getRoles().subscribe();
   }
 
   delete() { }
@@ -50,21 +53,18 @@ export class UsersComponent implements OnInit {
   //       }
   //     });
   // }
-
-
-
-
+ 
   edit(id: string) {
     this.identityService.getUserById(id)
       .pipe(
-        switchMap(() => this.identityService.GetUserRoles(id)),
+        mergeMap(() => this.identityService.GetUserRoles(id)),
         // pluck('IdentityState'),
-        take(1)
+        // take(1)
       )
       .subscribe((state: any) => {
         console.log(state)
-        // this.selected = state.selectedUser;
-        // this.selectedUserRoles = state.selectedUserRoles || [];
+        this.selected = state.selectedUser;
+        this.selectedUserRoles = state.selectedUserRoles || [];
         //this.openModal();
       });
   }
