@@ -24,7 +24,8 @@
     "test-coverage": "ng test --code-coverage --watch=false",
     "color-less": "node scripts/color-less.js",
     "icon": "ng g ng-alain:plugin icon",
-    "api": "node ./swagger/codegen.v3.js"
+    "api": "node ./swagger/codegen.v3.js",
+    "new": "plop"
   },
   "dependencies": {
     "@angular/animations": "~9.0.7",
@@ -82,6 +83,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "less-bundle-promise": "^1.0.7",
     "lint-staged": "^8.2.1",
+    "plop": "^2.6.0",
     "prettier": "^1.18.2",
     "prettier-stylelint": "^0.4.2",
     "protractor": "~5.4.0",

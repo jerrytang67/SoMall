@@ -31,6 +31,7 @@ export namespace Identity {
         users?: UserItem[];
         userTotalCount?: number;
         userCurrentPage?: number;
+        selectedRole?: RoleItem;
         selectedUser?: UserItem;
         selectedUserRoles?: RoleItem[];
     }
@@ -73,3 +74,5 @@ export namespace Identity {
         roleNames: string[];
     }
 }
+
+

@@ -1,0 +1,26 @@
+{{#if template}}
+<template>
+  <div>
+
+  </div>
+</template>
+{{/if}}
+
+{{#if script}}
+<script lang="ts">
+import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
+import api from "@/api";
+
+@Component
+export default class {{ properCase name }} extends Vue {
+  @Prop() input: string = "";
+  created() {}
+}
+</script>
+{{/if}}
+
+{{#if style}}
+<style lang="scss" scoped>
+
+</style>
+{{/if}}

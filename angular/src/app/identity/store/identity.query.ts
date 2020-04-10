@@ -7,6 +7,7 @@ import { IdentityStore } from './identity.store';
 export class IdentityQuery extends Query<Identity.State> {
 
     users$ = this.select(state => state.users);
+    roles$ = this.select(state => state.roles);
 
     constructor(protected store: IdentityStore) {
         super(store);

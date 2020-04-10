@@ -5,6 +5,7 @@ import { Identity } from '../models/identity';
 import { switchMap, pluck, take, mergeMap } from 'rxjs/operators';
 import { IdentityQuery } from '../store/identity.query';
 import { Observable } from 'rxjs';
+import { PermissionsService } from '../store/permissions.service';
 
 @Component({
   selector: 'app-users',
@@ -26,6 +27,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private identityService: IdentityService,
+    private permissionsService: PermissionsService,
     private identityQuery: IdentityQuery,
     private modalService: NzModalService
   ) {
@@ -40,6 +42,7 @@ export class UsersComponent implements OnInit {
   refresh() {
     this.identityService.getUsers().subscribe();
     this.identityService.getRoles().subscribe();
+    this.permissionsService.getPermissions({ providerKey: "mall", providerName: "R" }).subscribe();
   }
 
   delete() { }
@@ -53,7 +56,7 @@ export class UsersComponent implements OnInit {
   //       }
   //     });
   // }
- 
+
   edit(id: string) {
     this.identityService.getUserById(id)
       .pipe(

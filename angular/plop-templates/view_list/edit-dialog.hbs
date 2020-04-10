@@ -1,0 +1,106 @@
+<template>
+  <el-dialog :title="dialogTitle" :visible.sync="show" @close="cancel" :close-on-click-modal="false" width="60%" top="10vh">
+    <el-form ref="dataForm" :rules="roleRule" :model="form" label-position="top">
+      <el-form-item label="名称" prop="name">
+        <el-input v-model="form.name" />
+      </el-form-item>
+      <el-form-item label="图片" prop="titleImageUrl">
+        <el-upload class="avatar-uploader" :action="$uploadUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+          <block v-if="form.titleImageUrl">
+            <img :src="form.titleImageUrl" class="avatar">
+          </block>
+          <i v-else class="el-icon-plus avatar-uploader-icon" />
+        </el-upload>
+        <el-input v-model="form.titleImageUrl" />
+      </el-form-item>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button type="default" @click="cancel">取消</el-button>
+      <el-button type="primary" @click="save">确定</el-button>
+    </div>
+  </el-dialog>
+</template>
+<script lang="ts">
+import { Component, Vue, Inject, Prop, Watch, Ref } from "vue-property-decorator";
+import { ElForm } from "element-ui/types/form";
+import api from "@/api";
+import { CreateOrEdit{{ properCase name }}Dto } from "@/api/appService";
+
+@Component
+export default class Edit{{ properCase name }} extends Vue {
+  @Ref() readonly dataForm!: ElForm;
+
+  get dialogTitle()
+  {
+    return this.form!.id ? '编辑':"新建"
+  }
+
+  @Watch("show")
+  async onShowChange(value: boolean) {
+    if (value) {
+      await api.{{ camelCase name }}.getForEdit({ id: this.form!.id }).then(res => {
+        this.form = res.data!;
+      });
+    } else {
+      this.form = { ... this.defaultData };
+    }
+    this.$nextTick(() => {
+      this.dataForm.clearValidate();
+    });
+  }
+
+  defaultData: CreateOrEdit{{ properCase name }}Dto = {
+    name: undefined,
+    id: 0
+  };
+
+  show = false;
+  form: CreateOrEdit{{properCase name }}Dto = { ...this.defaultData };
+
+  async save() {
+    console.log(this.form);
+    this.dataForm.validate(async (valid: boolean) => {
+      if (valid) {
+        if (this.form!.id) {
+          await api.{{ camelCase name }}.update({ body: this.form });
+        } else {
+          await api.{{ camelCase name }}.create({ body: this.form });
+        }
+        this.show = false;
+        this.$message.success("更新成功");
+        this.$emit("onSave");
+      }
+    });
+  }
+
+  // 图片上传前判断
+  async beforeAvatarUpload(file:any) {
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      this.$message.error("上传头像图片大小不能超过 2MB!");
+    }
+    return isLt2M;
+  }
+
+  async handleAvatarSuccess(res:any, file:any) {
+    console.log(res);
+    if (res.success) {
+      this.form.titleImageUrl = res.result;
+    }
+  }
+
+  cancel() {
+    this.show = false;
+  }
+
+  roleRule = {
+    name: [
+      {
+        required: true,
+        message: "必填",
+        trigger: "blur"
+      }
+    ]
+  };
+}
+</script>

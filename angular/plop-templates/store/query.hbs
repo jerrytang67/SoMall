@@ -1,0 +1,11 @@
+import { Query } from '@datorama/akita';
+import { Injectable } from '@angular/core';
+import { {{ properCase name }}State, {{ properCase name }}Store } from './{{ camelCase name }}.store';
+
+@Injectable({ providedIn: 'root' })
+export class {{ properCase name }}Query extends Query<{{ properCase name }}State> {
+    
+    constructor(protected store: {{ properCase name }}Store) {
+        super(store);
+    }
+}

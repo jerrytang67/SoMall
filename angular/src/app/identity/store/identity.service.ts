@@ -15,7 +15,7 @@ export class IdentityService {
 
 
     getRoles(params = {}): Observable<Identity.RoleResponse> {
-        return this.http.request<Identity.RoleResponse>('get', "/api/identity/roles/all", params)
+        return this.http.request<Identity.RoleResponse>('get', "/api/identity/roles/all", { params })
             .pipe(
                 tap(res => {
                     this.identityStore.update(
@@ -26,7 +26,7 @@ export class IdentityService {
 
 
     getUsers(params = {}): Observable<Identity.UserResponse> {
-        return this.http.request<Identity.UserResponse>('get', "/api/identity/users", params)
+        return this.http.request<Identity.UserResponse>('get', "/api/identity/users", { params })
             .pipe(
                 tap(res => {
                     this.identityStore.update(
@@ -49,6 +49,15 @@ export class IdentityService {
             .pipe(
                 tap(res => {
                     this.identityStore.update({ selectedUserRoles: res.items });
+                })
+            );
+    }
+
+    getRoleById(id: string): Observable<Identity.RoleItem> {
+        return this.http.request<Identity.RoleItem>('get', `/api/identity/roles/${id}`)
+            .pipe(
+                tap(role => {
+                    this.identityStore.update({ selectedRole: role });
                 })
             );
     }

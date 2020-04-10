@@ -20,5 +20,7 @@ namespace TT.SoMall.Controllers
         {
             return await Task.FromResult(Content("ok"));
         }
+        
+        
     }
 }

@@ -1,0 +1,13 @@
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { {{ properCase name }}Store } from './{{ camelCase name }}.store';
+
+@Injectable({ providedIn: 'root' })
+export class {{ properCase name }}Service {
+    constructor(
+        private {{ properCase name }}Store: {{ properCase name }}Store,
+        private http: HttpClient
+    ) {
+    }
+} 

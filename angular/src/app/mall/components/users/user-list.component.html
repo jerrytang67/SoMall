@@ -17,31 +17,23 @@
     <nz-table #dataTable nzShowPagination [nzData]="dataItems">
         <thead>
             <tr>
-                <!-- <th>Id</th> -->
-                <th>Realname</th>
-                <th>phone</th>
-                <th>locationAddress</th>
-                <th>locationLable</th>
-                <th>Lat</th>
-                <th>Lng</th>
-                <th>user</th>
-                <!-- <th></th> -->
+                <th>name</th>
+                <th>userName</th>
+                <th>phoneNumber</th>
+                <th>phoneNumberConfirmed</th>
+                <th>email</th>
+                <th>emailConfirmed</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
-                <td> {{item.realName}} </td>
-                <td> {{item.phone}} </td>
-                <td> {{item.locationAddress}} </td>
-                <td> {{item.locationLable}} </td>
-                <td> {{item.lat}} </td>
-                <td> {{item.lng}} </td>
-                <td>
-                    <span *ngIf="item.mallUser">
-                        {{item.mallUser.name}}
-                    </span>
-                </td>
+                <td> {{item.name}} </td>
+                <td> {{item.userName}} </td>
+                <td> {{item.phoneNumber}} </td>
+                <td> {{item.phoneNumberConfirmed}} </td>
+                <td> {{item.email}} </td>
+                <td> {{item.emailConfirmed}} </td>
             </tr>
         </tbody>
     </nz-table>
