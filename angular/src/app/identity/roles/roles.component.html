@@ -1,4 +1,4 @@
-<nz-page-header nzTitle="权限列表">
+<nz-page-header nzTitle="角色列表">
     <nz-breadcrumb nz-page-header-breadcrumb [nzAutoGenerate]="true">
         <nz-breadcrumb-item>
             <a [routerLink]="['/']">首页</a>
@@ -8,8 +8,8 @@
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <!-- <button nz-button nzSize="large" (click)="create()" nzType="primary">{{'create' | translate}}</button>
-        <nz-divider nzType="vertical"></nz-divider> -->
+        <button nz-button nzSize="large" (click)="create()" nzType="primary">{{'create' | translate}}</button>
+        <nz-divider nzType="vertical"></nz-divider>
         <button nz-button nzSize="large" (click)="refresh()">
             {{'refresh' | translate}}</button>
     </ng-template>
@@ -21,9 +21,7 @@
                 <th></th>
                 <!-- <th nzWidth="20em">Id</th> -->
                 <th>name</th>
-                <th>isDefault</th>
                 <th>isStatic</th>
-                <th>isPublic</th>
             </tr>
         </thead>
         <tbody>
@@ -45,10 +43,12 @@
                     </nz-dropdown-menu>
                 </td>
                 <!-- <td>{{ data.id }}</td> -->
-                <td>{{ data.name }}</td>
-                <td>{{ data.isDefault }}</td>
+                <td>
+                    {{ data.name }}
+                    <nz-tag [nzColor]="'#87d068'" *ngIf="data.isDefault">IsDefault</nz-tag>
+                    <nz-tag [nzColor]="'#108ee9'" *ngIf="data.isPublic">IsPublic</nz-tag>
+                </td>
                 <td>{{ data.isStatic }}</td>
-                <td>{{ data.isPublic }}</td>
 
             </tr>
         </tbody>

@@ -5,7 +5,7 @@ export const menu = [
 
     { text: 'SAAS', heading: true },
     { text: "用户列表", link: "/identity/users", icon: "fa fa-user" },
-    { text: "权限列表", link: "/identity/roles", icon: "fa fa-role" },
+    { text: "角色列表", link: "/identity/roles", icon: "fa fa-key" },
 
     { text: '商家管理', heading: true },
     { text: "商家列表", link: "/shop-management", icon: "fa fa-store" },

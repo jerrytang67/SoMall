@@ -44,7 +44,7 @@ export class PermissionsManagerComponent implements OnInit {
   allChecked = false;
   indeterminate = true;
   updateSingleChecked(e) {
-    var toform = from(this.groups).pipe(
+    from(this.groups).pipe(
       concatMap((group: any) => {
         return group.permissions.
           filter((res: any) => res.default !== res.checked).
@@ -53,9 +53,8 @@ export class PermissionsManagerComponent implements OnInit {
           })
       }),
       reduce((acc, val) => [...acc, val], [])
-    )
-      .subscribe(res => {
-        this.updateList = res;
-      })
+    ).subscribe(res => {
+      this.updateList = res;
+    })
   }
 }

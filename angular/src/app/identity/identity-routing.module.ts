@@ -13,7 +13,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'users', component: UsersComponent, data: { title: '用户列表', permission: 'Pages' } },
-            { path: 'roles', component: RolesComponent, data: { title: '权限列表', permission: 'Pages' } },
+            { path: 'roles', component: RolesComponent, data: { title: '角色列表', permission: 'Pages' } },
         ],
     },
 ]
