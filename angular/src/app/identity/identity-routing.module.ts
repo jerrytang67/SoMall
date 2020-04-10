@@ -24,7 +24,6 @@ const routes: Routes = [
     exports: [RouterModule],
 })
 
-
 export class IdentityRoutingModule {
     constructor(private router: Router) {
         router.events.subscribe(event => {

@@ -4,7 +4,7 @@ import { Identity } from '../models/identity';
 
 
 export function createInitialState(): Identity.State {
-    return { roles: [], users: [] };
+    return { roles: [], users: [], userCurrentPage: 1, userTotalCount: 0 };
 }
 
 @Injectable({ providedIn: 'root' })

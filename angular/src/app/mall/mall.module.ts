@@ -10,9 +10,10 @@ import { CategoryListComponent } from '../mall/components/category-list/category
 import { CategoryEditComponent } from '../mall/components/category-edit/category-edit.component';
 import { SpuEditComponent } from '../mall/components/spu-edit/spu-edit.component';
 import { AddressListComponent } from './components/addresses/address-list.component';
+import { MallUserListComponent } from './components/users/user-list.component';
 
 
-const COMPONENTS = [ShopListComponent, CategoryListComponent, SpuListComponent, SpuEditComponent, AddressListComponent]
+const COMPONENTS = [ShopListComponent, CategoryListComponent, SpuListComponent, SpuEditComponent, AddressListComponent, MallUserListComponent]
 
 const ENTRYCOMPONENTS = [CategoryEditComponent]
 

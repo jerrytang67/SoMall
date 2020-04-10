@@ -570,6 +570,101 @@ export class MallShopProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class MallUserProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<MallUserDto> {
+    let url = '/api/mall/mallUser/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<MallUserDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<MallUserDtoPagedResultDto> {
+    let url = '/api/mall/mallUser/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<MallUserDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: MallUserDto;
+    } = {} as any
+  ): Observable<MallUserDto> {
+    let url = '/api/mall/mallUser/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<MallUserDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: MallUserDto;
+    } = {} as any
+  ): Observable<MallUserDto> {
+    let url = '/api/mall/mallUser/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<MallUserDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/mallUser/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class OssProxyService {
   constructor(private http: HttpClient) {}
 
@@ -1772,6 +1867,23 @@ export class WeixinProxyService {
     };
     return (this.http.request('get', url, options) as any) as Observable<any>;
   }
+  /**
+   *
+   */
+  getPhone(
+    params: {
+      /** requestBody */
+      body?: WeChatMiniProgramAuthenticateModel;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/weixin/getPhone';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<any>;
+  }
 }
 
 export interface ControllerInterfaceApiDescriptionModel {
@@ -2161,6 +2273,35 @@ export interface IdentityUserDto {
   extraProperties?: object;
 }
 
+export interface MallUserDto {
+  /**  */
+  id?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  userName?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  email?: string;
+
+  /**  */
+  emailConfirmed?: boolean;
+
+  /**  */
+  phoneNumber?: string;
+
+  /**  */
+  phoneNumberConfirmed?: boolean;
+
+  /**  */
+  extraProperties?: object;
+}
+
 export interface AddressDto {
   /**  */
   realName?: string;
@@ -2191,6 +2332,12 @@ export interface AddressDto {
 
   /**  */
   locationType?: LocationType;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  mallUser?: MallUserDto;
 
   /**  */
   id?: string;
@@ -2497,6 +2644,14 @@ export interface MallShopDtoListResultDto {
 export interface ShopSyncRequestDto {
   /**  */
   shopIds?: string[];
+}
+
+export interface MallUserDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: MallUserDto[];
 }
 
 export interface ProviderInfoDto {
@@ -3298,8 +3453,9 @@ export interface VisitorFormSumbitRequest {
 }
 
 export enum LocationType {
-  'baidu' = 'baidu',
-  'weixin' = 'weixin'
+  'bd09' = 'bd09',
+  'gcj02' = 'gcj02',
+  'wgs84' = 'wgs84'
 }
 
 export enum FormTheme {

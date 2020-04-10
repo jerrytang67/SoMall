@@ -7,16 +7,14 @@ using Volo.Abp.Domain.Repositories;
 
 namespace TT.Abp.Mall.Application.Users
 {
-    public interface IUserAppService : ICrudAppService<MallUserDto, Guid, PagedAndSortedResultRequestDto, MallUserDto, MallUserDto>
+    public interface IMallUserAppService : ICrudAppService<MallUserDto, Guid, PagedAndSortedResultRequestDto, MallUserDto, MallUserDto>
     {
-        
     }
 
-
     [Authorize]
-    public class UserAppService : CrudAppService<MallUser, MallUserDto, Guid, PagedAndSortedResultRequestDto, MallUserDto, MallUserDto>, IUserAppService
+    public class MallUserAppService : CrudAppService<MallUser, MallUserDto, Guid, PagedAndSortedResultRequestDto, MallUserDto, MallUserDto>, IMallUserAppService
     {
-        public UserAppService(IRepository<MallUser, Guid> repository) : base(repository)
+        public MallUserAppService(IRepository<MallUser, Guid> repository) : base(repository)
         {
             base.GetListPolicyName = MallPermissions.Users.Default;
             base.CreatePolicyName = MallPermissions.Users.Create;

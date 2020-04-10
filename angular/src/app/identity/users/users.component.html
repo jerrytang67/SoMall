@@ -1,46 +1,42 @@
-<div class="alain-default__content-title">
-    <h1>
-        Dashboard
-        <small>Welcome !</small>
-    </h1>
-</div>
+<nz-page-header nzTitle="用户列表">
+    <nz-breadcrumb nz-page-header-breadcrumb [nzAutoGenerate]="true">
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <button nz-button
-                (click)="create()"
-                nzType="primary">{{'Create' | translate}}</button>
-        <button nz-button
-                (click)="refresh()">{{'Refresh' | translate}}</button>
+        <button nz-button nzSize="large" (click)="create()" nzType="primary">{{'create' | translate}}</button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
-    <nz-table #dataTable
-              nzShowSizeChanger
-              [nzFrontPagination]="false"
-              [nzData]="dataItems"
-              [nzTotal]="pageingInfo.totalItems"
-              [(nzPageIndex)]="pageingInfo.pageNumber"
-              [(nzPageSize)]="pageingInfo.pageSize"
-              [nzLoading]="pageingInfo.isTableLoading"
-              (nzPageIndexChange)="refresh()"
-              (nzPageSizeChange)="refresh()">
+    <nz-table #dataTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
+        [(nzPageIndex)]="pageingInfo.pageNumber" [(nzPageSize)]="pageingInfo.pageSize" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
+        (nzPageSizeChange)="refresh()">
         <thead>
             <tr>
-                <th>Id</th>
-                <th></th>
+                <th nzWidth="20em">Id</th>
+                <th>userName</th>
+                <th>name</th>
+                <th>email</th>
+                <th>phoneNumber</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of dataTable.data">
-                <td>{{item.id}}</td>
-                <td>{{item.userName}}</td>
+            <tr *ngFor="let data of dataTable.data">
+                <td>{{ data.id }}</td>
+                <td>{{ data.userName }}</td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.email }}</td>
+                <td>{{ data.phoneNumber }}</td>
                 <td>
-                    <a (click)="edit(item)">{{'Edit' | translate}}</a>
+                    <a (click)="edit(data.id)">{{'edit' | translate}}</a>
                     <nz-divider nzType="vertical"></nz-divider>
-                    <a nz-popconfirm
-                       [nzPopconfirmTitle]="'UserDeleteWarningMessage'"
-                       (nzOnConfirm)="delete(item)"
-                       nzPopconfirmPlacement="top">{{'Delete' | translate}}</a>
+                    <a nz-popconfirm [nzPopconfirmTitle]="'delete.warning'" (nzOnConfirm)="delete(data)"
+                        nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
                 </td>
             </tr>
         </tbody>
