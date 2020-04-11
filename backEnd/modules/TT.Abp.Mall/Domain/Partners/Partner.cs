@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using TT.Abp.Mall.Domain.Shops;
-using TT.Abp.Shops.Domain;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Domain.Partners
 {
-    public class Partner : FullAuditedEntity<Guid>, IMultiTenant
+    public class Partner : FullAuditedEntity, IMultiTenant
     {
+        public Guid UserId { get; set; }
+
+        public override object[] GetKeys()
+        {
+            return new object[] {UserId};
+        }
+
         protected Partner()
         {
         }
@@ -25,9 +29,7 @@ namespace TT.Abp.Mall.Domain.Partners
         }
 
         [NotNull] public string RealName { get; protected set; }
-
         [NotNull] public string Phone { get; protected set; }
-
         public string Nickname { get; protected set; }
         public string HeadImageUrl { get; protected set; }
 
@@ -62,7 +64,6 @@ namespace TT.Abp.Mall.Domain.Partners
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
 
         public int Views { get; set; } = 0;
-
         public PartnerDetail Detail { get; set; }
 
         public Guid? TenantId { get; protected set; }

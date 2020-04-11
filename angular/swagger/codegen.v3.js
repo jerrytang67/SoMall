@@ -1,6 +1,4 @@
-const {
-  codegen
-} = require('swagger-angular-codegen')
+const { codegen } = require('swagger-angular-codegen');
 
 codegen({
   methodNameMode: 'path',
@@ -10,5 +8,18 @@ codegen({
   useStaticMethod: false,
   strictNullChecks: false,
   modelMode: 'interface',
-  serviceNameSuffix:'ProxyService'
-})
+  serviceNameSuffix: 'ProxyService',
+  exclude: [
+    'AbpApplicationConfigurationScript',
+    'AbpServiceProxyScript',
+    'AbpApiDefinition',
+    'AbpLanguages',
+    'AbpApplicationConfiguration',
+    'Tenant',
+    'Profile',
+    'Permissions',
+    'Features',
+    'AbpTenantProxy',
+    'Account',
+  ],
+});

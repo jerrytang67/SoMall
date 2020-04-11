@@ -28,119 +28,6 @@ export class PagedResultDto<T> implements IPagedResult<T> {
 // empty
 
 @Injectable({ providedIn: 'root' })
-export class AbpApiDefinitionProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  apiDefinition(
-    params: {
-      /**  */
-      includeTypes?: boolean;
-    } = {} as any
-  ): Observable<ApplicationApiDescriptionModel> {
-    let url = '/api/abp/api-definition';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<ApplicationApiDescriptionModel>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class AbpApplicationConfigurationProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  applicationConfiguration(): Observable<ApplicationConfigurationDto> {
-    let url = '/api/abp/application-configuration';
-    let options: any = {
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<ApplicationConfigurationDto>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class AbpApplicationConfigurationScriptProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  applicationConfigurationScript(): Observable<any> {
-    let url = '/Abp/ApplicationConfigurationScript';
-    let options: any = {
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class AbpLanguagesProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  switch(
-    params: {
-      /**  */
-      culture?: string;
-      /**  */
-      uiCulture?: string;
-      /**  */
-      returnUrl?: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/Abp/Languages/Switch';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class AbpServiceProxyScriptProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  serviceProxyScript(
-    params: {
-      /**  */
-      type?: string;
-      /**  */
-      useCache?: boolean;
-      /**  */
-      modules?: string;
-      /**  */
-      controllers?: string;
-      /**  */
-      actions?: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/Abp/ServiceProxyScript';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
 export class AbpTenantProxyService {
   constructor(private http: HttpClient) {}
 
@@ -177,28 +64,6 @@ export class AbpTenantProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<FindTenantResultDto>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class AccountProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  register(
-    params: {
-      /** requestBody */
-      body?: RegisterDto;
-    } = {} as any
-  ): Observable<IdentityUserDto> {
-    let url = '/api/account/register';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<IdentityUserDto>;
   }
 }
 
@@ -304,7 +169,12 @@ export class ClientProxyService {
   /**
    *
    */
-  init(): Observable<any> {
+  init(
+    params: {
+      /** requestBody */
+      body?: ClientInitRequestDto;
+    } = {} as any
+  ): Observable<any> {
     let url = '/api/mall/client/init';
     let options: any = {
       body: params.body,
@@ -337,52 +207,6 @@ export class ClientProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<AddressDtoListResultDto>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class FeaturesProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  get(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-    } = {} as any
-  ): Observable<FeatureListDto> {
-    let url = '/api/abp/features/get';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<FeatureListDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-      /** requestBody */
-      body?: UpdateFeaturesDto;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/abp/features/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<any>;
   }
 }
 
@@ -701,56 +525,9 @@ export class OssProxyService {
   test(): Observable<any> {
     let url = '/api/app/oss/test';
     let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class PermissionsProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  get(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-    } = {} as any
-  ): Observable<GetPermissionListResultDto> {
-    let url = '/api/abp/permissions/get';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
-    return (this.http.request('get', url, options) as any) as Observable<GetPermissionListResultDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      providerName?: string;
-      /**  */
-      providerKey?: string;
-      /** requestBody */
-      body?: UpdatePermissionsDto;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/abp/permissions/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<any>;
+    return (this.http.request('get', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1059,55 +836,6 @@ export class ProductSpuProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ProfileProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  myProfile(): Observable<ProfileDto> {
-    let url = '/api/identity/my-profile';
-    let options: any = {
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<ProfileDto>;
-  }
-  /**
-   *
-   */
-  myProfile1(
-    params: {
-      /** requestBody */
-      body?: UpdateProfileDto;
-    } = {} as any
-  ): Observable<ProfileDto> {
-    let url = '/api/identity/my-profile';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<ProfileDto>;
-  }
-  /**
-   *
-   */
-  changePassword(
-    params: {
-      /** requestBody */
-      body?: ChangePasswordInput;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/identity/my-profile/change-password';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
 export class RoleProxyService {
   constructor(private http: HttpClient) {}
 
@@ -1314,154 +1042,6 @@ export class ShopProxyService {
     } = {} as any
   ): Observable<any> {
     let url = '/api/app/shop/delete';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
-export class TenantProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  tenants(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<TenantDto> {
-    let url = '/api/multi-tenancy/tenants/';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<TenantDto>;
-  }
-  /**
-   *
-   */
-  tenants1(
-    params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: TenantUpdateDto;
-    } = {} as any
-  ): Observable<TenantDto> {
-    let url = '/api/multi-tenancy/tenants/';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<TenantDto>;
-  }
-  /**
-   *
-   */
-  tenants2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/multi-tenancy/tenants/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  tenants3(
-    params: {
-      /**  */
-      filter?: string;
-      /**  */
-      sorting?: string;
-      /**  */
-      skipCount?: number;
-      /**  */
-      maxResultCount?: number;
-    } = {} as any
-  ): Observable<TenantDtoPagedResultDto> {
-    let url = '/api/multi-tenancy/tenants';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<TenantDtoPagedResultDto>;
-  }
-  /**
-   *
-   */
-  tenants4(
-    params: {
-      /** requestBody */
-      body?: TenantCreateDto;
-    } = {} as any
-  ): Observable<TenantDto> {
-    let url = '/api/multi-tenancy/tenants';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<TenantDto>;
-  }
-  /**
-   *
-   */
-  defaultConnectionString(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<string> {
-    let url = '/api/multi-tenancy/tenants//default-connection-string';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<string>;
-  }
-  /**
-   *
-   */
-  defaultConnectionString1(
-    params: {
-      /**  */
-      id: string;
-      /**  */
-      defaultConnectionString?: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/multi-tenancy/tenants//default-connection-string';
-    let options: any = {
-      params: { id: params.id },
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  defaultConnectionString2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/multi-tenancy/tenants//default-connection-string';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -2375,6 +1955,8 @@ export interface AddressCreateOrUpdateDto {
   /**  */
   locationType?: LocationType;
 }
+
+export interface ClientInitRequestDto {}
 
 export interface WeChatMiniProgramAuthenticateModel {
   /**  */

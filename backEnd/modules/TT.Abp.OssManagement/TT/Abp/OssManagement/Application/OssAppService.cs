@@ -2,6 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using TT.Abp.Shops.Application;
 using TT.Extensions;
@@ -49,6 +50,7 @@ namespace TT.Abp.OssManagement.Application
             return await Task.FromResult(new {signature = Convert.ToBase64String(hashBytes)});
         }
 
+        [HttpGet]
         public async Task<object> Test()
         {
             var bucketName = await _setting.GetOrNullAsync(OssManagementSettings.BucketName);

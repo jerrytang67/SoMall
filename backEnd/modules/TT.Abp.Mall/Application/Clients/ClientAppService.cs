@@ -20,9 +20,9 @@ using Volo.Abp.Settings;
 
 namespace TT.Abp.Mall.Application.Clients
 {
-    public interface IClientAppService 
+    public interface IClientAppService
     {
-        Task<object> Init();
+        Task<object> Init(ClientInitRequestDto input);
         Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel);
         Task<ListResultDto<AddressDto>> GetUserAddressListAsync();
     }
@@ -49,7 +49,7 @@ namespace TT.Abp.Mall.Application.Clients
             _setting = setting;
         }
 
-        public async Task<object> Init()
+        public async Task<object> Init(ClientInitRequestDto input)
         {
             var shops = await _shopRepository.GetListAsync();
             return new
@@ -71,5 +71,9 @@ namespace TT.Abp.Mall.Application.Clients
             var list = await _addressRepository.Where(x => x.CreatorId == CurrentUser.Id).ToListAsync();
             return new ListResultDto<AddressDto>(ObjectMapper.Map<List<Address>, List<AddressDto>>(list));
         }
+    }
+
+    public class ClientInitRequestDto
+    {
     }
 }
