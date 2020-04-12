@@ -20,6 +20,14 @@
                 <i class="fas fa-info-circle mr-1"></i> 产品基础属性
             </ng-template>
             <nz-form-item>
+                <nz-form-label [nzSpan]="3" nzFor="shopId" nzRequired>商户</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="shopId" nzPlaceHolder="请选择商户" name="shopId">
+                        <nz-option *ngFor="let option of shopList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
                 <nz-form-label [nzSpan]="3" nzFor="categoryId" nzRequired>商品分类</nz-form-label>
                 <nz-form-control>
                     <nz-select formControlName="categoryId" nzPlaceHolder="请选择商品分类" name="categoryId">

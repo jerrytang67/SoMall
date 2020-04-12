@@ -2635,6 +2635,9 @@ export interface SkuCreateOrUpdateDto {
 
 export interface SpuCreateOrUpdateDto {
   /**  */
+  shopId?: string;
+
+  /**  */
   categoryId?: string;
 
   /**  */

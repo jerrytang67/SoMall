@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using TT.Abp.Mall.Application.Products.Dtos;
+using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Products;
+using TT.Abp.Mall.Domain.Shops;
 using TT.Extensions;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -19,15 +21,21 @@ namespace TT.Abp.Mall.Application.Products
     {
         private readonly IRepository<ProductSku, Guid> _skuRepository;
         private readonly IRepository<ProductCategory, Guid> _categoryRepository;
+        private readonly IMallShopRepository _mallShopRepository;
+        private readonly IMallShopLookupService _mallShopLookupService;
 
         public ProductSpuAppService(
             IRepository<ProductSpu, Guid> repository,
             IRepository<ProductSku, Guid> skuRepository,
-            IRepository<ProductCategory, Guid> categoryRepository
+            IRepository<ProductCategory, Guid> categoryRepository,
+            IMallShopRepository mallShopRepository,
+            IMallShopLookupService mallShopLookupService
         ) : base(repository)
         {
             _skuRepository = skuRepository;
             _categoryRepository = categoryRepository;
+            _mallShopRepository = mallShopRepository;
+            _mallShopLookupService = mallShopLookupService;
         }
 
         public override async Task<ProductSpuDto> GetAsync(Guid id)
@@ -124,6 +132,9 @@ namespace TT.Abp.Mall.Application.Products
             var categoryList = await _categoryRepository.GetListAsync();
             schema["categoryId"] = categoryList.GetSelection("string", "categoryId", @"{0}", new[] {"Name"}, "Id");
 
+            var shops = await _mallShopRepository.GetListAsync();
+            schema["shopId"] = shops.GetSelection("string", "shopId", @"{0}", new[] {"Name"}, "Id");
+
             return new GetForEditOutput<SpuCreateOrUpdateDto>(
                 ObjectMapper.Map<ProductSpu, SpuCreateOrUpdateDto>(find ?? new ProductSpu()
                 {
@@ -134,6 +145,35 @@ namespace TT.Abp.Mall.Application.Products
                 }), schema);
         }
 
+
+        public override async Task<PagedResultDto<ProductSpuDto>> GetListAsync(MallPagedAndSortedResultRequestDto input)
+        {
+            var spuDtos = await base.GetListAsync(input);
+
+            var shopDictionary = new Dictionary<Guid, MallShopDto>();
+
+            foreach (var spuDto in spuDtos.Items)
+            {
+                if (spuDto.ShopId.HasValue)
+                {
+                    if (!shopDictionary.ContainsKey(spuDto.ShopId.Value))
+                    {
+                        var shop = await _mallShopLookupService.FindByIdAsync(spuDto.ShopId.Value);
+                        if (shop != null)
+                        {
+                            shopDictionary[shop.Id] = ObjectMapper.Map<MallShop, MallShopDto>(shop);
+                        }
+                    }
+
+                    if (shopDictionary.ContainsKey(spuDto.ShopId.Value))
+                    {
+                        spuDto.Shop = shopDictionary[(Guid) spuDto.ShopId];
+                    }
+                }
+            }
+
+            return spuDtos;
+        }
 
         protected override IQueryable<ProductSpu> CreateFilteredQuery(MallPagedAndSortedResultRequestDto input)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops;
@@ -27,7 +28,9 @@ namespace TT.Abp.Mall.Application.Products.Dtos
     {
         public ProductCategoryDto Category { get; set; }
 
-        [CanBeNull] public MallShop Shop { get; set; }
+        public MallShopDto Shop { get; set; }
+
+        public Guid? ShopId { get; set; }
 
         public List<ProductSkuDto> Skus { get; set; }
 

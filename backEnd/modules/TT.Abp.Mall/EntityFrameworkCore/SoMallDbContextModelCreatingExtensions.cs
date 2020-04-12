@@ -159,6 +159,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             builder.Entity<Partner>(b =>
             {
                 b.ToTable(MallConsts.DbTablePrefix + "Partners", MallConsts.DbSchema);
+                b.HasKey(x => x.UserId);
+                
                 b.ConfigureFullAudited();
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxNameLength);

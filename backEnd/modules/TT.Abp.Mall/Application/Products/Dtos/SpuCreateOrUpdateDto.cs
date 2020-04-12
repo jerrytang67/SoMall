@@ -7,6 +7,8 @@ namespace TT.Abp.Mall.Application.Products.Dtos
 {
     public class SpuCreateOrUpdateDto
     {
+        public Guid? ShopId { get; set; }
+
         public Guid CategoryId { get; set; }
 
         [Required]

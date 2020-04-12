@@ -21,6 +21,7 @@ export class SpuEditComponent implements OnInit {
   form: SpuCreateOrUpdateDto = {
     name: "",
     code: "",
+    shopId: "",
     categoryId: "",
     purchaseNotesCommon: "",
     descCommon: "",
@@ -38,9 +39,11 @@ export class SpuEditComponent implements OnInit {
 
   guid = '00000000-0000-0000-0000-000000000000';
   optionList: any[];
+  shopList: any[];
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
+      shopId: null,
       categoryId: null,
       name: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
       code: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(32)]],
@@ -57,11 +60,13 @@ export class SpuEditComponent implements OnInit {
         res => {
           this.form = res.data;
           this.optionList = res.schema.categoryId;
+          this.shopList = res.schema.shopId;
           this.form.skus.forEach(item => {
             this.skus = this.validateForm.get('skus') as FormArray;
             this.skus.push(this.createItem(item));
           })
           this.validateForm.setValue({
+            shopId: this.form.shopId,
             categoryId: this.form.categoryId,
             name: this.form.name,
             code: this.form.code,
@@ -97,8 +102,9 @@ export class SpuEditComponent implements OnInit {
 
   onSubmit() {
     console.log(this.validateForm.value)
+    console.log(this.spuId)
     if (this.validateForm.valid) {
-      if (this.spuId)
+      if (this.spuId !== this.guid)
         this.api.update({
           id: this.spuId,
           body: this.validateForm.value
