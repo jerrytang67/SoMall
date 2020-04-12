@@ -38,15 +38,15 @@ export namespace Identity {
     export type RoleResponse = ABP.PagedResponse<RoleItem>;
 
     export interface RoleSaveRequest {
-        name: string;
-        isDefault: boolean;
-        isPublic: boolean;
+        name?: string;
+        isDefault?: boolean;
+        isPublic?: boolean;
     }
 
     export interface RoleItem extends RoleSaveRequest {
-        isStatic: boolean;
-        concurrencyStamp: string;
-        id: string;
+        isStatic?: boolean;
+        concurrencyStamp?: string;
+        id?: string;
     }
     export type UserResponse = ABP.PagedResponse<UserItem>;
 

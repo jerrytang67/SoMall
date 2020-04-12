@@ -61,4 +61,21 @@ export class IdentityService {
                 })
             );
     }
-} 
+
+    updateRole(id: string, params = {}): Observable<void> {
+        return this.http.request<void>('put', `/api/identity/roles/${id}`, { body: params })
+            .pipe(
+                tap(() => {
+                    this.identityStore.update({ selectedRole: params });
+                })
+            )
+    }
+
+    createRole(params = {}): Observable<void> {
+        return this.http.request<void>('post', `/api/identity/roles`, { body: params })
+    }
+
+    deleteRole(id: string): Observable<void> {
+        return this.http.request<void>('delete', `/api/identity/roles/${id}`)
+    }
+}

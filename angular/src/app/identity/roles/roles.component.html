@@ -21,6 +21,8 @@
                 <th></th>
                 <!-- <th nzWidth="20em">Id</th> -->
                 <th>name</th>
+                <th>IsPublic</th>
+                <th>IsDefault</th>
                 <th>isStatic</th>
             </tr>
         </thead>
@@ -34,9 +36,12 @@
                     </button>
                     <nz-dropdown-menu #menu="nzDropdownMenu">
                         <ul nz-menu>
-                            <li nz-menu-item (click)="edit(data.id)">{{'edit' | translate}}</li>
-                            <li nz-menu-item (click)="claims(data.id)">{{'claims' | translate}}</li>
+                            <li nz-menu-item (click)="edit(data)">{{'edit' | translate}}</li>
+                            <li nz-menu-divider></li>
+                            <li nz-menu-item (click)="claims(data.id)">{{'Claims' | translate}}</li>
+                            <li nz-menu-divider></li>
                             <li nz-menu-item (click)="permissions(data)">{{'permissions' | translate}}</li>
+                            <li nz-menu-divider></li>
                             <li nz-menu-item nz-popconfirm [nzPopconfirmTitle]="'delete.warning'" (nzOnConfirm)="delete(data)" nzPopconfirmPlacement="top">
                                 {{'delete' | translate}}</li>
                         </ul>
@@ -45,11 +50,16 @@
                 <!-- <td>{{ data.id }}</td> -->
                 <td>
                     {{ data.name }}
-                    <nz-tag [nzColor]="'#87d068'" *ngIf="data.isDefault">IsDefault</nz-tag>
-                    <nz-tag [nzColor]="'#108ee9'" *ngIf="data.isPublic">IsPublic</nz-tag>
                 </td>
-                <td>{{ data.isStatic }}</td>
-
+                <td>
+                    <i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a" *ngIf="data.isPublic"></i>
+                </td>
+                <td>
+                    <i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a" *ngIf="data.isDefault"></i>
+                </td>
+                <td>
+                    <i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a" *ngIf="data.isStatic"></i>
+                </td>
             </tr>
         </tbody>
     </nz-table>

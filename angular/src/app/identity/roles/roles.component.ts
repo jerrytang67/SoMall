@@ -7,10 +7,17 @@ import { PermissionsService } from '../store/permissions.service';
 import { mergeMap } from 'rxjs/operators';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { PermissionsManagerComponent } from '../permissions-manager/permissions-manager.component';
+import { EditRoleComponent } from './role-edit.component';
 
 @Component({
   selector: 'app-roles',
-  templateUrl: './roles.component.html'
+  templateUrl: './roles.component.html',
+  styles: [`
+  .anticon {
+        margin-right: 6px;
+        font-size: 24px;
+      }`
+  ]
 })
 export class RolesComponent implements OnInit {
 
@@ -44,13 +51,77 @@ export class RolesComponent implements OnInit {
     this.permissionsService.getPermissions({ providerKey: "admin", providerName: "R" }).subscribe();
   }
 
-  create() { }
+  create() {
+    const modal = this.modalService.create({
+      nzTitle: '新建角色',
+      nzWidth: '40vw',
+      nzContent: EditRoleComponent,
+      nzComponentParams: {
+        form: {
+          name: "",
+          isDefault: true,
+          isPublic: false
+        }
+      },
+      nzFooter: [
+        {
+          label: '确定',
+          onClick: instance => {
+            console.log("componentInstance", instance);
+            if (instance.f.valid) {
+              this.identityService.createRole(instance.form).subscribe(res => {
+                this.message.success("新建成功");
+                this.refresh();
+                modal.destroy();
+              })
+            }
+            else {
+              instance.f.ngSubmit.emit(null)
+              this.message.error("表单错误")
+            }
+          }
+        }
+      ]
+    });
+  }
 
-  delete() { }
+  delete(role: Identity.RoleItem) {
+    this.identityService.deleteRole(role.id).subscribe(res => {
+      this.message.success("删除成功");
+      this.refresh();
+    })
+  }
 
-
-  edit(id: string) {
-
+  edit(role: Identity.RoleItem) {
+    const modal = this.modalService.create({
+      nzTitle: '编辑角色',
+      nzWidth: '40vw',
+      nzContent: EditRoleComponent,
+      nzComponentParams: {
+        id: role.id,
+        form: role
+      },
+      nzFooter: [
+        {
+          label: '确定',
+          type: "primary",
+          onClick: instance => {
+            console.log("componentInstance", instance);
+            if (instance.f.valid) {
+              this.identityService.updateRole(role.id, instance.form).subscribe(res => {
+                this.message.success("修改成功");
+                this.refresh();
+                modal.destroy();
+              })
+            }
+            else {
+              instance.f.ngSubmit.emit(null)
+              this.message.error("表单错误")
+            }
+          }
+        }
+      ]
+    });
   }
 
   claims(id: string) {
