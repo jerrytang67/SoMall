@@ -5,13 +5,12 @@ using TT.Abp.VisitorManagement.EntityFrameworkCore;
 using TT.HttpClient.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.Http.Client;
 using Volo.Abp.Modularity;
 
 namespace TT.Abp.VisitorManagement
 {
     [DependsOn(
-        typeof(AbpHttpClientModule),
+        // typeof(AbpHttpClientModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule)
     )]
@@ -34,7 +33,7 @@ namespace TT.Abp.VisitorManagement
             });
 
             //创建动态客户端代理
-            context.Services.AddHttpClientProxies(typeof(VisitorManagementModule).Assembly);
+            // context.Services.AddHttpClientProxies(typeof(VisitorManagementModule).Assembly);
         }
     }
 }

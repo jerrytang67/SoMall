@@ -61,11 +61,11 @@
       <view class="yt-list">
          <view class="yt-list-cell b-b">
             <text class="cell-tit clamp">商品金额</text>
-            <text class="cell-tip">￥179.88</text>
+            <text class="cell-tip">￥{{sku.price}}</text>
          </view>
-         <view class="yt-list-cell b-b">
+         <view class="yt-list-cell b-b" v-if="sku.originPrice">
             <text class="cell-tit clamp">优惠金额</text>
-            <text class="cell-tip red">-￥35</text>
+            <text class="cell-tip red">-￥{{sku.originPrice - sku.price}}</text>
          </view>
          <view class="yt-list-cell b-b">
             <text class="cell-tit clamp">运费</text>
@@ -82,7 +82,7 @@
          <view class="price-content">
             <text>实付款</text>
             <text class="price-tip">￥</text>
-            <text class="price">475</text>
+            <text class="price">{{sku.price}}</text>
          </view>
          <text class="submit" @click="submit">提交订单</text>
       </view>
@@ -139,6 +139,8 @@ export default class CreateOrder extends BaseView {
    get selectAddress() {
       return AddressModule.getSelectAddress;
    }
+
+   async submit() {}
 }
 </script>
 

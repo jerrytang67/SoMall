@@ -6,15 +6,14 @@ using TT.HttpClient.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Caching;
-using Volo.Abp.Http.Client;
 using Volo.Abp.Modularity;
 
 namespace TT.Abp.Weixin
 {
     [DependsOn(
         typeof(AbpCachingModule),
-        typeof(AbpHttpClientModule),
-        typeof(AbpAspNetCoreMvcModule),
+        // typeof(AbpHttpClientModule),
+        // typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule)
     )]
     public class WeixinModule : AbpModule

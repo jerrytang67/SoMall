@@ -126,6 +126,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.SpuName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.SkuName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.SkuPrice).HasColumnType("decimal(18,2)");
+                b.Property(x => x.Discount).HasColumnType("decimal(18,2)");
                 b.Property(x => x.SkuUnit).HasMaxLength(MallConsts.MaxShortNameLength);
                 b.Property(x => x.Comment).HasMaxLength(MallConsts.MaxOrderComentLength);
 

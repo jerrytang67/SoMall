@@ -1,13 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.Http.Client;
 using Volo.Abp.Modularity;
 
 namespace TT.Abp.OssManagement
 {
     [DependsOn(
-        typeof(AbpHttpClientModule),
+        // typeof(AbpHttpClientModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule)
     )]

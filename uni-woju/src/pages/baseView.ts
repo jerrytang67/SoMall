@@ -8,17 +8,17 @@ export class BaseView extends Vue {
 
     public loginBtnTest: string = "登录";
 
-    get token() {
-        return UserModule.getToken;
-    }
+    // get token() {
+    //     return UserModule.getToken;
+    // }
 
     get openid() {
         return UserModule.getOpenid;
     }
 
     initUser() {
-        if (this.token) {
-        }
+        // if (this.token) {
+        // }
     }
 
     bindGetUserInfo(e: any) {

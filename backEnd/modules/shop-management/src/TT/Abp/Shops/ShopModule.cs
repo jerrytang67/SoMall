@@ -2,13 +2,12 @@
 using TT.Abp.Shops.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.Http.Client;
 using Volo.Abp.Modularity;
 
 namespace TT.Abp.Shops
 {
     [DependsOn(
-        typeof(AbpHttpClientModule),
+        // typeof(AbpHttpClientModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule)
     )]
@@ -29,7 +28,7 @@ namespace TT.Abp.Shops
             });
 
             //创建动态客户端代理
-            context.Services.AddHttpClientProxies(typeof(ShopModule).Assembly);
+            // context.Services.AddHttpClientProxies(typeof(ShopModule).Assembly);
         }
     }
 }

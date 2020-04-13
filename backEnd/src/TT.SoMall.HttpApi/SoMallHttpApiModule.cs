@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using TT.Abp.Core;
 using TT.Abp.OssManagement;
 using TT.Abp.Shops;
 using TT.Abp.VisitorManagement;
@@ -21,6 +22,7 @@ namespace TT.SoMall
         typeof(AbpIdentityHttpApiModule),
         typeof(AbpPermissionManagementHttpApiModule),
         typeof(AbpTenantManagementHttpApiModule),
+        typeof(TtCoreModule),
         typeof(ShopModule),
         typeof(OssManagementModule),
         typeof(VisitorManagementModule),

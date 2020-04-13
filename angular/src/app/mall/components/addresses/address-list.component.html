@@ -24,6 +24,7 @@
                 <th>locationLable</th>
                 <th>Lat</th>
                 <th>Lng</th>
+                <th>geoType</th>
                 <th>user</th>
                 <!-- <th></th> -->
             </tr>
@@ -37,6 +38,7 @@
                 <td> {{item.locationLable}} </td>
                 <td> {{item.lat}} </td>
                 <td> {{item.lng}} </td>
+                <td> {{item.locationType}} </td>
                 <td>
                     <span *ngIf="item.mallUser">
                         {{item.mallUser.name}}

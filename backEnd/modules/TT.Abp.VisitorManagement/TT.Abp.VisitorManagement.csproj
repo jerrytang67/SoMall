@@ -11,7 +11,6 @@
       <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="2.5.0" />
       <PackageReference Include="Volo.Abp.AutoMapper" Version="2.5.0" />
       <PackageReference Include="Volo.Abp.Core" Version="2.5.0" />
-      <PackageReference Include="Volo.Abp.Http.Client" Version="2.5.0" />
     </ItemGroup>
 
     <ItemGroup>

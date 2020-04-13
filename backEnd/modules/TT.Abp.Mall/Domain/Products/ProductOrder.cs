@@ -11,6 +11,10 @@ namespace TT.Abp.Mall.Domain.Products
 {
     public class ProductOrder : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMultiShop
     {
+        public ProductOrder(Guid id) : base(id)
+        {
+        }
+
         public decimal? PricePaidIn { get; set; } //实收
         public decimal PriceOriginal { get; set; } //原价，应收
 
@@ -55,16 +59,12 @@ namespace TT.Abp.Mall.Domain.Products
 
         public Guid SkuId { get; set; }
 
-        public Double Count { get; set; } = 0;
-
+        public double Count { get; set; } = 0;
         public string SpuName { get; set; }
-
         public string SkuName { get; set; }
-
         public decimal SkuPrice { get; set; }
-
         public string SkuUnit { get; set; }
-
+        public decimal Discount { get; set; }
         public string Comment { get; set; }
 
         [ForeignKey("OrderId")] public virtual ProductOrder Order { get; set; }
