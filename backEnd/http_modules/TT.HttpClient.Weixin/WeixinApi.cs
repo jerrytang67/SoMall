@@ -24,21 +24,17 @@ namespace TT.HttpClient.Weixin
         /// <param name="appSecret"></param>
         /// <returns></returns>
         public async Task<WeixinTokenResult> GetToken(string appid, string appSecret)
-
         {
             var response =
                 await _client.GetAsync($"cgi-bin/token?grant_type=client_credential&appid={appid}&secret={appSecret}");
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-
-
+            
             // ip error: {"errcode":40164,"errmsg":"invalid ip 114.220.209.25 ipv6 ::ffff:114.220.209.25, not in whitelist hint: [eS4JRA00075263]"}
             // secret error :{"errcode":40013,"errmsg":"invalid appid"}
-
             // success return {"access_token":"ACCESS_TOKEN","expires_in":7200}
-
+            
             var result = JsonConvert.DeserializeObject<WeixinTokenResult>(jsonResponse);
-
             return result;
         }
 

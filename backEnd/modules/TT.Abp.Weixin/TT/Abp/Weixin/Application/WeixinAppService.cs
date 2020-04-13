@@ -90,7 +90,8 @@ namespace TT.Abp.Weixin.Application
 
         [HttpPost]
         [UnitOfWork(IsDisabled = false)]
-        public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appid = null, string appSec = null)
+        public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appid = null,
+            string appSec = null)
         {
             if (appid.IsNullOrEmpty())
             {
@@ -106,7 +107,8 @@ namespace TT.Abp.Weixin.Application
 
             // 解密用户信息
             var miniUserInfo =
-                await _weixinManager.Mini_GetUserInfo(appid, loginModel.encryptedData, session.session_key, loginModel.iv);
+                await _weixinManager.Mini_GetUserInfo(appid, loginModel.encryptedData, session.session_key,
+                    loginModel.iv);
 
             // 更新数据库
             await _capBus.PublishAsync("weixin.services.mini.getuserinfo", miniUserInfo);
@@ -116,7 +118,8 @@ namespace TT.Abp.Weixin.Application
             if (user == null)
             {
                 var userId = _guidGenerator.Create();
-                user = new IdentityUser(userId, miniUserInfo.unionid, $"{miniUserInfo.unionid}@somall.top", _currentTenant.Id)
+                user = new IdentityUser(userId, miniUserInfo.unionid, $"{miniUserInfo.unionid}@somall.top",
+                    _currentTenant.Id)
                 {
                     Name = miniUserInfo.nickName
                 };
@@ -126,8 +129,10 @@ namespace TT.Abp.Weixin.Application
                     var passHash = _passwordHasher.HashPassword(user, "1q2w3E*");
                     await _identityUserStore.CreateAsync(user);
                     await _identityUserStore.SetPasswordHashAsync(user, passHash);
-                    await _identityUserStore.AddLoginAsync(user, new UserLoginInfo($"unionid", miniUserInfo.unionid, "unionid"));
-                    await _identityUserStore.AddLoginAsync(user, new UserLoginInfo($"{appid}_openid", miniUserInfo.openid, "openid"));
+                    await _identityUserStore.AddLoginAsync(user,
+                        new UserLoginInfo($"unionid", miniUserInfo.unionid, "unionid"));
+                    await _identityUserStore.AddLoginAsync(user,
+                        new UserLoginInfo($"{appid}_openid", miniUserInfo.openid, "openid"));
 
                     await _unitOfWorkManager.Current.SaveChangesAsync();
                     await uow.CompleteAsync();
@@ -180,11 +185,11 @@ namespace TT.Abp.Weixin.Application
 
 
         [HttpGet]
-        [Authorize]
         public async Task<object> GetUnLimitQr(Guid scene, string page = null)
         {
             var shorter = scene.ToShortString();
-            return new {url = await _weixinManager.Getwxacodeunlimit(shorter, page)};
+            var url = await _weixinManager.Getwxacodeunlimit(shorter, page);
+            return new {url};
         }
 
 

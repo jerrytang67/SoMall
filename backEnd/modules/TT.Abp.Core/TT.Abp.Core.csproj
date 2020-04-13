@@ -10,8 +10,4 @@
       <PackageReference Include="Volo.Abp.Guids" Version="2.5.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Utils" />
-    </ItemGroup>
-
 </Project>
