@@ -37,6 +37,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly IMallShopLookupService _shopLookupService;
         private readonly IMallShopRepository _shopRepository;
         private readonly IReadOnlyRepository<Address, Guid> _addressRepository;
+        private readonly IRepository<ProductOrder, Guid> _orderRepository;
         private readonly ISettingProvider _setting;
 
         public ClientAppService(
@@ -45,6 +46,7 @@ namespace TT.Abp.Mall.Application.Clients
             IMallShopLookupService shopLookupService,
             IMallShopRepository shopRepository,
             IReadOnlyRepository<Address, Guid> addressRepository,
+            IRepository<ProductOrder, Guid> orderRepository,
             ISettingProvider setting)
         {
             _guidGenerator = guidGenerator;
@@ -52,6 +54,7 @@ namespace TT.Abp.Mall.Application.Clients
             _shopLookupService = shopLookupService;
             _shopRepository = shopRepository;
             _addressRepository = addressRepository;
+            _orderRepository = orderRepository;
             _setting = setting;
         }
 
@@ -81,7 +84,8 @@ namespace TT.Abp.Mall.Application.Clients
         [HttpPost]
         public async Task<object> SumbitOrder(ProductOrderRequestDto input)
         {
-            var order = new ProductOrder(_guidGenerator.Create(), CurrentTenant.Id)
+            var shopId = input.Skus[0].ShopId;
+            var order = new ProductOrder(_guidGenerator.Create(), shopId, CurrentTenant.Id)
             {
                 Comment = input.Comment,
                 BuyerId = CurrentUser.Id,
@@ -98,25 +102,30 @@ namespace TT.Abp.Mall.Application.Clients
             foreach (var sku in input.Skus)
             {
                 orderItemList.Add(new ProductOrderItem(
-                    _guidGenerator.Create()
-                    , order.Id,
+                    _guidGenerator.Create(),
+                    order.Id,
                     sku.SpuId,
                     sku.Id,
                     sku.Price,
-                    sku.Num
+                    sku.Num,
+                    CurrentTenant.Id
                 )
                 {
                     SkuName = sku.Name,
                     SkuCoverImageUrl = sku.CoverImageUrls[0],
                     SkuUnit = sku.Unit,
+                    SpuName = sku.SpuName
                     //Comment = sku.Comment
                 });
 
                 order.PriceOriginal += (sku.Price * (decimal) sku.Num);
             }
 
+            order.OrderItems = orderItemList;
 
-            return await Task.FromResult(order);
+            var result = await _orderRepository.InsertAsync(order);
+
+            return await Task.FromResult(result.Id);
         }
     }
 

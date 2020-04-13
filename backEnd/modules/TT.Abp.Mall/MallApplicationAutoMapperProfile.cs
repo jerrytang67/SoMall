@@ -29,8 +29,10 @@ namespace TT.Abp.Mall
 
             CreateMap<ProductCategory, ProductCategoryDto>();
             CreateMap<ProductSpu, ProductSpuDto>();
-            CreateMap<ProductSku, ProductSkuDto>();
-
+            CreateMap<ProductSku, ProductSkuDto>()
+                .ForMember(x => x.ShopId, opt => opt.MapFrom(x => x.Spu.ShopId))
+                .ForMember(x => x.SpuName, opt => opt.MapFrom(x => x.Spu.Name))
+                ;
 
             CreateMap<CategoryCreateOrUpdateDto, ProductCategory>();
 

@@ -10,8 +10,13 @@ namespace TT.Abp.Mall.Domain.Products
 {
     public class ProductOrder : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMultiShop
     {
-        public ProductOrder(Guid id, Guid? tenantId = null) : base(id)
+        public ProductOrder(
+            Guid id,
+            Guid? shopId = null,
+            Guid? tenantId = null) : base(id)
         {
+            ShopId = shopId;
+            TenantId = tenantId;
         }
 
         public decimal? PricePaidIn { get; set; } //实收

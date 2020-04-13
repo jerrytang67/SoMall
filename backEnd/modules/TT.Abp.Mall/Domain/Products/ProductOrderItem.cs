@@ -1,13 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Domain.Products
 {
-    public class ProductOrderItem : FullAuditedEntity<Guid>
+    public class ProductOrderItem : FullAuditedEntity<Guid>, IMultiTenant
     {
-        protected ProductOrderItem()
+        protected ProductOrderItem(Guid? tenantId)
         {
+            TenantId = tenantId;
         }
 
         public ProductOrderItem(
@@ -16,16 +18,17 @@ namespace TT.Abp.Mall.Domain.Products
             Guid spuId,
             Guid skuId,
             decimal skuPrice
-            , double num
-        ) : base(id)
+            , double num,
+            Guid? tenantId = null) : base(id)
         {
             OrderId = orderId;
             SpuId = spuId;
             SkuId = skuId;
             SkuPrice = skuPrice;
             Num = num;
+            TenantId = tenantId;
         }
-        
+
         public Guid OrderId { get; protected set; }
 
         public Guid SpuId { get; protected set; }
@@ -33,7 +36,7 @@ namespace TT.Abp.Mall.Domain.Products
         public Guid SkuId { get; protected set; }
 
         public double Num { get; protected set; }
-        
+
         public decimal SkuPrice { get; protected set; }
 
         public string SpuName { get; set; }
@@ -45,5 +48,7 @@ namespace TT.Abp.Mall.Domain.Products
         public string Comment { get; set; }
 
         [ForeignKey("OrderId")] public virtual ProductOrder Order { get; set; }
+
+        public Guid? TenantId { get; protected set; }
     }
 }

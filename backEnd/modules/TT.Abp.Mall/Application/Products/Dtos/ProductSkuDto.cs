@@ -33,6 +33,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
 
         public Guid SpuId { get; set; }
 
+
         public string Name { get; set; }
 
         public string Code { get; set; }
@@ -99,9 +100,12 @@ namespace TT.Abp.Mall.Application.Products.Dtos
 
         // just for client
         public virtual double Num { get; set; }
-        
         public virtual string Comment { get; set; }
 
+        // from mapper
+        public Guid? ShopId { get; set; }
+        public string SpuName { get; set; }
+        
         public ProductSpuDto Spu { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TT.SoMall.Migrations
 {
@@ -33,6 +34,11 @@ namespace TT.SoMall.Migrations
                 table: "Mall_ProductOrders",
                 maxLength: 255,
                 nullable: true);
+
+            migrationBuilder.AddColumn<Guid>(
+                name: "TenantId",
+                table: "Mall_ProductOrderItems",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -55,9 +61,14 @@ namespace TT.SoMall.Migrations
                 type: "float",
                 nullable: false,
                 defaultValue: 0.0);
+            
             migrationBuilder.DropColumn(
                 name: "AddressLocationAddress",
                 table: "Mall_ProductOrders");
+            
+            migrationBuilder.DropColumn(
+                name: "TenantId",
+                table: "Mall_ProductOrderItems");
         }
     }
 }
