@@ -71,16 +71,20 @@ import { BaseView } from "../baseView";
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import api from "@/utils/api";
 import { Tips } from "../../utils/tips";
-import { UserModule, IAddress } from "@/store/modules/user";
+import { UserModule } from "@/store/modules/user";
+import { AddressModule, IAddress } from "@/store/modules/address";
 
 @Component
 export default class MyAddress extends BaseView {
    async onLoad(options: any) {
-      await UserModule.GetAndSetAddressList();
+      await AddressModule.GetAndSetUserAddressList();
    }
 
    get addressList() {
-      return UserModule.getAddressList;
+      return AddressModule.getAddressList;
+   }
+   get selectAddress() {
+      return AddressModule.getSelectAddress;
    }
 
    form: any = { locationType: "gcj02" };
@@ -100,7 +104,7 @@ export default class MyAddress extends BaseView {
          await api.address_delete(this.form).then(async (res: any) => {
             this.hideModal();
             this.initUser();
-            await UserModule.GetAndSetAddressList();
+            await AddressModule.GetAndSetUserAddressList();
          });
       }
    }
@@ -116,11 +120,11 @@ export default class MyAddress extends BaseView {
             this.initUser();
             this.hideModal();
          });
-      await UserModule.GetAndSetAddressList();
+      await AddressModule.GetAndSetUserAddressList();
    }
 
    addAddress(e: any) {
-      this.form = { id: null };
+      this.form = { id: null, locationType: "gcj02" };
       this.showModal(e);
    }
 
@@ -131,10 +135,9 @@ export default class MyAddress extends BaseView {
 
    async select(x: IAddress) {
       console.log(x);
-      await api.address_setDefault({ id: x.id! }).then((res: any) => {
-         this.initUser();
-         if (res.success) uni.navigateBack();
-      });
+      await AddressModule.SelectAddress(x);
+      // this.initUser();
+      uni.navigateBack();
    }
 
    getAddress() {

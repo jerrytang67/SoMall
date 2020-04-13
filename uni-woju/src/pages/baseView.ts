@@ -5,7 +5,7 @@ import { Tips } from '@/utils/tips';
 @Component
 export class BaseView extends Vue {
     public modalName: string = "";
-    
+
     public loginBtnTest: string = "登录";
 
     get token() {
@@ -56,6 +56,10 @@ export class BaseView extends Vue {
 
     toHome() {
         uni.switchTab({ url: "/pages/index/index" })
+    }
+
+    toAddress(source: string = "") {
+        uni.navigateTo({ url: "/pages/address/address" });
     }
 
     showModal(e: any) {

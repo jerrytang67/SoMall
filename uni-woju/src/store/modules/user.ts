@@ -1,6 +1,7 @@
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
 import store from '@/store'
 import api from '@/utils/api';
+import { IAddress } from './address';
 export interface IUserInfo {
     avatarUrl?: string;
     city?: string;
@@ -26,26 +27,6 @@ export interface IShopMember {
     unionid?: string;
 }
 
-export interface IAddress {
-    id?: string;
-    /**  */
-    realName?: string;
-    /**  */
-    phone?: string;
-    /**  */
-    locationLable?: string;
-    /**  */
-    locationAddress?: string;
-    /**  */
-    nickName?: string;
-    /**  */
-    lat?: number;
-    /**  */
-    lng?: number;
-    /**  */
-    locationType?: "bd09" | "gcj02" | "wgs84";
-}
-
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule {
     userInfo: IUserInfo = uni.getStorageSync("userInfo") || {
@@ -55,9 +36,6 @@ class User extends VuexModule {
     token: string = uni.getStorageSync("token") || "";
     sessionKey: string = uni.getStorageSync("sessionKey") || "";
     phone: string = uni.getStorageSync("phone") || "";
-
-    addressList: IAddress[] = []
-
     get getUserInfo() {
         return this.userInfo;
     }
@@ -78,10 +56,6 @@ class User extends VuexModule {
         return this.sessionKey;
     }
 
-
-    get getAddressList() {
-        return this.addressList;
-    }
 
     @Mutation
     private SET_USERINFO(v: IUserInfo) {
@@ -109,9 +83,6 @@ class User extends VuexModule {
         uni.setStorageSync("phone", payload);
         this.phone = payload;
     }
-
-    @Mutation
-    private SET_ADDRESSLIST(payload: IAddress[]) { this.addressList = payload }
 
     @Mutation
     private LOGOUT() {
@@ -193,14 +164,6 @@ class User extends VuexModule {
     SetPhone(phone: string) {
         this.SET_PHONE(phone);
     }
-
-    @Action
-    GetAndSetAddressList() {
-        api.client_getUserAddressList().then((res: any) => {
-            this.SET_ADDRESSLIST(res.items);
-        });
-    }
-
 }
 
 export const UserModule = getModule(User)

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -27,7 +29,6 @@ namespace TT.Abp.Mall.Application.Addresses
         : CrudAppService<Address, AddressDto, Guid, PagedAndSortedResultRequestDto, AddressCreateOrUpdateDto, AddressCreateOrUpdateDto>, IAddressAppService
     {
         protected IMallUserLookupService UserLookupService { get; }
-
 
         public AddressAppService(
             IRepository<Address, Guid> repository,
@@ -87,7 +88,8 @@ namespace TT.Abp.Mall.Application.Addresses
 
         public override async Task<AddressDto> CreateAsync(AddressCreateOrUpdateDto input)
         {
-            await CheckCreatePolicyAsync();
+            // 暂时新建的地址都是自己的,所以不用判断权限
+            // await CheckCreatePolicyAsync();
 
             var entity = MapToEntity(input);
 
@@ -126,6 +128,24 @@ namespace TT.Abp.Mall.Application.Addresses
 
                 await DeleteByIdAsync(id);
             }
+        }
+
+
+        [Authorize]
+        public async Task SetDefault(Guid id)
+        {
+            var list = await Repository.Where(x => x.CreatorId == CurrentUser.Id).ToListAsync();
+            foreach (var address in list)
+            {
+                if (address.Id != id)
+                {
+                    address.IsDefault = false;
+                }
+
+                address.IsDefault = true;
+            }
+
+            await Task.CompletedTask;
         }
 
         protected override IQueryable<Address> CreateFilteredQuery(PagedAndSortedResultRequestDto input)

@@ -183,7 +183,9 @@ namespace TT.Abp.Weixin.Application
             return new {url = await _weixinManager.Getwxacodeunlimit(shorter, page)};
         }
 
-        public async Task<object> GetPhone([FromBody] WeChatMiniProgramAuthenticateModel data)
+        
+        [HttpPost]
+        public async Task<object> GetPhone(WeChatMiniProgramAuthenticateModel data)
         {
             var json = Encryption.AES_decrypt(data.encryptedData, data.session_key, data.iv);
             return await Task.FromResult(json);

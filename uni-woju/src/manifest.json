@@ -51,10 +51,6 @@
             "live-player-plugin": {
                 "version": "1.0.5",
                 "provider": "wx2b03c6e691cd7370" 
-            },
-            "wxparserPlugin": {
-                "version": "0.3.0",
-                "provider": "wx9d4d4ffa781ff3ac"
             }
         }
     },
