@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Products;
 
 namespace TT.Abp.Mall.Application.Addresses.Dtos
@@ -12,6 +13,6 @@ namespace TT.Abp.Mall.Application.Addresses.Dtos
         public string NickName { get; set; }
         public double? Lat { get; set; }
         public double? Lng { get; set; }
-        public LocationType LocationType { get; set; }
+        public MallEnums.LocationType LocationType { get; set; }
     }
 }

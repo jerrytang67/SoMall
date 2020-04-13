@@ -14,6 +14,7 @@ using TT.Abp.Weixin.Domain;
 using TT.Extensions;
 using TT.HttpClient.Weixin.Helpers;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Guids;
 using Volo.Abp.Identity;
 using Volo.Abp.MultiTenancy;
 using Volo.Abp.Settings;
@@ -24,6 +25,7 @@ namespace TT.Abp.Weixin.Application
 {
     public class WeixinAppService : ApplicationService, IWeixinAppService
     {
+        private readonly IGuidGenerator _guidGenerator;
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IPasswordHasher<IdentityUser> _passwordHasher;
@@ -39,6 +41,7 @@ namespace TT.Abp.Weixin.Application
 
 
         public WeixinAppService(
+            IGuidGenerator guidGenerator,
             IConfiguration configuration,
             IHttpClientFactory httpClientFactory,
             IPasswordHasher<IdentityUser> passwordHasher,
@@ -54,6 +57,7 @@ namespace TT.Abp.Weixin.Application
         )
         {
             ObjectMapperContext = typeof(WeixinModule);
+            _guidGenerator = guidGenerator;
             _configuration = configuration;
             _httpClientFactory = httpClientFactory;
             _passwordHasher = passwordHasher;
@@ -111,7 +115,7 @@ namespace TT.Abp.Weixin.Application
             var user = await _identityUserStore.FindByLoginAsync($"unionid", miniUserInfo.unionid);
             if (user == null)
             {
-                var userId = Guid.NewGuid();
+                var userId = _guidGenerator.Create();
                 user = new IdentityUser(userId, miniUserInfo.unionid, $"{miniUserInfo.unionid}@somall.top", _currentTenant.Id)
                 {
                     Name = miniUserInfo.nickName
@@ -183,7 +187,7 @@ namespace TT.Abp.Weixin.Application
             return new {url = await _weixinManager.Getwxacodeunlimit(shorter, page)};
         }
 
-        
+
         [HttpPost]
         public async Task<object> GetPhone(WeChatMiniProgramAuthenticateModel data)
         {

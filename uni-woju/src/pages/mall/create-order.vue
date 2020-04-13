@@ -60,12 +60,16 @@
       <!-- 金额明细 -->
       <view class="yt-list">
          <view class="yt-list-cell b-b">
+            <text class="cell-tit clamp">数量 单位</text>
+            <text class="cell-tip">{{sku.num}} {{sku.unit}}</text>
+         </view>
+         <view class="yt-list-cell b-b">
             <text class="cell-tit clamp">商品金额</text>
-            <text class="cell-tip">￥{{sku.price}}</text>
+            <text class="cell-tip">￥{{sku.price * sku.num}}</text>
          </view>
          <view class="yt-list-cell b-b" v-if="sku.originPrice">
             <text class="cell-tit clamp">优惠金额</text>
-            <text class="cell-tip red">-￥{{sku.originPrice - sku.price}}</text>
+            <text class="cell-tip red">-￥{{ (sku.originPrice - sku.price) * sku.num}}</text>
          </view>
          <view class="yt-list-cell b-b">
             <text class="cell-tit clamp">运费</text>
@@ -73,7 +77,7 @@
          </view>
          <view class="yt-list-cell desc-cell">
             <text class="cell-tit clamp">备注</text>
-            <input class="desc" type="text" v-model="desc" placeholder="请填写备注信息" placeholder-class="placeholder" />
+            <input class="desc" type="text" v-model="comment" placeholder="请填写备注信息" placeholder-class="placeholder" />
          </view>
       </view>
 
@@ -82,7 +86,7 @@
          <view class="price-content">
             <text>实付款</text>
             <text class="price-tip">￥</text>
-            <text class="price">{{sku.price}}</text>
+            <text class="price">{{sku.price *sku.num}}</text>
          </view>
          <text class="submit" @click="submit">提交订单</text>
       </view>
@@ -116,9 +120,12 @@ import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import { ShopModule } from "@/store/modules/shop";
 import { AddressModule } from "@/store/modules/address";
 import { BaseView } from "../baseView";
+import api from "@/utils/api";
 
 @Component
 export default class CreateOrder extends BaseView {
+   comment: string = "";
+
    async onLoad(query: any) {
       AddressModule.GetAndSetUserAddressList();
    }
@@ -140,7 +147,13 @@ export default class CreateOrder extends BaseView {
       return AddressModule.getSelectAddress;
    }
 
-   async submit() {}
+   async submit() {
+      api.client_sumbitOrder({
+         skus: [this.sku],
+         address: this.selectAddress,
+         comment: this.comment
+      }).then(res => {});
+   }
 }
 </script>
 

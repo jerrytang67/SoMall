@@ -50,8 +50,6 @@ class Address extends VuexModule {
     @Mutation
     private SET_ADDRESSLIST(payload: IAddress[]) { this.addressList = payload }
 
-
-
     @Action
     public async SelectAddress(address: IAddress) {
         await api.address_setDefault({ id: address.id! }).then(() => {

@@ -10,9 +10,8 @@ namespace TT.Abp.Mall.Domain.Addresses
     {
         protected Address()
         {
-            
         }
-        
+
         public Address([NotNull] string realName, [NotNull] string phone, [NotNull] string locationLable, [NotNull] string locationAddress)
         {
             RealName = realName;
@@ -38,7 +37,7 @@ namespace TT.Abp.Mall.Domain.Addresses
 
         public double? Lng { get; set; }
 
-        public LocationType LocationType { get; set; }
+        public MallEnums.LocationType LocationType { get; set; }
 
         public Guid? TenantId { get; protected set; }
     }

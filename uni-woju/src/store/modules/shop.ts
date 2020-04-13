@@ -43,11 +43,11 @@ export interface ISku {
     soldCount?: number;
     limitBuyCount?: number;
     unit?: string;
+    num?: number
 }
 
 @Module({ dynamic: true, store, name: 'shop' })
 class Shop extends VuexModule {
-
     shopList: IMallShop[] = [];
 
     currentShop: IMallShop = { name: "", shortName: "" };
@@ -63,7 +63,12 @@ class Shop extends VuexModule {
 
     get getCurrentSpu() { return this.currentSpu }
 
-    get getCurrentSku() { return this.currentSpu.id ? this.currentSpu.skus![this.selectIndex] : { coverImageUrls: [] } }
+    get getCurrentSku(): ISku {
+        return this.currentSpu.id ?
+            this.currentSpu.skus![this.selectIndex]
+            :
+            { coverImageUrls: [] }
+    }
 
     get getSpuList() { return this.spuList }
 
@@ -93,6 +98,13 @@ class Shop extends VuexModule {
     SET_SELECT_INDEX(payload: number) {
         console.log("mutaction:SET_SELECT_INDEX", payload)
         this.selectIndex = payload;
+    }
+
+    @Mutation
+    SET_NUM(num: number, index: number | undefined) {
+        index = index || this.selectIndex;
+        let sku = this.currentSpu.skus![index];
+        sku.num = num;
     }
 
     @Action({ commit: 'SET_LIST' })
@@ -127,6 +139,11 @@ class Shop extends VuexModule {
     @Action
     async SetSelectSkuIndex(index: number) {
         this.SET_SELECT_INDEX(index);
+    }
+
+    @Action
+    SetNum(num: number, index: number | undefined = undefined) {
+        this.SET_NUM(num, index);
     }
 
 }

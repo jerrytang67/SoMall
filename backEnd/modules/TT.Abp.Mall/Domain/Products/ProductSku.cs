@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using TT.Abp.Shops;
 using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Guids;
 using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Domain.Products
@@ -80,9 +81,9 @@ namespace TT.Abp.Mall.Domain.Products
         }
 
 
-        public void NewId()
+        public void NewId(IGuidGenerator guidGenerator)
         {
-            Id = Guid.NewGuid();
+            Id = guidGenerator.Create();
         }
 
         [ForeignKey("SpuId")] public virtual ProductSpu Spu { get; set; }

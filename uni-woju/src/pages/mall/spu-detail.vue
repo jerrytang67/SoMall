@@ -168,7 +168,7 @@
 
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
-import { ShopModule } from "@/store/modules/shop";
+import { ShopModule, ISku } from "@/store/modules/shop";
 import ShareComponent from "@/components/share.vue";
 @Component({ components: { ShareComponent } })
 export default class About extends Vue {
@@ -232,7 +232,7 @@ export default class About extends Vue {
          return ((this.sku.price! / this.sku.originPrice) * 10).toFixed(0);
    }
 
-   get sku() {
+   get sku(): ISku {
       if (ShopModule.getCurrentSku) return ShopModule.getCurrentSku;
       else return { coverImageUrls: [] };
    }
@@ -272,6 +272,7 @@ export default class About extends Vue {
       if (this.selected === undefined) {
          this.toggleSpec();
       } else {
+         ShopModule.SetNum(2);
          uni.navigateTo({ url: "/pages/mall/create-order" });
       }
    }

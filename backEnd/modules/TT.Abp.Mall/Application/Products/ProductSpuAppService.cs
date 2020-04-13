@@ -13,18 +13,21 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Guids;
 
 namespace TT.Abp.Mall.Application.Products
 {
     public class ProductSpuAppService
         : CrudAppService<ProductSpu, ProductSpuDto, Guid, MallPagedAndSortedResultRequestDto, SpuCreateOrUpdateDto, SpuCreateOrUpdateDto>, IProductSpuAppService
     {
+        private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<ProductSku, Guid> _skuRepository;
         private readonly IRepository<ProductCategory, Guid> _categoryRepository;
         private readonly IMallShopRepository _mallShopRepository;
         private readonly IMallShopLookupService _mallShopLookupService;
 
         public ProductSpuAppService(
+            IGuidGenerator guidGenerator,
             IRepository<ProductSpu, Guid> repository,
             IRepository<ProductSku, Guid> skuRepository,
             IRepository<ProductCategory, Guid> categoryRepository,
@@ -32,6 +35,7 @@ namespace TT.Abp.Mall.Application.Products
             IMallShopLookupService mallShopLookupService
         ) : base(repository)
         {
+            _guidGenerator = guidGenerator;
             _skuRepository = skuRepository;
             _categoryRepository = categoryRepository;
             _mallShopRepository = mallShopRepository;
@@ -63,7 +67,7 @@ namespace TT.Abp.Mall.Application.Products
             {
                 skuInput.SpuId = entity.Id;
                 var sku = ObjectMapper.Map<SkuCreateOrUpdateDto, ProductSku>(skuInput);
-                sku.NewId();
+                sku.NewId(_guidGenerator);
                 await _skuRepository.InsertAsync(sku);
             }
 
@@ -103,7 +107,7 @@ namespace TT.Abp.Mall.Application.Products
                 {
                     skuInput.SpuId = entity.Id;
                     sku = ObjectMapper.Map<SkuCreateOrUpdateDto, ProductSku>(skuInput);
-                    sku.NewId();
+                    sku.NewId(_guidGenerator);
                     await _skuRepository.InsertAsync(sku);
                 }
             }

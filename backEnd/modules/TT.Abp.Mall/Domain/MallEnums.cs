@@ -26,6 +26,7 @@ namespace TT.Abp.Mall.Domain
 
         public enum PayType
         {
+            UnPay = 0,
             [Display(Name = "微信")] 微信 = 1,
             [Display(Name = "微信扫码")] 微信扫码 = 2,
             [Display(Name = "支付宝")] 支付宝 = 3,
@@ -35,7 +36,35 @@ namespace TT.Abp.Mall.Domain
 
         public enum OrderType
         {
+            Default = 0,
             Product = 1
+        }
+
+
+        public enum OrderState : int
+        {
+            已取消 = -1,
+            未完成 = 0,
+            正在派送 = 2,
+            派送完成 = 4,
+            完成 = 9
+        }
+
+        public enum ProductOrderType : int
+        {
+            未标记 = 0,
+            零售 = 1,
+            外送 = 2,
+            自提 = 3,
+            跑腿 = 4,
+            美团 = 5
+        }
+
+        public enum LocationType
+        {
+            bd09 = 0,
+            gcj02 = 1,
+            wgs84 = 2
         }
     }
 }

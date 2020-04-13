@@ -1,5 +1,6 @@
 ﻿using System;
 using TT.Abp.Mall.Application.Users;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Products;
 using Volo.Abp.Application.Dtos;
 
@@ -30,7 +31,7 @@ namespace TT.Abp.Mall.Application.Addresses.Dtos
 
         public double? Lng { get; set; }
 
-        public LocationType LocationType { get; set; }
+        public MallEnums.LocationType LocationType { get; set; }
 
         public Guid? CreatorId { get; set; }
 

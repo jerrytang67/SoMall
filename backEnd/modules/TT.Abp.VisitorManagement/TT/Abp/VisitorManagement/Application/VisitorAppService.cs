@@ -14,6 +14,7 @@ using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Volo.Abp.Guids;
 
 namespace TT.Abp.VisitorManagement.Application
 {
@@ -28,19 +29,22 @@ namespace TT.Abp.VisitorManagement.Application
 
     public class VisitorLogAppService : ApplicationService, IVisitorLogAppService
     {
+        private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<VisitorLog, Guid> _repository;
         private readonly IRepository<VisitorShop, Guid> _shopRepository;
         private readonly IRepository<Form, Guid> _formRepository;
         private readonly ICurrentTenant _currentTenant;
 
         public VisitorLogAppService(
+            IGuidGenerator guidGenerator,
             IRepository<VisitorLog, Guid> repository,
             IRepository<VisitorShop, Guid> shopRepository,
             IRepository<Form, Guid> formRepository,
             ICurrentTenant currentTenant
-            )
+        )
         {
             ObjectMapperContext = typeof(VisitorManagementModule);
+            _guidGenerator = guidGenerator;
             _repository = repository;
             _shopRepository = shopRepository;
             _formRepository = formRepository;
@@ -48,14 +52,12 @@ namespace TT.Abp.VisitorManagement.Application
         }
 
 
-
-
         [Authorize]
         public async Task<PagedResultDto<VisitorLogDto>> GetListAsync(VisitorLogRequestDto input)
         {
             var query = _repository
-                .WhereIf(input.FormId.HasValue, x => x.FormId == input.FormId)
-                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
+                    .WhereIf(input.FormId.HasValue, x => x.FormId == input.FormId)
+                    .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
                 ;
 
             var total = await query.CountAsync();
@@ -63,7 +65,6 @@ namespace TT.Abp.VisitorManagement.Application
             var result = await query.OrderByDescending(x => x.CreationTime).PageBy(input).ToListAsync();
 
             return new PagedResultDto<VisitorLogDto>(total, ObjectMapper.Map<List<VisitorLog>, List<VisitorLogDto>>(result));
-
         }
 
         public Task<VisitorLogDto> GetAsync(Guid id)
@@ -81,7 +82,8 @@ namespace TT.Abp.VisitorManagement.Application
         [HttpPost]
         public async Task<object> FormSubmit(VisitorFormSumbitRequest input)
         {
-            var result = await _repository.InsertAsync(new VisitorLog(Guid.NewGuid(), input.Form.Id, input.Shop?.Id,
+            var result = await _repository.InsertAsync(new VisitorLog(
+                _guidGenerator.Create(), input.Form.Id, input.Shop?.Id,
                 _currentTenant.Id)
             {
                 FormJson = JsonConvert.SerializeObject(input.FormItems)
@@ -101,7 +103,7 @@ namespace TT.Abp.VisitorManagement.Application
 
             visitlog.LeaveTime = DateTimeOffset.Now;
 
-            return new { visitlog.LeaveTime };
+            return new {visitlog.LeaveTime};
         }
     }
 

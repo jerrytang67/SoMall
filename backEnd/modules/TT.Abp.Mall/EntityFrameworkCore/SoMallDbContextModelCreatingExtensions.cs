@@ -114,6 +114,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.AddressNickName).HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.AddressPhone).HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.AddressLocationLable).HasMaxLength(MallConsts.MaxOrderComentLength);
+                b.Property(x => x.AddressLocationAddress).HasMaxLength(MallConsts.MaxOrderComentLength);
 
                 b.HasMany(x => x.OrderItems).WithOne(x => x.Order);
             });
@@ -128,6 +129,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.SkuPrice).HasColumnType("decimal(18,2)");
                 b.Property(x => x.Discount).HasColumnType("decimal(18,2)");
                 b.Property(x => x.SkuUnit).HasMaxLength(MallConsts.MaxShortNameLength);
+                b.Property(x => x.SkuCoverImageUrl).HasMaxLength(MallConsts.MaxImageLength);
                 b.Property(x => x.Comment).HasMaxLength(MallConsts.MaxOrderComentLength);
 
                 // Many-To-One
@@ -161,7 +163,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             {
                 b.ToTable(MallConsts.DbTablePrefix + "Partners", MallConsts.DbSchema);
                 b.HasKey(x => x.UserId);
-                
+
                 b.ConfigureFullAudited();
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxNameLength);

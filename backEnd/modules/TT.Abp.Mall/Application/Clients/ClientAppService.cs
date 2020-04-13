@@ -78,10 +78,45 @@ namespace TT.Abp.Mall.Application.Clients
             return new ListResultDto<AddressDto>(ObjectMapper.Map<List<Address>, List<AddressDto>>(list));
         }
 
+        [HttpPost]
         public async Task<object> SumbitOrder(ProductOrderRequestDto input)
         {
-            var order = new ProductOrder(_guidGenerator.Create());
-            return await Task.FromResult(order.Id);
+            var order = new ProductOrder(_guidGenerator.Create(), CurrentTenant.Id)
+            {
+                Comment = input.Comment,
+                BuyerId = CurrentUser.Id,
+                AddressId = input.Address.Id,
+                AddressRealName = input.Address.RealName,
+                AddressNickName = input.Address.NickName,
+                AddressPhone = input.Address.Phone,
+                AddressLocationLable = input.Address.LocationLable,
+                AddressLocationAddress = input.Address.LocationAddress,
+            };
+
+            var orderItemList = new List<ProductOrderItem>();
+
+            foreach (var sku in input.Skus)
+            {
+                orderItemList.Add(new ProductOrderItem(
+                    _guidGenerator.Create()
+                    , order.Id,
+                    sku.SpuId,
+                    sku.Id,
+                    sku.Price,
+                    sku.Num
+                )
+                {
+                    SkuName = sku.Name,
+                    SkuCoverImageUrl = sku.CoverImageUrls[0],
+                    SkuUnit = sku.Unit,
+                    //Comment = sku.Comment
+                });
+
+                order.PriceOriginal += (sku.Price * (decimal) sku.Num);
+            }
+
+
+            return await Task.FromResult(order);
         }
     }
 
@@ -89,6 +124,8 @@ namespace TT.Abp.Mall.Application.Clients
     {
         public AddressDto Address { get; set; }
         public List<ProductSkuDto> Skus { get; set; }
+
+        public string Comment { get; set; }
     }
 
     public class ClientInitRequestDto
