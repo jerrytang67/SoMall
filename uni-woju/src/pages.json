@@ -19,12 +19,6 @@
 			}
 		},
 		{
-			"path": "pages/orders/index",
-			"style": {
-				"navigationBarTitleText": "订单"
-			}
-		},
-		{
 			"path": "pages/mall/shop",
 			"style": {
 				"navigationBarTitleText": "商家"
@@ -46,6 +40,24 @@
 			"path": "pages/address/address",
 			"style": {
 				"navigationBarTitleText": "address"
+			}
+		},
+		{
+			"path": "pages/orders/index",
+			"style": {
+				"navigationBarTitleText": "订单"
+			}
+		},
+		{
+			"path": "pages/orders/pay",
+			"style": {
+				"navigationBarTitleText": "支付页面"
+			}
+		},
+		{
+			"path": "pages/orders/paySuccess",
+			"style": {
+				"navigationBarTitleText": "支付成功"
 			}
 		}
 	],

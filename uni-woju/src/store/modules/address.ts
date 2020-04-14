@@ -26,9 +26,9 @@ export interface IAddress {
 
 @Module({ dynamic: true, store, name: 'address' })
 class Address extends VuexModule {
-    selectAddress: IAddress = { realName: "", phone: "", locationLable: "", locationAddress: "" }
+    private selectAddress: IAddress = { realName: "", phone: "", locationLable: "", locationAddress: "" }
 
-    addressList: IAddress[] = []
+    private addressList: IAddress[] = []
 
     get getAddressList() {
         return this.addressList;

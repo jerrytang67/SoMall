@@ -1,7 +1,7 @@
 
 <template>
    <view>
-      <van-skeleton title avatar row="3" />
+      orders
    </view>
 </template>
 

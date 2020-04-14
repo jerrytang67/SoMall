@@ -152,7 +152,12 @@ export default class CreateOrder extends BaseView {
          skus: [this.sku],
          address: this.selectAddress,
          comment: this.comment
-      }).then(res => {});
+      }).then(res => {
+         if(res)
+         {
+            uni.navigateTo({url:"/pages/orders/pay?orderId="+res});
+         }
+      });
    }
 }
 </script>

@@ -10,6 +10,7 @@ using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Addresses;
+using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Weixin.Application;

@@ -29,13 +29,13 @@ export interface IShopMember {
 
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule {
-    userInfo: IUserInfo = uni.getStorageSync("userInfo") || {
+    private userInfo: IUserInfo = uni.getStorageSync("userInfo") || {
         openid: "",
         unionid: ""
     };
-    token: string = uni.getStorageSync("token") || "";
-    sessionKey: string = uni.getStorageSync("sessionKey") || "";
-    phone: string = uni.getStorageSync("phone") || "";
+    private token: string = uni.getStorageSync("token") || "";
+    private sessionKey: string = uni.getStorageSync("sessionKey") || "";
+    private phone: string = uni.getStorageSync("phone") || "";
     get getUserInfo() {
         return this.userInfo;
     }

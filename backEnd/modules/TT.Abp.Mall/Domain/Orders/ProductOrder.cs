@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata;
+using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Shops;
-using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace TT.Abp.Mall.Domain.Products
+namespace TT.Abp.Mall.Domain.Orders
 {
     public class ProductOrder : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMultiShop
     {

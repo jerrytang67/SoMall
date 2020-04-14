@@ -216,7 +216,7 @@ export default class About extends Vue {
    ];
 
    get index() {
-      return ShopModule.selectIndex;
+      return ShopModule.getSelectIndex;
    }
 
    get desc() {

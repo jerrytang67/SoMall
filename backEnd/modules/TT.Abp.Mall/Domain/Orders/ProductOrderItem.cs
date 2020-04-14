@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
-namespace TT.Abp.Mall.Domain.Products
+namespace TT.Abp.Mall.Domain.Orders
 {
     public class ProductOrderItem : FullAuditedEntity<Guid>, IMultiTenant
     {

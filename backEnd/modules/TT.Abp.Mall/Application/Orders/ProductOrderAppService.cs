@@ -22,13 +22,14 @@ namespace TT.Abp.Mall.Application.Orders
 
         public override async Task<ProductOrderDto> GetAsync(Guid id)
         {
+            
+            
+            
+            
             await CheckGetPolicyAsync();
-
+            
             var entity = await GetEntityByIdAsync(id);
             return MapToGetOutputDto(entity);
-
-
-            return base.GetAsync(id);
         }
 
         public override Task<ProductOrderDto> CreateAsync(ProductOrderCreateOrUpdateDto input)

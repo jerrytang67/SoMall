@@ -5,7 +5,6 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Xml;
 using Serilog;
-using Serilog.Core;
 using TT.Extensions;
 using TT.HttpClient.Weixin.Models;
 using TT.HttpClient.Weixin.Signature;

@@ -48,16 +48,19 @@ export interface ISku {
 
 @Module({ dynamic: true, store, name: 'shop' })
 class Shop extends VuexModule {
-    shopList: IMallShop[] = [];
+    private shopList: IMallShop[] = [];
 
-    currentShop: IMallShop = { name: "", shortName: "" };
-    currentSpu: ISpu = {};
+    private currentShop: IMallShop = { name: "", shortName: "" };
 
-    selectIndex: number = 0;
+    private currentSpu: ISpu = {};
 
-    spuList: ISpu[] = []
+    private selectIndex: number = 0;
+
+    private spuList: ISpu[] = []
 
     get shops() { return this.shopList }
+
+    get getSelectIndex() { return this.selectIndex }
 
     get getCurrentShop() { return this.currentShop }
 
