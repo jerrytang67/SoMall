@@ -1,7 +1,6 @@
-<nz-tabset style="height:220px;" nzTabPosition="left" [(nzSelectedIndex)]="selectedIndex">
-    <nz-tab *ngFor="let tab of groups" [nzTitle]="tab.name">
+<nz-tabset nzTabPosition="left" [(nzSelectedIndex)]="selectedIndex">
+    <nz-tab *ngFor="let tab of groups" [nzTitle]="tab.name" style="height:auto;">
         <h2>{{tab.displayName}}</h2>
-
         <!-- <div style="border-bottom: 1px solid rgb(233, 233, 233);">
             <label nz-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()" [nzIndeterminate]="indeterminate">
                 Check all
@@ -9,8 +8,6 @@
         </div>
         <br /> -->
         <nz-checkbox-group [(ngModel)]="tab.permissions" (ngModelChange)="updateSingleChecked($event)">
-
         </nz-checkbox-group>
-
     </nz-tab>
 </nz-tabset>

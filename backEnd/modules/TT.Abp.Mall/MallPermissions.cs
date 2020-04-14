@@ -25,6 +25,13 @@ namespace TT.Abp.Mall
             public const string Create = Default + ".Create";
         }
 
+        public static class ProductOrders
+        {
+            public const string Default = GroupName + ".ProductOrder";
+            public const string Delete = Default + ".Delete";
+            public const string Update = Default + ".Update";
+        }
+
         public static string[] GetAll()
         {
             return ReflectionHelper.GetPublicConstantsRecursively(typeof(MallPermissions));
@@ -46,6 +53,10 @@ namespace TT.Abp.Mall
             addresses.AddChild(MallPermissions.Addresses.Update, L("Permission:Edit"));
             addresses.AddChild(MallPermissions.Addresses.Delete, L("Permission:Delete"));
             addresses.AddChild(MallPermissions.Addresses.Create, L("Permission:Create"));
+            
+            var orders = mallGroup.AddPermission(MallPermissions.ProductOrders.Default, L("Permission:ProductOrders"));
+            orders.AddChild(MallPermissions.ProductOrders.Update, L("Permission:Edit"));
+            orders.AddChild(MallPermissions.ProductOrders.Delete, L("Permission:Delete"));
         }
 
         private static LocalizableString L(string name)

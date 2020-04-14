@@ -144,7 +144,8 @@ export class RolesComponent implements OnInit {
       nzWidth: '60vw',
       nzContent: PermissionsManagerComponent,
       nzComponentParams: {
-        id: role.id
+        id: role.id,
+        name: role.name
       },
       nzFooter: [
         {

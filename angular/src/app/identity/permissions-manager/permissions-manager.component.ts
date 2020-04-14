@@ -13,33 +13,35 @@ import { pluck, map, mergeAll, filter, concatAll, concatMap, reduce } from 'rxjs
 export class PermissionsManagerComponent implements OnInit {
 
   @Input() id: string;
-
+  @Input() name: string;
   selectedIndex = 0;
   groups: any[] = []
 
   updateList: any[] = [];
 
   constructor(private permissionsQuery: PermissionsQuery,
-    private identityService: IdentityService) { }
+    private permissionsService: PermissionsService) { 
+      
+    }
 
   ngOnInit(): void {
-    this.identityService.getRoleById(this.id).subscribe();
-    this.identityService.GetUserRoles(this.id).subscribe();
-    this.permissionsQuery.groups$.subscribe(res => {
-      res.forEach(item => {
-        this.groups = [...this.groups, {
-          name: item.name, displayName: item.displayName,
-          permissions: item.permissions.map(p => {
-            return {
-              label: p.displayName,
-              value: p.name,
-              default: p.isGranted,
-              checked: p.isGranted
-            }
-          })
-        }]
+    this.permissionsService.getPermissions({ providerKey: this.name, providerName: "R" }).subscribe(() => {
+      this.permissionsQuery.groups$.subscribe(res => {
+        res.forEach(item => {
+          this.groups = [...this.groups, {
+            name: item.name, displayName: item.displayName,
+            permissions: item.permissions.map(p => {
+              return {
+                label: p.name,
+                value: p.name,
+                default: p.isGranted,
+                checked: p.isGranted
+              }
+            })
+          }]
+        })
       })
-    })
+    });
   }
   allChecked = false;
   indeterminate = true;

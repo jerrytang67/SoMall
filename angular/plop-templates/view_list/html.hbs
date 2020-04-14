@@ -1,0 +1,34 @@
+<nz-page-header nzTitle="{{ camelCase name }}">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/mall']">{{ camelCase module }}</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button nzSize="large" class="mr-4" (click)="create()" nzType="primary">\{\{'add' | translate}}</button>
+        <button nz-button nzSize="large" (click)="refresh()">\{\{'refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable nzShowPagination [nzData]="dataItems">
+        <thead>
+            <th>id</th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <td>{{item.id}}</td>
+                <td>
+                    <button nz-button nzType="primary" nzSize="small" [routerLink]="['/{{camelCase module}}/{{camelCase name}}-edit', item.id]">\{\'edit' | translate}}</button>
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
+                        nzPopconfirmPlacement="top">\{\{'delete' | translate}}</button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

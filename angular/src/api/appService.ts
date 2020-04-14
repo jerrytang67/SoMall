@@ -146,6 +146,21 @@ export class AddressProxyService {
   /**
    *
    */
+  setDefault(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/address/setDefault';
+    let options: any = {
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
   get(
     params: {
       /**  */
@@ -207,6 +222,22 @@ export class ClientProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<AddressDtoListResultDto>;
+  }
+  /**
+   *
+   */
+  sumbitOrder(
+    params: {
+      /** requestBody */
+      body?: ProductOrderRequestDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/client/sumbitOrder';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
   }
 }
 
@@ -618,6 +649,101 @@ export class ProductCategoryProxyService {
     } = {} as any
   ): Observable<any> {
     let url = '/api/mall/productCategory/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class ProductOrderProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<ProductOrderDto> {
+    let url = '/api/mall/productOrder/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ProductOrderDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<ProductOrderDtoPagedResultDto> {
+    let url = '/api/mall/productOrder/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ProductOrderDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: ProductOrderCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductOrderDto> {
+    let url = '/api/mall/productOrder/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<ProductOrderDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: ProductOrderCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductOrderDto> {
+    let url = '/api/mall/productOrder/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductOrderDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/productOrder/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -1456,12 +1582,11 @@ export class WeixinProxyService {
     } = {} as any
   ): Observable<any> {
     let url = '/api/app/weixin/getPhone';
-    const _copy: any = { ...params };
     let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
+      body: params.body,
+      method: 'post'
     };
-    return (this.http.request('get', url, options) as any) as Observable<any>;
+    return (this.http.request('post', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1977,6 +2102,269 @@ export interface AddressDtoListResultDto {
   items?: AddressDto[];
 }
 
+export interface ShopDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  logoImage?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+
+  /**  */
+  isDeleted?: boolean;
+
+  /**  */
+  deleterId?: string;
+
+  /**  */
+  deletionTime?: Date;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ProductSpuDtoBase {
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
+}
+
+export interface ProductCategoryDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  logoImageUrl?: string;
+
+  /**  */
+  shop?: ShopDto;
+
+  /**  */
+  spus?: ProductSpuDtoBase[];
+
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface MallShopDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  shortName?: string;
+
+  /**  */
+  logoImage?: string;
+
+  /**  */
+  coverImage?: string;
+
+  /**  */
+  description?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ProductSpuDto {
+  /**  */
+  category?: ProductCategoryDto;
+
+  /**  */
+  shop?: MallShopDto;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  skus?: ProductSkuDto[];
+
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  descCommon?: string;
+
+  /**  */
+  purchaseNotesCommon?: string;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ProductSkuDto {
+  /**  */
+  spuId?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  price?: number;
+
+  /**  */
+  desc?: string;
+
+  /**  */
+  purchaseNotes?: string;
+
+  /**  */
+  originPrice?: number;
+
+  /**  */
+  vipPrice?: number;
+
+  /**  */
+  coverImageUrls?: string[];
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
+
+  /**  */
+  unit?: string;
+
+  /**  */
+  num?: number;
+
+  /**  */
+  comment?: string;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  spuName?: string;
+
+  /**  */
+  spu?: ProductSpuDto;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ProductOrderRequestDto {
+  /**  */
+  address?: AddressDto;
+
+  /**  */
+  skus?: ProductSkuDto[];
+
+  /**  */
+  comment?: string;
+}
+
 export interface IValueValidator {
   /**  */
   name?: string;
@@ -2197,26 +2585,6 @@ export interface FormAddShopRequestDto {
   shopIds?: string[];
 }
 
-export interface MallShopDto {
-  /**  */
-  name?: string;
-
-  /**  */
-  shortName?: string;
-
-  /**  */
-  logoImage?: string;
-
-  /**  */
-  coverImage?: string;
-
-  /**  */
-  description?: string;
-
-  /**  */
-  id?: string;
-}
-
 export interface MallShopDtoListResultDto {
   /**  */
   items?: MallShopDto[];
@@ -2295,105 +2663,6 @@ export interface UpdatePermissionsDto {
   permissions?: UpdatePermissionDto[];
 }
 
-export interface ShopDto {
-  /**  */
-  name?: string;
-
-  /**  */
-  shortName?: string;
-
-  /**  */
-  logoImage?: string;
-
-  /**  */
-  coverImage?: string;
-
-  /**  */
-  description?: string;
-
-  /**  */
-  isDeleted?: boolean;
-
-  /**  */
-  deleterId?: string;
-
-  /**  */
-  deletionTime?: Date;
-
-  /**  */
-  lastModificationTime?: Date;
-
-  /**  */
-  lastModifierId?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  id?: string;
-}
-
-export interface ProductSpuDtoBase {
-  /**  */
-  name?: string;
-
-  /**  */
-  code?: string;
-
-  /**  */
-  dateTimeStart?: Date;
-
-  /**  */
-  dateTimeEnd?: Date;
-
-  /**  */
-  stockCount?: number;
-
-  /**  */
-  soldCount?: number;
-
-  /**  */
-  limitBuyCount?: number;
-}
-
-export interface ProductCategoryDto {
-  /**  */
-  name?: string;
-
-  /**  */
-  code?: string;
-
-  /**  */
-  logoImageUrl?: string;
-
-  /**  */
-  shop?: ShopDto;
-
-  /**  */
-  spus?: ProductSpuDtoBase[];
-
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  lastModificationTime?: Date;
-
-  /**  */
-  lastModifierId?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  id?: string;
-}
-
 export interface ProductCategoryDtoPagedResultDto {
   /**  */
   totalCount?: number;
@@ -2416,164 +2685,106 @@ export interface CategoryCreateOrUpdateDto {
   shopId?: string;
 }
 
-export interface MallShop {
-  /**  */
-  name?: string;
-
-  /**  */
-  shortName?: string;
-
-  /**  */
-  logoImage?: string;
-
-  /**  */
-  coverImage?: string;
-
-  /**  */
-  description?: string;
-
-  /**  */
-  tenantId?: string;
-
-  /**  */
-  bussinessHours?: string;
-
-  /**  */
-  address?: string;
-
-  /**  */
-  lat?: number;
-
-  /**  */
-  lng?: number;
-
-  /**  */
-  extraProperties?: object;
-
-  /**  */
-  concurrencyStamp?: string;
-
-  /**  */
-  id?: string;
-}
-
-export interface ProductSpuDto {
-  /**  */
-  category?: ProductCategoryDto;
-
-  /**  */
-  shop?: MallShop;
-
-  /**  */
-  skus?: ProductSkuDto[];
-
-  /**  */
-  name?: string;
-
-  /**  */
-  code?: string;
-
-  /**  */
-  descCommon?: string;
-
-  /**  */
-  purchaseNotesCommon?: string;
-
-  /**  */
-  dateTimeStart?: Date;
-
-  /**  */
-  dateTimeEnd?: Date;
-
-  /**  */
-  stockCount?: number;
-
-  /**  */
-  soldCount?: number;
-
-  /**  */
-  limitBuyCount?: number;
-
-  /**  */
-  lastModificationTime?: Date;
-
-  /**  */
-  lastModifierId?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  id?: string;
-}
-
-export interface ProductSkuDto {
+export interface ProductOrderItemDto {
   /**  */
   spuId?: string;
 
   /**  */
-  name?: string;
+  skuId?: string;
 
   /**  */
-  code?: string;
+  num?: number;
 
   /**  */
-  price?: number;
+  skuPrice?: number;
 
   /**  */
-  desc?: string;
+  spuName?: string;
 
   /**  */
-  purchaseNotes?: string;
+  skuName?: string;
 
   /**  */
-  originPrice?: number;
+  skuUnit?: string;
 
   /**  */
-  vipPrice?: number;
+  skuCoverImageUrl?: string;
 
   /**  */
-  coverImageUrls?: string[];
+  discount?: number;
 
   /**  */
-  dateTimeStart?: Date;
+  comment?: string;
+}
+
+export interface ProductOrderDto {
+  /**  */
+  pricePaidIn?: number;
 
   /**  */
-  dateTimeEnd?: Date;
+  priceOriginal?: number;
 
   /**  */
-  stockCount?: number;
+  state?: OrderState;
 
   /**  */
-  soldCount?: number;
+  type?: ProductOrderType;
 
   /**  */
-  limitBuyCount?: number;
+  payType?: PayType;
 
   /**  */
-  unit?: string;
+  comment?: string;
 
   /**  */
-  spu?: ProductSpuDto;
+  buyerId?: string;
 
   /**  */
-  lastModificationTime?: Date;
+  addressId?: string;
 
   /**  */
-  lastModifierId?: string;
+  addressRealName?: string;
 
   /**  */
-  creationTime?: Date;
+  addressNickName?: string;
 
   /**  */
-  creatorId?: string;
+  addressPhone?: string;
+
+  /**  */
+  addressLocationLable?: string;
+
+  /**  */
+  addressLocationAddress?: string;
+
+  /**  */
+  manId?: string;
+
+  /**  */
+  printCount?: number;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  shop?: MallShopDto;
+
+  /**  */
+  orderItems?: ProductOrderItemDto[];
 
   /**  */
   id?: string;
 }
+
+export interface ProductOrderDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: ProductOrderDto[];
+}
+
+export interface ProductOrderCreateOrUpdateDto {}
 
 export interface ProductSkuDtoPagedResultDto {
   /**  */
@@ -3055,6 +3266,32 @@ export enum FormItemType {
   'Checkbox' = 'Checkbox',
   'Image' = 'Image',
   'File' = 'File'
+}
+
+export enum OrderState {
+  '已取消' = '已取消',
+  '未完成' = '未完成',
+  '正在派送' = '正在派送',
+  '派送完成' = '派送完成',
+  '完成' = '完成'
+}
+
+export enum ProductOrderType {
+  '未标记' = '未标记',
+  '零售' = '零售',
+  '外送' = '外送',
+  '自提' = '自提',
+  '跑腿' = '跑腿',
+  '美团' = '美团'
+}
+
+export enum PayType {
+  'UnPay' = 'UnPay',
+  '微信' = '微信',
+  '微信扫码' = '微信扫码',
+  '支付宝' = '支付宝',
+  '银联' = '银联',
+  '用户余额' = '用户余额'
 }
 
 export enum CredentialType {

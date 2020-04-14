@@ -1,9 +1,12 @@
 {
     "offsidebar.setting.SETTINGS": "设置",
+    "home": "首页",
+    "mall": "商城",
     "permissions": "权限",
     "create": "新建",
     "submit": "提交",
     "refresh": "刷新",
+    "add": "新增",
     "edit": "编辑",
     "delete": "删除",
     "upload": "上传",
