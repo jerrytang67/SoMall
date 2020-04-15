@@ -6,18 +6,21 @@ import api from '@/utils/api'
 @Module({ dynamic: true, store, name: 'orders' })
 class Orders extends VuexModule {
 
-    private currentOrderId: string = "1dfc93f4-56ab-242f-da0a-39f489957e08"
+    private currentOrder: any = {}
+
+    get getCurrentOrder() { return this.currentOrder }
+
 
     @Mutation
-    public SET_ORDERID(orderId: string) {
-        this.currentOrderId = orderId;
+    public SET_ORDER(order: any) {
+        this.currentOrder = order;
     }
 
     @Action
     public GetAndSetCurrentOrder(orderId: string) {
-        if (orderId) {
-            this
-        }
+        api.order_get(orderId).then(res => {
+            this.SET_ORDER(res);
+        })
     }
 }
 

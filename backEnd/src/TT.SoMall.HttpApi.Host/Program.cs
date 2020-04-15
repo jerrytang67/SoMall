@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
+using Serilog.Exceptions;
 using Winton.Extensions.Configuration.Consul;
 
 namespace TT.SoMall
@@ -23,11 +24,12 @@ namespace TT.SoMall
                 .MinimumLevel.Information()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
+                .Enrich.WithExceptionDetails()
                 .WriteTo.Console()
                 .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearch))
                 {
                     AutoRegisterTemplate = true,
-                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
+                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7
                 })
                 .CreateLogger();
 

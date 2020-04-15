@@ -5,6 +5,7 @@ const screenfull = require('screenfull');
 import { UserblockService } from '../sidebar/userblock/userblock.service';
 import { SettingsService } from '../../core/settings/settings.service';
 import { MenuService } from '../../core/menu/menu.service';
+import { AuthService } from 'src/store/auth/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -90,5 +91,10 @@ export class HeaderComponent implements OnInit {
         if (screenfull.enabled) {
             screenfull.toggle();
         }
+    }
+
+    logout() {
+        this.injector.get(AuthService).logout();
+
     }
 }

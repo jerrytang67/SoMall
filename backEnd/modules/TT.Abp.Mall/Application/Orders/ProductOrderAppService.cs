@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Shops;
@@ -10,7 +12,10 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Extensions;
+using TT.HttpClient.Weixin;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Settings;
 
 namespace TT.Abp.Mall.Application.Orders
 {
@@ -22,11 +27,23 @@ namespace TT.Abp.Mall.Application.Orders
         CrudAppService<ProductOrder, ProductOrderDto, Guid, PagedAndSortedResultRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>,
         IProductOrderAppService
     {
+        private readonly IPayApi _payApi;
         private readonly IMallShopLookupService _mallShopLookupService;
+        private readonly ISettingProvider _setting;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public ProductOrderAppService(IRepository<ProductOrder, Guid> repository, IMallShopLookupService mallShopLookupService) : base(repository)
+        public ProductOrderAppService(
+            IPayApi payApi,
+            IRepository<ProductOrder, Guid> repository,
+            IMallShopLookupService mallShopLookupService,
+            ISettingProvider setting,
+            IHttpContextAccessor httpContext
+        ) : base(repository)
         {
+            _payApi = payApi;
             _mallShopLookupService = mallShopLookupService;
+            _setting = setting;
+            _httpContext = httpContext;
             base.GetListPolicyName = MallPermissions.ProductOrders.Default;
             base.GetPolicyName = MallPermissions.ProductOrders.Default;
             base.UpdatePolicyName = MallPermissions.ProductOrders.Update;
@@ -35,10 +52,14 @@ namespace TT.Abp.Mall.Application.Orders
 
         public override async Task<ProductOrderDto> GetAsync(Guid id)
         {
-            await CheckGetPolicyAsync();
 
             var entity = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == id);
 
+            if (entity.CreatorId != CurrentUser.Id)
+            {
+                await CheckGetPolicyAsync();
+            }
+            
             return MapToGetOutputDto(entity);
         }
 
@@ -80,5 +101,37 @@ namespace TT.Abp.Mall.Application.Orders
         {
             return base.CreateFilteredQuery(input).Include(x => x.OrderItems);
         }
+
+        [HttpPost]
+        public async Task<object> PayAsync(OrderPayRequestDto input)
+        {
+            var order = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
+
+            var appid = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppId);
+            var mchId = await _setting.GetOrNullAsync(MallManagementSetting.PayMchId);
+            var mchKey = await _setting.GetOrNullAsync(MallManagementSetting.PayKey);
+            var notifyUrl = await _setting.GetOrNullAsync(MallManagementSetting.PayNotify);
+
+            var result = await _payApi.UnifiedOrderAsync(
+                appid,
+                mchId,
+                mchKey,
+                body: order.OrderItems.First().SpuName,
+                outTradeNo: $"{mchId}{DateTime.Now:yyyyMMddHHmmss}{StringExt.BuildRandomStr(6)}",
+                totalFee: Convert.ToInt32(order.PriceOriginal * 100),
+                notifyUrl: notifyUrl,
+                tradeType: Consts.TradeType.JsApi,
+                openId: input.openid,
+                billCreateIp: _httpContext.HttpContext.Connection.RemoteIpAddress.ToString()
+            );
+            return result;
+        }
+    }
+
+    public class OrderPayRequestDto
+    {
+        public Guid OrderId { get; set; }
+        public string Client { get; set; }
+        public string openid { get; set; }
     }
 }

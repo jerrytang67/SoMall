@@ -42,20 +42,24 @@
 
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
-import { BaseView } from "../baseView"
+import { BaseView } from "../baseView";
+import { OrderModule } from "@/store/modules/order";
+import api from "@/utils/api";
+import { Tips } from "@/utils/tips";
 
 @Component
 export default class Pay extends BaseView {
    async onLoad(options: any) {
       if (options.orderId) {
-         this.orderId = options.orderId;
+         OrderModule.GetAndSetCurrentOrder(options.orderId);
       }
-
-
    }
-   orderId: string = "1dfc93f4-56ab-242f-da0a-39f489957e08";
    payType = 1;
    orderInfo = {};
+
+   get currentOrder() {
+      return OrderModule.getCurrentOrder;
+   }
 
    changePayType(type: any) {
       this.payType = type;
@@ -63,14 +67,43 @@ export default class Pay extends BaseView {
 
    //确认支付
    async confirm() {
-       if(this.payType === 1)
-       {
+      if (this.payType === 1) {
+         api.tenpay({
+            orderId: this.currentOrder.id,
+            openid: this.openid
+         }).then((obj: any) => {
+            console.log(obj);
 
-       }
-       else{
-      uni.redirectTo({
-         url: "/pages/orders/paySuccess"
-      });}
+            var p = {
+               timestamp: obj.timeStamp,
+               timeStamp: obj.timeStamp,
+               nonceStr: obj.nonce_str,
+               package: "prepay_id=" + obj.prepay_id,
+               signType: "MD5",
+               paySign: obj.paySign
+            };
+            console.log(p);
+            uni.requestPayment({
+               ...p,
+               success: res => {
+                  Tips.info("支付成功!");
+               },
+               fail: res => {
+                  //{errMsg: "requestPayment:fail cancel"} 用户取消
+                  if (res.errMsg === "requestPayment:fail cancel") {
+                     Tips.info("用户取消了支付!");
+                     return;
+                  }
+                  console.log("pay fail:", res);
+                  Tips.info("支付失败:" + res.errMsg);
+               }
+            });
+         });
+      } else {
+         uni.redirectTo({
+            url: "/pages/orders/paySuccess"
+         });
+      }
    }
 }
 </script>

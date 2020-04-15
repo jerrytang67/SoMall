@@ -52,6 +52,12 @@ export default {
     address_update: (data: any) => request("PUT", `/api/mall/address/update?id=${data.id}`, data),
     address_setDefault: (data: any) => request("POST", `/api/mall/address/setDefault`, data),
 
+
+    // order
+    order_get:(id: string) => request("GET", `/api/mall/productOrder/get`, { id: id }),
+    
     // pay
     client_sumbitOrder: (data: any) => request("POST", `/api/mall/client/sumbitOrder`, data),
+
+    tenpay: (data: any) => request('POST', '/api/mall/productOrder/pay', data)
 };

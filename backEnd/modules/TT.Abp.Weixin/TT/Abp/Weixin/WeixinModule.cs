@@ -43,8 +43,7 @@ namespace TT.Abp.Weixin
 
             context.Services.AddHttpClient<IPayApi, PayApi>(
                 cfg => { cfg.BaseAddress = new Uri("https://api.mch.weixin.qq.com/"); });
-
-
+            
             context.Services.AddSingleton<ISignatureGenerator, SignatureGenerator>();
 
             // CAP

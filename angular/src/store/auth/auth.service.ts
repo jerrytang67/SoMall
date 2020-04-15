@@ -45,42 +45,40 @@ export class AuthService {
     constructor(private authStore: AuthStore,
         private router: Router
     ) {
-        this.manager.clearStaleState().then(() => {
-            this.manager.getUser().then(user => {
-                if (user) {
-                    this.currentUser = user;
-                    setStore("auth", user);
-                    this.authStore.update({ auth: user })
-                    this.userLoaded$.next(true);
-                } else {
-                    this.currentUser = undefined;
-                    removeStore("auth");
-                    this.authStore.update({ auth: undefined })
-                    this.userLoaded$.next(false);
-                }
-            }).catch(err => {
-                this.currentUser = undefined;
-                removeStore("auth");
-                this.authStore.update({ auth: undefined })
-                this.userLoaded$.next(false);
-            });
-            this.manager.events.addUserLoaded(user => {
-                console.log("user loaed:", user);
+        this.manager.getUser().then(user => {
+            if (user) {
                 this.currentUser = user;
                 setStore("auth", user);
                 this.authStore.update({ auth: user })
                 this.userLoaded$.next(true);
-            })
-
-            this.manager.events.addUserUnloaded(() => {
-                console.log("UserUnloaded");
+            } else {
                 this.currentUser = undefined;
                 removeStore("auth");
                 this.authStore.update({ auth: undefined })
                 this.userLoaded$.next(false);
-            })
-        }
-        );
+            }
+        }).catch(err => {
+            this.currentUser = undefined;
+            removeStore("auth");
+            this.authStore.update({ auth: undefined })
+            this.userLoaded$.next(false);
+        })
+        
+        this.manager.events.addUserLoaded(user => {
+            console.log("user loaed:", user);
+            this.currentUser = user;
+            setStore("auth", user);
+            this.authStore.update({ auth: user })
+            this.userLoaded$.next(true);
+        })
+
+        this.manager.events.addUserUnloaded(() => {
+            console.log("UserUnloaded");
+            this.currentUser = undefined;
+            removeStore("auth");
+            this.authStore.update({ auth: undefined })
+            this.userLoaded$.next(false);
+        })
     }
     isLoggedIn(): boolean {
         console.log("isLoggedIn:", this.user != null && !this.user.expired);

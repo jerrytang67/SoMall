@@ -3,16 +3,59 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using System.Xml;
+using System.Xml.Linq;
 using Serilog;
 using TT.Extensions;
 using TT.HttpClient.Weixin.Models;
 using TT.HttpClient.Weixin.Signature;
+using TT.HttpClient.Weixin.WeixiinResult.TenPay;
 
 namespace TT.HttpClient.Weixin
 {
     public interface IPayApi
     {
+        /// <summary>
+        /// <see cref="https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1"/>
+        /// 除付款码支付场景以外，商户系统先调用该接口在微信支付服务后台生成预支付交易单，返回正确的预支付交易会话标识后再按不同场景生成交易串调起支付。
+        /// </summary>
+        /// <param name="appId">服务商商户的 AppId。</param>
+        /// <param name="mchId">微信支付分配的商户号。</param>
+        /// <param name="key">服务商商户的 key。</param>
+        /// <param name="subAppId">微信分配的子商户公众账号 Id。<br/>如需在支付完成后获取 <paramref name="subOpenId"/> 则此参数必传。</param>
+        /// <param name="subMchId">微信支付分配的子商户号。</param>
+        /// <param name="deviceInfo">终端设备号 (门店号或收银设备 Id)，注意：PC 网页或 JSAPI 支付请传 "WEB"。</param>
+        /// <param name="receipt">传入 Y 时，支付成功消息和支付详情页将出现开票入口。需要在微信支付商户平台或微信公众平台开通电子发票功能，传此字段才可生效。</param>
+        /// <param name="body">具体的商品描述信息，建议根据不同的场景传递不同的描述信息。</param>
+        /// <param name="detail">商品详细描述，对于使用单品优惠的商户，该字段必须按照规范上传。</param>
+        /// <param name="attach">附加数据，在查询 API 和支付通知中原样返回，该字段主要用于商户携带订单的自定义数据。</param>
+        /// <param name="outTradeNo">商户系统内部订单号，要求 32 个字符内，只能是数字、大小写字母_-|* 且在同一个商户号下唯一。</param>
+        /// <param name="feeType">符合 ISO 4217 标准的三位字母代码，默认人民币：CNY。</param>
+        /// <param name="totalFee">订单总金额，只能为整数，单位是分。</param>
+        /// <param name="billCreateIp">调用微信支付 API 的机器 IP，可以使用 IPv4 或 IPv6。</param>
+        /// <param name="timeStart">订单生成时间，格式为 yyyyMMddHHmmss。</param>
+        /// <param name="timeExpire">订单失效时间，格式为 yyyyMMddHHmmss。</param>
+        /// <param name="goodsTag">订单优惠标记，代金券或立减优惠功能的参数。</param>
+        /// <param name="notifyUrl">接收微信支付异步通知回调地址，通知 Url 必须为直接可访问的 Url，不能携带参数。</param>
+        /// <param name="tradeType">交易类型，请参考 <see cref="Consts.TradeType"/> 的定义。</param>
+        /// <param name="productId">当 <paramref name="tradeType"/> 参数为 <see cref="Consts.TradeType.Native"/> 时，此参数必填。</param>
+        /// <param name="limitPay">指定支付方式，传递 no_credit 则说明不能使用信用卡支付。</param>
+        /// <param name="openId">当 <paramref name="tradeType"/> 参数为 <see cref="Consts.TradeType.JsApi"/> 时，此参数必填。如果选择传 <paramref name="subOpenId"/>, 则必须传 <paramref name="subAppId"/>。</param>
+        /// <param name="subOpenId">当 <paramref name="tradeType"/> 参数为 <see cref="Consts.TradeType.JsApi"/> 时，此参数必填。如果选择传 <paramref name="subOpenId"/>, 则必须传 <paramref name="subAppId"/>。</param>
+        /// <param name="sceneInfo">该字段常用于线下活动时的场景信息上报，支持上报实际门店信息，商户也可以按需求自己上报相关信息。</param>
+        Task<UnifiedorderResult> UnifiedOrderAsync(
+            string appId,
+            string mchId,
+            string mchKey,
+            string body, string outTradeNo, int totalFee, string notifyUrl, string tradeType,
+            string openId = "",
+            string billCreateIp = "",
+            string subAppId = "",
+            string subMchId = "",
+            string deviceInfo = "", string receipt = "",
+            string detail = "", string attach = "", string feeType = "",
+            string timeStart = "", string timeExpire = "", string goodsTag = "",
+            string productId = "",
+            string limitPay = "", string subOpenId = "", string sceneInfo = "");
     }
 
     public class PayApi : IPayApi
@@ -56,13 +99,20 @@ namespace TT.HttpClient.Weixin
         /// <param name="openId">当 <paramref name="tradeType"/> 参数为 <see cref="Consts.TradeType.JsApi"/> 时，此参数必填。如果选择传 <paramref name="subOpenId"/>, 则必须传 <paramref name="subAppId"/>。</param>
         /// <param name="subOpenId">当 <paramref name="tradeType"/> 参数为 <see cref="Consts.TradeType.JsApi"/> 时，此参数必填。如果选择传 <paramref name="subOpenId"/>, 则必须传 <paramref name="subAppId"/>。</param>
         /// <param name="sceneInfo">该字段常用于线下活动时的场景信息上报，支持上报实际门店信息，商户也可以按需求自己上报相关信息。</param>
-        public Task<XmlDocument> UnifiedOrderAsync(string appId, string mchId, string mchKey, string subAppId,
-            string subMchId,
-            string deviceInfo, string receipt,
-            string body, string detail, string attach, string outTradeNo, string feeType, int totalFee,
-            string billCreateIp, string timeStart, string timeExpire, string goodsTag, string notifyUrl,
-            string tradeType, string productId,
-            string limitPay, string openId, string subOpenId, string sceneInfo)
+        public async Task<UnifiedorderResult> UnifiedOrderAsync(
+            string appId,
+            string mchId,
+            string mchKey,
+            string body, string outTradeNo, int totalFee, string notifyUrl, string tradeType,
+            string openId = "",
+            string billCreateIp = "",
+            string subAppId = "",
+            string subMchId = "",
+            string deviceInfo = "", string receipt = "",
+            string detail = "", string attach = "", string feeType = "",
+            string timeStart = "", string timeExpire = "", string goodsTag = "",
+            string productId = "",
+            string limitPay = "", string subOpenId = "", string sceneInfo = "")
         {
             if (tradeType == Consts.TradeType.JsApi && string.IsNullOrEmpty(openId))
             {
@@ -82,8 +132,7 @@ namespace TT.HttpClient.Weixin
             request.AddParameter("device_info", deviceInfo);
             request.AddParameter("nonce_str", RandomExt.GetRandom());
 
-            var signStr = _signatureGenerator.Generate(request, MD5.Create());
-            request.AddParameter("sign", signStr);
+
             request.AddParameter("sign_type", "MD5");
             request.AddParameter("body", body);
             request.AddParameter("detail", detail);
@@ -105,7 +154,16 @@ namespace TT.HttpClient.Weixin
             request.AddParameter("sub_openid", subOpenId);
             //request.AddParameter("key", mchKey);
 
-            return RequestAndGetReturnValueAsync("pay/unifiedorder", request);
+            var signStr = _signatureGenerator.Generate(request, MD5.Create(), mchKey);
+            request.AddParameter("sign", signStr);
+
+            var xmlResult = await RequestAndGetReturnValueAsync("pay/unifiedorder", request);
+            var result = new UnifiedorderResult(xmlResult);
+
+            var package = $"prepay_id={result.prepay_id}";
+            result.PaySign = _signatureGenerator.GetJsPaySign(appId, result.TimeStamp, result.nonce_str,package, mchKey);
+            
+            return result;
         }
 
 
@@ -138,7 +196,7 @@ namespace TT.HttpClient.Weixin
         /// <param name="refundDesc">若商户传入，会在下发给用户的退款消息中体现退款原因，当订单退款金额 ≤1 元并且属于部分退款，则不会在退款消息中体现退款原因。</param>
         /// <param name="refundAccount">仅针对老资金流商户使用，具体参考 <see cref="RefundAccountType"/> 的定义。</param>
         /// <param name="notifyUrl">异步接收微信支付退款结果通知的回调地址，通知 Url 必须为外网可访问的 Url，不允许带参数。如果传递了该参数，则商户平台上配置的回调地址将不会生效。</param>
-        public Task<XmlDocument> RefundAsync(string appId, string mchId, string subAppId, string subMchId,
+        public Task<XDocument> RefundAsync(string appId, string mchId, string subAppId, string subMchId,
             string transactionId, string outTradeNo, string outRefundNo,
             int totalFee, int refundFee, string refundFeeType, string refundDesc, string refundAccount,
             string notifyUrl)
@@ -182,7 +240,7 @@ namespace TT.HttpClient.Weixin
         /// 商户系统内部订单号，要求 32 个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一。<br/>
         /// <paramref name="transactionId"/> 与 <paramref name="outTradeNo"/> 二选一，如果同时存在，优先级是：<paramref name="transactionId"/> 大于 <paramref name="outTradeNo"/>。
         /// </param>
-        public Task<XmlDocument> OrderQueryAsync(string appId, string mchId, string subAppId, string subMchId,
+        public Task<XDocument> OrderQueryAsync(string appId, string mchId, string subAppId, string subMchId,
             string transactionId, string outTradeNo)
         {
             var request = new PayParameters();
@@ -211,7 +269,7 @@ namespace TT.HttpClient.Weixin
         /// <param name="subMchId">微信支付分配的子商户号。</param>
         /// <param name="outTradeNo">商户系统内部订单号，要求 32 个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一。</param>
         /// <returns></returns>
-        public Task<XmlDocument> CloseOrderAsync(string appId, string mchId, string subAppId, string subMchId,
+        public Task<XDocument> CloseOrderAsync(string appId, string mchId, string subAppId, string subMchId,
             string outTradeNo)
         {
             var request = new PayParameters();
@@ -247,7 +305,7 @@ namespace TT.HttpClient.Weixin
         /// <param name="outRefundNo">商户系统内部的退款单号，商户系统内部唯一，只能是数字、大小写字母_-|*@ ，同一退款单号多次请求只退一笔。</param>
         /// <param name="refundId">微信退款单号。</param>
         /// <param name="offset">偏移量，当部分退款次数超过 10 次时可使用，表示返回的查询结果从这个偏移量开始取记录。</param>
-        public Task<XmlDocument> RefundQueryAsync(string appId, string mchId, string subAppId, string subMchId,
+        public Task<XDocument> RefundQueryAsync(string appId, string mchId, string subAppId, string subMchId,
             string transactionId, string outTradeNo, string outRefundNo,
             string refundId, int offset)
         {
@@ -270,29 +328,32 @@ namespace TT.HttpClient.Weixin
         }
 
 
-        protected virtual async Task<XmlDocument> RequestAndGetReturnValueAsync(string targetUrl,
+        protected virtual async Task<XDocument> RequestAndGetReturnValueAsync(string targetUrl,
             PayParameters requestParameters)
         {
             var result = await RequestAsync(targetUrl, requestParameters.ToXmlStr());
-            if (result.SelectSingleNode("/xml/return_code")?.InnerText != "SUCCESS" ||
-                result.SelectSingleNode("/xml/return_code")?.InnerText != "SUCCESS" ||
-                result.SelectSingleNode("/xml/return_msg")?.InnerText != "OK")
+
+            if (result.Element("xml").Element("return_code").Value != "SUCCESS" ||
+                result.Element("xml").Element("return_msg").Value != "OK")
             {
                 var errMsg =
-                    $"微信支付接口调用失败，具体失败原因：{result.SelectSingleNode("/xml/err_code_des")?.InnerText ?? result.SelectSingleNode("/xml/return_msg")?.InnerText}";
-                Log.Error(errMsg, targetUrl, requestParameters);
+                        "微信支付接口调用失败，具体失败原因：" +
+                        result.Element("xml").Element("return_msg").Value
+                    ;
 
                 var exception = new Exception(errMsg);
                 exception.Data.Add(nameof(targetUrl), targetUrl);
-                exception.Data.Add(nameof(requestParameters), requestParameters);
+                exception.Data.Add(nameof(result), result.ToString());
 
                 throw exception;
             }
 
+            Log.Information(result.ToString(),
+                "TenPay_XmlResult");
             return result;
         }
 
-        public async Task<XmlDocument> RequestAsync(string url, string body)
+        public async Task<XDocument> RequestAsync(string url, string body)
         {
             var request = new HttpRequestMessage(HttpMethod.Post, url)
             {
@@ -300,13 +361,11 @@ namespace TT.HttpClient.Weixin
             };
 
             var responseMessage = await _client.SendAsync(request);
-
             if (responseMessage.StatusCode == HttpStatusCode.GatewayTimeout)
                 throw new HttpRequestException("微信支付网关超时，请稍后重试。");
-
             var readAsString = await responseMessage.Content.ReadAsStringAsync();
-            var newXmlDocument = new XmlDocument();
-            newXmlDocument.LoadXml(readAsString);
+
+            var newXmlDocument = XDocument.Parse(readAsString);
             return newXmlDocument;
         }
     }

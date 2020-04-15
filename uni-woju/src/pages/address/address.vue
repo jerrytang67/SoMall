@@ -152,7 +152,8 @@ export default class MyAddress extends BaseView {
                locationAddress: res.address,
                locationLable: res.name,
                lat: res.latitude,
-               lng: res.longitude
+               lng: res.longitude,
+               locationType: "gcj02"
             });
          }
       });

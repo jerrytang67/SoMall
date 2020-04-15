@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Options;
 using Serilog;
 using Volo.Abp.AspNetCore.Mvc;
@@ -15,7 +17,7 @@ namespace TT.SoMall
         public TtServiceConvention(IOptions<AbpAspNetCoreMvcOptions> options) : base(options)
         {
         }
-
+        
         protected override string CalculateRouteTemplate(string rootPath, string controllerName, ActionModel action,
             string httpMethod,
             ConventionalControllerSetting configuration)
@@ -25,7 +27,7 @@ namespace TT.SoMall
 
             var url = $"api/{rootPath}/{controllerNameInUrl.ToCamelCase()}";
 
-            //Add {id} path if needed
+            // Add {id} path if needed
             // if (action.Parameters.Any(p => p.ParameterName == "id"))
             // {
             //     url += "/{id}";
@@ -57,15 +59,11 @@ namespace TT.SoMall
             var actionNameInUrl = action.ActionName
                 //.RemoveHttpMethodPrefix(action.ActionName, httpMethod)
                 .RemovePostFix("Async");
-
             if (configuration?.UrlActionNameNormalizer == null)
             {
                 return actionNameInUrl;
             }
 
-            
-            
-            
             return configuration.UrlActionNameNormalizer(
                 new UrlActionNameNormalizerContext(
                     rootPath,

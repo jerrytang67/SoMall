@@ -10,5 +10,8 @@ namespace TT.HttpClient.Weixin.Signature
         /// </summary>
         /// <returns>生成的签名数据。</returns>
         string Generate(PayParameters payRequest, HashAlgorithm hashAlgorithm, string apiKey = null);
+
+        string GetJsPaySign(string appId, string timeStamp, string nonceStr, string package, string key,
+            string signType = "MD5");
     }
 }
