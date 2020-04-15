@@ -84,7 +84,7 @@ namespace TT.HttpClient.Weixin.WeixiinResult.TenPay
         }
 
         public string TimeStamp { get; private set; }
-        
+
         public string PaySign { get; set; }
     }
 }

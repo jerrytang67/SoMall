@@ -2,7 +2,9 @@
    <view class="app">
       <view class="price-box">
          <text>支付金额</text>
-         <text class="price">38.88</text>
+         <text class="price">
+            {{currentOrder.priceOriginal}}
+         </text>
       </view>
       <view class="pay-type-list">
          <view class="type-item b-b" @click="changePayType(1)">
@@ -28,7 +30,7 @@
             <text class="icon yticon icon-erjiye-yucunkuan"></text>
             <view class="con">
                <text class="tit">预存款支付</text>
-               <text>可用余额 ¥198.5</text>
+               <text>可用余额 ¥0</text>
             </view>
             <label class="radio">
                <radio value="" color="#fa436a" :checked='payType == 3'></radio>
@@ -74,17 +76,12 @@ export default class Pay extends BaseView {
          }).then((obj: any) => {
             console.log(obj);
 
-            var p = {
-               timestamp: obj.timeStamp,
+            uni.requestPayment({
                timeStamp: obj.timeStamp,
                nonceStr: obj.nonce_str,
                package: "prepay_id=" + obj.prepay_id,
                signType: "MD5",
-               paySign: obj.paySign
-            };
-            console.log(p);
-            uni.requestPayment({
-               ...p,
+               paySign: obj.paySign,
                success: res => {
                   Tips.info("支付成功!");
                },
