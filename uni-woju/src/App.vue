@@ -22,4 +22,5 @@ export default Vue.extend({
 @import "./styles/main.scss";
 @import "./colorui/main.css";
 @import "./colorui/icon.css";
+@import "./colorui/yticon.scss";
 </style>

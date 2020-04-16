@@ -16,6 +16,10 @@ export class BaseView extends Vue {
         return UserModule.getOpenid;
     }
 
+    get userinfo() {
+        return UserModule.getUserInfo;
+    }
+
     initUser() {
         // if (this.token) {
         // }
