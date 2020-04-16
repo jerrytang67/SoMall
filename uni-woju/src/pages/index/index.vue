@@ -7,10 +7,10 @@
             </view>
             <view class="content">
                <image :src="x.logoImage" mode="widthFix" style="width:150upx;"></image>
-               <view class="desc">
+               <!-- <view class="desc">
                   <view class="text-content" v-html="x.description">
                   </view>
-               </view>
+               </view> -->
             </view>
          </view>
       </view>
@@ -65,7 +65,7 @@ export default class About extends BaseView {
 <style>
 .content {
    text-align: center;
-   height: 400upx;
+   /* height: 400upx; */
 }
 
 .logo {

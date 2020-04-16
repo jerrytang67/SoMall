@@ -22,7 +22,7 @@
                 <th>cover</th>
                 <th>名称</th>
                 <th>简称</th>
-                <th>介绍</th>
+                <!-- <th>介绍</th> -->
                 <th>操作</th>
             </tr>
         </thead>
@@ -37,10 +37,10 @@
                 </td>
                 <td>{{item.name}}</td>
                 <td>{{item.shortName}}</td>
-                <td>{{item.description}}</td>
+                <!-- <td>{{item.description}}</td> -->
                 <td>
-                    <a (click)="edit(item)">{{'edit' | translate}}</a>
-                    <nz-divider nzType="vertical"></nz-divider>
+                    <!-- <a (click)="edit(item)">{{'edit' | translate}}</a>
+                    <nz-divider nzType="vertical"></nz-divider> -->
                     <a nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)" nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
                 </td>
             </tr>

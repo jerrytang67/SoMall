@@ -61,8 +61,12 @@ namespace TT.Abp.Mall
 
             #region Orders
 
-            CreateMap<ProductOrder, ProductOrderDto>();
-            CreateMap<ProductOrderItem, ProductOrderItemDto>();
+            CreateMap<ProductOrder, ProductOrderDto>()
+                .ForMember(x => x.OrderItems, opt => opt.MapFrom(x => x.OrderItems))
+                ;
+
+            CreateMap<ProductOrderItem, ProductOrderItemDto>()
+                ;
 
             #endregion
         }

@@ -21,6 +21,7 @@ namespace TT.Abp.Mall.Application.Orders
 {
     public interface IProductOrderAppService : ICrudAppService<ProductOrderDto, Guid, PagedAndSortedResultRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>
     {
+        Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(PagedAndSortedResultRequestDto input);
     }
 
     public class ProductOrderAppService :
@@ -52,14 +53,13 @@ namespace TT.Abp.Mall.Application.Orders
 
         public override async Task<ProductOrderDto> GetAsync(Guid id)
         {
-
             var entity = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity.CreatorId != CurrentUser.Id)
             {
                 await CheckGetPolicyAsync();
             }
-            
+
             return MapToGetOutputDto(entity);
         }
 
@@ -91,6 +91,49 @@ namespace TT.Abp.Mall.Application.Orders
 
             return result;
         }
+
+        [HttpGet]
+        public async Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(PagedAndSortedResultRequestDto input)
+        {
+            var query = CreateFilteredQuery(input);
+
+            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+
+            query = ApplySorting(query, input);
+            query = ApplyPaging(query, input);
+
+            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+
+            var result = new PagedResultDto<ProductOrderDto>(
+                totalCount,
+                entities.Select(MapToGetListOutputDto).ToList()
+            );
+            
+            var shopDictionary = new Dictionary<Guid, MallShopDto>();
+
+            foreach (var dto in result.Items)
+            {
+                if (dto.ShopId.HasValue)
+                {
+                    if (!shopDictionary.ContainsKey(dto.ShopId.Value))
+                    {
+                        var shop = await _mallShopLookupService.FindByIdAsync(dto.ShopId.Value);
+                        if (shop != null)
+                        {
+                            shopDictionary[shop.Id] = ObjectMapper.Map<MallShop, MallShopDto>(shop);
+                        }
+                    }
+
+                    if (shopDictionary.ContainsKey(dto.ShopId.Value))
+                    {
+                        dto.Shop = shopDictionary[(Guid) dto.ShopId];
+                    }
+                }
+            }
+
+            return result;
+        }
+
 
         public override Task<ProductOrderDto> CreateAsync(ProductOrderCreateOrUpdateDto input)
         {

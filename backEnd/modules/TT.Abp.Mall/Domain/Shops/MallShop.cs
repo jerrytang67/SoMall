@@ -76,7 +76,7 @@ namespace TT.Abp.Mall.Domain.Shops
                    Description == shop.Description;
         }
 
-        private void UpdateInternal(IShopData shop)
+        protected void UpdateInternal(IShopData shop)
         {
             Name = shop.Name;
             ShortName = shop.ShortName;

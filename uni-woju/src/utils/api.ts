@@ -54,8 +54,9 @@ export default {
 
 
     // order
-    order_get:(id: string) => request("GET", `/api/mall/productOrder/get`, { id: id }),
-    
+    order_get: (id: string) => request("GET", `/api/mall/productOrder/get`, { id: id }),
+    order_getList: (data: any) => request("GET", `/api/mall/productOrder/getPublicList`, data),
+
     // pay
     client_sumbitOrder: (data: any) => request("POST", `/api/mall/client/sumbitOrder`, data),
 

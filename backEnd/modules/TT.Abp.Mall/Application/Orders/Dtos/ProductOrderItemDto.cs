@@ -8,15 +8,15 @@ namespace TT.Abp.Mall.Application.Orders.Dtos
     /// </summary>
     public class ProductOrderItemDto
     {
-        public Guid SpuId { get; }
-        public Guid SkuId { get; }
-        public double Num { get; }
-        public decimal SkuPrice { get; }
-        public string SpuName { get; }
-        public string SkuName { get; }
-        public string SkuUnit { get; }
-        public string SkuCoverImageUrl { get; }
-        public decimal Discount { get; }
-        public string Comment { get; }
+        public Guid SpuId { get; set; }
+        public Guid SkuId { get; set; }
+        public double Num { get; set; }
+        public decimal SkuPrice { get; set; }
+        public string SpuName { get; set; }
+        public string SkuName { get; set; }
+        public string SkuUnit { get; set; }
+        public string SkuCoverImageUrl { get; set; }
+        public decimal Discount { get; set; }
+        public string Comment { get; set; }
     }
 }

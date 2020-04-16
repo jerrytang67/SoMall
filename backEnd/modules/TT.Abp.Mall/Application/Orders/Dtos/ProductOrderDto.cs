@@ -47,6 +47,9 @@ namespace TT.Abp.Mall.Application.Orders.Dtos
         public Guid? ShopId { get; protected set; }
 
         public MallShopDto Shop { get; set; }
+        
+        public DateTime CreationTime { get; set; }
+        
 
         public List<ProductOrderItemDto> OrderItems { get; set; }
     }

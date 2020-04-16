@@ -62,7 +62,7 @@ class Shop extends VuexModule {
 
     get getSelectIndex() { return this.selectIndex }
 
-    get getCurrentShop() { return this.currentShop }
+    get getCurrentShop(): IMallShop { return this.currentShop }
 
     get getCurrentSpu() { return this.currentSpu }
 
