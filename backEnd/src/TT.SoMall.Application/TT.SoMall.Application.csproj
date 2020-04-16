@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\shop-management\src\TT.Abp.Shops.csproj" />
+    <ProjectReference Include="..\..\modules\TT.Abp.Shops\TT.Abp.Shops.csproj" />
     <ProjectReference Include="..\TT.SoMall.Domain\TT.SoMall.Domain.csproj" />
     <ProjectReference Include="..\TT.SoMall.Application.Contracts\TT.SoMall.Application.Contracts.csproj" />
   </ItemGroup>

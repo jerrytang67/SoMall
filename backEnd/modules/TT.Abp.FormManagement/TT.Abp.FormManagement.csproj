@@ -29,4 +29,8 @@
       <None Remove="TT\Abp\FormManagement\Domain\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TT.Abp.Shops\TT.Abp.Shops.csproj" />
+    </ItemGroup>
+
 </Project>

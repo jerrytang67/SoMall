@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["src/TT.SoMall.HttpApi.Host/TT.SoMall.HttpApi.Host.csproj", "src/TT.SoMall.HttpApi.Host/"]
 COPY ["src/TT.SoMall.Application/TT.SoMall.Application.csproj", "src/TT.SoMall.Application/"]
-COPY ["modules/shop-management/src/TT.Abp.ShopManagement.csproj", "modules/shop-management/src/"]
+COPY ["modules/TT.Abp.Shops/TT.Abp.Shops.csproj", "modules/TT.Abp.Shops/"]
 COPY ["src/TT.SoMall.Application.Contracts/TT.SoMall.Application.Contracts.csproj", "src/TT.SoMall.Application.Contracts/"]
 COPY ["src/TT.SoMall.Domain.Shared/TT.SoMall.Domain.Shared.csproj", "src/TT.SoMall.Domain.Shared/"]
 COPY ["src/TT.SoMall.Domain/TT.SoMall.Domain.csproj", "src/TT.SoMall.Domain/"]

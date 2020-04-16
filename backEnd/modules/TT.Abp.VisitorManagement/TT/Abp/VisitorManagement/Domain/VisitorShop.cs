@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using TT.Abp.Shops;
 using TT.Abp.Shops.Domain;
-using Volo.Abp;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Entities.Auditing;
-using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.VisitorManagement.Domain
 {
