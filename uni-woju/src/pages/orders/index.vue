@@ -43,7 +43,7 @@
                   </view>
                   <view class="action-box b-t" v-if="item.state != 9">
                      <button class="action-btn" @click="cancelOrder(item)">取消订单</button>
-                     <button class="action-btn recom" @tap="rePay(item)">立即支付</button>
+                     <button class="action-btn recom" @tap="rePay(item)">重新支付</button>
                   </view>
                </view>
 

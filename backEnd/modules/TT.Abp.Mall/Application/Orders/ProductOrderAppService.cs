@@ -92,48 +92,6 @@ namespace TT.Abp.Mall.Application.Orders
             return result;
         }
 
-        [HttpGet]
-        public async Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(PagedAndSortedResultRequestDto input)
-        {
-            var query = CreateFilteredQuery(input);
-
-            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
-
-            query = ApplySorting(query, input);
-            query = ApplyPaging(query, input);
-
-            var entities = await AsyncQueryableExecuter.ToListAsync(query);
-
-            var result = new PagedResultDto<ProductOrderDto>(
-                totalCount,
-                entities.Select(MapToGetListOutputDto).ToList()
-            );
-            
-            var shopDictionary = new Dictionary<Guid, MallShopDto>();
-
-            foreach (var dto in result.Items)
-            {
-                if (dto.ShopId.HasValue)
-                {
-                    if (!shopDictionary.ContainsKey(dto.ShopId.Value))
-                    {
-                        var shop = await _mallShopLookupService.FindByIdAsync(dto.ShopId.Value);
-                        if (shop != null)
-                        {
-                            shopDictionary[shop.Id] = ObjectMapper.Map<MallShop, MallShopDto>(shop);
-                        }
-                    }
-
-                    if (shopDictionary.ContainsKey(dto.ShopId.Value))
-                    {
-                        dto.Shop = shopDictionary[(Guid) dto.ShopId];
-                    }
-                }
-            }
-
-            return result;
-        }
-
 
         public override Task<ProductOrderDto> CreateAsync(ProductOrderCreateOrUpdateDto input)
         {
@@ -144,6 +102,9 @@ namespace TT.Abp.Mall.Application.Orders
         {
             return base.CreateFilteredQuery(input).Include(x => x.OrderItems);
         }
+
+
+        #region ForClient
 
         [HttpPost]
         public async Task<object> PayAsync(OrderPayRequestDto input)
@@ -169,6 +130,51 @@ namespace TT.Abp.Mall.Application.Orders
             );
             return result;
         }
+
+
+        [HttpGet]
+        public async Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(PagedAndSortedResultRequestDto input)
+        {
+            var query = CreateFilteredQuery(input);
+
+            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+
+            query = ApplySorting(query, input);
+            query = ApplyPaging(query, input);
+
+            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+
+            var result = new PagedResultDto<ProductOrderDto>(
+                totalCount,
+                entities.Select(MapToGetListOutputDto).ToList()
+            );
+
+            var shopDictionary = new Dictionary<Guid, MallShopDto>();
+
+            foreach (var dto in result.Items)
+            {
+                if (dto.ShopId.HasValue)
+                {
+                    if (!shopDictionary.ContainsKey(dto.ShopId.Value))
+                    {
+                        var shop = await _mallShopLookupService.FindByIdAsync(dto.ShopId.Value);
+                        if (shop != null)
+                        {
+                            shopDictionary[shop.Id] = ObjectMapper.Map<MallShop, MallShopDto>(shop);
+                        }
+                    }
+
+                    if (shopDictionary.ContainsKey(dto.ShopId.Value))
+                    {
+                        dto.Shop = shopDictionary[(Guid) dto.ShopId];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 
     public class OrderPayRequestDto
