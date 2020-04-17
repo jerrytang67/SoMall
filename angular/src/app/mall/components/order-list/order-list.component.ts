@@ -12,8 +12,8 @@ export class OrderListComponent implements OnInit {
   dataItems: any[] = [];
   pageingInfo = {
     totalItems: 0,
-    pageNumber: 0,
-    pageSize: 0,
+    pageNumber: 1,
+    pageSize: 10,
     isTableLoading: false
   };
   constructor(
@@ -30,26 +30,34 @@ export class OrderListComponent implements OnInit {
       console.log(params)
       this.refresh();
     });
-
   }
+
   refresh() {
     this.pageingInfo.isTableLoading = true;
-    this.api.getList().subscribe(res => {
+    this.api.getList({
+      maxResultCount: this.pageingInfo.pageSize,
+      skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize
+    }).subscribe(res => {
       console.log(res);
       this.dataItems = res.items;
+      this.pageingInfo.totalItems = res.totalCount;
       this.pageingInfo.isTableLoading = false;
     })
   }
 
+  onCurrentPageDataChange(event: any): void {
+    console.log(event)
 
+  }
   create(item: any) {
 
   }
+
   edit(item: any) {
 
   }
+
   delete(item: any) {
 
   }
-
 }

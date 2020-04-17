@@ -116,7 +116,7 @@ export default class About extends BaseView {
          // #ifdef APP-PLUS
          const pages = getCurrentPages();
          const page = pages[pages.length - 1];
-         const currentWebview = page.$getAppWebview();
+         const currentWebview = (page as any).$getAppWebview();
          currentWebview.hideTitleNViewButtonRedDot({
             index
          });

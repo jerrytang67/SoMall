@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -132,14 +133,15 @@ namespace TT.Abp.Mall.Application.Orders
         }
 
 
-        [HttpGet]
+        [Authorize]
         public async Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(PagedAndSortedResultRequestDto input)
         {
-            var query = CreateFilteredQuery(input);
+            var query = CreateFilteredQuery(input).Where(x => x.CreatorId == CurrentUser.Id);
 
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
+            
             query = ApplyPaging(query, input);
 
             var entities = await AsyncQueryableExecuter.ToListAsync(query);
@@ -175,12 +177,5 @@ namespace TT.Abp.Mall.Application.Orders
         }
 
         #endregion
-    }
-
-    public class OrderPayRequestDto
-    {
-        public Guid OrderId { get; set; }
-        public string Client { get; set; }
-        public string openid { get; set; }
     }
 }

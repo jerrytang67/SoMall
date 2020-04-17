@@ -38,6 +38,7 @@ export const menu = [
             { text: "fontawesome", elink: "https://fontawesome.com/icons?d=gallery&q=auth", target: "_blank", icon: "fab fa-fonticons" },
             { text: "angular", elink: "https://angular.io/docs", target: "_blank", icon: "fab fa-angular" },
             { text: "bootstrap", elink: "https://getbootstrap.com/docs/4.4/getting-started/introduction/", target: "_blank", icon: "fab fa-angular" },
+            { text: "Jenkins", elink: "http://wwwttt.vicp.net:18080/", target: "_blank", icon: "fab fa-jenkins" },
         ]
     }
 ];

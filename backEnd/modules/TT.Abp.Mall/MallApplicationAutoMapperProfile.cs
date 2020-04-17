@@ -4,11 +4,13 @@ using TT.Abp.Mall.Application.Addresses;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Orders;
 using TT.Abp.Mall.Application.Orders.Dtos;
+using TT.Abp.Mall.Application.Partners;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Application.Users;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
+using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Users;
@@ -67,6 +69,12 @@ namespace TT.Abp.Mall
 
             CreateMap<ProductOrderItem, ProductOrderItemDto>()
                 ;
+
+            #endregion
+
+            #region Partners
+
+            CreateMap<Partner, PartnerDto>();
 
             #endregion
         }

@@ -31,7 +31,7 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 /** 配置 angular i18n **/
-import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { NZ_I18N, zh_CN, NZ_DATE_FNS_COMPATIBLE } from 'ng-zorro-antd';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { OssService } from 'src/store/oss/oss.service';
@@ -66,7 +66,8 @@ export function initData(httpClient: HttpClient) {
     environment.production ? [] : AkitaNgDevtools
   ],
   providers: [...INTERCEPTOR_PROVIDES,
-  { provide: NZ_I18N, useValue: zh_CN }
+  { provide: NZ_I18N, useValue: zh_CN },
+  { provide: NZ_DATE_FNS_COMPATIBLE, useValue: true }
   // ,{
   //   provide: APP_INITIALIZER,
   //   useFactory: (ossService: OssService) => (ossStore: OssStore, ossApi: OssProxyService) => ossService.init,

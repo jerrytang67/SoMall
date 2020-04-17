@@ -14,11 +14,12 @@
         <button nz-button nzSize="large" class="mr-4" (click)="create()" nzType="primary">{{'add' | translate}}</button>
         <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
-    <nz-table #dataTable nzShowPagination [nzData]="dataItems">
+    <nz-table #dataTable nzShowSizeChanger nzShowPagination  [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems" [(nzPageSize)]="pageingInfo.pageSize"
+        [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()" (nzPageSizeChange)="refresh()">
         <thead>
             <!-- <th>id</th> -->
-            <th>priceOriginal</th>
             <th>payType</th>
+            <th>priceOriginal</th>
             <th>pricePaidIn</th>
             <th>addressRealName</th>
             <th>addressPhone</th>
@@ -31,9 +32,9 @@
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
-                <td>{{item.priceOriginal}}</td>
                 <td>{{item.payType}}</td>
-                <td>{{item.pricePaidIn}}</td>
+                <td>{{item.priceOriginal | currency}}</td>
+                <td>{{item.pricePaidIn | currency}}</td>
                 <td>{{item.addressRealName}}</td>
                 <td>{{item.addressPhone}}</td>
                 <td>{{item.addressLocationAddress}}</td>

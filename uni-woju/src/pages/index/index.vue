@@ -21,7 +21,7 @@
             <text class="cuIcon-loading2 cuIconfont-spin" v-if="loadding"></text>
             提交</button>
       </view>
-      <navigator url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=1">
+      <navigator url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=2">
          <image class="logo" src="../../static/head.jpg"></image>
          <view>
             <text class="title">{{title}}</text>
@@ -45,7 +45,7 @@ export default class About extends BaseView {
    }
 
    get roomId() {
-      return 1;
+      return 2;
    }
 
    get shops() {

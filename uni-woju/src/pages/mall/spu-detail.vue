@@ -110,18 +110,17 @@
       <!-- 底部操作菜单 -->
       <view class="page-bottom">
          <navigator url="/pages/index/index" open-type="switchTab" class="p-b-btn">
-            <text class="yticon cuIcon-home"></text>
+				<text class="yticon icon-xiatubiao--copy"></text>
             <text>首页</text>
          </navigator>
          <navigator url="/pages/cart/cart" class="p-b-btn">
-            <text class="yticon cuIcon-cart"></text>
+				<text class="yticon icon-gouwuche"></text>
             <text>购物车</text>
          </navigator>
          <view class="p-b-btn" :class="{active: true}" @click="toFavorite">
-            <text class="yticon cuIcon-likefill"></text>
+				<text class="yticon icon-shoucang"></text>
             <text>收藏</text>
          </view>
-
          <view class="action-btn-group">
             <button type="primary" class=" action-btn no-border buy-now-btn" @click="buy">立即购买</button>
             <button type="primary" class=" action-btn no-border add-cart-btn" @click="addCart">加入购物车</button>
