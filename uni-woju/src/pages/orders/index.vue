@@ -60,7 +60,7 @@ import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import { BaseView } from "../baseView";
 import empty from "@/components/empty.vue";
 import api from "@/utils/api";
-import { Tips } from '@/utils/tips';
+import { Tips } from "@/utils/tips";
 
 @Component({ components: { empty } })
 export default class Orders extends BaseView {
@@ -69,7 +69,14 @@ export default class Orders extends BaseView {
        * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
        * 替换onLoad下代码即可
        */
-      this.tabCurrentIndex = +options.state || 0;
+      // this.tabCurrentIndex = +options.state || 0;
+   }
+
+   onShow() {
+      if (uni.getStorageSync("Order_Select_Index")) {
+         this.tabCurrentIndex = uni.getStorageSync("Order_Select_Index");
+         uni.removeStorageSync("Order_Select_Index");
+      }
    }
 
    async created() {
@@ -91,41 +98,50 @@ export default class Orders extends BaseView {
          text: "全部",
          loadingType: "more",
          orderList: [],
-         loaded: false
+         loaded: false,
+         total: 0,
+         page: 0
       },
       {
          state: 1,
          text: "待付款",
          loadingType: "more",
          orderList: [],
-         loaded: false
+         loaded: false,
+         total: 0,
+         page: 0
       },
       {
          state: 2,
          text: "待收货",
          loadingType: "more",
          orderList: [],
-         loaded: false
+         loaded: false,
+         total: 0,
+         page: 0
       },
       {
          state: 3,
          text: "待评价",
          loadingType: "more",
          orderList: [],
-         loaded: false
+         loaded: false,
+         total: 0,
+         page: 0
       },
       {
          state: 4,
          text: "售后",
          loadingType: "more",
          orderList: [],
-         loaded: false
+         loaded: false,
+         total: 0,
+         page: 0
       }
    ];
 
    //获取订单列表
    async loadData(source: any = null) {
-      console.log("loadData");
       //这里是将订单挂载到tab列表下
       let index = this.tabCurrentIndex;
       let navItem = this.navList[index];
@@ -135,31 +151,41 @@ export default class Orders extends BaseView {
          //tab切换只有第一次需要加载数据
          return;
       }
-      if (navItem.loadingType === "loading") {
+      if (
+         navItem.loadingType === "loading" ||
+         navItem.loadingType === "noMore"
+      ) {
          //防止重复加载
          return;
       }
-
+      console.log("loadData");
       navItem.loadingType = "loading";
-
-      await api.order_getList({ state }).then((res: any) => {
-         //loaded新字段用于表示数据加载完毕，如果为空可以显示空白页
-
-         this.$set(navItem, "loaded", true);
-         this.$set(navItem, "orderList", res.items);
-         //判断是否还有数据， 有改为 more， 没有改为noMore
-         navItem.loadingType = "more";
-      });
+      await api
+         .order_getList({ state, skipCount: navItem.page * 10 })
+         .then((res: any) => {
+            //loaded新字段用于表示数据加载完毕，如果为空可以显示空白页
+            this.$set(navItem, "loaded", true);
+            this.$set(navItem, "orderList", [
+               ...navItem.orderList,
+               ...res.items
+            ]);
+            this.$set(navItem, "page", navItem.page + 1);
+            this.$set(navItem, "total", res.totalCount);
+            //判断是否还有数据， 有改为 more， 没有改为noMore
+            if (navItem.total > navItem.page * 10) navItem.loadingType = "more";
+            else navItem.loadingType = "noMore";
+         });
    }
 
    //swiper 切换
    changeTab(e: any) {
-      this.tabCurrentIndex = e.target.current;
+      this.tabCurrentIndex = +e.target.current;
       this.loadData("tabChange");
    }
    //顶部tab点击
    tabClick(index: number) {
-      this.tabCurrentIndex = index;
+      console.log("index:" + index);
+      this.tabCurrentIndex = +index;
    }
    //删除订单
    deleteOrder(index: any) {
@@ -170,51 +196,23 @@ export default class Orders extends BaseView {
       uni.showLoading({
          title: "请稍后"
       });
-      setTimeout(() => {
-         let { stateTip, stateTipColor } = this.orderStateExp(9);
-         item = Object.assign(item, {
-            state: 9,
-            stateTip,
-            stateTipColor
-         });
 
-         //取消订单后删除待付款中该项
-         let list = this.navList[1].orderList;
-         let index = list.findIndex((val: any) => val.id === item.id);
-         index !== -1 && list.splice(index, 1);
+      //取消订单后删除待付款中该项
+      let list = this.navList[this.tabCurrentIndex].orderList;
+      let index = list.findIndex((val: any) => val.id === item.id);
+      index !== -1 && list.splice(index, 1);
 
-         uni.hideLoading();
-      }, 600);
-   }
-
-   //订单状态文字和颜色
-   orderStateExp(state: number) {
-      let stateTip = "",
-         stateTipColor = "#fa436a";
-      switch (state) {
-         case 1:
-            stateTip = "待付款";
-            break;
-         case 2:
-            stateTip = "待发货";
-            break;
-         case 9:
-            stateTip = "订单已关闭";
-            stateTipColor = "#909399";
-            break;
-
-         //更多自定义
-      }
-      return { stateTip, stateTipColor };
+      uni.hideLoading();
    }
 
    // repay
-   async rePay(item:any)
-   {
-      await api.tenpay({
+   async rePay(item: any) {
+      await api
+         .tenpay({
             orderId: item.id,
             openid: this.openid
-         }).then((obj: any) => {
+         })
+         .then((obj: any) => {
             console.log(obj);
 
             uni.requestPayment({

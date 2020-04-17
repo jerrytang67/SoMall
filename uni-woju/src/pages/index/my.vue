@@ -48,19 +48,19 @@
          </view>
          <!-- 订单 -->
          <view class="order-section">
-            <view class="order-item" @click="navTo('/pages/order/order?state=0')" hover-class="common-hover" :hover-stay-time="50">
+            <view class="order-item" @click="navTo('/pages/orders/index',true,0)" hover-class="common-hover" :hover-stay-time="50">
                <text class="yticon icon-shouye"></text>
                <text>全部订单</text>
             </view>
-            <view class="order-item" @click="navTo('/pages/order/order?state=1')" hover-class="common-hover" :hover-stay-time="50">
+            <view class="order-item" @click="navTo('/pages/orders/index',true,1)" hover-class="common-hover" :hover-stay-time="50">
                <text class="yticon icon-daifukuan"></text>
                <text>待付款</text>
             </view>
-            <view class="order-item" @click="navTo('/pages/order/order?state=2')" hover-class="common-hover" :hover-stay-time="50">
+            <view class="order-item" @click="navTo('/pages/orders/index',true,2)" hover-class="common-hover" :hover-stay-time="50">
                <text class="yticon icon-yishouhuo"></text>
                <text>待收货</text>
             </view>
-            <view class="order-item" @click="navTo('/pages/order/order?state=4')" hover-class="common-hover" :hover-stay-time="50">
+            <view class="order-item" @click="navTo('/pages/orders/index',true,4)" hover-class="common-hover" :hover-stay-time="50">
                <text class="yticon icon-shouhoutuikuan"></text>
                <text>退款/售后</text>
             </view>
@@ -132,13 +132,15 @@ export default class About extends BaseView {
     * 统一跳转接口,拦截未登录路由
     * navigator标签现在默认没有转场动画，所以用view
     */
-   navTo(url: any) {
+   navTo(url: any, isTab: boolean = false, state: number = 0) {
       if (!this.openid) {
          url = "/pages/public/login";
       }
-      uni.navigateTo({
-         url
-      });
+      if (!isTab) uni.navigateTo({ url: url });
+      else {
+         uni.setStorageSync("Order_Select_Index", state);
+         uni.switchTab({ url });
+      }
    }
 
    /**
