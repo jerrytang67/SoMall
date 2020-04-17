@@ -31,6 +31,7 @@ const routes: Routes = [
     ],
   },
   { path: 'identity', loadChildren: () => import('../identity/identity.module').then(m => m.IdentityModule) },
+  { path: 'tenant', loadChildren: () => import('../tenant/tenant.module').then(m => m.TenantModule) },
 
   { path: 'shop-management', loadChildren: () => import(/* webpackChunkName: "ShopManagementModule" */ '../shop-management/shop-management.module').then(m => m.ShopManagementModule), data: { breadcrumb: "商家管理" } },
   { path: 'mall', loadChildren: () => import(/* webpackChunkName: "MallModule" */ '../mall/mall.module').then(m => m.MallModule), data: { breadcrumb: "商城系统" } },

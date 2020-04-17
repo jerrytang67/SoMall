@@ -92,7 +92,7 @@ namespace TT.SoMall
 
             context.Services.AddControllers().AddNewtonsoftJson(options =>
             {
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                // options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
 
