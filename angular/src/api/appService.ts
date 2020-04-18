@@ -242,6 +242,122 @@ export class ClientProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class CouponProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getPublishList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<CouponDtoListResultDto> {
+    let url = '/api/mall/coupon/getPublishList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CouponDtoListResultDto>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<CouponDto> {
+    let url = '/api/mall/coupon/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CouponDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<CouponDtoPagedResultDto> {
+    let url = '/api/mall/coupon/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CouponDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: CouponCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<CouponDto> {
+    let url = '/api/mall/coupon/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<CouponDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CouponCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<CouponDto> {
+    let url = '/api/mall/coupon/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<CouponDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/coupon/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class FormProxyService {
   constructor(private http: HttpClient) {}
 
@@ -563,6 +679,29 @@ export class OssProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class PartnerProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      userId: string;
+    } = {} as any
+  ): Observable<PartnerDto> {
+    let url = '/api/mall/partner/get/';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PartnerDto>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
   constructor(private http: HttpClient) {}
 
@@ -714,6 +853,43 @@ export class ProductOrderProxyService {
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<ProductOrderDto>;
+  }
+  /**
+   *
+   */
+  pay(
+    params: {
+      /** requestBody */
+      body?: OrderPayRequestDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/productOrder/pay';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  getPublicList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<ProductOrderDtoPagedResultDto> {
+    let url = '/api/mall/productOrder/getPublicList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ProductOrderDtoPagedResultDto>;
   }
   /**
    *
@@ -1340,6 +1516,126 @@ export class UserProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<IdentityUserDto>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class UserCouponProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      couponId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<UserCouponDtoPagedResultDto> {
+    let url = '/api/mall/userCoupon/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<UserCouponDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  getPublicList(
+    params: {
+      /**  */
+      couponId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<UserCouponDtoListResultDto> {
+    let url = '/api/mall/userCoupon/getPublicList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<UserCouponDtoListResultDto>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<UserCouponDto> {
+    let url = '/api/mall/userCoupon/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<UserCouponDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: UserCouponCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<UserCouponDto> {
+    let url = '/api/mall/userCoupon/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<UserCouponDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: UserCouponCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<UserCouponDto> {
+    let url = '/api/mall/userCoupon/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<UserCouponDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/userCoupon/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -2365,6 +2661,95 @@ export interface ProductOrderRequestDto {
   comment?: string;
 }
 
+export interface CouponDto {
+  /**  */
+  amount?: number;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  desc?: string;
+
+  /**  */
+  count?: number;
+
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  useType?: UseType;
+
+  /**  */
+  state?: number;
+
+  /**  */
+  dateTimeEnable?: Date;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  datetimeEnd?: Date;
+
+  /**  */
+  useCount?: number;
+
+  /**  */
+  id?: string;
+}
+
+export interface CouponDtoListResultDto {
+  /**  */
+  items?: CouponDto[];
+}
+
+export interface CouponDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: CouponDto[];
+}
+
+export interface CouponCreateOrUpdateDto {
+  /**  */
+  amount?: number;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  desc?: string;
+
+  /**  */
+  count?: number;
+
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  useType?: UseType;
+
+  /**  */
+  state?: number;
+
+  /**  */
+  dateTimeEnable?: Date;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  datetimeEnd?: Date;
+}
+
 export interface IValueValidator {
   /**  */
   name?: string;
@@ -2603,6 +2988,70 @@ export interface MallUserDtoPagedResultDto {
   items?: MallUserDto[];
 }
 
+export interface PartnerDetail {
+  /**  */
+  noticeContent?: string;
+
+  /**  */
+  openid?: string;
+
+  /**  */
+  unionid?: string;
+
+  /**  */
+  weixin?: string;
+
+  /**  */
+  introducting?: string;
+}
+
+export interface PartnerDto {
+  /**  */
+  updateDate?: Date;
+
+  /**  */
+  state?: PartnerState;
+
+  /**  */
+  totalWithdrawals?: number;
+
+  /**  */
+  lastLoginDate?: Date;
+
+  /**  */
+  lat?: number;
+
+  /**  */
+  lng?: number;
+
+  /**  */
+  locationLabel?: string;
+
+  /**  */
+  locationAddress?: string;
+
+  /**  */
+  detail?: PartnerDetail;
+
+  /**  */
+  realName?: string;
+
+  /**  */
+  phone?: string;
+
+  /**  */
+  nickname?: string;
+
+  /**  */
+  headImageUrl?: string;
+
+  /**  */
+  avblBalance?: number;
+
+  /**  */
+  unavblBalance?: number;
+}
+
 export interface ProviderInfoDto {
   /**  */
   providerName?: string;
@@ -2770,6 +3219,9 @@ export interface ProductOrderDto {
   shop?: MallShopDto;
 
   /**  */
+  creationTime?: Date;
+
+  /**  */
   orderItems?: ProductOrderItemDto[];
 
   /**  */
@@ -2785,6 +3237,17 @@ export interface ProductOrderDtoPagedResultDto {
 }
 
 export interface ProductOrderCreateOrUpdateDto {}
+
+export interface OrderPayRequestDto {
+  /**  */
+  orderId?: string;
+
+  /**  */
+  client?: string;
+
+  /**  */
+  openid?: string;
+}
 
 export interface ProductSkuDtoPagedResultDto {
   /**  */
@@ -3159,6 +3622,59 @@ export interface IdentityUserUpdateRolesDto {
   roleNames?: string[];
 }
 
+export interface UserCouponDto {
+  /**  */
+  couponId?: string;
+
+  /**  */
+  ownerUserId?: string;
+
+  /**  */
+  couponName?: string;
+
+  /**  */
+  couponAmount?: number;
+
+  /**  */
+  paymentId?: string;
+
+  /**  */
+  usedTime?: Date;
+
+  /**  */
+  usedOrderId?: string;
+
+  /**  */
+  usedOrderType?: OrderType;
+
+  /**  */
+  coupon?: CouponDto;
+
+  /**  */
+  id?: string;
+}
+
+export interface UserCouponDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: UserCouponDto[];
+}
+
+export interface UserCouponDtoListResultDto {
+  /**  */
+  items?: UserCouponDto[];
+}
+
+export interface UserCouponCreateOrUpdateDto {
+  /**  */
+  couponId?: string;
+
+  /**  */
+  ownerUserId?: string;
+}
+
 export interface UserData {
   /**  */
   id?: string;
@@ -3253,6 +3769,12 @@ export enum LocationType {
   'wgs84' = 'wgs84'
 }
 
+export enum UseType {
+  '全场通用' = '全场通用',
+  '指定分类' = '指定分类',
+  '指定商品' = '指定商品'
+}
+
 export enum FormTheme {
   'red' = 'red',
   'black' = 'black',
@@ -3266,6 +3788,12 @@ export enum FormItemType {
   'Checkbox' = 'Checkbox',
   'Image' = 'Image',
   'File' = 'File'
+}
+
+export enum PartnerState {
+  '待审核' = '待审核',
+  '驳回' = '驳回',
+  '成功' = '成功'
 }
 
 export enum OrderState {
@@ -3292,6 +3820,11 @@ export enum PayType {
   '支付宝' = '支付宝',
   '银联' = '银联',
   '用户余额' = '用户余额'
+}
+
+export enum OrderType {
+  'Default' = 'Default',
+  'Product' = 'Product'
 }
 
 export enum CredentialType {

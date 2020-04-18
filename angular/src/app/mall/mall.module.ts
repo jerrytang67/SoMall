@@ -12,6 +12,8 @@ import { SpuEditComponent } from '../mall/components/spu-edit/spu-edit.component
 import { AddressListComponent } from './components/addresses/address-list.component';
 import { MallUserListComponent } from './components/users/user-list.component';
 import { OrderListComponent } from './components/order-list/order-list.component';
+import { CouponListComponent } from './components/coupon-list/coupon-list.component';
+import { UserCouponListComponent } from './components/userCoupon-list/userCoupon-list.component';
 
 
 const COMPONENTS = [
@@ -21,7 +23,10 @@ const COMPONENTS = [
   SpuEditComponent,
   AddressListComponent,
   MallUserListComponent,
-  OrderListComponent]
+  OrderListComponent,
+  CouponListComponent,
+  UserCouponListComponent
+]
 
 const ENTRYCOMPONENTS = [CategoryEditComponent]
 

@@ -1,0 +1,59 @@
+import { Component, OnInit } from '@angular/core';
+import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { ActivatedRoute } from '@angular/router';
+import { UserCouponProxyService } from 'src/api/appService';
+
+@Component({
+  selector: 'app-userCoupon-list',
+  templateUrl: './userCoupon-list.component.html'
+})
+export class UserCouponListComponent implements OnInit {
+
+  dataItems: any[] = [];
+  pageingInfo = {
+    totalItems: 0,
+    pageNumber: 1,
+    pageSize: 10,
+    isTableLoading: false
+  };
+  constructor(
+    private modalService: NzModalService,
+    private message: NzMessageService,
+    private route: ActivatedRoute,
+    private api: UserCouponProxyService
+  ) {
+
+  }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((params: any) => {
+      console.log(params)
+      this.refresh();
+    });
+
+  }
+  refresh() {
+    this.pageingInfo.isTableLoading = true;
+    this.api.getList({
+      maxResultCount: this.pageingInfo.pageSize,
+      skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize
+    }).subscribe(res => {
+      console.log(res);
+      this.dataItems = res.items;
+      this.pageingInfo.totalItems = res.totalCount;
+      this.pageingInfo.isTableLoading = false;
+    })
+  }
+
+
+  create(item: any) {
+
+  }
+  edit(item: any) {
+
+  }
+  delete(item: any) {
+
+  }
+
+}
