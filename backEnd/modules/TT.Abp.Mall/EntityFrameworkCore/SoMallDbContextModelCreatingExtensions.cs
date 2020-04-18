@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
 using TT.Abp.Mall.Domain.Orders;
@@ -210,6 +211,27 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.IDCardBackUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.IDCardHandUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.BusinessLicenseUrl).HasMaxLength(MallConsts.MaxNameLength);
+            });
+
+
+            // 优惠券
+            builder.Entity<Coupon>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "Coupons", MallConsts.DbSchema);
+                b.ConfigureFullAuditedAggregateRoot();
+
+                b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.Code).IsRequired().HasMaxLength(MallConsts.MaxCodeLength);
+                b.Property(x => x.Desc).IsRequired().HasMaxLength(MallConsts.MaxShortDescLength);
+            });
+
+            // 优惠券
+            builder.Entity<UserCoupon>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "UserCoupons", MallConsts.DbSchema);
+                b.ConfigureFullAuditedAggregateRoot();
+
+                b.Property(x => x.CouponName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
             });
         }
     }

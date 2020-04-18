@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
 using TT.Abp.Mall.Domain.Orders;
@@ -36,5 +37,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         DbSet<Partner> Partners { get; set; }
         
         DbSet<RealNameInfo> RealNameInfos { get; set; }
+        
+        DbSet<Coupon> Coupons { get; set; }
+        DbSet<UserCoupon> UserCoupons { get; set; }
     }
 }

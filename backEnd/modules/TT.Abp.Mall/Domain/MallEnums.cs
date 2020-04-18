@@ -66,5 +66,12 @@ namespace TT.Abp.Mall.Domain
             gcj02 = 1,
             wgs84 = 2
         }
+
+        public enum UseType
+        {
+            全场通用 = 0,
+            指定分类 = 1,
+            指定商品 = 2
+        }
     }
 }
