@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -154,6 +154,7 @@ export class AddressProxyService {
   ): Observable<any> {
     let url = '/api/mall/address/setDefault';
     let options: any = {
+      body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;
@@ -251,6 +252,8 @@ export class CouponProxyService {
   getPublishList(
     params: {
       /**  */
+      shopId?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -288,6 +291,8 @@ export class CouponProxyService {
    */
   getList(
     params: {
+      /**  */
+      shopId?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -567,11 +572,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -699,6 +704,29 @@ export class PartnerProxyService {
     };
     return (this.http.request('get', url, options) as any) as Observable<PartnerDto>;
   }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      shopId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<PartnerDtoPagedResultDto> {
+    let url = '/api/mall/partner/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PartnerDtoPagedResultDto>;
+  }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -727,6 +755,8 @@ export class ProductCategoryProxyService {
    */
   getList(
     params: {
+      /**  */
+      shopId?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -823,6 +853,8 @@ export class ProductOrderProxyService {
   getList(
     params: {
       /**  */
+      shopId?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -875,6 +907,8 @@ export class ProductOrderProxyService {
    */
   getPublicList(
     params: {
+      /**  */
+      shopId?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -954,6 +988,8 @@ export class ProductSkuProxyService {
    */
   getList(
     params: {
+      /**  */
+      shopId?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -1157,11 +1193,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -1531,6 +1567,8 @@ export class UserCouponProxyService {
       /**  */
       couponId?: string;
       /**  */
+      shopId?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1553,6 +1591,8 @@ export class UserCouponProxyService {
     params: {
       /**  */
       couponId?: string;
+      /**  */
+      shopId?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -3050,6 +3090,14 @@ export interface PartnerDto {
 
   /**  */
   unavblBalance?: number;
+}
+
+export interface PartnerDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: PartnerDto[];
 }
 
 export interface ProviderInfoDto {

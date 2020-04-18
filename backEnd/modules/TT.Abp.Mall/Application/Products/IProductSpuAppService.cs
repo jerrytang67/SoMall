@@ -9,7 +9,7 @@ namespace TT.Abp.Mall.Application.Products
     public interface IProductSpuAppService : ICrudAppService<
         ProductSpuDto,
         Guid,
-        MallPagedAndSortedResultRequestDto,
+        MallRequestDto,
         SpuCreateOrUpdateDto,
         SpuCreateOrUpdateDto>
     {

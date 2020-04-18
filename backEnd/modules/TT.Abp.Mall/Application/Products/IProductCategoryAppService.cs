@@ -8,7 +8,7 @@ namespace TT.Abp.Mall.Application.Products
     public interface IProductCategoryAppService : ICrudAppService<
         ProductCategoryDto,
         Guid,
-        PagedAndSortedResultRequestDto,
+        MallRequestDto,
         CategoryCreateOrUpdateDto,
         CategoryCreateOrUpdateDto>
     {

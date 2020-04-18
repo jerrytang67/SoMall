@@ -18,7 +18,7 @@ using Volo.Abp.Guids;
 namespace TT.Abp.Mall.Application.Products
 {
     public class ProductSpuAppService
-        : CrudAppService<ProductSpu, ProductSpuDto, Guid, MallPagedAndSortedResultRequestDto, SpuCreateOrUpdateDto, SpuCreateOrUpdateDto>, IProductSpuAppService
+        : CrudAppService<ProductSpu, ProductSpuDto, Guid, MallRequestDto, SpuCreateOrUpdateDto, SpuCreateOrUpdateDto>, IProductSpuAppService
     {
         private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<ProductSku, Guid> _skuRepository;
@@ -150,7 +150,7 @@ namespace TT.Abp.Mall.Application.Products
         }
 
 
-        public override async Task<PagedResultDto<ProductSpuDto>> GetListAsync(MallPagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<ProductSpuDto>> GetListAsync(MallRequestDto input)
         {
             var spuDtos = await base.GetListAsync(input);
 
@@ -179,11 +179,12 @@ namespace TT.Abp.Mall.Application.Products
             return spuDtos;
         }
 
-        protected override IQueryable<ProductSpu> CreateFilteredQuery(MallPagedAndSortedResultRequestDto input)
+        protected override IQueryable<ProductSpu> CreateFilteredQuery(MallRequestDto input)
         {
             return Repository
                 .Include(x => x.Category)
                 .Include(x => x.Skus)
+                .WhereIf(input.ShopId.HasValue,x=>x.ShopId == input.ShopId)
                 .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
         }
     }

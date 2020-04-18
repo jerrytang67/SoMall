@@ -1,8 +1,14 @@
 ﻿using System;
+using TT.Abp.Mall.Domain.Partners;
 using Volo.Abp.Application.Dtos;
 
-namespace TT.Abp.Mall.Application.Partners
+namespace TT.Abp.Mall.Application.Partners.Dtos
 {
+    
+    
+    /// <summary>
+    /// <see cref="Partner"/>
+    /// </summary>
     public class PartnerDtoBase : EntityDto
     {
         Guid UserId { get; set; }

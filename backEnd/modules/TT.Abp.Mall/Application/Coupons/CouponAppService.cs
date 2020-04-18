@@ -11,10 +11,10 @@ namespace TT.Abp.Mall.Application.Coupons
 {
     public interface ICouponAppService
     {
-        Task<ListResultDto<CouponDto>> GetPublishListAsync(PagedAndSortedResultRequestDto input);
+        Task<ListResultDto<CouponDto>> GetPublishListAsync(MallRequestDto input);
     }
 
-    public class CouponAppService : CrudAppService<Coupon, CouponDto, Guid, PagedAndSortedResultRequestDto, CouponCreateOrUpdateDto, CouponCreateOrUpdateDto>, ICouponAppService
+    public class CouponAppService : CrudAppService<Coupon, CouponDto, Guid, MallRequestDto, CouponCreateOrUpdateDto, CouponCreateOrUpdateDto>, ICouponAppService
     {
         private readonly IRepository<UserCoupon, Guid> _userCouponRepository;
 
@@ -31,7 +31,7 @@ namespace TT.Abp.Mall.Application.Coupons
         }
 
 
-        public async Task<ListResultDto<CouponDto>> GetPublishListAsync(PagedAndSortedResultRequestDto input)
+        public async Task<ListResultDto<CouponDto>> GetPublishListAsync(MallRequestDto input)
         {
             var query = base.CreateFilteredQuery(input);
 
@@ -46,6 +46,12 @@ namespace TT.Abp.Mall.Application.Coupons
             );
 
             return result;
+        }
+
+        protected override IQueryable<Coupon> CreateFilteredQuery(MallRequestDto input)
+        {
+            return base.CreateFilteredQuery(input)
+                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
         }
     }
 }

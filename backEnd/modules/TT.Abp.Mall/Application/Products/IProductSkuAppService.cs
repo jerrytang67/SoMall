@@ -8,7 +8,7 @@ namespace TT.Abp.Mall.Application.Products
     public interface IProductSkuAppService : ICrudAppService<
         ProductSkuDto,
         Guid,
-        PagedAndSortedResultRequestDto,
+        MallRequestDto,
         SkuCreateOrUpdateDto,
         SkuCreateOrUpdateDto>
     {

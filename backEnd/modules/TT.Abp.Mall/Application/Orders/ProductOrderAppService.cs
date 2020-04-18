@@ -20,13 +20,13 @@ using Volo.Abp.Settings;
 
 namespace TT.Abp.Mall.Application.Orders
 {
-    public interface IProductOrderAppService : ICrudAppService<ProductOrderDto, Guid, PagedAndSortedResultRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>
+    public interface IProductOrderAppService : ICrudAppService<ProductOrderDto, Guid, MallRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>
     {
-        Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(PagedAndSortedResultRequestDto input);
+        Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(MallRequestDto input);
     }
 
     public class ProductOrderAppService :
-        CrudAppService<ProductOrder, ProductOrderDto, Guid, PagedAndSortedResultRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>,
+        CrudAppService<ProductOrder, ProductOrderDto, Guid, MallRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>,
         IProductOrderAppService
     {
         private readonly IPayApi _payApi;
@@ -64,7 +64,7 @@ namespace TT.Abp.Mall.Application.Orders
             return MapToGetOutputDto(entity);
         }
 
-        public override async Task<PagedResultDto<ProductOrderDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<ProductOrderDto>> GetListAsync(MallRequestDto input)
         {
             var result = await base.GetListAsync(input);
 
@@ -99,9 +99,11 @@ namespace TT.Abp.Mall.Application.Orders
             throw new Exception("not use");
         }
 
-        protected override IQueryable<ProductOrder> CreateFilteredQuery(PagedAndSortedResultRequestDto input)
+        protected override IQueryable<ProductOrder> CreateFilteredQuery(MallRequestDto input)
         {
-            return base.CreateFilteredQuery(input).Include(x => x.OrderItems);
+            return base.CreateFilteredQuery(input)
+                .WhereIf(input.ShopId.HasValue,x=>x.ShopId == input.ShopId)
+                .Include(x => x.OrderItems);
         }
 
 
@@ -134,7 +136,7 @@ namespace TT.Abp.Mall.Application.Orders
 
 
         [Authorize]
-        public async Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(PagedAndSortedResultRequestDto input)
+        public async Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(MallRequestDto input)
         {
             var query = CreateFilteredQuery(input).Where(x => x.CreatorId == CurrentUser.Id);
 

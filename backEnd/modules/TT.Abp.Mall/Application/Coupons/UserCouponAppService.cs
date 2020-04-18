@@ -47,6 +47,7 @@ namespace TT.Abp.Mall.Application.Coupons
         protected override IQueryable<UserCoupon> CreateFilteredQuery(CouponResultRequestDto input)
         {
             return base.CreateFilteredQuery(input)
+                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
                 .WhereIf(input.CouponId.HasValue, x => x.CouponId == input.CouponId);
         }
     }

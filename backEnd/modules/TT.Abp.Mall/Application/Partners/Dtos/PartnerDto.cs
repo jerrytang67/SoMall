@@ -1,4 +1,5 @@
 ﻿using System;
+using TT.Abp.Mall.Application.Partners.Dtos;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Partners;
 
