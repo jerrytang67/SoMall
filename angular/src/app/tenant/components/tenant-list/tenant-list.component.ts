@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { TenantService } from '../../store/tenant.service';
+import { CreateTenantComponent } from './create-tenant.component';
+import { EditTenantComponent } from './edit-tenant.component';
 
 @Component({
   selector: 'app-tenant-list',
@@ -47,13 +49,72 @@ export class TenantListComponent implements OnInit {
 
 
   create(item: any) {
+    const modal = this.modalService.create({
+      nzTitle: '新建租户',
+      nzWidth: '40vw',
+      nzContent: CreateTenantComponent,
+      nzComponentParams: {
+        form: {}
+      },
+      nzFooter: [
+        {
+          label: '确定',
+          onClick: instance => {
+            console.log("componentInstance", instance);
+            if (instance.f.valid) {
+              this.tenantService.createTenant(instance.form).subscribe(res => {
+                this.message.success("新建成功");
+                this.refresh();
+                modal.destroy();
+              })
+            }
+            else {
+              instance.f.ngSubmit.emit(null)
+              this.message.error("表单错误")
+            }
+          }
+        }
+      ]
+    });
+
 
   }
   edit(item: any) {
-
+    this.tenantService.getTenant(item.id).subscribe(res => {
+      const modal = this.modalService.create({
+        nzTitle: '编辑租户',
+        nzWidth: '40vw',
+        nzContent: EditTenantComponent,
+        nzComponentParams: {
+          form: res
+        },
+        nzFooter: [
+          {
+            label: '确定',
+            onClick: instance => {
+              console.log("componentInstance", instance);
+              if (instance.f.valid) {
+                this.tenantService.updateTenant(item.id, instance.form).subscribe(res => {
+                  this.message.success("新建成功");
+                  this.refresh();
+                  modal.destroy();
+                })
+              }
+              else {
+                instance.f.ngSubmit.emit(null)
+                this.message.error("表单错误")
+              }
+            }
+          }
+        ]
+      });
+    })
   }
   delete(item: any) {
-
+    this.tenantService.deleteTenant(item.id).subscribe(() => {
+      this.message.success("删除成功");
+      this.refresh();
+    })
   }
 
 }

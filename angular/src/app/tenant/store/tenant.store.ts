@@ -20,20 +20,17 @@ export namespace TenantManagement {
     export type Response = PagedResponse<Item>;
 
     export interface Item {
-        id: string;
-        name: string;
+        id?: string;
+        name?: string;
     }
 
-    export interface AddRequest {
-        adminEmailAddress: string;
-        adminPassword: string;
-        name: string;
+    export interface CreateOrUpdateDto {
+        id?: string;
+        adminEmailAddress?: string;
+        adminPassword?: string;
+        name?: string;
     }
 
-    export interface UpdateRequest {
-        id: string;
-        name: string;
-    }
 
     export interface DefaultConnectionStringRequest {
         id: string;

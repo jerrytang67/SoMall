@@ -173,10 +173,15 @@ export class DefaultInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     let token = "";
+    let __tenant = "";
+    // let __tenant = `4df058f8-fb18-6524-a154-39f49f58a925`;
     if (getStore<User>("auth"))
       token = getStore<User>("auth").access_token
     let headers = req.headers.set("Authorization", `Bearer ${token}`);
 
+    if (__tenant) {
+      headers = req.headers.set("__tenant", `4df058f8-fb18-6524-a154-39f49f58a925`);
+    }
 
     // 统一加上服务端前缀
     let url = req.url;
@@ -185,7 +190,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         url = environment.apis.default.url + url;
     }
 
-    const clonedRequest: HttpRequest<any> = req.clone({ headers, url });
+    const clonedRequest: HttpRequest<any> = req.clone({ headers, url, });
 
     //统一加上服务端前缀
     // let url = req.url;
