@@ -2,12 +2,15 @@
 using AutoMapper;
 using TT.Abp.Mall.Application.Addresses;
 using TT.Abp.Mall.Application.Addresses.Dtos;
+using TT.Abp.Mall.Application.Coupons;
+using TT.Abp.Mall.Application.Coupons.Dtos;
 using TT.Abp.Mall.Application.Orders;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Partners;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Application.Users;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
@@ -75,6 +78,15 @@ namespace TT.Abp.Mall
             #region Partners
 
             CreateMap<Partner, PartnerDto>();
+
+            #endregion
+
+
+            #region Coupons
+
+            CreateMap<Coupon, CouponDto>();
+            
+            CreateMap<CouponCreateOrUpdateDto, Coupon>();
 
             #endregion
         }

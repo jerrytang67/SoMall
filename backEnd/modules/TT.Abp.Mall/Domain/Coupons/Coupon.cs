@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 using TT.Abp.Shops;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -33,12 +34,11 @@ namespace TT.Abp.Mall.Domain
         }
 
         public int Amount { get; protected set; }
+        [NotNull] public string Name { get; protected set; }
 
-        public string Name { get; protected set; }
+        [NotNull] public string Code { get; protected set; }
 
-        public string Code { get; protected set; }
-
-        public string Desc { get; protected set; }
+        [NotNull] public string Desc { get; protected set; }
         public int Count { get; protected set; }
 
         public int TotalCount { get; protected set; }
