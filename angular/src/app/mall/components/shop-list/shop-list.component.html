@@ -39,9 +39,10 @@
                 <td>{{item.shortName}}</td>
                 <!-- <td>{{item.description}}</td> -->
                 <td>
-                    <!-- <a (click)="edit(item)">{{'edit' | translate}}</a>
-                    <nz-divider nzType="vertical"></nz-divider> -->
-                    <a nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)" nzPopconfirmPlacement="top">{{'delete' | translate}}</a>
+                    <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/orders', item.id]">查看订单</button>
+
+                    <nz-divider nzType="vertical"></nz-divider>
+                    <!-- <a nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)" nzPopconfirmPlacement="top">{{'delete' | translate}}</a> -->
                 </td>
             </tr>
         </tbody>

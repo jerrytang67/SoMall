@@ -29,6 +29,7 @@ const routes: Routes = [
       { path: 'addresses', component: AddressListComponent, data: { title: '用户地址列表', permission: 'Pages' } },
       { path: 'users', component: MallUserListComponent, data: { title: '商城用户列表', permission: 'Pages' } },
       { path: 'orders', component: OrderListComponent, data: { title: '订单列表', permission: 'Pages' } },
+      { path: 'orders/:shopId', component: OrderListComponent, data: { title: '商家订单列表', permission: 'Pages' } },
       { path: 'coupons', component: CouponListComponent, data: { title: '优惠券列表', permission: 'Pages' } },
       { path: 'userCoupons', component: UserCouponListComponent, data: { title: '用户优惠券', permission: 'Pages' } },
       { path: 'userCoupons/:couponId', component: UserCouponListComponent, data: { title: '用户优惠券', permission: 'Pages' } },

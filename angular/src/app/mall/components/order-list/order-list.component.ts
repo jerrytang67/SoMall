@@ -10,6 +10,7 @@ import { ProductOrderProxyService } from 'src/api/appService';
 export class OrderListComponent implements OnInit {
 
   dataItems: any[] = [];
+  shopId: string = "";
   pageingInfo = {
     totalItems: 0,
     pageNumber: 1,
@@ -28,6 +29,9 @@ export class OrderListComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((params: any) => {
       console.log(params)
+      if (params.params.shopId) {
+        this.shopId = params.params.shopId
+      }
       this.refresh();
     });
   }
@@ -36,7 +40,8 @@ export class OrderListComponent implements OnInit {
     this.pageingInfo.isTableLoading = true;
     this.api.getList({
       maxResultCount: this.pageingInfo.pageSize,
-      skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize
+      skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize,
+      shopId: this.shopId
     }).subscribe(res => {
       console.log(res);
       this.dataItems = res.items;

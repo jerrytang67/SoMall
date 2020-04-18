@@ -25,13 +25,14 @@ export class BaseView extends Vue {
         // }
     }
 
-    bindGetUserInfo(e: any) {
+    bindGetUserInfo(e: any, back: boolean = false) {
         console.log(e);
         if (e.mp.detail.rawData) {
             //用户按了允许授权按钮
             UserModule.Login()
                 .then((res: any) => {
                     console.log("getUserInfo", res);
+                    if (back) { uni.navigateBack() }
                 })
                 .catch(error => {
                     Tips.info(error);

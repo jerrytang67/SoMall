@@ -97,5 +97,6 @@ export class ShopListComponent implements OnInit {
   }
 
   handleCancel() { this.isVisible = false; }
+
 }
 
