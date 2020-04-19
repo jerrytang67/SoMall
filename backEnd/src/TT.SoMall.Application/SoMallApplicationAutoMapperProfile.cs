@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TT.SoMall.Dtos;
 using TT.SoMall.Users;
 
 namespace TT.SoMall

@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -154,7 +154,6 @@ export class AddressProxyService {
   ): Observable<any> {
     let url = '/api/mall/address/setDefault';
     let options: any = {
-      body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;
@@ -572,11 +571,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -1174,6 +1173,135 @@ export class ProductSpuProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class PublicProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getCurrentUser(): Observable<UserProfileInput> {
+    let url = '/api/app/public/getCurrentUser';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<UserProfileInput>;
+  }
+  /**
+   *
+   */
+  updateUserProfile(
+    params: {
+      /** requestBody */
+      body?: UserProfileInput;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/public/updateUserProfile';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class RealNameInfoProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      shopId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<RealNameInfoDtoPagedResultDto> {
+    let url = '/api/mall/realNameInfo/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<RealNameInfoDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<RealNameInfoDto> {
+    let url = '/api/mall/realNameInfo/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<RealNameInfoDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: RealNameInfoCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<RealNameInfoDto> {
+    let url = '/api/mall/realNameInfo/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<RealNameInfoDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: RealNameInfoCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<RealNameInfoDto> {
+    let url = '/api/mall/realNameInfo/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<RealNameInfoDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/realNameInfo/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class RoleProxyService {
   constructor(private http: HttpClient) {}
 
@@ -1193,11 +1321,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -3457,6 +3585,119 @@ export interface ChangePasswordInput {
   newPassword?: string;
 }
 
+export interface UserProfileInput {
+  /**  */
+  isAuthenticated?: boolean;
+
+  /**  */
+  userName?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  surname?: string;
+
+  /**  */
+  phoneNumber?: string;
+
+  /**  */
+  phoneNumberConfirmed?: boolean;
+
+  /**  */
+  email?: string;
+
+  /**  */
+  password?: string;
+
+  /**  */
+  passwordConfirm?: string;
+
+  /**  */
+  nickname?: string;
+
+  /**  */
+  headImgUrl?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface RealNameInfoDto {
+  /**  */
+  realName?: string;
+
+  /**  */
+  phone?: string;
+
+  /**  */
+  phoneBackup?: string;
+
+  /**  */
+  type?: RealNameInfoType;
+
+  /**  */
+  idCardFrontUrl?: string;
+
+  /**  */
+  idCardBackUrl?: string;
+
+  /**  */
+  idCardHandUrl?: string;
+
+  /**  */
+  businessLicenseUrl?: string;
+
+  /**  */
+  state?: RealNameInfoState;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  mallUser?: MallUserDto;
+
+  /**  */
+  id?: string;
+}
+
+export interface RealNameInfoDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: RealNameInfoDto[];
+}
+
+export interface RealNameInfoCreateOrUpdateDto {
+  /**  */
+  realName?: string;
+
+  /**  */
+  phone?: string;
+
+  /**  */
+  phoneBackup?: string;
+
+  /**  */
+  type?: RealNameInfoType;
+
+  /**  */
+  idCardFrontUrl?: string;
+
+  /**  */
+  idCardBackUrl?: string;
+
+  /**  */
+  idCardHandUrl?: string;
+
+  /**  */
+  businessLicenseUrl?: string;
+}
+
 export interface IdentityRoleDto {
   /**  */
   name?: string;
@@ -3868,6 +4109,17 @@ export enum PayType {
   '支付宝' = '支付宝',
   '银联' = '银联',
   '用户余额' = '用户余额'
+}
+
+export enum RealNameInfoType {
+  '个人' = '个人',
+  '企业' = '企业'
+}
+
+export enum RealNameInfoState {
+  '未认证' = '未认证',
+  '个人认证' = '个人认证',
+  '企业认证' = '企业认证'
 }
 
 export enum OrderType {

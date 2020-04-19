@@ -9,23 +9,23 @@ namespace TT.Abp.Mall.Domain.Partners
 {
     public class RealNameInfo : FullAuditedEntity<Guid>, IMultiTenant
     {
-        [NotNull] public string RealName { get; set; }
+        [NotNull] public string RealName { get; protected set; }
 
-        [NotNull] public string Phone { get; set; }
+        [NotNull] public string Phone { get; protected set; }
 
-        public string PhoneBackup { get; set; }
+        public string PhoneBackup { get; protected set; }
 
-        public MallEnums.RealNameInfoType Type { get; set; }
+        public MallEnums.RealNameInfoType Type { get; protected set; }
 
-        [NotNull] [DisplayName("身份证-正面")] public string IDCardFrontUrl { get; set; }
+        [NotNull] public string IDCardFrontUrl { get; protected set; }
 
-        [NotNull] [DisplayName("身份证-背面")] public string IDCardBackUrl { get; set; }
+        [NotNull] public string IDCardBackUrl { get; protected set; }
 
-        [NotNull] [DisplayName("手持身份证-正面")] public string IDCardHandUrl { get; set; }
+        [NotNull] public string IDCardHandUrl { get; protected set; }
 
-        public string BusinessLicenseUrl { get; set; }
+        public string BusinessLicenseUrl { get; protected set; }
 
-        public MallEnums.RealNameInfoState State { get; set; } = 0;
+        public MallEnums.RealNameInfoState State { get; protected set; } = 0;
 
         public Guid? TenantId { get; protected set; }
     }

@@ -149,6 +149,7 @@ class User extends VuexModule {
                                             this.SET_TOKEN(res.accessToken)
                                             this.SET_USERINFO(res.externalUser);
                                             this.SET_SESSIONKEY(res.sessionKey);
+                                            this.CheckLogin();
                                             return resolve(res);
                                         } else {
                                             return reject("获取登录失败");
@@ -176,6 +177,8 @@ class User extends VuexModule {
         await api.checkLogin().then((res: any) => {
             if (res && res.isAuthenticated) {
                 this.SET_USER(res);
+                if (res.phoneNumber && res.phoneNumberConfirmed)
+                    this.SET_PHONE(res.phoneNumber);
             }
             else {
                 console.log("notlogin... to logout")

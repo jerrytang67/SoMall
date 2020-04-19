@@ -12,6 +12,7 @@ namespace TT.Abp.Mall.Domain.Users
                 userRepository,
                 unitOfWorkManager)
         {
+            SkipExternalLookupIfLocalUserExists = false;
         }
 
         protected override MallUser CreateUser(IUserData externalUser)

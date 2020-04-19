@@ -40,6 +40,14 @@ namespace TT.Abp.Mall
             public const string Update = Default + ".Update";
         }
 
+        public static class RealNameInfos
+        {
+            public const string Default = GroupName + ".RealNameInfos";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+            public const string Update = Default + ".Update";
+        }
+
         public static string[] GetAll()
         {
             return ReflectionHelper.GetPublicConstantsRecursively(typeof(MallPermissions));
@@ -69,7 +77,12 @@ namespace TT.Abp.Mall
             var coupons = mallGroup.AddPermission(MallPermissions.Coupons.Default, L("Permission:Coupons"));
             coupons.AddChild(MallPermissions.Coupons.Update, L("Permission:Edit"));
             coupons.AddChild(MallPermissions.Coupons.Delete, L("Permission:Delete"));
-            coupons.AddChild(MallPermissions.Coupons.Create, L("Permission:Create"));
+            coupons.AddChild(MallPermissions.Coupons.Create, L("Permission:Create"));          
+            
+            var realNameInfos = mallGroup.AddPermission(MallPermissions.RealNameInfos.Default, L("Permission:RealNameInfos"));
+            realNameInfos.AddChild(MallPermissions.RealNameInfos.Update, L("Permission:Edit"));
+            realNameInfos.AddChild(MallPermissions.RealNameInfos.Delete, L("Permission:Delete"));
+            realNameInfos.AddChild(MallPermissions.RealNameInfos.Create, L("Permission:Create"));
         }
 
         private static LocalizableString L(string name)

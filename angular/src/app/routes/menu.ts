@@ -17,7 +17,7 @@ export const menu = [
     { text: "商品列表", link: "/mall/spus", icon: "far fa-lightbulb" },
     { text: "订单列表", link: "/mall/orders", icon: "fas fa-donate" },
     { text: "合伙人列表", link: "/mall/partners", icon: "far fa-user" },
-    { text: "实名认证", link: "/mall/spus", icon: "far fa-address-book" },
+    { text: "实名认证", link: "/mall/realNameInfos", icon: "far fa-address-book" },
     { text: "地址列表", link: "/mall/addresses", icon: "far fa-address-book" },
     { text: "商城用户", link: "/mall/users", icon: "far fa-user" },
     { text: "优惠券列表", link: "/mall/coupons", icon: "far fa-user" },

@@ -18,7 +18,7 @@
             <block v-for="(item, index) in cartList" :key="item.id">
                <view class="cart-item" :class="{'b-b': index!==cartList.length-1}">
                   <view class="image-wrapper">
-                     <image :src="item.coverImageUrls[0]" :class="[item.loaded]" mode="aspectFill" lazy-load></image>
+                     <image :src="item.coverImageUrls[0]" mode="aspectFill"></image>
                      <view class="yticon icon-xuanzhong2 checkbox" :class="{checked: item.checked}" @click="check('item', index)"></view>
                   </view>
                   <view class="item-right">
@@ -110,7 +110,7 @@ export default class CartPage extends BaseView {
    }
    //数量
    numberChange(data: any) {
-      console.log("numberChange",data)
+      console.log("numberChange", data);
       this.cartList[data.index].num = data.num;
       this.calcTotal();
    }
@@ -122,9 +122,7 @@ export default class CartPage extends BaseView {
    //清空
    clearCart() {}
    //计算总价
-   calcTotal(type: any = null) {
-
-   }
+   calcTotal(type: any = null) {}
    //创建订单
    createOrder() {
       let list = Object.values(this.cartList);

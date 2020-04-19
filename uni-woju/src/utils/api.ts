@@ -32,7 +32,7 @@ export default {
     checkLogin: () => request("GET", `/api/app/public/GetCurrentUser`),
     getPhone: (data: any) => request("POST", `/api/app/weixin/getPhone`, data),
 
-    public_updateUserProfile: (data: any) => request('PUT', `/api/app/public/updateUserProfile`, data),
+    public_updateUserProfile: (data: any) => request('POST', `/api/app/public/updateUserProfile`, data),
 
     // auth
     client_miniAuth: (data: any) => request("POST", `/api/mall/client/miniAuth`, data),
