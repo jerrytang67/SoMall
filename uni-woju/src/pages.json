@@ -19,6 +19,12 @@
 			}
 		},
 		{
+			"path": "pages/index/cart",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
 			"path": "pages/index/about",
 			"style": {
 				"navigationBarTitleText": "about"
@@ -101,6 +107,12 @@
 				"iconPath": "static/images/order2.png",
 				"selectedIconPath": "static/images/order.png",
 				"text": "订单"
+			},
+			{
+				"pagePath": "pages/index/cart",
+				"iconPath": "static/images/order2.png",
+				"selectedIconPath": "static/images/order.png",
+				"text": "购物车"
 			},
 			{
 				"pagePath": "pages/index/my",

@@ -29,8 +29,10 @@ const request = (
 export default {
     // default
     init: (data: any) => request('POST', `/api/mall/client/init`, data),
-    checkLogin: () => request("GET", `/api/app/weixin/checkLogin?dbCheck=true`),
+    checkLogin: () => request("GET", `/api/app/public/GetCurrentUser`),
     getPhone: (data: any) => request("POST", `/api/app/weixin/getPhone`, data),
+
+    public_updateUserProfile: (data: any) => request('PUT', `/api/app/public/updateUserProfile`, data),
 
     // auth
     client_miniAuth: (data: any) => request("POST", `/api/mall/client/miniAuth`, data),

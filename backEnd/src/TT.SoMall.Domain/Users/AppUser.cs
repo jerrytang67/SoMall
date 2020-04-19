@@ -51,5 +51,47 @@ namespace TT.SoMall.Users
         private AppUser()
         {
         }
+
+        public void SetPhone(string phone)
+        {
+            if (!phone.IsNullOrWhiteSpace())
+            {
+                PhoneNumber = phone;
+                PhoneNumberConfirmed = true;
+            }
+        }
+
+        public void SetEmail(string email)
+        {
+            if (!email.IsNullOrWhiteSpace())
+            {
+                Email = email;
+                EmailConfirmed = false;
+            }
+        }
+
+        public void SetName(string name)
+        {
+            if (!name.IsNullOrWhiteSpace())
+            {
+                Name = name;
+            }
+        }
+
+        public void SetUserName(string username)
+        {
+            if (!username.IsNullOrWhiteSpace())
+            {
+                UserName = username;
+            }
+        }
+
+        public void SetSurname(string surname)
+        {
+            if (!surname.IsNullOrWhiteSpace())
+            {
+                Surname = surname;
+            }
+        }
     }
 }

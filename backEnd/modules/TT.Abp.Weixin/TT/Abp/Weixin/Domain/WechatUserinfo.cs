@@ -5,6 +5,11 @@ namespace TT.Abp.Weixin.Domain
 {
     public class WechatUserinfo : CreationAuditedEntity
     {
+        public override object[] GetKeys()
+        {
+            return new object[] {appid, openid};
+        }
+
         private WechatUserinfo()
         {
         }
@@ -37,11 +42,6 @@ namespace TT.Abp.Weixin.Domain
         public int sex { get; set; }
 
         public WeixinEnums.ClientType FromClient { get; set; }
-
-        public override object[] GetKeys()
-        {
-            return new object[] {appid, openid};
-        }
     }
 
     public class WeixinEnums

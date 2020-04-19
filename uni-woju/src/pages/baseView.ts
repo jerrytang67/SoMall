@@ -59,6 +59,10 @@ export class BaseView extends Vue {
         uni.navigateTo({ url: "/pages/mall/spu-detail?id=" + id });
     }
 
+    toBack() {
+        uni.navigateBack();
+    }
+
     toHome() {
         uni.switchTab({ url: "/pages/index/index" })
     }

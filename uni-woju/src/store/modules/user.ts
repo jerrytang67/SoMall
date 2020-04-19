@@ -2,6 +2,22 @@ import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-dec
 import store from '@/store'
 import api from '@/utils/api';
 
+export interface IUser {
+    id?: boolean;
+    isAuthenticated?: boolean;
+    userName?: string;
+    name?: string;
+    surname?: string;
+    nickname?: string;
+    headImgUrl?: string;
+    phoneNumber?: string;
+    phoneNumberConfirmed?: boolean;
+    email?: string;
+    tenantId?: string;
+    roles?: string[];
+}
+
+
 export interface IUserInfo {
     avatarUrl?: string;
     city?: string;
@@ -29,6 +45,9 @@ export interface IShopMember {
 
 @Module({ dynamic: true, store, name: 'user' })
 class User extends VuexModule {
+
+    private user: IUser = {}
+
     private userInfo: IUserInfo = uni.getStorageSync("userInfo") || {
         openid: "",
         unionid: ""
@@ -36,6 +55,11 @@ class User extends VuexModule {
     private token: string = uni.getStorageSync("token") || "";
     private sessionKey: string = uni.getStorageSync("sessionKey") || "";
     private phone: string = uni.getStorageSync("phone") || "";
+
+    get getUser() {
+        return this.user;
+    }
+
     get getUserInfo() {
         return this.userInfo;
     }
@@ -56,6 +80,9 @@ class User extends VuexModule {
         return this.sessionKey;
     }
 
+
+    @Mutation
+    private SET_USER(payload: IUser) { this.user = payload }
 
     @Mutation
     private SET_USERINFO(v: IUserInfo) {
@@ -145,13 +172,14 @@ class User extends VuexModule {
     }
 
     @Action
-    CheckLogin() {
-        api.checkLogin().then((res: any) => {
-            if (res) {
-                // console.log("login")
+    public async CheckLogin() {
+        await api.checkLogin().then((res: any) => {
+            if (res && res.isAuthenticated) {
+                this.SET_USER(res);
             }
             else {
                 console.log("notlogin... to logout")
+                console.log(res)
                 this.LOGOUT();
             }
         }).catch(() => {

@@ -43,7 +43,9 @@ export interface ISku {
     soldCount?: number;
     limitBuyCount?: number;
     unit?: string;
-    num?: number
+    num?: number;
+    checked?:boolean;
+
 }
 
 @Module({ dynamic: true, store, name: 'shop' })

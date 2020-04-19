@@ -110,15 +110,15 @@
       <!-- 底部操作菜单 -->
       <view class="page-bottom">
          <navigator url="/pages/index/index" open-type="switchTab" class="p-b-btn">
-				<text class="yticon icon-xiatubiao--copy"></text>
+            <text class="yticon icon-xiatubiao--copy"></text>
             <text>首页</text>
          </navigator>
          <navigator url="/pages/cart/cart" class="p-b-btn">
-				<text class="yticon icon-gouwuche"></text>
+            <text class="yticon icon-gouwuche"></text>
             <text>购物车</text>
          </navigator>
          <view class="p-b-btn" :class="{active: true}" @click="toFavorite">
-				<text class="yticon icon-shoucang"></text>
+            <text class="yticon icon-shoucang"></text>
             <text>收藏</text>
          </view>
          <view class="action-btn-group">
@@ -169,6 +169,7 @@
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import { ShopModule, ISku } from "@/store/modules/shop";
 import ShareComponent from "@/components/share.vue";
+import { OrderModule } from "../../store/modules/order";
 @Component({ components: { ShareComponent } })
 export default class About extends Vue {
    async onLoad(query: any) {
@@ -240,6 +241,10 @@ export default class About extends Vue {
       return ShopModule.getCurrentSpu;
    }
 
+   get cart(): ISku[] {
+      return OrderModule.getCart;
+   }
+
    created() {}
 
    imageOnLoad(key: string, index: number) {
@@ -277,7 +282,14 @@ export default class About extends Vue {
    }
 
    // 加入购物车
-   addCart() {}
+   addCart() {
+      // 如果没有选择过规格
+      if (this.selected === undefined) {
+         this.toggleSpec();
+      } else {
+         OrderModule.AddCart(this.sku);
+      }
+   }
 
    //规格弹窗开关
    toggleSpec() {

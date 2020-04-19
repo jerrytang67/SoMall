@@ -1,6 +1,6 @@
 <template>
    <view class="container">
-      <view class="list-cell b-b m-t" @click="navTo('个人资料')" hover-class="cell-hover" :hover-stay-time="50">
+      <view class="list-cell b-b m-t" @click="navTo('/pages/user/profile')" hover-class="cell-hover" :hover-stay-time="50">
          <text class="cell-tit">个人资料</text>
          <text class="cell-more yticon icon-you"></text>
       </view>
@@ -46,7 +46,7 @@ import { UserModule } from "@/store/modules/user";
 @Component
 export default class SettingPage extends BaseView {
    navTo(url: string) {
-      Tips.info(`跳转到${url}`);
+      uni.navigateTo({ url });
    }
 
    toLogout() {
