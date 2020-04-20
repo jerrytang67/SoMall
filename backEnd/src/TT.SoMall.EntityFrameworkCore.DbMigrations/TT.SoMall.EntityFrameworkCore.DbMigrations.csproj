@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\TT.Abp.AppManagement\TT.Abp.AppManagement.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.FormManagement\TT.Abp.FormManagement.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.Mall\TT.Abp.Mall.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.VisitorManagement\TT.Abp.VisitorManagement.csproj" />

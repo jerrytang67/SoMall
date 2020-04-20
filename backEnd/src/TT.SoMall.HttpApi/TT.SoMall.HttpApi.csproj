@@ -8,12 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\TT.Abp.AccountManagement\TT.Abp.AccountManagement.csproj" />
-    <ProjectReference Include="..\..\modules\TT.Abp.Shops\TT.Abp.Shops.csproj" />
-    <ProjectReference Include="..\..\modules\TT.Abp.Core\TT.Abp.Core.csproj" />
-    <ProjectReference Include="..\..\modules\TT.Abp.OssManagement\TT.Abp.OssManagement.csproj" />
-    <ProjectReference Include="..\..\modules\TT.Abp.VisitorManagement\TT.Abp.VisitorManagement.csproj" />
-    <ProjectReference Include="..\..\modules\TT.Abp.Weixin\TT.Abp.Weixin.csproj" />
     <ProjectReference Include="..\TT.SoMall.Application.Contracts\TT.SoMall.Application.Contracts.csproj" />
   </ItemGroup>
 

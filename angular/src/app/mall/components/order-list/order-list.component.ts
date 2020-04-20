@@ -41,7 +41,8 @@ export class OrderListComponent implements OnInit {
     this.api.getList({
       maxResultCount: this.pageingInfo.pageSize,
       skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize,
-      shopId: this.shopId
+      shopId: this.shopId,
+      sorting:"id desc"
     }).subscribe(res => {
       console.log(res);
       this.dataItems = res.items;
