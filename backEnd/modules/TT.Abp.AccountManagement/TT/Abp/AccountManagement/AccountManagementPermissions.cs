@@ -7,7 +7,7 @@ namespace TT.Abp.AccountManagement
 {
     public class AccountManagementPermissions
     {
-        public const string GroupName = "Mall";
+        public const string GroupName = "AccountManagement";
 
         public static class RealNameInfos
         {

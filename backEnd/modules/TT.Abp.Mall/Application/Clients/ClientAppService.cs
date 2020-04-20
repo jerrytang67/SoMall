@@ -73,6 +73,13 @@ namespace TT.Abp.Mall.Application.Clients
         {
             var appid = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppId);
             var appSec = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppSecret);
+
+            if (loginModel.appid == "wx20963173630db476")
+            {
+                appid = "wx20963173630db476";
+                appSec = "b1d63d235d3d9e74836c740b5b63590c";
+            }
+
             return await _weixinAppService.MiniAuth(loginModel, appid, appSec);
         }
 

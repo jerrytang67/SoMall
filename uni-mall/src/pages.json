@@ -1,0 +1,125 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "SoMall 商城版"
+			}
+		},
+		{
+			"path": "pages/index/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/index/my",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/index/cart",
+			"style": {
+				"navigationBarTitleText": "购物车"
+			}
+		},
+		{
+			"path": "pages/index/about",
+			"style": {
+				"navigationBarTitleText": "about"
+			}
+		},
+		{
+			"path": "pages/mall/shop",
+			"style": {
+				"navigationBarTitleText": "商家"
+			}
+		},
+		{
+			"path": "pages/mall/spu-detail",
+			"style": {
+				"navigationBarTitleText": "商品详情"
+			}
+		},
+		{
+			"path": "pages/mall/create-order",
+			"style": {
+				"navigationBarTitleText": "创建订单"
+			}
+		},
+		{
+			"path": "pages/address/address",
+			"style": {
+				"navigationBarTitleText": "address"
+			}
+		},
+		{
+			"path": "pages/orders/index",
+			"style": {
+				"navigationBarTitleText": "订单"
+			}
+		},
+		{
+			"path": "pages/orders/pay",
+			"style": {
+				"navigationBarTitleText": "支付页面"
+			}
+		},
+		{
+			"path": "pages/orders/paySuccess",
+			"style": {
+				"navigationBarTitleText": "支付成功"
+			}
+		},
+		{
+			"path": "pages/user/setting",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		},
+		{
+			"path": "pages/user/profile",
+			"style": {
+				"navigationBarTitleText": "个人资料"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "莴聚",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#f8f8f8"
+	},
+	"tabBar": {
+		"selectedColor": "#FE3112",
+		"color": "#999999",
+		"borderStyle": "black",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/home2.png",
+				"selectedIconPath": "static/images/home.png",
+				"text": "主页"
+			},
+			{
+				"pagePath": "pages/orders/index",
+				"iconPath": "static/images/order2.png",
+				"selectedIconPath": "static/images/order.png",
+				"text": "订单"
+			},
+			{
+				"pagePath": "pages/index/cart",
+				"iconPath": "static/images/order2.png",
+				"selectedIconPath": "static/images/order.png",
+				"text": "购物车"
+			},
+			{
+				"pagePath": "pages/index/my",
+				"iconPath": "static/images/my2.png",
+				"selectedIconPath": "static/images/my.png",
+				"text": "我的"
+			}
+		]
+	}
+}

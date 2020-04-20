@@ -102,7 +102,7 @@ namespace TT.Abp.Mall.Application.Orders
         protected override IQueryable<ProductOrder> CreateFilteredQuery(MallRequestDto input)
         {
             return base.CreateFilteredQuery(input)
-                .WhereIf(input.ShopId.HasValue,x=>x.ShopId == input.ShopId)
+                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
                 .Include(x => x.OrderItems);
         }
 
@@ -115,6 +115,9 @@ namespace TT.Abp.Mall.Application.Orders
             var order = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
 
             var appid = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppId);
+
+            if (input.Client == "mall")
+                appid = "wx20963173630db476";
             var mchId = await _setting.GetOrNullAsync(MallManagementSetting.PayMchId);
             var mchKey = await _setting.GetOrNullAsync(MallManagementSetting.PayKey);
             var notifyUrl = await _setting.GetOrNullAsync(MallManagementSetting.PayNotify);
@@ -143,7 +146,7 @@ namespace TT.Abp.Mall.Application.Orders
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
-            
+
             query = ApplyPaging(query, input);
 
             var entities = await AsyncQueryableExecuter.ToListAsync(query);

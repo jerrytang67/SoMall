@@ -15,5 +15,7 @@
         public string iv { get; set; }
 
         public string session_key { get; set; }
+
+        public string appid { get; set; }
     }
 }
