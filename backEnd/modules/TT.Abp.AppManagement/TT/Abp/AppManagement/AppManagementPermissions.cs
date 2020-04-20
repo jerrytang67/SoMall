@@ -3,7 +3,7 @@ using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 using Volo.Abp.Reflection;
 
-namespace TT.Abp.AppManagement.AppManagement
+namespace TT.Abp.AppManagement
 {
     public class AppManagementPermissions
     {

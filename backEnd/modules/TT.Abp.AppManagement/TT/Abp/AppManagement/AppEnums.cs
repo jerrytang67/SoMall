@@ -1,4 +1,4 @@
-﻿namespace TT.Abp.AppManagement.AppManagement
+﻿namespace TT.Abp.AppManagement
 {
     public class AppEnums
     {

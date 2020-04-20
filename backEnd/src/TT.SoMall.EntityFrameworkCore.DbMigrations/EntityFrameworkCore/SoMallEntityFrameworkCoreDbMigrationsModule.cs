@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AccountManagement;
+using TT.Abp.AppManagement;
 using TT.Abp.AppManagement.AppManagement;
 using TT.Abp.FormManagement;
 using TT.Abp.Mall;

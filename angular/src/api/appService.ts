@@ -178,6 +178,101 @@ export class AddressProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class AppProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<AppDto> {
+    let url = '/api/app/app/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<AppDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<AppDtoPagedResultDto> {
+    let url = '/api/app/app/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<AppDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: AppCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<AppDto> {
+    let url = '/api/app/app/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<AppDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: AppCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<AppDto> {
+    let url = '/api/app/app/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<AppDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/app/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class ClientProxyService {
   constructor(private http: HttpClient) {}
 
@@ -2398,6 +2493,33 @@ export interface IdentityUserDto {
   extraProperties?: object;
 }
 
+export interface RemoteServiceValidationErrorInfo {
+  /**  */
+  message?: string;
+
+  /**  */
+  members?: string[];
+}
+
+export interface RemoteServiceErrorInfo {
+  /**  */
+  code?: string;
+
+  /**  */
+  message?: string;
+
+  /**  */
+  details?: string;
+
+  /**  */
+  validationErrors?: RemoteServiceValidationErrorInfo[];
+}
+
+export interface RemoteServiceErrorResponse {
+  /**  */
+  error?: RemoteServiceErrorInfo;
+}
+
 export interface MallUserDto {
   /**  */
   id?: string;
@@ -2502,6 +2624,33 @@ export interface AddressCreateOrUpdateDto {
   locationType?: LocationType;
 }
 
+export interface AppDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  clientName?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface AppDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: AppDto[];
+}
+
+export interface AppCreateOrUpdateDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  clientName?: string;
+}
+
 export interface ClientInitRequestDto {}
 
 export interface WeChatMiniProgramAuthenticateModel {
@@ -2516,6 +2665,9 @@ export interface WeChatMiniProgramAuthenticateModel {
 
   /**  */
   session_key?: string;
+
+  /**  */
+  appid?: string;
 }
 
 export interface AddressDtoListResultDto {

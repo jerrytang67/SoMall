@@ -6,7 +6,6 @@ namespace TT.Abp.OssManagement
     {
         public OssApplicationAutoMapperProfile()
         {
-            //CreateMap<Item, ItemDto>();
         }
     }
 }

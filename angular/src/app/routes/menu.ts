@@ -3,10 +3,12 @@ export const menu = [
     { text: '分析页', link: '/dashboard/analysis', icon: 'fa fa-chart-line' },
     { text: "工作台", link: "/dashboard/workplace", icon: 'fa fa-tachometer-alt' },
 
+
     { text: 'SAAS', heading: true },
     { text: "用户列表", link: "/identity/users", icon: "fa fa-user" },
     { text: "角色列表", link: "/identity/roles", icon: "fa fa-key" },
     { text: "租户", link: "/tenant/tenants", icon: "fa fa-key" },
+    { text: "应用管理", link: "/app-management/apps", icon: "fa fa-app" },
 
     { text: '商家管理', heading: true },
     { text: "商家列表", link: "/shop-management", icon: "fa fa-store" },

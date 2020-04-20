@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Abp.AccountManagement", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Abp.AppManagement", "modules\TT.Abp.AppManagement\TT.Abp.AppManagement.csproj", "{E8BDFF2D-CCD0-40E5-A791-2283E355D794}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Abp.Cms", "modules\TT.Abp.Cms\TT.Abp.Cms.csproj", "{199423D3-56F2-4BFF-805F-A2C193F8C916}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -195,6 +197,10 @@ Global
 		{E8BDFF2D-CCD0-40E5-A791-2283E355D794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8BDFF2D-CCD0-40E5-A791-2283E355D794}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8BDFF2D-CCD0-40E5-A791-2283E355D794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199423D3-56F2-4BFF-805F-A2C193F8C916}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199423D3-56F2-4BFF-805F-A2C193F8C916}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199423D3-56F2-4BFF-805F-A2C193F8C916}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199423D3-56F2-4BFF-805F-A2C193F8C916}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -229,6 +235,7 @@ Global
 		{FA8A2E33-676B-4BFD-A615-476185165AF7} = {6B55CB5D-72E2-4AB1-844C-227E2C2934DA}
 		{3CC5F622-8755-4800-918D-15267E80AD47} = {6B55CB5D-72E2-4AB1-844C-227E2C2934DA}
 		{E8BDFF2D-CCD0-40E5-A791-2283E355D794} = {6B55CB5D-72E2-4AB1-844C-227E2C2934DA}
+		{199423D3-56F2-4BFF-805F-A2C193F8C916} = {6B55CB5D-72E2-4AB1-844C-227E2C2934DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

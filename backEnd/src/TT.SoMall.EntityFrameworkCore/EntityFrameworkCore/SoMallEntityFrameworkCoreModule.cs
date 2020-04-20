@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AccountManagement;
+using TT.Abp.AppManagement;
 using TT.Abp.AppManagement.AppManagement;
 using TT.Abp.Core;
 using TT.Abp.Mall;
+using TT.Abp.OssManagement;
 using TT.Abp.Shops;
 using TT.Abp.VisitorManagement;
 using TT.Abp.Weixin;
@@ -36,6 +38,7 @@ namespace TT.SoMall.EntityFrameworkCore
         typeof(AccountManagementModule),
         typeof(AppManagementModule),
         typeof(ShopModule),
+        typeof(OssManagementModule),
         typeof(WeixinModule),
         typeof(MallModule),
         typeof(VisitorManagementModule)

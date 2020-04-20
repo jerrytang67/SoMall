@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
-using TT.Abp.AppManagement.AppManagement.EntityFrameworkCore;
+﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AppManagement.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Caching;
 using Volo.Abp.Modularity;
 
-namespace TT.Abp.AppManagement.AppManagement
+namespace TT.Abp.AppManagement
 {
     [DependsOn(
         typeof(AbpCachingModule),
@@ -19,19 +18,12 @@ namespace TT.Abp.AppManagement.AppManagement
             context.Services.AddAbpDbContext<AppManagementDbContext>(options => { options.AddDefaultRepositories(true); });
 
             context.Services.AddAutoMapperObjectMapper<AppManagementModule>();
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AppManagementModuleApplicationAutoMapperProfile>(validate: true); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AppManagementModuleAutoMapperProfile>(validate: false); });
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;
                 options.ConventionalControllers.Create(typeof(AppManagementModule).Assembly);
             });
-        }
-    }
-
-    public class AppManagementModuleApplicationAutoMapperProfile : Profile
-    {
-        public AppManagementModuleApplicationAutoMapperProfile()
-        {
         }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TT.SoMall.EntityFrameworkCore;
 
 namespace TT.SoMall.Migrations
 {
     [DbContext(typeof(SoMallMigrationsDbContext))]
-    partial class SoMallMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200420143933_appManagement_module_add")]
+    partial class appManagement_module_add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
