@@ -35,9 +35,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         DbSet<Comment> Comments { get; set; }
         
         DbSet<Partner> Partners { get; set; }
-        
-        DbSet<RealNameInfo> RealNameInfos { get; set; }
-        
+
         DbSet<Coupon> Coupons { get; set; }
         DbSet<UserCoupon> UserCoupons { get; set; }
     }

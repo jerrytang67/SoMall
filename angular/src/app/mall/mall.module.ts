@@ -15,7 +15,6 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { CouponListComponent } from './components/coupon-list/coupon-list.component';
 import { UserCouponListComponent } from './components/userCoupon-list/userCoupon-list.component';
 import { PartnerListComponent } from './components/partner-list/partner-list.component';
-import { RealNameInfoListComponent } from './components/realNameInfo-list/realNameInfo-list.component';
 
 
 const COMPONENTS = [
@@ -28,8 +27,7 @@ const COMPONENTS = [
   OrderListComponent,
   CouponListComponent,
   UserCouponListComponent,
-  PartnerListComponent,
-  RealNameInfoListComponent
+  PartnerListComponent
 ]
 
 const ENTRYCOMPONENTS = [CategoryEditComponent]

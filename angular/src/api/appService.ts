@@ -1214,8 +1214,6 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
-      shopId?: string;
-      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1223,81 +1221,13 @@ export class RealNameInfoProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
-    let url = '/api/mall/realNameInfo/getList';
+    let url = '/api/app/realNameInfo/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<RealNameInfoDtoPagedResultDto>;
-  }
-  /**
-   *
-   */
-  get(
-    params: {
-      /**  */
-      id?: string;
-    } = {} as any
-  ): Observable<RealNameInfoDto> {
-    let url = '/api/mall/realNameInfo/get';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<RealNameInfoDto>;
-  }
-  /**
-   *
-   */
-  create(
-    params: {
-      /** requestBody */
-      body?: RealNameInfoCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<RealNameInfoDto> {
-    let url = '/api/mall/realNameInfo/create';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<RealNameInfoDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      id?: string;
-      /** requestBody */
-      body?: RealNameInfoCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<RealNameInfoDto> {
-    let url = '/api/mall/realNameInfo/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<RealNameInfoDto>;
-  }
-  /**
-   *
-   */
-  delete(
-    params: {
-      /**  */
-      id?: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/realNameInfo/delete';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -3682,12 +3612,6 @@ export interface RealNameInfoDto {
   state?: RealNameInfoState;
 
   /**  */
-  creatorId?: string;
-
-  /**  */
-  mallUser?: MallUserDto;
-
-  /**  */
   id?: string;
 }
 
@@ -3697,32 +3621,6 @@ export interface RealNameInfoDtoPagedResultDto {
 
   /**  */
   items?: RealNameInfoDto[];
-}
-
-export interface RealNameInfoCreateOrUpdateDto {
-  /**  */
-  realName?: string;
-
-  /**  */
-  phone?: string;
-
-  /**  */
-  phoneBackup?: string;
-
-  /**  */
-  type?: RealNameInfoType;
-
-  /**  */
-  idCardFrontUrl?: string;
-
-  /**  */
-  idCardBackUrl?: string;
-
-  /**  */
-  idCardHandUrl?: string;
-
-  /**  */
-  businessLicenseUrl?: string;
 }
 
 export interface IdentityRoleDto {

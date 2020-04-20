@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AccountManagement;
 using TT.Abp.Mall;
 using TT.Abp.Shops;
 using TT.Abp.VisitorManagement;
@@ -29,9 +30,10 @@ namespace TT.SoMall.EntityFrameworkCore
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
         typeof(AbpFeatureManagementEntityFrameworkCoreModule),
         typeof(AbpFeatureManagementEntityFrameworkCoreModule),
+        typeof(AccountManagementModule),
         typeof(ShopModule),
-        typeof(MallModule),
         typeof(WeixinModule),
+        typeof(MallModule),
         typeof(VisitorManagementModule)
     )]
     public class SoMallEntityFrameworkCoreModule : AbpModule

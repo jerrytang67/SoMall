@@ -37,7 +37,6 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         
         public virtual DbSet<Partner> Partners { get; set; }
         
-        public virtual DbSet<RealNameInfo> RealNameInfos { get; set; }
         
         public virtual DbSet<Coupon> Coupons { get; set; }
         

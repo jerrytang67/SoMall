@@ -195,23 +195,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                     .WithMany(b => b.PartnerProducts)
                     .HasForeignKey(bc => bc.PartnerId);
             });
-
-
-            // 实名信息
-            builder.Entity<RealNameInfo>(b =>
-            {
-                b.ToTable(MallConsts.DbTablePrefix + "RealNameInfos", MallConsts.DbSchema);
-                b.ConfigureFullAudited();
-
-                b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.PhoneBackup).HasMaxLength(MallConsts.MaxNameLength);
-
-                b.Property(x => x.IDCardFrontUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.IDCardBackUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.IDCardHandUrl).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.BusinessLicenseUrl).HasMaxLength(MallConsts.MaxNameLength);
-            });
+            
 
 
             // 优惠券

@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using TT.Abp.Mall.Domain;
-using TT.Abp.Mall.Domain.Partners;
 
-namespace TT.Abp.Mall.Application.Partners.Dtos
+namespace TT.Abp.AccountManagement.Domain.Dtos
 {
     /// <summary>
     /// <see cref="RealNameInfo"/>
@@ -16,7 +14,7 @@ namespace TT.Abp.Mall.Application.Partners.Dtos
 
         [DisplayName("备用手机")] public string PhoneBackup { get; set; }
 
-        [DisplayName("认证类型")] public MallEnums.RealNameInfoType Type { get; set; }
+        [DisplayName("认证类型")] public AccountEnums.RealNameInfoType Type { get; set; }
 
         [Required] [DisplayName("身份证-正面")] public string IDCardFrontUrl { get; set; }
 

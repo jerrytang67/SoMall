@@ -12,7 +12,7 @@ import { OrderListComponent } from './components/order-list/order-list.component
 import { CouponListComponent } from './components/coupon-list/coupon-list.component';
 import { UserCouponListComponent } from './components/userCoupon-list/userCoupon-list.component';
 import { PartnerListComponent } from './components/partner-list/partner-list.component';
-import { RealNameInfoListComponent } from './components/realNameInfo-list/realNameInfo-list.component';
+import { RealNameInfoListComponent } from '../account-management/components/realNameInfo-list/realNameInfo-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'shops', pathMatch: 'full', data: { breadcrumb: "商城" } },
@@ -35,7 +35,6 @@ const routes: Routes = [
       { path: 'userCoupons', component: UserCouponListComponent, data: { title: '用户优惠券', permission: 'Pages' } },
       { path: 'userCoupons/:couponId', component: UserCouponListComponent, data: { title: '用户优惠券', permission: 'Pages' } },
       { path: 'partners', component: PartnerListComponent, data: { title: '用户优惠券', permission: 'Pages' } },
-      { path: 'realNameInfos', component: RealNameInfoListComponent, data: { title: '实名认证列表', permission: 'Pages' } },
     ]
   }
 ]

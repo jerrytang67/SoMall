@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using TT.Abp.AccountManagement;
 using TT.Abp.Core;
 using TT.Abp.OssManagement;
 using TT.Abp.Shops;
@@ -22,6 +23,7 @@ namespace TT.SoMall
         typeof(AbpPermissionManagementHttpApiModule),
         typeof(AbpTenantManagementHttpApiModule),
         typeof(TtCoreModule),
+        typeof(AccountManagementModule),
         typeof(ShopModule),
         typeof(OssManagementModule),
         typeof(VisitorManagementModule),

@@ -55,7 +55,7 @@ namespace TT.SoMall.EntityFrameworkCore
             
             builder.ConfigureSoMall();
             
-            //builder.ConfigureWeixinManagement();
+            builder.ConfigureWeixinManagement();
         }
     }
 }

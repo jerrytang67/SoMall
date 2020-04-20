@@ -8,6 +8,7 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\TT.Abp.AccountManagement\TT.Abp.AccountManagement.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.Mall\TT.Abp.Mall.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.Shops\TT.Abp.Shops.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.VisitorManagement\TT.Abp.VisitorManagement.csproj" />

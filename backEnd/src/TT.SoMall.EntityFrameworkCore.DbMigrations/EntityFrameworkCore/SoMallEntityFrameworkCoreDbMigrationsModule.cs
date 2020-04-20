@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AccountManagement;
 using TT.Abp.FormManagement;
 using TT.Abp.Mall;
 using TT.Abp.Shops;
@@ -10,6 +11,7 @@ namespace TT.SoMall.EntityFrameworkCore
 {
     [DependsOn(
         typeof(SoMallEntityFrameworkCoreModule)
+        , typeof(AccountManagementModule)
         , typeof(ShopModule)
         , typeof(MallModule)
         , typeof(VisitorManagementModule)
