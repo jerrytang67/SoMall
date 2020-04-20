@@ -1944,6 +1944,33 @@ export class VisitorLogProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class WechatUserProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<WechatUserinfoPagedResultDto> {
+    let url = '/api/app/wechatUser/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<WechatUserinfoPagedResultDto>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class WeixinProxyService {
   constructor(private http: HttpClient) {}
 
@@ -4052,6 +4079,52 @@ export interface VisitorFormSumbitRequest {
   shop?: VisitorShopDto;
 }
 
+export interface WechatUserinfo {
+  /**  */
+  appid?: string;
+
+  /**  */
+  openid?: string;
+
+  /**  */
+  unionid?: string;
+
+  /**  */
+  nickname?: string;
+
+  /**  */
+  headimgurl?: string;
+
+  /**  */
+  city?: string;
+
+  /**  */
+  province?: string;
+
+  /**  */
+  country?: string;
+
+  /**  */
+  sex?: number;
+
+  /**  */
+  fromClient?: ClientType;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+}
+
+export interface WechatUserinfoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: WechatUserinfo[];
+}
+
 export enum LocationType {
   'bd09' = 'bd09',
   'gcj02' = 'gcj02',
@@ -4132,4 +4205,11 @@ export enum CredentialType {
   'Code' = 'Code',
   'Image' = 'Image',
   'IdCard' = 'IdCard'
+}
+
+export enum ClientType {
+  'Default' = 'Default',
+  'Mini' = 'Mini',
+  'Mp' = 'Mp',
+  'Qy' = 'Qy'
 }

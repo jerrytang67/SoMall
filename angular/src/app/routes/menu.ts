@@ -26,6 +26,9 @@ export const menu = [
     { text: '访客管理', heading: true },
     { text: "表单列表", link: "/visitor/forms", icon: 'fa fa-address-book' },
 
+    { text: '微信管理', heading: true },
+    { text: "微信用户管理", link: "/account-management", icon: 'fa fa-address-book' },
+
 
     { text: '访客管理', heading: true },
     {

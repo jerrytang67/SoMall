@@ -69,6 +69,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Abp.Modules.Tests", "tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Abp.Core", "modules\TT.Abp.Core\TT.Abp.Core.csproj", "{FA8A2E33-676B-4BFD-A615-476185165AF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TT.Abp.AccountManagement", "modules\TT.Abp.AccountManagement\TT.Abp.AccountManagement.csproj", "{3CC5F622-8755-4800-918D-15267E80AD47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{FA8A2E33-676B-4BFD-A615-476185165AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA8A2E33-676B-4BFD-A615-476185165AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA8A2E33-676B-4BFD-A615-476185165AF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CC5F622-8755-4800-918D-15267E80AD47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CC5F622-8755-4800-918D-15267E80AD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CC5F622-8755-4800-918D-15267E80AD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CC5F622-8755-4800-918D-15267E80AD47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -215,6 +221,7 @@ Global
 		{8891565C-1100-4B77-BEFF-16F58B3ABD88} = {6B55CB5D-72E2-4AB1-844C-227E2C2934DA}
 		{B266681B-5A27-43BB-9BD3-CC10993C2D8A} = {04DBDB01-70F4-4E06-B468-8F87850B22BE}
 		{FA8A2E33-676B-4BFD-A615-476185165AF7} = {6B55CB5D-72E2-4AB1-844C-227E2C2934DA}
+		{3CC5F622-8755-4800-918D-15267E80AD47} = {6B55CB5D-72E2-4AB1-844C-227E2C2934DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

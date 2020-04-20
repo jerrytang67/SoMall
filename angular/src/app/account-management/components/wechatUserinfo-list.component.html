@@ -1,0 +1,41 @@
+<nz-page-header nzTitle="微信用户管理">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/account-management']">微信管理</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable nzShowSizeChanger nzShowPagination [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
+        [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
+        (nzPageSizeChange)="refresh()">
+        <thead>
+            <th>微信名</th>
+            <th>openid</th>
+            <th>appid</th>
+            <th>来自</th>
+            <th>sex</th>
+            <th>fromClient</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <td>
+                    <nz-avatar nzShape="square" [nzSize]="64" nzSize="large" nzIcon="user" [nzSrc]="item.headimgurl"></nz-avatar>
+                    {{item.nickname}}
+                </td>
+                <td>{{item.openid}}</td>
+                <td>{{item.appid}}</td>
+                <td>{{item.country}} {{item.province}} {{item.city}}</td>
+                <td>{{item.sex === 1?'男':'女'}} </td>
+                <td>{{item.fromClient   }} </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

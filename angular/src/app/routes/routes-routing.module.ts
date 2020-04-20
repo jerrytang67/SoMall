@@ -24,19 +24,19 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard/workplace', pathMatch: 'full' },
       { path: 'dashboard', redirectTo: 'dashboard/workplace', pathMatch: 'full' },
-      // { path: 'dashboard/v1', component: DashboardV1Component },
       { path: 'dashboard/analysis', component: DashboardAnalysisComponent },
-      // { path: 'dashboard/monitor', component: DashboardMonitorComponent },
       { path: 'dashboard/workplace', component: DashboardWorkplaceComponent }
     ],
   },
-  { path: 'identity', loadChildren: () => import('../identity/identity.module').then(m => m.IdentityModule) },
-  { path: 'tenant', loadChildren: () => import('../tenant/tenant.module').then(m => m.TenantModule) },
+  { path: 'identity', loadChildren: () => import(/* webpackChunkName: "IdentityModule" */'../identity/identity.module').then(m => m.IdentityModule) },
+  { path: 'tenant', loadChildren: () => import(/* webpackChunkName: "TenantModule" */'../tenant/tenant.module').then(m => m.TenantModule) },
 
   { path: 'shop-management', loadChildren: () => import(/* webpackChunkName: "ShopManagementModule" */ '../shop-management/shop-management.module').then(m => m.ShopManagementModule), data: { breadcrumb: "商家管理" } },
   { path: 'mall', loadChildren: () => import(/* webpackChunkName: "MallModule" */ '../mall/mall.module').then(m => m.MallModule), data: { breadcrumb: "商城系统" } },
 
   { path: 'visitor', loadChildren: () => import(/* webpackChunkName: "VisitorModule" */ '../visitor/visitor.module').then(m => m.VisitorModule), data: { breadcrumb: "访客管理系统" } },
+
+  { path: 'account-management', loadChildren: () => import(/* webpackChunkName: "AccountManagementModule" */ '../account-management/account-management.module').then(m => m.AccountManagementModule), data: { breadcrumb: "微信用户管理" } },
   {
     path: 'demo',
     component: LayoutComponent,
