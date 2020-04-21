@@ -55,6 +55,7 @@ namespace TT.Abp.Mall.Application.Orders
             _httpContext = httpContext;
             _httpContextAccessor = httpContextAccessor;
             _appProvider = appProvider;
+            
             base.GetListPolicyName = MallPermissions.ProductOrders.Default;
             base.GetPolicyName = MallPermissions.ProductOrders.Default;
             base.UpdatePolicyName = MallPermissions.ProductOrders.Update;

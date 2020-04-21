@@ -7,10 +7,6 @@ namespace TT.Abp.Mall.Application
         public override void Define(ISettingDefinitionContext context)
         {
             context.Add(
-                new SettingDefinition(MallManagementSetting.AppId),
-                new SettingDefinition(MallManagementSetting.AppSecret),
-                new SettingDefinition(MallManagementSetting.MiniAppId),
-                new SettingDefinition(MallManagementSetting.MiniAppSecret),
                 new SettingDefinition(MallManagementSetting.PayMchId),
                 new SettingDefinition(MallManagementSetting.PayKey),
                 new SettingDefinition(MallManagementSetting.PayNotify),
@@ -23,10 +19,6 @@ namespace TT.Abp.Mall.Application
     public static class MallManagementSetting
     {
         private const string GroupName = "MallManagement";
-        public const string AppId = GroupName + ".AppId";
-        public const string AppSecret = GroupName + ".AppSecret";
-        public const string MiniAppId = GroupName + ".MiniAppId";
-        public const string MiniAppSecret = GroupName + ".MiniAppSecret";
         public const string PayMchId = GroupName + ".PayMchId";
         public const string PayKey = GroupName + ".PayKey";
         public const string PayNotify = GroupName + ".PayNotify";
