@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit {
   refresh() {
     this.identityService.getUsers().subscribe();
     this.identityService.getRoles().subscribe();
-    this.permissionsService.getPermissions({ providerKey: "mall", providerName: "R" }).subscribe();
+    // this.permissionsService.getPermissions({ providerKey: "mall", providerName: "R" }).subscribe();
   }
 
   delete() { }

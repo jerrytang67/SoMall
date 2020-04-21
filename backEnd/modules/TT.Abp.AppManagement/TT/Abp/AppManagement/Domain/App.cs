@@ -10,4 +10,5 @@ namespace TT.Abp.AppManagement.Domain
 
         [NotNull] public string ClientName { get; set; }
     }
+    
 }
