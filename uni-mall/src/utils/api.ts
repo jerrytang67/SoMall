@@ -22,6 +22,7 @@ const request = (
         header: {
             "content-type": "application/json",
             "Authorization": `Bearer ${uni.getStorageSync("token") || ''}`,
+            "AppName": "mall_mini"
         }
     });
 };

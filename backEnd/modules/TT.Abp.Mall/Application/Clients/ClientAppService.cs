@@ -78,6 +78,7 @@ namespace TT.Abp.Mall.Application.Clients
         [HttpPost]
         public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel)
         {
+            
             var appid = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppId);
             var appSec = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppSecret);
 

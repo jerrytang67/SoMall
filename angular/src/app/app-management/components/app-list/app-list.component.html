@@ -22,6 +22,10 @@
             <th width="280px">id</th>
             <th>name</th>
             <th>clientName</th>
+            <th>providerName</th>
+            <th>providerKey</th>
+            <th>value</th>
+
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
@@ -35,6 +39,15 @@
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.clientName}}</td>
+                <td>{{item.providerName}}</td>
+                <td>{{item.providerKey}}</td>
+                <td>
+                    <div class="d-flex justify-content-around" *ngFor="let key of item.value | keyvalue">
+                        <nz-tag> {{key.key}}</nz-tag>
+                        <nz-tag nzColor="#BA55D3"> {{key.value}}</nz-tag>
+
+                    </div>
+                </td>
             </tr>
         </tbody>
     </nz-table>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AppManagement.Apps;
+using TT.Abp.AppManagement.Domain;
 using TT.Abp.AppManagement.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
@@ -23,7 +24,11 @@ namespace TT.Abp.AppManagement
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAbpDbContext<AppManagementDbContext>(options => { options.AddDefaultRepositories(true); });
+            context.Services.AddAbpDbContext<AppManagementDbContext>(options =>
+            {
+                options.AddDefaultRepositories();
+                options.AddRepository<App, EfCoreAppRepository>();
+            });
 
             context.Services.AddAutoMapperObjectMapper<AppManagementModule>();
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AppManagementModuleAutoMapperProfile>(validate: false); });
@@ -38,6 +43,8 @@ namespace TT.Abp.AppManagement
             {
                 options.ValueProviders.Add<DefaultValueAppValueProvider>();
                 options.ValueProviders.Add<ConfigurationAppValueProvider>();
+                options.ValueProviders.Add<GlobalAppValueProvider>();
+                options.ValueProviders.Add<TenantSettingValueProvider>();
             });
         }
 

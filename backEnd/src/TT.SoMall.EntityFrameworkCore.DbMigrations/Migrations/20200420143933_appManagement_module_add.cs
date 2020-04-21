@@ -22,12 +22,12 @@ namespace TT.SoMall.Migrations
                     DeleterId = table.Column<Guid>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 64, nullable: false),
-                    ClientName = table.Column<string>(maxLength: 64, nullable: false)
+                    ClientName = table.Column<string>(maxLength: 64, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 64, nullable: true),
+                    ProviderName = table.Column<string>(maxLength: 64, nullable: true),
+                    Value = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_App_Apps", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_App_Apps", x => x.Id); });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

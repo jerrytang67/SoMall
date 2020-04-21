@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using TT.Abp.AppManagement.Domain;
 using Volo.Abp.Application.Dtos;
@@ -23,11 +25,21 @@ namespace TT.Abp.AppManagement.Application
         }
     }
 
+
+    /// <summary>
+    /// <see cref="App"/>
+    /// </summary>
     public class AppDto : EntityDto<Guid>
     {
         public string Name { get; set; }
 
         public string ClientName { get; set; }
+
+        public Dictionary<string, string> Value { get; set; }
+
+         public  string ProviderName { get;  set; }
+
+         public  string ProviderKey { get;  set; }
     }
 
     public class AppCreateOrUpdateDto

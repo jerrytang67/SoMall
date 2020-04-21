@@ -18,7 +18,7 @@ namespace TT.Abp.AppManagement.Apps
 
         public Task<Dictionary<string, string>> GetOrNullAsync(string name, string providerName, string providerKey)
         {
-            return Task.FromResult(new Dictionary<string, string>());
+            return Task.FromResult<Dictionary<string, string>>(null);
         }
     }
 }
