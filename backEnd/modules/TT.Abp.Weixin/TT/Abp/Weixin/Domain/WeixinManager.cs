@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Serilog;
+using TT.Abp.OssManagement;
 using TT.Abp.Shops.Application;
 using TT.Abp.Weixin.Application;
 using TT.Extensions;

@@ -5,6 +5,7 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Addresses;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Products.Dtos;
@@ -40,6 +41,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly IReadOnlyRepository<Address, Guid> _addressRepository;
         private readonly IRepository<ProductOrder, Guid> _orderRepository;
         private readonly ISettingProvider _setting;
+        private readonly IAppProvider _appProvider;
 
         public ClientAppService(
             IGuidGenerator guidGenerator,
@@ -48,7 +50,9 @@ namespace TT.Abp.Mall.Application.Clients
             IMallShopRepository shopRepository,
             IReadOnlyRepository<Address, Guid> addressRepository,
             IRepository<ProductOrder, Guid> orderRepository,
-            ISettingProvider setting)
+            ISettingProvider setting,
+            IAppProvider appProvider
+        )
         {
             _guidGenerator = guidGenerator;
             _weixinAppService = weixinAppService;
@@ -57,14 +61,17 @@ namespace TT.Abp.Mall.Application.Clients
             _addressRepository = addressRepository;
             _orderRepository = orderRepository;
             _setting = setting;
+            _appProvider = appProvider;
         }
 
         public async Task<object> Init(ClientInitRequestDto input)
         {
+            var apps = await _appProvider.GetAllAsync();
             var shops = await _shopRepository.GetListAsync();
             return new
             {
-                shops = ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops)
+                shops = ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops),
+                apps
             };
         }
 

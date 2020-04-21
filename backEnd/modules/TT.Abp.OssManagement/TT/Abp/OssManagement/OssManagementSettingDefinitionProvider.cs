@@ -1,6 +1,6 @@
 ﻿using Volo.Abp.Settings;
 
-namespace TT.Abp.Shops.Application
+namespace TT.Abp.OssManagement
 {
     public class OssManagementSettingDefinitionProvider : SettingDefinitionProvider
     {

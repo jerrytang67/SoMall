@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AppManagement;
 using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Abp.Shops;
 using TT.Abp.Weixin;
@@ -14,6 +15,7 @@ namespace TT.Abp.Mall
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule),
         typeof(AbpHttpClientModule),
+        typeof(AppManagementModule),
         typeof(WeixinModule)
     )]
     public class MallModule : AbpModule
@@ -34,7 +36,7 @@ namespace TT.Abp.Mall
             });
 
             context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
-            
+
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
         }

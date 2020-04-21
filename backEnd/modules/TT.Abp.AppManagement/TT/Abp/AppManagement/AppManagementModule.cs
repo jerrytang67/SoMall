@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AppManagement.Apps;
 using TT.Abp.AppManagement.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
@@ -13,6 +16,11 @@ namespace TT.Abp.AppManagement
     )]
     public class AppManagementModule : AbpModule
     {
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            AutoAddDefinitionProviders(context.Services);
+        }
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.AddAbpDbContext<AppManagementDbContext>(options => { options.AddDefaultRepositories(true); });
@@ -24,6 +32,28 @@ namespace TT.Abp.AppManagement
                 options.MinifyGeneratedScript = true;
                 options.ConventionalControllers.Create(typeof(AppManagementModule).Assembly);
             });
+
+
+            Configure<AppOptions>(options =>
+            {
+                options.ValueProviders.Add<DefaultValueAppValueProvider>();
+                options.ValueProviders.Add<ConfigurationAppValueProvider>();
+            });
+        }
+
+        private static void AutoAddDefinitionProviders(IServiceCollection services)
+        {
+            var definitionProviders = new List<Type>();
+
+            services.OnRegistred(context =>
+            {
+                if (typeof(IAppDefinitionProvider).IsAssignableFrom(context.ImplementationType))
+                {
+                    definitionProviders.Add(context.ImplementationType);
+                }
+            });
+
+            services.Configure<AppOptions>(options => { options.DefinitionProviders.AddIfNotContains(definitionProviders); });
         }
     }
 }

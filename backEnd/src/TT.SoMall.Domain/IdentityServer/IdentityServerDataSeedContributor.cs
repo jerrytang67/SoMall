@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Data;
@@ -119,9 +118,9 @@ namespace TT.SoMall.IdentityServer
                 await CreateClientAsync(
                     webClientId,
                     commonScopes,
-                    new[] { "hybrid" },
+                    new[] {"hybrid"},
                     (configurationSection["SoMall_Web:ClientSecret"] ?? "1q2w3e*").Sha256(),
-                    redirectUri: $"{webClientRootUrl}signin-oidc",
+                    redirectUris: new[] {$"{webClientRootUrl}signin-oidc"},
                     postLogoutRedirectUri: $"{webClientRootUrl}signout-callback-oidc"
                 );
             }
@@ -133,8 +132,15 @@ namespace TT.SoMall.IdentityServer
                 await CreateClientAsync(
                     consoleClientId,
                     commonScopes,
-                    new[] { "password", "client_credentials" },
-                    (configurationSection["SoMall_App:ClientSecret"] ?? "1q2w3e*").Sha256()
+                    new[] {"password", "client_credentials", "implicit", "UserWithTenant"},
+                    (configurationSection["SoMall_App:ClientSecret"] ?? "1q2w3e*").Sha256(),
+
+                    // tt-somall
+                    new[]
+                    {
+                        "http://localhost:4200/callback.html",
+                        "http://192.168.3.50:4200/callback.html"
+                    }
                 );
             }
         }
@@ -144,7 +150,7 @@ namespace TT.SoMall.IdentityServer
             IEnumerable<string> scopes,
             IEnumerable<string> grantTypes,
             string secret,
-            string redirectUri = null,
+            string[] redirectUris = null,
             string postLogoutRedirectUri = null,
             IEnumerable<string> permissions = null)
         {
@@ -166,7 +172,10 @@ namespace TT.SoMall.IdentityServer
                         AccessTokenLifetime = 31536000, //365 days
                         AuthorizationCodeLifetime = 300,
                         IdentityTokenLifetime = 300,
-                        RequireConsent = false
+                        RequireConsent = false,
+
+                        // tt-somall
+                        AlwaysSendClientClaims = true
                     },
                     autoSave: true
                 );
@@ -193,11 +202,14 @@ namespace TT.SoMall.IdentityServer
                 client.AddSecret(secret);
             }
 
-            if (redirectUri != null)
+            if (redirectUris != null && redirectUris.Length > 0)
             {
-                if (client.FindRedirectUri(redirectUri) == null)
+                foreach (var uri in redirectUris)
                 {
-                    client.AddRedirectUri(redirectUri);
+                    if (client.FindRedirectUri(uri) == null)
+                    {
+                        client.AddRedirectUri(uri);
+                    }
                 }
             }
 
