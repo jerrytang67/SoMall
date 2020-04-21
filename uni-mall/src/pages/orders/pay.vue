@@ -69,8 +69,6 @@ export default class Pay extends BaseView {
 
    //确认支付
    async confirm() {
-      let client = process.env.CLIENT;
-      debugger;
       if (this.payType === 1) {
          api.tenpay({
             orderId: this.currentOrder.id,

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Orders;
@@ -15,6 +16,7 @@ using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Extensions;
 using TT.HttpClient.Weixin;
+using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Settings;
 
@@ -33,19 +35,26 @@ namespace TT.Abp.Mall.Application.Orders
         private readonly IMallShopLookupService _mallShopLookupService;
         private readonly ISettingProvider _setting;
         private readonly IHttpContextAccessor _httpContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAppProvider _appProvider;
+
 
         public ProductOrderAppService(
             IPayApi payApi,
             IRepository<ProductOrder, Guid> repository,
             IMallShopLookupService mallShopLookupService,
             ISettingProvider setting,
-            IHttpContextAccessor httpContext
+            IHttpContextAccessor httpContext,
+            IHttpContextAccessor httpContextAccessor,
+            IAppProvider appProvider
         ) : base(repository)
         {
             _payApi = payApi;
             _mallShopLookupService = mallShopLookupService;
             _setting = setting;
             _httpContext = httpContext;
+            _httpContextAccessor = httpContextAccessor;
+            _appProvider = appProvider;
             base.GetListPolicyName = MallPermissions.ProductOrders.Default;
             base.GetPolicyName = MallPermissions.ProductOrders.Default;
             base.UpdatePolicyName = MallPermissions.ProductOrders.Update;
@@ -114,10 +123,11 @@ namespace TT.Abp.Mall.Application.Orders
         {
             var order = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
 
-            var appid = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppId);
+            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
 
-            if (input.Client == "mall")
-                appid = "wx20963173630db476";
+            var app = await _appProvider.GetOrNullAsync(appName);
+            var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
+
             var mchId = await _setting.GetOrNullAsync(MallManagementSetting.PayMchId);
             var mchKey = await _setting.GetOrNullAsync(MallManagementSetting.PayKey);
             var notifyUrl = await _setting.GetOrNullAsync(MallManagementSetting.PayNotify);

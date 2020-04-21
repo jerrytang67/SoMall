@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.AppManagement.Apps;
@@ -16,6 +17,7 @@ using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Weixin.Application;
 using TT.Abp.Weixin.Application.Dtos;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -42,6 +44,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly IRepository<ProductOrder, Guid> _orderRepository;
         private readonly ISettingProvider _setting;
         private readonly IAppProvider _appProvider;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ClientAppService(
             IGuidGenerator guidGenerator,
@@ -51,7 +54,8 @@ namespace TT.Abp.Mall.Application.Clients
             IReadOnlyRepository<Address, Guid> addressRepository,
             IRepository<ProductOrder, Guid> orderRepository,
             ISettingProvider setting,
-            IAppProvider appProvider
+            IAppProvider appProvider,
+            IHttpContextAccessor httpContextAccessor
         )
         {
             _guidGenerator = guidGenerator;
@@ -62,31 +66,28 @@ namespace TT.Abp.Mall.Application.Clients
             _orderRepository = orderRepository;
             _setting = setting;
             _appProvider = appProvider;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<object> Init(ClientInitRequestDto input)
         {
             var apps = await _appProvider.GetAllAsync();
             var shops = await _shopRepository.GetListAsync();
+            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
             return new
             {
                 shops = ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops),
-                apps
+                apps, appName
             };
         }
 
         [HttpPost]
         public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel)
         {
-            
-            var appid = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppId);
-            var appSec = await _setting.GetOrNullAsync(MallManagementSetting.MiniAppSecret);
-
-            if (loginModel.appid == "wx20963173630db476")
-            {
-                appid = "wx20963173630db476";
-                appSec = "b1d63d235d3d9e74836c740b5b63590c";
-            }
+            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
+            var app = await _appProvider.GetOrNullAsync(appName);
+            var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
+            var appSec = app["appsec"] ?? throw new AbpException($"App:{appName} appsec未设置");
 
             return await _weixinAppService.MiniAuth(loginModel, appid, appSec);
         }

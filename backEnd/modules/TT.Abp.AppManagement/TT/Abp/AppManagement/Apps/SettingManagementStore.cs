@@ -42,6 +42,10 @@ namespace TT.Abp.AppManagement.Apps
             {
                 setting.Value = value;
                 await AppRepository.UpdateAsync(setting);
+                var cacheKey = CalculateCacheKey(name, providerName, providerKey);
+                await Cache.RemoveAsync(
+                    cacheKey
+                );
             }
         }
 

@@ -36,8 +36,7 @@ export default {
     public_updateUserProfile: (data: any) => request('POST', `/api/app/public/updateUserProfile`, data),
 
     // auth
-    client_miniAuth: (data: any) => request("POST", `/api/mall/client/miniAuth`,
-        Object.assign({}, data, { appid: "wxd9d182e54258695e" })),
+    client_miniAuth: (data: any) => request("POST", `/api/mall/client/miniAuth`, data),
 
     // user 
     client_getUserAddressList: () => request("GET", `/api/mall/client/getUserAddressList`),
