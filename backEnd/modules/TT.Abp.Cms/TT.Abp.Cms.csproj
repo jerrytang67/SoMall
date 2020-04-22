@@ -2,10 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace />
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="TT\Abp\Cms" />
+      <Folder Include="TT\Abp\Cms\Application" />
+      <Folder Include="TT\Abp\Cms\Domain" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TT.Abp.AppManagement\TT.Abp.AppManagement.csproj" />
+      <ProjectReference Include="..\TT.Abp.Weixin\TT.Abp.Weixin.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Volo.Abp.Http.Client" Version="2.6.0" />
     </ItemGroup>
 
 </Project>
