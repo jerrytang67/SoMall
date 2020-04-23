@@ -7,9 +7,19 @@ export default Vue.extend({
    async onLaunch() {
       console.log("App Launch");
       UserModule.CheckLogin();
-      console.log("client:", process.env.CLIENT);
-      console.log("client:", process.env.VUE_APP_BASE_API);
-      AppModule.Init();
+      try {
+         const res = uni.getSystemInfoSync();
+         // console.log(res.model);
+         // console.log(res.pixelRatio);
+         // console.log(res.windowWidth);
+         // console.log(res.windowHeight);
+         // console.log(res.language);
+         // console.log(res.version);
+         // console.log(res.platform);
+         AppModule.Init({ SystemInfo: res });
+      } catch (e) {
+         // error
+      }
    },
    onShow() {
       // console.log("App Show");

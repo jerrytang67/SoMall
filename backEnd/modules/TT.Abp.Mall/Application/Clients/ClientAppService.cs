@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
+using System.Reflection.Emit;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Addresses;
 using TT.Abp.Mall.Application.Addresses.Dtos;
-using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
@@ -21,8 +23,10 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.EventBus.Local;
 using Volo.Abp.Guids;
 using Volo.Abp.Settings;
+using Volo.Abp.Users;
 
 namespace TT.Abp.Mall.Application.Clients
 {
@@ -45,6 +49,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly ISettingProvider _setting;
         private readonly IAppProvider _appProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILocalEventBus _eventBus;
 
         public ClientAppService(
             IGuidGenerator guidGenerator,
@@ -55,7 +60,8 @@ namespace TT.Abp.Mall.Application.Clients
             IRepository<ProductOrder, Guid> orderRepository,
             ISettingProvider setting,
             IAppProvider appProvider,
-            IHttpContextAccessor httpContextAccessor
+            IHttpContextAccessor httpContextAccessor,
+            ILocalEventBus eventBus
         )
         {
             _guidGenerator = guidGenerator;
@@ -67,10 +73,13 @@ namespace TT.Abp.Mall.Application.Clients
             _setting = setting;
             _appProvider = appProvider;
             _httpContextAccessor = httpContextAccessor;
+            _eventBus = eventBus;
         }
 
         public async Task<object> Init(ClientInitRequestDto input)
         {
+            await _eventBus.PublishAsync(new ClientInitEvent(input));
+
             var apps = await _appProvider.GetAllAsync();
             var shops = await _shopRepository.GetListAsync();
             var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
@@ -146,15 +155,5 @@ namespace TT.Abp.Mall.Application.Clients
         }
     }
 
-    public class ProductOrderRequestDto
-    {
-        public AddressDto Address { get; set; }
-        public List<ProductSkuDto> Skus { get; set; }
 
-        public string Comment { get; set; }
-    }
-
-    public class ClientInitRequestDto
-    {
-    }
 }

@@ -11,6 +11,7 @@ using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Users;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Users;
+using Volo.Abp.EventBus.Local;
 
 namespace TT.Abp.Mall.Application.Addresses
 {
