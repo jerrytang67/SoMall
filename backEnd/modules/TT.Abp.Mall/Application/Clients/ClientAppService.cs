@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Clients.Dtos;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
@@ -206,7 +208,7 @@ namespace TT.Abp.Mall.Application.Clients
                 await _tenpayRepository.InsertAsync(notify, autoSave: true);
             }
 
-            await _capBus.PublishAsync("mall.tenpay.notify", JsonConvert.SerializeObject(tenPayNotify));
+            await _capBus.PublishAsync("mall.tenpay.notify", tenPayNotify);
 
             var xml = $@"<xml>
 <return_code><![CDATA[{return_code}]]></return_code>
@@ -235,10 +237,8 @@ namespace TT.Abp.Mall.Application.Clients
 
         [CapSubscribe("mall.tenpay.notify")]
         [UnitOfWork]
-        public virtual async Task TenPayNotifySubscriber(string input)
+        public virtual async Task TenPayNotifySubscriber(TenPayNotify tenPayNotify)
         {
-            var tenPayNotify = JsonConvert.DeserializeObject<TenPayNotify>(input);
-
             Log.Logger.Warning("Cap:mall.tenpay.notify");
 
             var payOrder = await _payOrderRepository.FindAsync(tenPayNotify.out_trade_no);
@@ -247,6 +247,18 @@ namespace TT.Abp.Mall.Application.Clients
                 if (payOrder.TotalPrice.ToString() == tenPayNotify.total_fee && tenPayNotify.result_code == "SUCCESS")
                 {
                     payOrder.SuccessPay(tenPayNotify.Id);
+
+                    if (payOrder.Type == MallEnums.OrderType.Product)
+                    {
+                        var productOrders = await _productOrderRepository.Where(x => x.BillNo == payOrder.BillNo).ToListAsync();
+
+                        foreach (var o in productOrders)
+                        {
+                            // TODO:实收少于应收多少范围内要发消息 
+                            o.SuccessPay(MallEnums.PayType.微信, payOrder.TotalPrice / 100m);
+                        }
+                    }
+
                     await _unitOfWork.SaveChangesAsync();
                 }
                 else

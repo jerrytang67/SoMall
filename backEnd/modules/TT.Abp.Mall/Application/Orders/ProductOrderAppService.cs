@@ -128,8 +128,7 @@ namespace TT.Abp.Mall.Application.Orders
         public async Task<object> PayAsync(OrderPayRequestDto input)
         {
             var productOrder = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
-
-
+            
             var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
             var app = await _appProvider.GetOrNullAsync(appName);
             var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
@@ -158,7 +157,7 @@ namespace TT.Abp.Mall.Application.Orders
                 mchId,
                 mchKey,
                 body: productOrder.OrderItems.First().SpuName,
-                outTradeNo: $"{mchId}{DateTime.Now:yyyyMMddHHmmss}{StringExt.BuildRandomStr(6)}",
+                outTradeNo: insertAsync.BillNo,
                 totalFee: Convert.ToInt32(productOrder.PriceOriginal * 100),
                 notifyUrl: notifyUrl,
                 tradeType: Consts.TradeType.JsApi,

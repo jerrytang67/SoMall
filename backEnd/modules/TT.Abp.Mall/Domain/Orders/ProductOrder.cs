@@ -24,7 +24,7 @@ namespace TT.Abp.Mall.Domain.Orders
 
         [CanBeNull] public virtual string BillNo { get; protected set; }
 
-        public decimal? PricePaidIn { get; set; } //实收
+        public decimal? PricePaidIn { get; protected set; } //实收
         public decimal PriceOriginal { get; set; } //原价，应收
 
         DateTime? DatetimeComplate { get; set; }
@@ -65,6 +65,12 @@ namespace TT.Abp.Mall.Domain.Orders
         {
             PayOrderId = payOrderId;
             BillNo = billno;
+        }
+
+        public void SuccessPay(MallEnums.PayType payType, decimal paidIn)
+        {
+            PayType = payType;
+            PricePaidIn = paidIn;
         }
     }
 }

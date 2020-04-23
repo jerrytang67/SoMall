@@ -121,8 +121,8 @@ namespace TT.Abp.Mall.Domain.Pays
             IsSuccessPay = true;
             SuccessPayTime = DateTime.Now;
             State = MallEnums.PayState.已支付;
-            
-            // this.SetProperty()
+
+            this.SetProperty("TenPayNotifyId", notifyId);
             //domain event
         }
     }

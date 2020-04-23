@@ -53,7 +53,8 @@ namespace TT.Abp.Mall.Domain
             外送 = 2,
             自提 = 3,
             跑腿 = 4,
-            美团 = 5
+            美团 = 5,
+            快递 = 6
         }
 
         public enum LocationType

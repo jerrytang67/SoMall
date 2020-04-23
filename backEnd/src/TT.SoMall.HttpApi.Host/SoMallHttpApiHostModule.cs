@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -90,7 +91,9 @@ namespace TT.SoMall
                 options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly);
             });
 
-            context.Services.AddControllers().AddNewtonsoftJson(options =>
+            context.Services.AddControllers(
+                opt => { opt.InputFormatters.Add(new XmlSerializerInputFormatter(opt)); }
+            ).AddNewtonsoftJson(options =>
             {
                 // options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
 
@@ -174,7 +177,7 @@ namespace TT.SoMall
             app.UseCors(DefaultCorsPolicyName);
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             if (MultiTenancyConsts.IsEnabled)
             {
                 app.UseMultiTenancy();
