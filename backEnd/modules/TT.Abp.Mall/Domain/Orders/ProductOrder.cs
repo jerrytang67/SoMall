@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Shops;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -17,6 +19,10 @@ namespace TT.Abp.Mall.Domain.Orders
             ShopId = shopId;
             TenantId = tenantId;
         }
+
+        public virtual Guid? PayOrderId { get; protected set; }
+
+        [CanBeNull] public virtual string BillNo { get; protected set; }
 
         public decimal? PricePaidIn { get; set; } //实收
         public decimal PriceOriginal { get; set; } //原价，应收
@@ -54,5 +60,11 @@ namespace TT.Abp.Mall.Domain.Orders
         public Guid? ShopId { get; protected set; }
 
         public virtual ICollection<ProductOrderItem> OrderItems { get; set; }
+
+        public void SetBillNo(Guid payOrderId, string billno)
+        {
+            PayOrderId = payOrderId;
+            BillNo = billno;
+        }
     }
 }

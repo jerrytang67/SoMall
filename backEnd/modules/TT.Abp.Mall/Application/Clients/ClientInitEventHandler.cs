@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Serilog;
+using TT.Abp.Mall.Application.Clients.Dtos;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus;
 using Volo.Abp.Users;
@@ -35,15 +35,8 @@ namespace TT.Abp.Mall.Application.Clients
             }
 
             Log.Warning(JsonConvert.SerializeObject(eventData.InputData));
-            
+
             await Task.CompletedTask;
         }
-    }
-
-    public class ClientInitRequestDto
-    {
-        public JObject SystemInfo { get; set; }
-
-        public ICurrentUser CurrentUser { get; set; }
     }
 }

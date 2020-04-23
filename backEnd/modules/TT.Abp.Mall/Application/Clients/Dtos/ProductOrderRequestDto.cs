@@ -2,7 +2,7 @@
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Products.Dtos;
 
-namespace TT.Abp.Mall.Application.Clients
+namespace TT.Abp.Mall.Application.Clients.Dtos
 {
     public class ProductOrderRequestDto
     {

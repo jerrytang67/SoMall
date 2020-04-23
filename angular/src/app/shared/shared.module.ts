@@ -86,6 +86,7 @@ import { ShopSelectComponent } from '../visitor/components/shop-select/shop-sele
 import { CKEditorModule } from './ckeditor';
 import { TtTooltip } from './components/tt-tooltip/tt-tooltip.component';
 import { TtUploadComponent } from './components/tt-upload/tt-upload.component';
+import { UtilsModule } from './utils/utils.module';
 
 const BSMODULES = [
   TooltipModule.forRoot(),
@@ -168,6 +169,7 @@ const THIRDMODULES = [
   // NgZorroAntdModule, 
   CKEditorModule,
   SEModule,
+  UtilsModule
 ];
 // #endregion
 

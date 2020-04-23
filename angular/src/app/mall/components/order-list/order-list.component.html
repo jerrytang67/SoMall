@@ -19,6 +19,7 @@
         <thead>
             <!-- <th>id</th> -->
             <th>payType</th>
+            <th>payOrderId</th>
             <th>priceOriginal</th>
             <th>pricePaidIn</th>
             <th>addressRealName</th>
@@ -34,6 +35,7 @@
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
                 <td>{{item.payType}}</td>
+                <td>{{item.payOrderId}}</td>
                 <td>{{item.priceOriginal | currency}}</td>
                 <td>{{item.pricePaidIn | currency}}</td>
                 <td>{{item.addressRealName}}</td>
@@ -41,7 +43,7 @@
                 <td>{{item.addressLocationAddress}}</td>
                 <td>{{item.addressLocationLable}}</td>
                 <td>{{item.comment}}</td>
-                <td>{{item.creationTime}}</td>
+                <td>{{item.creationTime | momentFromNow}}</td>
                 <td>{{item.shop.name}}</td>
                 <td></td>
                 <td>

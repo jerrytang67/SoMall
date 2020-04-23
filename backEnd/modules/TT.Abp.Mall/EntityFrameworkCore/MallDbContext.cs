@@ -4,6 +4,7 @@ using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
+using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Users;

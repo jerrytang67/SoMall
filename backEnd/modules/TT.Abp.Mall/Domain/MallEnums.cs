@@ -4,13 +4,20 @@ namespace TT.Abp.Mall.Domain
 {
     public class MallEnums
     {
+        public enum PayState
+        {
+            取消 = -1,
+            未支付 = 0,
+            已支付 = 1,
+            待退款 = 2
+        }
+
         public enum PartnerState
         {
             待审核 = 0,
             驳回 = -1,
             成功 = 10
         }
-
 
 
         public enum PayType

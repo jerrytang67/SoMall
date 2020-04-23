@@ -12,6 +12,8 @@ namespace TT.Abp.Mall.Application.Orders.Dtos
     /// </summary>
     public class ProductOrderDto : EntityDto<Guid>
     {
+        public Guid? PayOrderId { get; set; }
+        
         public decimal? PricePaidIn { get; set; }
 
         public decimal PriceOriginal { get; set; }
@@ -47,9 +49,9 @@ namespace TT.Abp.Mall.Application.Orders.Dtos
         public Guid? ShopId { get; protected set; }
 
         public MallShopDto Shop { get; set; }
-        
+
         public DateTime CreationTime { get; set; }
-        
+
 
         public List<ProductOrderItemDto> OrderItems { get; set; }
     }

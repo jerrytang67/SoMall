@@ -7,6 +7,7 @@ using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
+using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Users;
@@ -98,9 +99,10 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.ToTable(MallConsts.DbTablePrefix + "PayOrders", MallConsts.DbSchema);
                 b.ConfigureFullAuditedAggregateRoot();
                 b.Property(x => x.Body).IsRequired().HasMaxLength(128);
-                b.Property(x => x.BillNo).HasMaxLength(48);
-                b.Property(x => x.OpenId).HasMaxLength(32);
-                b.Property(x => x.MchId).HasMaxLength(32);
+                b.Property(x => x.BillNo).IsRequired().HasMaxLength(48);
+                b.Property(x => x.OpenId).IsRequired().HasMaxLength(32);
+                b.Property(x => x.MchId).IsRequired().HasMaxLength(32);
+                b.Property(x => x.AppName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
             });
 
             // 商品订单
@@ -195,7 +197,6 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                     .WithMany(b => b.PartnerProducts)
                     .HasForeignKey(bc => bc.PartnerId);
             });
-            
 
 
             // 优惠券

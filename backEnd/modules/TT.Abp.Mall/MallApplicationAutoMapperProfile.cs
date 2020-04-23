@@ -7,6 +7,7 @@ using TT.Abp.Mall.Application.Coupons.Dtos;
 using TT.Abp.Mall.Application.Orders;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Partners;
+using TT.Abp.Mall.Application.Pays;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Application.Users;
@@ -14,6 +15,7 @@ using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
+using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Users;
@@ -85,8 +87,18 @@ namespace TT.Abp.Mall
             #region Coupons
 
             CreateMap<Coupon, CouponDto>();
-            
+
             CreateMap<CouponCreateOrUpdateDto, Coupon>();
+
+            #endregion
+
+
+            #region Pays
+
+            CreateMap<PayOrder, PayOrderDto>();
+
+            CreateMap<PayOrder, PayOrderDtoBase>();
+            // CreateMap<PayOrderDtoBase, PayOrderDto>();
 
             #endregion
         }

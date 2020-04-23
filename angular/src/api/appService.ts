@@ -824,6 +824,58 @@ export class PartnerProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class PayOrderProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      shopId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<PayOrderDtoPagedResultDto> {
+    let url = '/api/mall/payOrder/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PayOrderDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  getPublicList(
+    params: {
+      /**  */
+      shopId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<PayOrderDtoPagedResultDto> {
+    let url = '/api/mall/payOrder/getPublicList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PayOrderDtoPagedResultDto>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class ProductCategoryProxyService {
   constructor(private http: HttpClient) {}
 
@@ -2632,6 +2684,15 @@ export interface AppDto {
   clientName?: string;
 
   /**  */
+  value?: object;
+
+  /**  */
+  providerName?: string;
+
+  /**  */
+  providerKey?: string;
+
+  /**  */
   id?: string;
 }
 
@@ -2651,7 +2712,42 @@ export interface AppCreateOrUpdateDto {
   clientName?: string;
 }
 
-export interface ClientInitRequestDto {}
+export interface ICurrentUser {
+  /**  */
+  isAuthenticated?: boolean;
+
+  /**  */
+  id?: string;
+
+  /**  */
+  userName?: string;
+
+  /**  */
+  phoneNumber?: string;
+
+  /**  */
+  phoneNumberVerified?: boolean;
+
+  /**  */
+  email?: string;
+
+  /**  */
+  emailVerified?: boolean;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  roles?: string[];
+}
+
+export interface ClientInitRequestDto {
+  /**  */
+  systemInfo?: object;
+
+  /**  */
+  currentUser?: ICurrentUser;
+}
 
 export interface WeChatMiniProgramAuthenticateModel {
   /**  */
@@ -3337,6 +3433,73 @@ export interface PartnerDtoPagedResultDto {
   items?: PartnerDto[];
 }
 
+export interface PayOrderDto {
+  /**  */
+  payType?: PayType;
+
+  /**  */
+  isSuccessPay?: boolean;
+
+  /**  */
+  successPayTime?: Date;
+
+  /**  */
+  isRefund?: boolean;
+
+  /**  */
+  refundTime?: Date;
+
+  /**  */
+  refundComplateTime?: Date;
+
+  /**  */
+  refundPrice?: number;
+
+  /**  */
+  shareFromUserId?: string;
+
+  /**  */
+  partnerId?: string;
+
+  /**  */
+  totalPrice?: number;
+
+  /**  */
+  body?: string;
+
+  /**  */
+  billNo?: string;
+
+  /**  */
+  appName?: string;
+
+  /**  */
+  openId?: string;
+
+  /**  */
+  mchId?: string;
+
+  /**  */
+  state?: PayState;
+
+  /**  */
+  type?: OrderType;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface PayOrderDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: PayOrderDto[];
+}
+
 export interface ProviderInfoDto {
   /**  */
   providerName?: string;
@@ -3452,6 +3615,9 @@ export interface ProductOrderItemDto {
 }
 
 export interface ProductOrderDto {
+  /**  */
+  payOrderId?: string;
+
   /**  */
   pricePaidIn?: number;
 
@@ -4208,6 +4374,27 @@ export enum PartnerState {
   '成功' = '成功'
 }
 
+export enum PayType {
+  'UnPay' = 'UnPay',
+  '微信' = '微信',
+  '微信扫码' = '微信扫码',
+  '支付宝' = '支付宝',
+  '银联' = '银联',
+  '用户余额' = '用户余额'
+}
+
+export enum PayState {
+  '取消' = '取消',
+  '未支付' = '未支付',
+  '已支付' = '已支付',
+  '待退款' = '待退款'
+}
+
+export enum OrderType {
+  'Default' = 'Default',
+  'Product' = 'Product'
+}
+
 export enum OrderState {
   '已取消' = '已取消',
   '未完成' = '未完成',
@@ -4225,15 +4412,6 @@ export enum ProductOrderType {
   '美团' = '美团'
 }
 
-export enum PayType {
-  'UnPay' = 'UnPay',
-  '微信' = '微信',
-  '微信扫码' = '微信扫码',
-  '支付宝' = '支付宝',
-  '银联' = '银联',
-  '用户余额' = '用户余额'
-}
-
 export enum RealNameInfoType {
   '个人' = '个人',
   '企业' = '企业'
@@ -4243,11 +4421,6 @@ export enum RealNameInfoState {
   '未认证' = '未认证',
   '个人认证' = '个人认证',
   '企业认证' = '企业认证'
-}
-
-export enum OrderType {
-  'Default' = 'Default',
-  'Product' = 'Product'
 }
 
 export enum CredentialType {

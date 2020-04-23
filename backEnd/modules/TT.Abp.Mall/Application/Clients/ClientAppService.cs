@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Addresses;
 using TT.Abp.Mall.Application.Addresses.Dtos;
+using TT.Abp.Mall.Application.Clients.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;

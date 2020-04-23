@@ -10,6 +10,7 @@ using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Orders;
+using TT.Abp.Mall.Domain.Pays;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using TT.Abp.Mall.Domain.Products;
@@ -18,6 +19,7 @@ using TT.Extensions;
 using TT.HttpClient.Weixin;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Guids;
 using Volo.Abp.Settings;
 
 namespace TT.Abp.Mall.Application.Orders
@@ -32,6 +34,7 @@ namespace TT.Abp.Mall.Application.Orders
         IProductOrderAppService
     {
         private readonly IPayApi _payApi;
+        private readonly IPayOrderRepository _payOrderRepository;
         private readonly IMallShopLookupService _mallShopLookupService;
         private readonly ISettingProvider _setting;
         private readonly IHttpContextAccessor _httpContext;
@@ -42,6 +45,7 @@ namespace TT.Abp.Mall.Application.Orders
         public ProductOrderAppService(
             IPayApi payApi,
             IRepository<ProductOrder, Guid> repository,
+            IPayOrderRepository payOrderRepository,
             IMallShopLookupService mallShopLookupService,
             ISettingProvider setting,
             IHttpContextAccessor httpContext,
@@ -50,12 +54,13 @@ namespace TT.Abp.Mall.Application.Orders
         ) : base(repository)
         {
             _payApi = payApi;
+            _payOrderRepository = payOrderRepository;
             _mallShopLookupService = mallShopLookupService;
             _setting = setting;
             _httpContext = httpContext;
             _httpContextAccessor = httpContextAccessor;
             _appProvider = appProvider;
-            
+
             base.GetListPolicyName = MallPermissions.ProductOrders.Default;
             base.GetPolicyName = MallPermissions.ProductOrders.Default;
             base.UpdatePolicyName = MallPermissions.ProductOrders.Update;
@@ -122,10 +127,10 @@ namespace TT.Abp.Mall.Application.Orders
         [HttpPost]
         public async Task<object> PayAsync(OrderPayRequestDto input)
         {
-            var order = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
+            var productOrder = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
+
 
             var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
-
             var app = await _appProvider.GetOrNullAsync(appName);
             var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
 
@@ -133,18 +138,35 @@ namespace TT.Abp.Mall.Application.Orders
             var mchKey = await _setting.GetOrNullAsync(MallManagementSetting.PayKey);
             var notifyUrl = await _setting.GetOrNullAsync(MallManagementSetting.PayNotify);
 
+
+            var payorder = new PayOrder();
+            payorder.CreatWxPayFromProductOrder(id: GuidGenerator.Create(),
+                productOrder: productOrder,
+                mchId: mchId,
+                openid: input.openid,
+                appName: appName,
+                shareFromUserId: null,
+                partnerId: null
+            );
+
+            var insertAsync = await _payOrderRepository.InsertAsync(payorder, autoSave: true);
+
+            productOrder.SetBillNo(insertAsync.Id, insertAsync.BillNo);
+
             var result = await _payApi.UnifiedOrderAsync(
                 appid,
                 mchId,
                 mchKey,
-                body: order.OrderItems.First().SpuName,
+                body: productOrder.OrderItems.First().SpuName,
                 outTradeNo: $"{mchId}{DateTime.Now:yyyyMMddHHmmss}{StringExt.BuildRandomStr(6)}",
-                totalFee: Convert.ToInt32(order.PriceOriginal * 100),
+                totalFee: Convert.ToInt32(productOrder.PriceOriginal * 100),
                 notifyUrl: notifyUrl,
                 tradeType: Consts.TradeType.JsApi,
                 openId: input.openid,
                 billCreateIp: _httpContext.HttpContext.Connection.RemoteIpAddress.ToString()
             );
+
+
             return result;
         }
 

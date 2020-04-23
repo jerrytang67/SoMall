@@ -13,6 +13,7 @@ import { CouponListComponent } from './components/coupon-list/coupon-list.compon
 import { UserCouponListComponent } from './components/userCoupon-list/userCoupon-list.component';
 import { PartnerListComponent } from './components/partner-list/partner-list.component';
 import { RealNameInfoListComponent } from '../account-management/components/realNameInfo-list/realNameInfo-list.component';
+import { PayOrderListComponent } from './components/payOrder-list/payOrder-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'shops', pathMatch: 'full', data: { breadcrumb: "商城" } },
@@ -35,6 +36,8 @@ const routes: Routes = [
       { path: 'userCoupons', component: UserCouponListComponent, data: { title: '用户优惠券', permission: 'Pages' } },
       { path: 'userCoupons/:couponId', component: UserCouponListComponent, data: { title: '用户优惠券', permission: 'Pages' } },
       { path: 'partners', component: PartnerListComponent, data: { title: '用户优惠券', permission: 'Pages' } },
+      { path: 'payOrders', component: PayOrderListComponent, data: { title: '支付请求列表', permission: 'Pages' } },
+      { path: 'payOrders/:shopId', component: PayOrderListComponent, data: { title: '支付请求列表', permission: 'Pages' } },
     ]
   }
 ]
