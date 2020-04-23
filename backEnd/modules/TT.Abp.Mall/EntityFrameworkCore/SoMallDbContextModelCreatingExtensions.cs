@@ -218,6 +218,32 @@ namespace TT.Abp.Mall.EntityFrameworkCore
 
                 b.Property(x => x.CouponName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
             });
+
+
+            // Pays
+
+            builder.Entity<TenPayNotify>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "TenPayNotify", MallConsts.DbSchema);
+                b.ConfigureCreationAuditedAggregateRoot();
+
+                b.Property(x => x.out_trade_no).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.result_code).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.fee_type).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.return_code).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.total_fee).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.mch_id).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.cash_fee).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.openid).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.transaction_id).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.sign).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.bank_type).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.appid).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.time_end).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.trade_type).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.nonce_str).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.is_subscribe).HasMaxLength(MallConsts.MaxNameLength);
+            });
         }
     }
 

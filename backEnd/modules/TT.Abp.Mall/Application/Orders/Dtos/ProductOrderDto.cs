@@ -13,7 +13,9 @@ namespace TT.Abp.Mall.Application.Orders.Dtos
     public class ProductOrderDto : EntityDto<Guid>
     {
         public Guid? PayOrderId { get; set; }
-        
+
+        public string BillNo { get; set; }
+
         public decimal? PricePaidIn { get; set; }
 
         public decimal PriceOriginal { get; set; }
