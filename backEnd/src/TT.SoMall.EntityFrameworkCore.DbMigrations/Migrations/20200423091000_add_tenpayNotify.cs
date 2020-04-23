@@ -36,12 +36,30 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_Mall_TenPayNotify", x => x.Id);
                 });
+            
+            migrationBuilder.AddColumn<string>(
+                name: "ConcurrencyStamp",
+                table: "Mall_PayOrders",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "ExtraProperties",
+                table: "Mall_PayOrders",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Mall_TenPayNotify");
+            
+            migrationBuilder.DropColumn(
+                name: "ConcurrencyStamp",
+                table: "Mall_PayOrders");
+
+            migrationBuilder.DropColumn(
+                name: "ExtraProperties",
+                table: "Mall_PayOrders");
         }
     }
 }

@@ -12,8 +12,7 @@ namespace TT.Abp.Mall.Domain.Pays
 {
     public interface IPayOrderRepository : IBasicRepository<PayOrder, Guid>
     {
-        IQueryable<PayOrder> GetQuery(Guid? shopId);
-
+        IQueryable<PayOrder> GetQuery(Guid? shopId = null);
 
         Task<PayOrder> FindAsync(string billNo);
         Task<List<PayOrder>> GetListAsync(string appName);

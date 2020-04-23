@@ -98,8 +98,9 @@ namespace TT.Abp.Mall
             CreateMap<PayOrder, PayOrderDto>();
 
             CreateMap<PayOrder, PayOrderDtoBase>();
-            // CreateMap<PayOrderDtoBase, PayOrderDto>();
-
+            
+            CreateMap<TenPayNotify, TenPayNotifyDto>();
+            
             #endregion
         }
     }

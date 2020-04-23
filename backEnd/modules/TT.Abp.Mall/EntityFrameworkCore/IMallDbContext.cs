@@ -18,26 +18,28 @@ namespace TT.Abp.Mall.EntityFrameworkCore
     {
         public DbSet<MallUser> MallUsers { get; set; }
         public DbSet<MallShop> MallShops { get; set; }
-        
+
         DbSet<ProductSpu> ProductSpu { get; set; }
-        
+
         DbSet<ProductSku> ProductSku { get; set; }
-        
+
         DbSet<ProductCategory> ProductCategory { get; set; }
 
         DbSet<PayOrder> PayOrders { get; set; }
-        
+
         DbSet<ProductOrder> ProductOrders { get; set; }
-        
+
         DbSet<ProductOrderItem> ProductOrderItems { get; set; }
-        
+
         DbSet<Address> Addresses { get; set; }
-        
+
         DbSet<Comment> Comments { get; set; }
-        
+
         DbSet<Partner> Partners { get; set; }
 
         DbSet<Coupon> Coupons { get; set; }
         DbSet<UserCoupon> UserCoupons { get; set; }
+
+        DbSet<TenPayNotify> TenPayNotify { get; set; }
     }
 }

@@ -779,6 +779,11 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(128)")
                         .HasMaxLength(128);
 
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnName("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnName("CreationTime")
                         .HasColumnType("datetime2");
@@ -794,6 +799,10 @@ namespace TT.SoMall.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnName("DeletionTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnName("ExtraProperties")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()

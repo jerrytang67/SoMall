@@ -150,7 +150,7 @@ namespace TT.Abp.Weixin.Domain
             Log.Logger.Error(JsonConvert.SerializeObject(token));
             return null;
         }
-        
+
         public virtual async Task<string> Getwxacodeunlimit(string scene, string page = "pages/index/index")
         {
             var key = "SoMall:QR:Mini";
@@ -194,7 +194,7 @@ namespace TT.Abp.Weixin.Domain
     }
 
 
-    public class WexinCapSubscriberService : ICapSubscribe
+    public class WexinCapSubscriberService : ICapSubscribe, ITransientDependency
     {
         private readonly WeixinManager _weixinManager;
 

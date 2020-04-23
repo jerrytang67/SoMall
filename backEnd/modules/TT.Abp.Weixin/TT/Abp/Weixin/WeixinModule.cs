@@ -47,7 +47,7 @@ namespace TT.Abp.Weixin
             context.Services.AddSingleton<ISignatureGenerator, SignatureGenerator>();
 
             // CAP
-            context.Services.AddTransient<WexinCapSubscriberService>();
+            //context.Services.AddTransient<WexinCapSubscriberService>();
         }
     }
 }

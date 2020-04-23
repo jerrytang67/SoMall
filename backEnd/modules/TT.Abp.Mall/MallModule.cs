@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AppManagement;
+using TT.Abp.Mall.Application.Clients;
 using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Abp.Shops;
 using TT.Abp.Weixin;
@@ -39,6 +40,9 @@ namespace TT.Abp.Mall
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
+            
+            // CAP
+            // context.Services.AddTransient<TenPayNotifyCapSubscriberService>();
         }
     }
 }

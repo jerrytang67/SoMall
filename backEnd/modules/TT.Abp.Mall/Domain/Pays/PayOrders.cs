@@ -5,12 +5,13 @@ using System.Linq;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Shops;
 using TT.Extensions;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Domain.Pays
 {
-    public class PayOrder : FullAuditedEntity<Guid>, IMultiTenant, IMultiShop
+    public class PayOrder : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMultiShop
     {
         /// <summary>
         /// 单位:分
@@ -114,5 +115,15 @@ namespace TT.Abp.Mall.Domain.Pays
         }
 
         #endregion
+
+        public void SuccessPay(Guid notifyId)
+        {
+            IsSuccessPay = true;
+            SuccessPayTime = DateTime.Now;
+            State = MallEnums.PayState.已支付;
+            
+            // this.SetProperty()
+            //domain event
+        }
     }
 }
