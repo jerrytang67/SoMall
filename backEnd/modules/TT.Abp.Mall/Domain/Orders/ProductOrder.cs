@@ -71,6 +71,8 @@ namespace TT.Abp.Mall.Domain.Orders
         {
             PayType = payType;
             PricePaidIn = paidIn;
+            
+            
         }
     }
 }

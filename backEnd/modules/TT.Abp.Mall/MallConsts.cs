@@ -3,6 +3,7 @@
     public class MallConsts
     {
         public const string DbTablePrefix = "Mall_";
+        
         public const string DbSchema = null;
 
         public const int MaxNameLength = 64;

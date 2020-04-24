@@ -49,8 +49,11 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Code).HasMaxLength(MallConsts.MaxCodeLength);
                 b.Property(x => x.LogoImageUrl).HasMaxLength(MallConsts.MaxImageLength);
+                b.Property(x => x.RedirectUrl).HasMaxLength(MallConsts.MaxImageLength);
 
                 b.HasMany(x => x.SpuList).WithOne(x => x.Category);
+
+                b.HasMany(x => x.AppProductCategories).WithOne(x => x.ProductCategory);
             });
 
             builder.Entity<ProductSpu>(b =>
@@ -68,7 +71,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
 
                 // Many-To-One
                 b.HasOne(x => x.Category).WithMany(x => x.SpuList).HasForeignKey(x => x.CategoryId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Restrict); //删除限制
             });
 
             builder.Entity<ProductSku>(b =>
@@ -243,6 +246,21 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.trade_type).HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.nonce_str).HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.is_subscribe).HasMaxLength(MallConsts.MaxNameLength);
+            });
+
+
+            // APPCategory
+
+            builder.Entity<AppProductCategory>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "AppProductCategory", MallConsts.DbSchema);
+                b.ConfigureFullAudited();
+                b.HasKey(x => new {x.AppName, x.ProductCategoryId});
+                b.Property(x => x.AppName).HasMaxLength(MallConsts.MaxNameLength);
+
+                // Many-To-One
+                b.HasOne(x => x.ProductCategory).WithMany(x => x.AppProductCategories).HasForeignKey(x => x.ProductCategoryId)
+                    .OnDelete(DeleteBehavior.Cascade); //级联删除
             });
         }
     }

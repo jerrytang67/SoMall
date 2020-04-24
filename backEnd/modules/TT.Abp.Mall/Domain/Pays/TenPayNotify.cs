@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Auditing;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -28,25 +29,25 @@ namespace TT.Abp.Mall.Domain.Pays
         public DateTime CreationTime { get; set; } = DateTime.Now;
     }
 
-    public class TenPayNotify : AggregateRoot<Guid>
+    public class TenPayNotify : AggregateRoot<Guid>, IHasCreationTime
     {
-        [StringLength(40)] public string out_trade_no { get; set; }
-        [StringLength(40)] public string result_code { get; set; }
-        [StringLength(40)] public string fee_type { get; set; }
-        [StringLength(40)] public string return_code { get; set; }
-        [StringLength(40)] public string total_fee { get; set; }
-        [StringLength(40)] public string mch_id { get; set; }
-        [StringLength(40)] public string cash_fee { get; set; }
-        [StringLength(40)] public string openid { get; set; }
-        [StringLength(40)] public string transaction_id { get; set; }
-        [StringLength(40)] public string sign { get; set; }
-        [StringLength(40)] public string bank_type { get; set; }
-        [StringLength(40)] public string appid { get; set; }
-        [StringLength(40)] public string time_end { get; set; }
-        [StringLength(40)] public string trade_type { get; set; }
-        [StringLength(40)] public string nonce_str { get; set; }
-        [StringLength(40)] public string is_subscribe { get; set; }
+        public virtual string out_trade_no { get; set; }
+        public virtual string result_code { get; set; }
+        public virtual string fee_type { get; set; }
+        public virtual string return_code { get; set; }
+        public virtual string total_fee { get; set; }
+        public virtual string mch_id { get; set; }
+        public virtual string cash_fee { get; set; }
+        public virtual string openid { get; set; }
+        public virtual string transaction_id { get; set; }
+        public virtual string sign { get; set; }
+        public virtual string bank_type { get; set; }
+        public virtual string appid { get; set; }
+        public virtual string time_end { get; set; }
+        public virtual string trade_type { get; set; }
+        public virtual string nonce_str { get; set; }
+        public virtual string is_subscribe { get; set; }
 
-        public DateTime CreationTime { get; set; } = DateTime.Now;
+        public virtual DateTime CreationTime { get; set; } = DateTime.Now;
     }
 }

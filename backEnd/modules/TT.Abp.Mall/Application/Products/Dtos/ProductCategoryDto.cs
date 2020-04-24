@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Shops.Application.Dtos;
 using Volo.Abp.Application.Dtos;
 
 namespace TT.Abp.Mall.Application.Products.Dtos
 {
+    /// <summary>
+    /// <see cref="ProductCategory"/>
+    /// </summary>
     public class ProductCategoryDto : AuditedEntityDto<Guid>
     {
         public string Name { get; set; }

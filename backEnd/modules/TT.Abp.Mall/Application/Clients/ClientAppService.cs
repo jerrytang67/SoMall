@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
 using Microsoft.AspNetCore.Http;
@@ -13,35 +12,23 @@ using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Clients.Dtos;
 using TT.Abp.Mall.Application.Shops;
-using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
+using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Weixin.Application;
 using TT.Abp.Weixin.Application.Dtos;
-using TT.Abp.Weixin.Domain;
-using TT.HttpClient.Weixin;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Guids;
 using Volo.Abp.Settings;
-using Volo.Abp.Uow;
 
 namespace TT.Abp.Mall.Application.Clients
 {
-    public interface IClientAppService
-    {
-        Task<object> Init(ClientInitRequestDto input);
-        Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel);
-        Task<ListResultDto<AddressDto>> GetUserAddressListAsync();
-        Task<object> SumbitOrder(ProductOrderRequestDto input);
-    }
-
     public class ClientAppService : ApplicationService, IClientAppService
     {
         private readonly IGuidGenerator _guidGenerator;
@@ -51,6 +38,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly IReadOnlyRepository<Address, Guid> _addressRepository;
         private readonly IRepository<ProductOrder, Guid> _orderRepository;
         private readonly IRepository<TenPayNotify, Guid> _tenpayRepository;
+        private readonly IProductCategoryRepository _categoryRepository;
         private readonly IPayOrderRepository _payOrderRepository;
         private readonly ISettingProvider _setting;
         private readonly IAppProvider _appProvider;
@@ -66,6 +54,7 @@ namespace TT.Abp.Mall.Application.Clients
             IReadOnlyRepository<Address, Guid> addressRepository,
             IRepository<ProductOrder, Guid> orderRepository,
             IRepository<TenPayNotify, Guid> tenpayRepository,
+            IProductCategoryRepository categoryRepository,
             IPayOrderRepository payOrderRepository,
             ISettingProvider setting,
             IAppProvider appProvider,
@@ -81,6 +70,7 @@ namespace TT.Abp.Mall.Application.Clients
             _addressRepository = addressRepository;
             _orderRepository = orderRepository;
             _tenpayRepository = tenpayRepository;
+            _categoryRepository = categoryRepository;
             _payOrderRepository = payOrderRepository;
             _setting = setting;
             _appProvider = appProvider;
@@ -91,15 +81,19 @@ namespace TT.Abp.Mall.Application.Clients
 
         public async Task<object> Init(ClientInitRequestDto input)
         {
+            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
+
             await _eventBus.PublishAsync(new ClientInitEvent(input));
 
             var apps = await _appProvider.GetAllAsync();
             var shops = await _shopRepository.GetListAsync();
-            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
+            var categories = await _categoryRepository.GetPublicListAsync(new MallRequestDto() {ShopId = input.ShopId, AppName = appName});
             return new
             {
                 shops = ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops),
-                apps, appName
+                // apps, 
+                appName,
+                categories
             };
         }
 
@@ -205,75 +199,15 @@ namespace TT.Abp.Mall.Application.Clients
             if (notify == null)
             {
                 notify = tenPayNotify;
-                await _tenpayRepository.InsertAsync(notify, autoSave: true);
+                var insertEntity = await _tenpayRepository.InsertAsync(notify, autoSave: true);
+                await _capBus.PublishAsync("mall.tenpay.notify", insertEntity);
             }
-
-            await _capBus.PublishAsync("mall.tenpay.notify", tenPayNotify);
 
             var xml = $@"<xml>
 <return_code><![CDATA[{return_code}]]></return_code>
 <return_msg><![CDATA[{return_msg}]]></return_msg>
 </xml>";
             return xml;
-        }
-    }
-
-
-    public class TenPayNotifyCapSubscriberService : ICapSubscribe, ITransientDependency
-    {
-        private readonly IPayOrderRepository _payOrderRepository;
-        private readonly IRepository<ProductOrder, Guid> _productOrderRepository;
-        private readonly UnitOfWorkManager _unitOfWorkManager;
-
-        public TenPayNotifyCapSubscriberService(
-            IRepository<ProductOrder, Guid> productOrderRepository,
-            IPayOrderRepository payOrderRepository,
-            UnitOfWorkManager unitOfWorkManager
-        )
-        {
-            _payOrderRepository = payOrderRepository;
-            _productOrderRepository = productOrderRepository;
-            _unitOfWorkManager = unitOfWorkManager;
-        }
-
-        [CapSubscribe("mall.tenpay.notify")]
-        public async Task TenPayNotifySubscriber(TenPayNotify tenPayNotify)
-        {
-            using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
-            {
-                var payOrder = await _payOrderRepository.FindAsync(tenPayNotify.out_trade_no);
-                if (payOrder != null)
-                {
-                    if (payOrder.TotalPrice.ToString() == tenPayNotify.total_fee && tenPayNotify.result_code == "SUCCESS")
-                    {
-                        payOrder.SuccessPay(tenPayNotify.Id);
-
-                        if (payOrder.Type == MallEnums.OrderType.Product)
-                        {
-                            var productOrders = await _productOrderRepository.Where(x => x.BillNo == payOrder.BillNo).ToListAsync();
-
-                            foreach (var o in productOrders)
-                            {
-                                // TODO:实收少于应收多少范围内要发消息 
-                                o.SuccessPay(MallEnums.PayType.微信, payOrder.TotalPrice / 100m);
-                            }
-                        }
-
-                        await uow.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        throw new Exception($"Tenpay Result Fee not equals !!pay is {tenPayNotify.fee_type} , db is {payOrder.TotalPrice} , BillNo is {payOrder.BillNo}");
-                    }
-                }
-                else
-                {
-                    //TODO:这里要更多的消息通知管理员
-                    throw new Exception($"cant't find BillNo {tenPayNotify.out_trade_no}");
-                }
-
-                await Task.CompletedTask;
-            }
         }
     }
 }
