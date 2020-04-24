@@ -334,6 +334,22 @@ export class ClientProxyService {
     };
     return (this.http.request('post', url, options) as any) as Observable<any>;
   }
+  /**
+   *
+   */
+  payNotifyUrl(
+    params: {
+      /** requestBody */
+      body?: TenPayNotifyXml;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/client/payNotifyUrl';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -827,6 +843,33 @@ export class PartnerProxyService {
 export class PayOrderProxyService {
   constructor(private http: HttpClient) {}
 
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+      /**  */
+      billNo?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<PayOrderDto> {
+    let url = '/api/mall/payOrder/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PayOrderDto>;
+  }
   /**
    *
    */
@@ -3034,6 +3077,74 @@ export interface ProductOrderRequestDto {
   comment?: string;
 }
 
+export interface TenPayNotifyXml {
+  /**  */
+  appid?: string;
+
+  /**  */
+  mch_id?: string;
+
+  /**  */
+  device_info?: string;
+
+  /**  */
+  nonce_str?: string;
+
+  /**  */
+  sign?: string;
+
+  /**  */
+  result_code?: string;
+
+  /**  */
+  err_code?: string;
+
+  /**  */
+  err_code_des?: string;
+
+  /**  */
+  trade_type?: string;
+
+  /**  */
+  bank_type?: string;
+
+  /**  */
+  is_subscribe?: string;
+
+  /**  */
+  openid?: string;
+
+  /**  */
+  total_fee?: string;
+
+  /**  */
+  settlement_total_fee?: number;
+
+  /**  */
+  fee_type?: string;
+
+  /**  */
+  cash_fee?: string;
+
+  /**  */
+  cash_fee_type?: string;
+
+  /**  */
+  transaction_id?: string;
+
+  /**  */
+  out_trade_no?: string;
+
+  /**  */
+  time_end?: string;
+
+  /**  */
+  return_code?: string;
+
+  /**  */
+  return_msg?: string;
+}
+
 export interface CouponDto {
   /**  */
   amount?: number;
@@ -3435,31 +3546,7 @@ export interface PartnerDtoPagedResultDto {
 
 export interface PayOrderDto {
   /**  */
-  payType?: PayType;
-
-  /**  */
-  isSuccessPay?: boolean;
-
-  /**  */
-  successPayTime?: Date;
-
-  /**  */
-  isRefund?: boolean;
-
-  /**  */
-  refundTime?: Date;
-
-  /**  */
-  refundComplateTime?: Date;
-
-  /**  */
-  refundPrice?: number;
-
-  /**  */
-  shareFromUserId?: string;
-
-  /**  */
-  partnerId?: string;
+  id?: string;
 
   /**  */
   totalPrice?: number;
@@ -3489,7 +3576,34 @@ export interface PayOrderDto {
   shopId?: string;
 
   /**  */
-  id?: string;
+  creationTime?: Date;
+
+  /**  */
+  payType?: PayType;
+
+  /**  */
+  isSuccessPay?: boolean;
+
+  /**  */
+  successPayTime?: Date;
+
+  /**  */
+  isRefund?: boolean;
+
+  /**  */
+  refundTime?: Date;
+
+  /**  */
+  refundComplateTime?: Date;
+
+  /**  */
+  refundPrice?: number;
+
+  /**  */
+  shareFromUserId?: string;
+
+  /**  */
+  partnerId?: string;
 }
 
 export interface PayOrderDtoPagedResultDto {
@@ -3617,6 +3731,9 @@ export interface ProductOrderItemDto {
 export interface ProductOrderDto {
   /**  */
   payOrderId?: string;
+
+  /**  */
+  billNo?: string;
 
   /**  */
   pricePaidIn?: number;
@@ -4374,15 +4491,6 @@ export enum PartnerState {
   '成功' = '成功'
 }
 
-export enum PayType {
-  'UnPay' = 'UnPay',
-  '微信' = '微信',
-  '微信扫码' = '微信扫码',
-  '支付宝' = '支付宝',
-  '银联' = '银联',
-  '用户余额' = '用户余额'
-}
-
 export enum PayState {
   '取消' = '取消',
   '未支付' = '未支付',
@@ -4393,6 +4501,15 @@ export enum PayState {
 export enum OrderType {
   'Default' = 'Default',
   'Product' = 'Product'
+}
+
+export enum PayType {
+  'UnPay' = 'UnPay',
+  '微信' = '微信',
+  '微信扫码' = '微信扫码',
+  '支付宝' = '支付宝',
+  '银联' = '银联',
+  '用户余额' = '用户余额'
 }
 
 export enum OrderState {
@@ -4409,7 +4526,8 @@ export enum ProductOrderType {
   '外送' = '外送',
   '自提' = '自提',
   '跑腿' = '跑腿',
-  '美团' = '美团'
+  '美团' = '美团',
+  '快递' = '快递'
 }
 
 export enum RealNameInfoType {

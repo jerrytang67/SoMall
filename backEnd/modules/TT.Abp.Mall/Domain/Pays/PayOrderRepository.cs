@@ -31,15 +31,16 @@ namespace TT.Abp.Mall.Domain.Pays
             return DbSet.WhereIf(shopId.HasValue, x => x.ShopId == shopId);
         }
 
-        public virtual async Task<PayOrder> FindAsync(string billNo)
+        public async Task<PayOrder> FindAsync(string billNo)
         {
-            return await DbSet
+            var result  = await DbSet
                 .FirstOrDefaultAsync(
                     s => s.BillNo == billNo
                 );
+            return result;
         }
 
-        public virtual async Task<List<PayOrder>> GetListAsync(string appName)
+        public async Task<List<PayOrder>> GetListAsync(string appName)
         {
             return await DbSet
                 .Where(

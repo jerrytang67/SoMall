@@ -194,7 +194,7 @@ namespace TT.Abp.Weixin.Domain
     }
 
 
-    public class WexinCapSubscriberService : ICapSubscribe, ITransientDependency
+    public class WexinCapSubscriberService : ICapSubscribe, IScopedDependency
     {
         private readonly WeixinManager _weixinManager;
 

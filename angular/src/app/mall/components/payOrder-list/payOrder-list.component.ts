@@ -51,14 +51,10 @@ export class PayOrderListComponent implements OnInit {
   }
 
 
-  create(item: any) {
-
-  }
-  edit(item: any) {
-
-  }
-  delete(item: any) {
-
+  view(item: any) {
+    this.api.get({ billNo: item.billNo }).subscribe(res => {
+      console.log(res)
+    })
   }
 
 }

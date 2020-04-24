@@ -40,9 +40,9 @@ namespace TT.Abp.Mall
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
-            
+
             // CAP
-            // context.Services.AddTransient<TenPayNotifyCapSubscriberService>();
+            //context.Services.AddTransient<ITenPayNotifyCapSubscriberService, TenPayNotifyCapSubscriberService>();
         }
     }
 }

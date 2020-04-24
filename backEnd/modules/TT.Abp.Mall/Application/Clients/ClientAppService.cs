@@ -218,61 +218,62 @@ namespace TT.Abp.Mall.Application.Clients
         }
     }
 
+
     public class TenPayNotifyCapSubscriberService : ICapSubscribe, ITransientDependency
     {
         private readonly IPayOrderRepository _payOrderRepository;
         private readonly IRepository<ProductOrder, Guid> _productOrderRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly UnitOfWorkManager _unitOfWorkManager;
 
         public TenPayNotifyCapSubscriberService(
-            IPayOrderRepository payOrderRepository,
             IRepository<ProductOrder, Guid> productOrderRepository,
-            IUnitOfWork unitOfWork
+            IPayOrderRepository payOrderRepository,
+            UnitOfWorkManager unitOfWorkManager
         )
         {
             _payOrderRepository = payOrderRepository;
             _productOrderRepository = productOrderRepository;
-            _unitOfWork = unitOfWork;
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
         [CapSubscribe("mall.tenpay.notify")]
-        [UnitOfWork]
-        public virtual async Task TenPayNotifySubscriber(TenPayNotify tenPayNotify)
+        public async Task TenPayNotifySubscriber(TenPayNotify tenPayNotify)
         {
-            Log.Logger.Warning("Cap:mall.tenpay.notify");
-
-            var payOrder = await _payOrderRepository.FindAsync(tenPayNotify.out_trade_no);
-            if (payOrder != null)
+            using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
             {
-                if (payOrder.TotalPrice.ToString() == tenPayNotify.total_fee && tenPayNotify.result_code == "SUCCESS")
+                var payOrder = await _payOrderRepository.FindAsync(tenPayNotify.out_trade_no);
+                if (payOrder != null)
                 {
-                    payOrder.SuccessPay(tenPayNotify.Id);
-
-                    if (payOrder.Type == MallEnums.OrderType.Product)
+                    if (payOrder.TotalPrice.ToString() == tenPayNotify.total_fee && tenPayNotify.result_code == "SUCCESS")
                     {
-                        var productOrders = await _productOrderRepository.Where(x => x.BillNo == payOrder.BillNo).ToListAsync();
+                        payOrder.SuccessPay(tenPayNotify.Id);
 
-                        foreach (var o in productOrders)
+                        if (payOrder.Type == MallEnums.OrderType.Product)
                         {
-                            // TODO:实收少于应收多少范围内要发消息 
-                            o.SuccessPay(MallEnums.PayType.微信, payOrder.TotalPrice / 100m);
-                        }
-                    }
+                            var productOrders = await _productOrderRepository.Where(x => x.BillNo == payOrder.BillNo).ToListAsync();
 
-                    await _unitOfWork.SaveChangesAsync();
+                            foreach (var o in productOrders)
+                            {
+                                // TODO:实收少于应收多少范围内要发消息 
+                                o.SuccessPay(MallEnums.PayType.微信, payOrder.TotalPrice / 100m);
+                            }
+                        }
+
+                        await uow.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        throw new Exception($"Tenpay Result Fee not equals !!pay is {tenPayNotify.fee_type} , db is {payOrder.TotalPrice} , BillNo is {payOrder.BillNo}");
+                    }
                 }
                 else
                 {
-                    throw new Exception($"Tenpay Result Fee not equals !!pay is {tenPayNotify.fee_type} , db is {payOrder.TotalPrice} , BillNo is {payOrder.BillNo}");
+                    //TODO:这里要更多的消息通知管理员
+                    throw new Exception($"cant't find BillNo {tenPayNotify.out_trade_no}");
                 }
-            }
-            else
-            {
-                //TODO:这里要更多的消息通知管理员
-                throw new Exception($"cant't find BillNo {tenPayNotify.out_trade_no}");
-            }
 
-            await Task.CompletedTask;
+                await Task.CompletedTask;
+            }
         }
     }
 }

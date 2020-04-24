@@ -36,7 +36,7 @@
                 <td>{{item.state}}</td>
                 <td>{{item.creationTime | momentFromNow}}</td>
                 <td>
-                    <button nz-button nzType="primary" nzSize="small">{{'view' | translate}}</button>
+                    <button nz-button nzType="primary" nzSize="small" (click)="view(item)">{{'view' | translate}}</button>
                 </td>
             </tr>
         </tbody>

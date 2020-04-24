@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Pays;
+using TT.Extensions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -14,6 +17,7 @@ namespace TT.Abp.Mall.Application.Pays
 {
     public interface IPayOrderAppService
     {
+        Task<PayOrderDto> GetAsync(PayOrderRequestDto input);
         Task<PagedResultDto<PayOrderDto>> GetListAsync(MallRequestDto input);
         Task<PagedResultDto<PayOrderDto>> GetPublicListAsync(MallRequestDto input);
     }
@@ -27,6 +31,19 @@ namespace TT.Abp.Mall.Application.Pays
         {
             _repository = repository;
         }
+
+        public async Task<PayOrderDto> GetAsync(PayOrderRequestDto input)
+        {
+            if (!input.BillNo.IsNullOrEmptyOrWhiteSpace())
+            {
+                return ObjectMapper.Map<PayOrder, PayOrderDto>(await _repository.FindAsync(input.BillNo));
+            }
+            else
+            {
+                return ObjectMapper.Map<PayOrder, PayOrderDto>(await _repository.GetQuery().FirstOrDefaultAsync(x => x.Id == input.Id));
+            }
+        }
+
 
         public async Task<PagedResultDto<PayOrderDto>> GetListAsync(MallRequestDto input)
         {
@@ -74,6 +91,13 @@ namespace TT.Abp.Mall.Application.Pays
     }
 
 
+    public class PayOrderRequestDto : MallRequestDto
+    {
+        public Guid Id { get; set; }
+        [CanBeNull] public string BillNo { get; set; }
+    }
+
+
     public interface IPayOrderBase : IEntityDto<Guid>
     {
         public int TotalPrice { get; set; }
@@ -95,7 +119,6 @@ namespace TT.Abp.Mall.Application.Pays
 
         public Guid? ShopId { get; set; }
         public DateTime CreationTime { get; set; }
-
     }
 
 
@@ -124,7 +147,7 @@ namespace TT.Abp.Mall.Application.Pays
         public MallEnums.OrderType Type { get; set; }
 
         public Guid? ShopId { get; set; }
-        
+
         public DateTime CreationTime { get; set; }
     }
 
