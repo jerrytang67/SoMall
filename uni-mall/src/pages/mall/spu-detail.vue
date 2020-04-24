@@ -180,6 +180,13 @@ export default class About extends Vue {
       }
    }
 
+   onShareAppMessage(option: any) {
+      return {
+         title: "SoMall 商城版",
+         path: "/pages/index/index"
+      };
+   }
+
    loaded = false;
    current = 0;
    data: any = {};

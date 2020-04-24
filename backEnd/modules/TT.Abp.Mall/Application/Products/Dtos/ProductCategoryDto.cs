@@ -17,10 +17,18 @@ namespace TT.Abp.Mall.Application.Products.Dtos
 
         public string LogoImageUrl { get; set; }
 
+        public string RedirectUrl { get; set; }
+
+        public int Sort { get; set; }
+
+        public bool IsGlobal { get; set; }
+
         public ShopDto Shop { get; set; }
 
         public List<ProductSpuDtoBase> Spus { get; set; }
 
         public int TotalCount { get; set; }
+        
+        public List<AppProductCategoryDto> AppProductCategories { get; set; }
     }
 }

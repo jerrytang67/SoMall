@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ using Serilog;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Clients.Dtos;
+using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
@@ -39,6 +41,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly IRepository<ProductOrder, Guid> _orderRepository;
         private readonly IRepository<TenPayNotify, Guid> _tenpayRepository;
         private readonly IProductCategoryRepository _categoryRepository;
+        private readonly IRepository<ProductSpu, Guid> _spuRepository;
         private readonly IPayOrderRepository _payOrderRepository;
         private readonly ISettingProvider _setting;
         private readonly IAppProvider _appProvider;
@@ -55,6 +58,7 @@ namespace TT.Abp.Mall.Application.Clients
             IRepository<ProductOrder, Guid> orderRepository,
             IRepository<TenPayNotify, Guid> tenpayRepository,
             IProductCategoryRepository categoryRepository,
+            IRepository<ProductSpu, Guid> spuRepository,
             IPayOrderRepository payOrderRepository,
             ISettingProvider setting,
             IAppProvider appProvider,
@@ -71,6 +75,7 @@ namespace TT.Abp.Mall.Application.Clients
             _orderRepository = orderRepository;
             _tenpayRepository = tenpayRepository;
             _categoryRepository = categoryRepository;
+            _spuRepository = spuRepository;
             _payOrderRepository = payOrderRepository;
             _setting = setting;
             _appProvider = appProvider;
@@ -88,12 +93,16 @@ namespace TT.Abp.Mall.Application.Clients
             var apps = await _appProvider.GetAllAsync();
             var shops = await _shopRepository.GetListAsync();
             var categories = await _categoryRepository.GetPublicListAsync(new MallRequestDto() {ShopId = input.ShopId, AppName = appName});
+
+            var spus = await _spuRepository.Include(x => x.Skus).ToListAsync();
+
             return new
             {
                 shops = ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops),
                 // apps, 
                 appName,
-                categories
+                categories,
+                spus = ObjectMapper.Map<List<ProductSpu>, List<ProductSpuDtoBase>>(spus),
             };
         }
 

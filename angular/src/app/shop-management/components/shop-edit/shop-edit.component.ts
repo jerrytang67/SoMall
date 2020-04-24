@@ -3,8 +3,7 @@ import { VisitorShopCreateOrEditDto } from 'src/api/appService';
 import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-shop-edit',
-  templateUrl: './shop-edit.component.html',
-  styleUrls: ['./shop-edit.component.scss']
+  templateUrl: './shop-edit.component.html'
 })
 export class ShopEditComponent implements OnInit {
   @ViewChild('f', { static: true }) f: NgForm;

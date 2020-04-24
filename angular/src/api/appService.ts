@@ -364,6 +364,8 @@ export class CouponProxyService {
       /**  */
       shopId?: string;
       /**  */
+      appName?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -403,6 +405,8 @@ export class CouponProxyService {
     params: {
       /**  */
       shopId?: string;
+      /**  */
+      appName?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -822,6 +826,8 @@ export class PartnerProxyService {
       /**  */
       shopId?: string;
       /**  */
+      appName?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -855,6 +861,8 @@ export class PayOrderProxyService {
       /**  */
       shopId?: string;
       /**  */
+      appName?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -878,6 +886,8 @@ export class PayOrderProxyService {
       /**  */
       shopId?: string;
       /**  */
+      appName?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -900,6 +910,8 @@ export class PayOrderProxyService {
     params: {
       /**  */
       shopId?: string;
+      /**  */
+      appName?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -946,6 +958,8 @@ export class ProductCategoryProxyService {
     params: {
       /**  */
       shopId?: string;
+      /**  */
+      appName?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -1044,6 +1058,8 @@ export class ProductOrderProxyService {
       /**  */
       shopId?: string;
       /**  */
+      appName?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1098,6 +1114,8 @@ export class ProductOrderProxyService {
     params: {
       /**  */
       shopId?: string;
+      /**  */
+      appName?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -1179,6 +1197,8 @@ export class ProductSkuProxyService {
     params: {
       /**  */
       shopId?: string;
+      /**  */
+      appName?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -1328,6 +1348,8 @@ export class ProductSpuProxyService {
     params: {
       /**  */
       shopId?: string;
+      /**  */
+      appName?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -1817,6 +1839,8 @@ export class UserCouponProxyService {
       /**  */
       shopId?: string;
       /**  */
+      appName?: string;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1841,6 +1865,8 @@ export class UserCouponProxyService {
       couponId?: string;
       /**  */
       shopId?: string;
+      /**  */
+      appName?: string;
       /**  */
       sorting?: string;
       /**  */
@@ -2790,6 +2816,9 @@ export interface ClientInitRequestDto {
 
   /**  */
   currentUser?: ICurrentUser;
+
+  /**  */
+  shopId?: string;
 }
 
 export interface WeChatMiniProgramAuthenticateModel {
@@ -2878,6 +2907,20 @@ export interface ProductSpuDtoBase {
   limitBuyCount?: number;
 }
 
+export interface AppProductCategoryDto {
+  /**  */
+  appName?: string;
+
+  /**  */
+  productCategoryId?: string;
+
+  /**  */
+  productCategoryName?: string;
+
+  /**  */
+  sort?: number;
+}
+
 export interface ProductCategoryDto {
   /**  */
   name?: string;
@@ -2889,6 +2932,15 @@ export interface ProductCategoryDto {
   logoImageUrl?: string;
 
   /**  */
+  redirectUrl?: string;
+
+  /**  */
+  sort?: number;
+
+  /**  */
+  isGlobal?: boolean;
+
+  /**  */
   shop?: ShopDto;
 
   /**  */
@@ -2896,6 +2948,9 @@ export interface ProductCategoryDto {
 
   /**  */
   totalCount?: number;
+
+  /**  */
+  appProductCategories?: AppProductCategoryDto[];
 
   /**  */
   lastModificationTime?: Date;
@@ -3694,6 +3749,15 @@ export interface CategoryCreateOrUpdateDto {
 
   /**  */
   shopId?: string;
+
+  /**  */
+  redirectUrl?: string;
+
+  /**  */
+  sort?: number;
+
+  /**  */
+  isGlobal?: boolean;
 }
 
 export interface ProductOrderItemDto {

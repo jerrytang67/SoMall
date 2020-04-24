@@ -12,6 +12,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
 {
     public class ProductSpuDtoBase : ISpuData
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public DateTimeOffset? DateTimeStart { get; set; }
@@ -19,6 +20,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public int? StockCount { get; set; }
         public int SoldCount { get; set; }
         public int? LimitBuyCount { get; set; }
+        public List<ProductSkuDto> Skus { get; set; }
     }
 
     /// <summary>

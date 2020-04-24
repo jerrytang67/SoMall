@@ -11,15 +11,21 @@
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <button nzSize="large"  class="mr-4" nz-button (click)="add()" nzType="primary">{{'add.category' | translate}}</button>
+        <button nzSize="large" class="mr-4" nz-button (click)="add()" nzType="primary">{{'add.category' | translate}}</button>
         <button nzSize="large" nz-button (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
-    <nz-table #dataTable nzShowPagination [nzData]="dataItems">
+    <nz-table #dataTable nzShowSizeChanger nzShowPagination [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
+    [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
+    (nzPageSizeChange)="refresh()">
         <thead>
             <tr>
                 <!-- <th>Id</th> -->
+                <th></th>
                 <th>Name</th>
                 <th>Code</th>
+                <th>Sort</th>
+                <th>isGlobal</th>
+                <th>redirectUrl</th>
                 <th>ShopId</th>
                 <th></th>
             </tr>
@@ -27,8 +33,14 @@
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
+                <td>
+                    <nz-avatar nzShape="square" [nzSize]="64" nzSize="large" nzIcon="user" [nzSrc]="item.logoImageUrl"></nz-avatar>
+                </td>
                 <td>{{item.name}}</td>
                 <td>{{item.code}}</td>
+                <td>{{item.sort}}</td>
+                <td>{{item.isGlobal}}</td>
+                <td>{{item.redirectUrl}}</td>
                 <td>{{item.shopId}}</td>
                 <td>
                     <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/spu-create', item.id]">{{'mall.spu.create' | translate}}</button>

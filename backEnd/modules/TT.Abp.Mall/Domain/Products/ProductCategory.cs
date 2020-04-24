@@ -54,7 +54,15 @@ namespace TT.Abp.Mall.Domain.Products
         }
 
         public Guid? TenantId { get; protected set; }
-        
+
         public virtual ProductCategory ProductCategory { get; set; }
+    }
+
+    public class AppProductCategoryDto
+    {
+        public string AppName { get; set; }
+        public Guid ProductCategoryId { get; set; }
+        public Guid ProductCategoryName { get; set; }
+        public virtual int Sort { get; set; }
     }
 }

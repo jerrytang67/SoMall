@@ -56,7 +56,8 @@ export class BaseView extends Vue {
     }
 
     toSpu(id: string) {
-        uni.navigateTo({ url: "/pages/mall/spu-detail?id=" + id });
+        if (id)
+            uni.navigateTo({ url: "/pages/mall/spu-detail?id=" + id });
     }
 
     toBack() {

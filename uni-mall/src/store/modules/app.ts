@@ -11,6 +11,8 @@ class App extends VuexModule {
         api.init(data).then((res: any) => {
             //console.log(res);
             ShopModule.SetList(res.shops);
+            ShopModule.SetCategories(res.categories);
+            ShopModule.SetIndexSpus(res.spus);
         });
     }
 }

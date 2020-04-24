@@ -9,12 +9,15 @@ import { CategoryEditComponent } from '../category-edit/category-edit.component'
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent implements OnInit {
+
+  shopId: string = ""
   dataItems: any[] = [];
   pageingInfo = {
     totalItems: 0,
-    pageNumber: 0,
-    pageSize: 0,
-    isTableLoading: false
+    pageNumber: 1,
+    pageSize: 10,
+    isTableLoading: false,
+    sorting: "sort desc"
   };
   constructor(
     private api: ProductCategoryProxyService,
@@ -30,7 +33,12 @@ export class CategoryListComponent implements OnInit {
 
   refresh() {
     this.pageingInfo.isTableLoading = true;
-    this.api.getList().subscribe(res => {
+    this.api.getList({
+      shopId: this.shopId,
+      maxResultCount: this.pageingInfo.pageSize,
+      skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize,
+      sorting: this.pageingInfo.sorting
+    }).subscribe(res => {
       console.log(res);
       this.dataItems = res.items;
       this.pageingInfo.isTableLoading = false;

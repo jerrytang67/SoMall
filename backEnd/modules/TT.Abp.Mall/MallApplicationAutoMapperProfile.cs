@@ -38,7 +38,13 @@ namespace TT.Abp.Mall
             #region Products
 
             CreateMap<ProductCategory, ProductCategoryDto>();
+
+            CreateMap<AppProductCategory, AppProductCategoryDto>()
+                .ForMember(x => x.ProductCategoryName, opt => opt.MapFrom(x => x.ProductCategory.Name));
+
+
             CreateMap<ProductSpu, ProductSpuDto>();
+            CreateMap<ProductSpu, ProductSpuDtoBase>();
             CreateMap<ProductSku, ProductSkuDto>()
                 .ForMember(x => x.ShopId, opt => opt.MapFrom(x => x.Spu.ShopId))
                 .ForMember(x => x.SpuName, opt => opt.MapFrom(x => x.Spu.Name))
@@ -98,9 +104,9 @@ namespace TT.Abp.Mall
             CreateMap<PayOrder, PayOrderDto>();
 
             CreateMap<PayOrder, PayOrderDtoBase>();
-            
+
             CreateMap<TenPayNotify, TenPayNotifyDto>();
-            
+
             #endregion
         }
     }

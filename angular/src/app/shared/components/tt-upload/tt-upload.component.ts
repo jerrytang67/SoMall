@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UploadFile, UploadXHRArgs, NzUploadComponent } from 'ng-zorro-antd';
 import { OssQuery } from 'src/store/oss/oss.query';
 import { HttpRequest, HttpClient, HttpEvent, HttpResponse, HttpEventType } from '@angular/common/http';
+import { OssService } from 'src/store/oss/oss.service';
 @Component({
     selector: 'tt-upload',
     providers: [
@@ -45,7 +46,8 @@ export class TtUploadComponent implements OnChanges {
     constructor(
         private zone: NgZone,
         private http: HttpClient,
-        public ossQuery: OssQuery) {
+        public ossQuery: OssQuery,
+        public ossService: OssService) {
     }
 
     get value(): any {

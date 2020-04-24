@@ -5,8 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-category-edit',
-  templateUrl: './category-edit.component.html',
-  styleUrls: ['./category-edit.component.scss']
+  templateUrl: './category-edit.component.html'
 })
 export class CategoryEditComponent implements OnInit {
 

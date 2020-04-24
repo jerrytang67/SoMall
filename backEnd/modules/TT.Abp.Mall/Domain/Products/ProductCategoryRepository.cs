@@ -19,7 +19,7 @@ namespace TT.Abp.Mall.Domain.Products
 {
     public interface IProductCategoryRepository : IBasicRepository<ProductCategory, Guid>
     {
-        Task<ListResultDto<ProductCategoryDto>> GetPublicListAsync(MallRequestDto input);
+        Task<List<ProductCategoryDto>> GetPublicListAsync(MallRequestDto input);
     }
 
     public class ProductCategoryRepository : EfCoreRepository<IMallDbContext, ProductCategory, Guid>, IProductCategoryRepository
@@ -34,7 +34,7 @@ namespace TT.Abp.Mall.Domain.Products
             _mapper = mapper;
         }
 
-        public async Task<ListResultDto<ProductCategoryDto>> GetPublicListAsync(MallRequestDto input)
+        public async Task<List<ProductCategoryDto>> GetPublicListAsync(MallRequestDto input)
         {
             input.Sorting = input.Sorting.IsNullOrEmptyOrWhiteSpace() ? "sort desc" : input.Sorting;
             var list = await DbSet
@@ -44,7 +44,7 @@ namespace TT.Abp.Mall.Domain.Products
                 .OrderBy(input.Sorting)
                 .ToListAsync();
 
-            return new ListResultDto<ProductCategoryDto>(_mapper.Map<List<ProductCategory>, List<ProductCategoryDto>>(list));
+            return _mapper.Map<List<ProductCategory>, List<ProductCategoryDto>>(list);
         }
     }
 }

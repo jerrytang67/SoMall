@@ -15,5 +15,11 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public string LogoImageUrl { get; set; }
 
         public Guid? ShopId { get; set; }
+
+        public string RedirectUrl { get; set; }
+
+        public int Sort { get; set; }
+
+        public bool IsGlobal { get; set; }
     }
 }

@@ -29,6 +29,13 @@ export default class Shop extends Vue {
       }
    }
 
+   onShareAppMessage(option: any) {
+      return {
+         title: "SoMall 商城版",
+         path: "/pages/index/index"
+      };
+   }
+
    get spuList() {
       return ShopModule.getSpuList;
    }
