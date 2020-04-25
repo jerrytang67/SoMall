@@ -9,7 +9,8 @@
 ![image](_temp/mall/mall_1.jpg)
 
 **管理后台Angular9 - Ant Design**
-![image](_temp/angular/index.png)
+![image](_temp/angular/2.png)
+![image](_temp/angular/3.png)
 ![image](_temp/angular/spu_edit.jpg)
 
 #### 技术栈:
@@ -42,14 +43,6 @@ Quartz (background Job Schedule)
 ## 生鲜电商版小程序截图
 
 ![image](_temp/fresh/1.png)
-
-![image](_temp/fresh/2.png)
-
-![image](_temp/fresh/3.png)
-
-![image](_temp/fresh/4.png)
-
-![image](_temp/fresh/5.png)
 
 #### 交流QQ群353211
 ![image](_temp/qq_qun_353211.png)
