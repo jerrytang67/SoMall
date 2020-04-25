@@ -6,6 +6,8 @@ namespace TT.Abp.Mall.Application
 {
     public class MallRequestDto : PagedAndSortedResultRequestDto
     {
+        public string Keywords { get; set; }
+        
         public Guid? ShopId { get; set; }
 
         [CanBeNull] public string AppName { get; set; }

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
+using TT.Abp.Core.EntityFrameworkCore;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
+using TT.Abp.Mall.Domain.News;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
-using Volo.Abp.Users;
 
 namespace TT.Abp.Mall.EntityFrameworkCore
 {
@@ -26,7 +27,6 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             builder.Entity<MallUser>(b =>
             {
                 b.ToTable(MallConsts.DbTablePrefix + "Users", MallConsts.DbSchema);
-
                 b.ConfigureAbpUser();
                 b.ConfigureExtraProperties();
             });
@@ -262,22 +262,40 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.HasOne(x => x.ProductCategory).WithMany(x => x.AppProductCategories).HasForeignKey(x => x.ProductCategoryId)
                     .OnDelete(DeleteBehavior.Cascade); //级联删除
             });
-        }
-    }
 
-    public static class AbpUsersDbContextModelCreatingExtensions
-    {
-        public static void ConfigureAbpUser<TUser>(this EntityTypeBuilder<TUser> b)
-            where TUser : class, IUser
-        {
-            b.Property(u => u.TenantId).HasColumnName(nameof(IUser.TenantId));
-            b.Property(u => u.UserName).IsRequired().HasMaxLength(AbpUserConsts.MaxUserNameLength).HasColumnName(nameof(IUser.UserName));
-            b.Property(u => u.Email).IsRequired().HasMaxLength(AbpUserConsts.MaxEmailLength).HasColumnName(nameof(IUser.Email));
-            b.Property(u => u.Name).HasMaxLength(AbpUserConsts.MaxNameLength).HasColumnName(nameof(IUser.Name));
-            b.Property(u => u.Surname).HasMaxLength(AbpUserConsts.MaxSurnameLength).HasColumnName(nameof(IUser.Surname));
-            b.Property(u => u.EmailConfirmed).HasDefaultValue(false).HasColumnName(nameof(IUser.EmailConfirmed));
-            b.Property(u => u.PhoneNumber).HasMaxLength(AbpUserConsts.MaxPhoneNumberLength).HasColumnName(nameof(IUser.PhoneNumber));
-            b.Property(u => u.PhoneNumberConfirmed).HasDefaultValue(false).HasColumnName(nameof(IUser.PhoneNumberConfirmed));
+            builder.Entity<Swiper>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "Swipers", MallConsts.DbSchema);
+                b.ConfigureFullAuditedAggregateRoot();
+
+                b.Property(x => x.GroupName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.AppName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.CoverImageUrl).IsRequired().HasMaxLength(MallConsts.MaxImageLength);
+                b.Property(x => x.Name).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.RedirectUrl).HasMaxLength(MallConsts.MaxImageLength);
+                b.Property(x => x.State).HasDefaultValue(1);
+            });
+
+            builder.Entity<NewsCategory>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "NewsCategories", MallConsts.DbSchema);
+                b.ConfigureFullAuditedAggregateRoot();
+                b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+
+                b.HasMany(x => x.Contents).WithOne(x => x.Category);
+            });
+
+            builder.Entity<NewsContent>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "NewsContents", MallConsts.DbSchema);
+                b.ConfigureFullAuditedAggregateRoot();
+                b.Property(x => x.Title).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.CoverImageUrl).HasMaxLength(MallConsts.MaxImageLength);
+
+                // Many-To-One
+                b.HasOne(x => x.Category).WithMany(x => x.Contents).HasForeignKey(x => x.CategoryId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
         }
     }
 }

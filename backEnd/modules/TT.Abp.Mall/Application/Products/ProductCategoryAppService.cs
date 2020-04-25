@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using TT.Abp.AppManagement.Apps;
@@ -31,13 +32,17 @@ namespace TT.Abp.Mall.Application.Products
             IAppDefinitionManager appDefinitionManager
         ) : base(repository)
         {
+            base.GetListPolicyName = MallPermissions.Products.Default;
+            base.CreatePolicyName = MallPermissions.Products.Create;
+            base.UpdatePolicyName = MallPermissions.Products.Update;
+            base.DeletePolicyName = MallPermissions.Products.Delete;
+
             _appCategoriesRepository = appCategoriesRepository;
             _appDefinitionManager = appDefinitionManager;
         }
 
-        /// <summary>
-        /// 获取编辑
-        /// </summary>
+
+        [Authorize]
         public async Task<GetForEditOutput<CategoryCreateOrUpdateDto>> GetForEdit(Guid id)
         {
             var find = await Repository
@@ -59,7 +64,7 @@ namespace TT.Abp.Mall.Application.Products
             await CheckUpdatePolicyAsync();
 
             var entity = await Repository.Include(x => x.AppProductCategories).FirstOrDefaultAsync(x => x.Id == id);
-            
+
             foreach (var jo in input.Apps)
             {
                 var appName = jo["value"] + "";
@@ -93,7 +98,7 @@ namespace TT.Abp.Mall.Application.Products
         protected override IQueryable<ProductCategory> CreateFilteredQuery(MallRequestDto input)
         {
             return base.CreateFilteredQuery(input)
-                .Include(x=>x.AppProductCategories)
+                .Include(x => x.AppProductCategories)
                 .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
         }
     }

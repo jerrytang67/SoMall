@@ -11,6 +11,7 @@ using TT.Abp.Weixin.Application;
 using TT.Extensions;
 using TT.HttpClient.Weixin;
 using TT.HttpClient.Weixin.Helpers;
+using TT.HttpClient.Weixin.WeixiinResult;
 using TT.Oss;
 using Volo.Abp;
 using Volo.Abp.Caching;
@@ -58,7 +59,7 @@ namespace TT.Abp.Weixin.Domain
             if (find == null)
             {
                 await _wechatUserRepository.InsertAsync(
-                    new WechatUserinfo(userinfo.appid, userinfo.openid, userinfo.unionid, userinfo.nickName, userinfo.avatarUrl, WeixinEnums.ClientType.Mini)
+                    new WechatUserinfo(userinfo.appid, userinfo.openid, userinfo.unionid, userinfo.nickName, userinfo.avatarUrl, appName: userinfo.AppName)
                     {
                         city = userinfo.city,
                         province = userinfo.province,

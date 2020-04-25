@@ -1,4 +1,4 @@
-﻿namespace TT.HttpClient.Weixin
+﻿namespace TT.HttpClient.Weixin.WeixiinResult
 {
     public class MiniUserInfoResult
     {
@@ -14,5 +14,7 @@
         
         public string appid { get; set; }
 
+        
+        public string AppName { get; set; }
     }
 }

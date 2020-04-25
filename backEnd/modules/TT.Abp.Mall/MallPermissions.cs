@@ -17,14 +17,22 @@ namespace TT.Abp.Mall
             public const string Create = Default + ".Create";
         }
 
-        public static class Users
+        public static class MallUsers
         {
             public const string Default = GroupName + ".MallUser";
+            public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
             public const string Update = Default + ".Update";
-            public const string Create = Default + ".Create";
         }
 
+        public static class Products
+        {
+            public const string Default = GroupName + ".Products";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+            public const string Update = Default + ".Update";
+            
+        } 
         public static class ProductOrders
         {
             public const string Default = GroupName + ".ProductOrder";
@@ -53,6 +61,14 @@ namespace TT.Abp.Mall
             public const string Default = GroupName + ".PayOrders";
         }
 
+        public static class Swipers
+        {
+            public const string Default = GroupName + ".Swipers";
+            public const string Create = Default + ".Create";
+            public const string Delete = Default + ".Delete";
+            public const string Update = Default + ".Update";
+        }
+
         public static string[] GetAll()
         {
             return ReflectionHelper.GetPublicConstantsRecursively(typeof(MallPermissions));
@@ -65,16 +81,23 @@ namespace TT.Abp.Mall
         {
             var mallGroup = context.AddGroup(MallPermissions.GroupName, L("Permission:Mall"));
 
-            var users = mallGroup.AddPermission(MallPermissions.Users.Default, L("Permission:MallUsers"));
-            users.AddChild(MallPermissions.Users.Update, L("Permission:Edit"));
-            users.AddChild(MallPermissions.Users.Delete, L("Permission:Delete"));
-            users.AddChild(MallPermissions.Users.Create, L("Permission:Create"));
+            var users = mallGroup.AddPermission(MallPermissions.MallUsers.Default, L("Permission:MallUsers"));
+            users.AddChild(MallPermissions.MallUsers.Update, L("Permission:Edit"));
+            users.AddChild(MallPermissions.MallUsers.Delete, L("Permission:Delete"));
+            users.AddChild(MallPermissions.MallUsers.Create, L("Permission:Create"));
 
             var addresses = mallGroup.AddPermission(MallPermissions.Addresses.Default, L("Permission:Addresses"));
             addresses.AddChild(MallPermissions.Addresses.Update, L("Permission:Edit"));
             addresses.AddChild(MallPermissions.Addresses.Delete, L("Permission:Delete"));
             addresses.AddChild(MallPermissions.Addresses.Create, L("Permission:Create"));
 
+            
+            var products = mallGroup.AddPermission(MallPermissions.Products.Default, L("Permission:Products"));
+            products.AddChild(MallPermissions.Products.Update, L("Permission:Edit"));
+            products.AddChild(MallPermissions.Products.Delete, L("Permission:Delete"));
+            products.AddChild(MallPermissions.Products.Create, L("Permission:Create"));
+            
+            
             var orders = mallGroup.AddPermission(MallPermissions.ProductOrders.Default, L("Permission:ProductOrders"));
             orders.AddChild(MallPermissions.ProductOrders.Update, L("Permission:Edit"));
             orders.AddChild(MallPermissions.ProductOrders.Delete, L("Permission:Delete"));
@@ -90,6 +113,11 @@ namespace TT.Abp.Mall
             realNameInfos.AddChild(MallPermissions.RealNameInfos.Create, L("Permission:Create"));
 
             mallGroup.AddPermission(MallPermissions.PayOrders.Default, L("Permission:PayOrders"));
+
+            var swipers = mallGroup.AddPermission(MallPermissions.Swipers.Default, L("Permission:Swipers"));
+            swipers.AddChild(MallPermissions.Swipers.Update, L("Permission:Edit"));
+            swipers.AddChild(MallPermissions.Swipers.Delete, L("Permission:Delete"));
+            swipers.AddChild(MallPermissions.Swipers.Create, L("Permission:Create"));
         }
 
         private static LocalizableString L(string name)

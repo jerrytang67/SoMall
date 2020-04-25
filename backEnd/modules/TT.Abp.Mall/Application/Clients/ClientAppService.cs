@@ -19,6 +19,7 @@ using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Utils;
 using TT.Abp.Weixin.Application;
 using TT.Abp.Weixin.Application.Dtos;
 using Volo.Abp;
@@ -89,7 +90,7 @@ namespace TT.Abp.Mall.Application.Clients
 
         public async Task<object> Init(ClientInitRequestDto input)
         {
-            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
+            var appName = _httpContextAccessor.GetAppName();
 
             await _eventBus.PublishAsync(new ClientInitEvent(input));
 
@@ -102,7 +103,7 @@ namespace TT.Abp.Mall.Application.Clients
             return new
             {
                 shops = ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops),
-                apps, 
+                apps,
                 appName,
                 categories,
                 spus = ObjectMapper.Map<List<ProductSpu>, List<ProductSpuDtoBase>>(spus),
@@ -112,12 +113,9 @@ namespace TT.Abp.Mall.Application.Clients
         [HttpPost]
         public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel)
         {
-            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
-            var app = await _appProvider.GetOrNullAsync(appName);
-            var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
-            var appSec = app["appsec"] ?? throw new AbpException($"App:{appName} appsec未设置");
-
-            return await _weixinAppService.MiniAuth(loginModel, appid, appSec);
+            var appName = _httpContextAccessor.GetAppName();
+            
+            return await _weixinAppService.MiniAuth(loginModel, appName);
         }
 
         public async Task<ListResultDto<AddressDto>> GetUserAddressListAsync()

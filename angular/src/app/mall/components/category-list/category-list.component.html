@@ -20,7 +20,6 @@
         <thead>
             <tr>
                 <!-- <th>Id</th> -->
-                <th></th>
                 <th>Name</th>
                 <th>Code</th>
                 <th>Sort</th>
@@ -34,19 +33,13 @@
                     <tt-tooltip text="按需显示的APP"></tt-tooltip>
                 </th>
                 <th>ShopId</th>
+                <th></th>
+
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
-                <td>
-                    <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/spu-create', item.id]">{{'mall.spu.create' | translate}}</button>
-                    <nz-divider nzType=" vertical"></nz-divider>
-                    <button nz-button nzType="primary" nzSize="small" (click)="edit(item)">{{'edit' | translate}}</button>
-                    <nz-divider nzType=" vertical"></nz-divider>
-                    <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
-                        nzPopconfirmPlacement="top">{{'delete' | translate}}</button>
-                </td>
                 <td>
                     <nz-avatar nzShape="square" [nzSize]="64" nzSize="large" nzIcon="user" [nzSrc]="item.logoImageUrl"></nz-avatar>
                     {{item.name}}
@@ -59,10 +52,21 @@
                     <i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a" *ngIf="item.isGlobal"></i>
                 </td>
                 <td>
-                    <nz-tag nzColor="#BA55D3" *ngFor="let app of item.appProductCategories"> {{app.appName}}</nz-tag>
+                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductCategories"> {{app.appName}}</nz-tag>
                 </td>
                 <td>{{item.shopId}}</td>
-
+                <td>
+                    <button nz-button nzType="primary" nzShape="circle" [routerLink]="['/mall/spu-create', item.id]">
+                        <i nz-icon nzType="plus"></i>
+                    </button>
+                    <nz-divider nzType=" vertical"></nz-divider>
+                    <button nz-button nzType="primary" nzShape="circle" (click)="edit(item)">
+                        <i nz-icon nzType="edit"></i>
+                    </button>
+                    <nz-divider nzType=" vertical"></nz-divider>
+                    <button nz-button nzType="danger" nzShape="circle" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
+                        nzPopconfirmPlacement="top"><i nz-icon nzType="delete"></i></button>
+                </td>
             </tr>
         </tbody>
     </nz-table>

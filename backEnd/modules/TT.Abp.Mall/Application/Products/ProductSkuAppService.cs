@@ -13,6 +13,10 @@ namespace TT.Abp.Mall.Application.Products
     {
         public ProductSkuAppService(IRepository<ProductSku, Guid> repository) : base(repository)
         {
+            base.GetListPolicyName = MallPermissions.Products.Default;
+            base.CreatePolicyName = MallPermissions.Products.Create;
+            base.UpdatePolicyName = MallPermissions.Products.Update;
+            base.DeletePolicyName = MallPermissions.Products.Delete;
         }
 
         protected override IQueryable<ProductSku> CreateFilteredQuery(MallRequestDto input)

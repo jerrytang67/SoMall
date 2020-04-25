@@ -35,6 +35,11 @@ namespace TT.Abp.Mall.Application.Products
             IMallShopLookupService mallShopLookupService
         ) : base(repository)
         {
+            base.GetListPolicyName = MallPermissions.Products.Default;
+            base.CreatePolicyName = MallPermissions.Products.Create;
+            base.UpdatePolicyName = MallPermissions.Products.Update;
+            base.DeletePolicyName = MallPermissions.Products.Delete;
+
             _guidGenerator = guidGenerator;
             _skuRepository = skuRepository;
             _categoryRepository = categoryRepository;
@@ -184,7 +189,7 @@ namespace TT.Abp.Mall.Application.Products
             return Repository
                 .Include(x => x.Category)
                 .Include(x => x.Skus)
-                .WhereIf(input.ShopId.HasValue,x=>x.ShopId == input.ShopId)
+                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
                 .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
         }
     }

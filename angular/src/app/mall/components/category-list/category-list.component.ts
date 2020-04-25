@@ -126,4 +126,17 @@ export class CategoryListComponent implements OnInit {
       this.refresh();
     })
   }
+
+  colorList: string[] = ["magenta", "volcano", "orange", "#2db7f5", "#87d068", "#108ee9", "#f50",]
+  appList: string[] = []
+
+  getRndColor(str) {
+    if (this.appList.indexOf(str) > -1) {
+      return this.colorList[this.appList.indexOf(str)];
+    }
+    else {
+      this.appList.push(str);
+      return this.colorList[this.appList.indexOf(str)];
+    }
+  }
 }

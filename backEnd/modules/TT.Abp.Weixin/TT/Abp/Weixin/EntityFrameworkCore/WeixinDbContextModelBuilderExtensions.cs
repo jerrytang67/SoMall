@@ -22,6 +22,8 @@ namespace TT.Abp.Weixin.EntityFrameworkCore
                 b.Property(x => x.city).HasMaxLength(WeixinConsts.MaxImageLength);
                 b.Property(x => x.province).HasMaxLength(WeixinConsts.MaxImageLength);
                 b.Property(x => x.country).HasMaxLength(WeixinConsts.MaxImageLength);
+
+                b.Property(x => x.AppName).HasMaxLength(WeixinConsts.MaxOpenidLength);
             });
         }
     }

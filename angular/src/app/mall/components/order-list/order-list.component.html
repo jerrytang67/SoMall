@@ -51,9 +51,9 @@
                 <td></td>
                 <td>
                     <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/order-edit', item.id]">{{'edit' | translate}}</button>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
-                        nzPopconfirmPlacement="top">{{'delete' | translate}}</button>
+                    <!-- <nz-divider nzType="vertical"></nz-divider>
+                    <button nz-button *ngIf="!item.pricePaidIn" nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
+                        nzPopconfirmPlacement="top">{{'delete' | translate}}</button> -->
                 </td>
             </tr>
         </tbody>

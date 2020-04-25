@@ -10,7 +10,7 @@ namespace TT.Abp.Weixin.Application
     {
         Task<string> GetAccessToken(string appid);
 
-        Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appid = null, string appSec = null);
+        Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appName);
 
         Task<object> CheckLogin(bool? dbCheck = false);
     }

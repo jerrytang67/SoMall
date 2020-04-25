@@ -26,6 +26,11 @@ namespace TT.SoMall.Migrations
             migrationBuilder.DropColumn(
                 name: "LastModifierId",
                 table: "Mall_AppProductCategory");
+            migrationBuilder.AddColumn<string>(
+                name: "AppName",
+                table: "Weixin_WechatUserinfos",
+                maxLength: 32,
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -60,6 +65,10 @@ namespace TT.SoMall.Migrations
                 table: "Mall_AppProductCategory",
                 type: "uniqueidentifier",
                 nullable: true);
+            
+            migrationBuilder.DropColumn(
+                name: "AppName",
+                table: "Weixin_WechatUserinfos");
         }
     }
 }

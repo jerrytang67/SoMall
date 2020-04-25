@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MomentFormatPipe } from './moment-format.pipe';
 import { MomentFromNowPipe } from './moment-from-now.pipe';
+import { CurrencyPipe } from './currency.pipe';
 
 @NgModule({
     imports: [
@@ -11,11 +12,13 @@ import { MomentFromNowPipe } from './moment-from-now.pipe';
     ],
     declarations: [
         MomentFormatPipe,
-        MomentFromNowPipe
+        MomentFromNowPipe,
+        CurrencyPipe
     ],
     exports: [
         MomentFormatPipe,
-        MomentFromNowPipe
+        MomentFromNowPipe,
+        CurrencyPipe
     ]
 })
 export class UtilsModule { }

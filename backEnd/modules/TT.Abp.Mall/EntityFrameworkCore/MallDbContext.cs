@@ -2,11 +2,13 @@
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Comments;
+using TT.Abp.Mall.Domain.News;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
@@ -46,6 +48,12 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         public DbSet<TenPayNotify> TenPayNotify { get; set; }
         
         public DbSet<AppProductCategory> AppProductCategory { get; set; }
+        
+        public DbSet<Swiper> Swipers { get; set; }
+        
+        public DbSet<NewsCategory> NewsCategories { get; set; }
+        
+        public DbSet<NewsContent> NewsContents { get; set; }
 
         public MallDbContext(DbContextOptions<MallDbContext> options)
             : base(options)

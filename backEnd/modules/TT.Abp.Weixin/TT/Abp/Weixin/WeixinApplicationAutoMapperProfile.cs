@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TT.Abp.Weixin.Domain;
 using TT.HttpClient.Weixin;
+using TT.HttpClient.Weixin.WeixiinResult;
 
 namespace TT.Abp.Weixin
 {
@@ -21,6 +22,7 @@ namespace TT.Abp.Weixin
                 .ForMember(x => x.FromClient, opt => opt.Ignore())
                 .ForMember(x => x.CreationTime, opt => opt.Ignore())
                 .ForMember(x => x.CreatorId, opt => opt.Ignore())
+                .ForMember(x => x.AppName, opt => opt.MapFrom(b => b.AppName))
                 ;
         }
     }

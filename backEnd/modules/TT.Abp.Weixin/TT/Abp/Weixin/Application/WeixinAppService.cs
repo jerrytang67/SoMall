@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
@@ -6,13 +7,16 @@ using IdentityModel.Client;
 using IdentityServer4.Configuration;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using TT.Abp.AppManagement.Apps;
 using TT.Abp.Weixin.Application.Dtos;
 using TT.Abp.Weixin.Domain;
 using TT.Extensions;
 using TT.HttpClient.Weixin.Helpers;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Guids;
 using Volo.Abp.Identity;
@@ -36,8 +40,10 @@ namespace TT.Abp.Weixin.Application
         private readonly ICapPublisher _capBus;
         private readonly IUserClaimsPrincipalFactory<IdentityUser> _principalFactory;
         private readonly IdentityServerOptions _options;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ITokenService _ts;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly IAppProvider _appProvider;
 
 
         public WeixinAppService(
@@ -52,8 +58,10 @@ namespace TT.Abp.Weixin.Application
             ICapPublisher capBus,
             IUserClaimsPrincipalFactory<IdentityUser> principalFactory,
             IdentityServerOptions options,
+            IHttpContextAccessor httpContextAccessor,
             ITokenService TS,
-            IUnitOfWorkManager unitOfWorkManager
+            IUnitOfWorkManager unitOfWorkManager,
+            IAppProvider appProvider
         )
         {
             ObjectMapperContext = typeof(WeixinModule);
@@ -68,8 +76,10 @@ namespace TT.Abp.Weixin.Application
             _capBus = capBus;
             _principalFactory = principalFactory;
             _options = options;
+            _httpContextAccessor = httpContextAccessor;
             _ts = TS;
             _unitOfWorkManager = unitOfWorkManager;
+            _appProvider = appProvider;
         }
 
         public async Task<object> Code2Session(WeChatMiniProgramAuthenticateModel loginModel)
@@ -90,25 +100,20 @@ namespace TT.Abp.Weixin.Application
 
         [HttpPost]
         [UnitOfWork(IsDisabled = false)]
-        public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appid = null,
-            string appSec = null)
+        public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appName)
         {
-            if (appid.IsNullOrEmpty())
-            {
-                appid = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
-            }
-
-            if (appSec.IsNullOrEmpty())
-            {
-                appSec = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppSecret);
-            }
-
+            var app = await _appProvider.GetOrNullAsync(appName);
+            var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
+            var appSec = app["appsec"] ?? throw new AbpException($"App:{appName} appsec未设置");
+            
             var session = await _weixinManager.Mini_Code2Session(loginModel.code, appid, appSec);
 
             // 解密用户信息
             var miniUserInfo =
                 await _weixinManager.Mini_GetUserInfo(appid, loginModel.encryptedData, session.session_key,
                     loginModel.iv);
+
+            miniUserInfo.AppName = appName;
 
             // 更新数据库
             await _capBus.PublishAsync("weixin.services.mini.getuserinfo", miniUserInfo);

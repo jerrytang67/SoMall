@@ -16,10 +16,10 @@ namespace TT.Abp.Mall.Application.Users
     {
         public MallUserAppService(IRepository<MallUser, Guid> repository) : base(repository)
         {
-            base.GetListPolicyName = MallPermissions.Users.Default;
-            base.CreatePolicyName = MallPermissions.Users.Create;
-            base.UpdatePolicyName = MallPermissions.Users.Update;
-            base.DeletePolicyName = MallPermissions.Users.Delete;
+            base.GetListPolicyName = MallPermissions.MallUsers.Default;
+            base.CreatePolicyName = MallPermissions.MallUsers.Create;
+            base.UpdatePolicyName = MallPermissions.MallUsers.Update;
+            base.DeletePolicyName = MallPermissions.MallUsers.Delete;
         }
     }
 }
