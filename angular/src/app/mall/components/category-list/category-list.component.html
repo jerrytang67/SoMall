@@ -55,13 +55,14 @@
                 <td>{{item.sort}}</td>
 
                 <td>{{item.redirectUrl}}</td>
-                <td>{{item.shopId}}</td>
                 <td>
                     <i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a" *ngIf="item.isGlobal"></i>
                 </td>
                 <td>
                     <nz-tag nzColor="#BA55D3" *ngFor="let app of item.appProductCategories"> {{app.appName}}</nz-tag>
                 </td>
+                <td>{{item.shopId}}</td>
+
             </tr>
         </tbody>
     </nz-table>
