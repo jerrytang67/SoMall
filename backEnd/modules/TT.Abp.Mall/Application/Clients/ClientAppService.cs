@@ -48,6 +48,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILocalEventBus _eventBus;
         private readonly ICapPublisher _capBus;
+        private readonly IAppDefinitionManager _appDefinitionManager;
 
         public ClientAppService(
             IGuidGenerator guidGenerator,
@@ -64,7 +65,8 @@ namespace TT.Abp.Mall.Application.Clients
             IAppProvider appProvider,
             IHttpContextAccessor httpContextAccessor,
             ILocalEventBus eventBus,
-            ICapPublisher capBus
+            ICapPublisher capBus,
+            IAppDefinitionManager appDefinitionManager
         )
         {
             _guidGenerator = guidGenerator;
@@ -82,6 +84,7 @@ namespace TT.Abp.Mall.Application.Clients
             _httpContextAccessor = httpContextAccessor;
             _eventBus = eventBus;
             _capBus = capBus;
+            _appDefinitionManager = appDefinitionManager;
         }
 
         public async Task<object> Init(ClientInitRequestDto input)
@@ -90,7 +93,7 @@ namespace TT.Abp.Mall.Application.Clients
 
             await _eventBus.PublishAsync(new ClientInitEvent(input));
 
-            var apps = await _appProvider.GetAllAsync();
+            var apps = _appDefinitionManager.GetAll();
             var shops = await _shopRepository.GetListAsync();
             var categories = await _categoryRepository.GetPublicListAsync(new MallRequestDto() {ShopId = input.ShopId, AppName = appName});
 
@@ -99,7 +102,7 @@ namespace TT.Abp.Mall.Application.Clients
             return new
             {
                 shops = ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops),
-                // apps, 
+                apps, 
                 appName,
                 categories,
                 spus = ObjectMapper.Map<List<ProductSpu>, List<ProductSpuDtoBase>>(spus),

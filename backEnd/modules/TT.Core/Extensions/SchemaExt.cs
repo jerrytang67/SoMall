@@ -6,7 +6,7 @@ namespace TT.Extensions
 {
     public static class SchemaExt
     {
-        public static JArray GetSelection<T>(this List<T> list, string type, string title, string labelFormat,
+        public static JArray GetSelection<T>(this IEnumerable<T> list, string type, string title, string labelFormat,
             string[] labelKeys, string valueKey, int? colspan = null, bool justEnum = true)
         {
             var selection = new JArray();

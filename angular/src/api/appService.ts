@@ -937,6 +937,42 @@ export class ProductCategoryProxyService {
   /**
    *
    */
+  getForEdit(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<CategoryCreateOrUpdateDtoGetForEditOutput> {
+    let url = '/api/mall/productCategory/getForEdit';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CategoryCreateOrUpdateDtoGetForEditOutput>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CategoryCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductCategoryDto> {
+    let url = '/api/mall/productCategory/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductCategoryDto>;
+  }
+  /**
+   *
+   */
   get(
     params: {
       /**  */
@@ -991,25 +1027,6 @@ export class ProductCategoryProxyService {
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<ProductCategoryDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      id?: string;
-      /** requestBody */
-      body?: CategoryCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<ProductCategoryDto> {
-    let url = '/api/mall/productCategory/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<ProductCategoryDto>;
   }
   /**
    *
@@ -2779,6 +2796,12 @@ export interface AppCreateOrUpdateDto {
 
   /**  */
   clientName?: string;
+
+  /**  */
+  providerName?: string;
+
+  /**  */
+  providerKey?: string;
 }
 
 export interface ICurrentUser {
@@ -2886,6 +2909,9 @@ export interface ShopDto {
 
 export interface ProductSpuDtoBase {
   /**  */
+  id?: string;
+
+  /**  */
   name?: string;
 
   /**  */
@@ -2905,6 +2931,9 @@ export interface ProductSpuDtoBase {
 
   /**  */
   limitBuyCount?: number;
+
+  /**  */
+  skus?: ProductSkuDto[];
 }
 
 export interface AppProductCategoryDto {
@@ -3729,14 +3758,6 @@ export interface UpdatePermissionsDto {
   permissions?: UpdatePermissionDto[];
 }
 
-export interface ProductCategoryDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: ProductCategoryDto[];
-}
-
 export interface CategoryCreateOrUpdateDto {
   /**  */
   name?: string;
@@ -3758,6 +3779,28 @@ export interface CategoryCreateOrUpdateDto {
 
   /**  */
   isGlobal?: boolean;
+
+  /**  */
+  appProductCategories?: AppProductCategoryDto[];
+
+  /**  */
+  apps?: object[];
+}
+
+export interface CategoryCreateOrUpdateDtoGetForEditOutput {
+  /**  */
+  data?: CategoryCreateOrUpdateDto;
+
+  /**  */
+  schema?: any | null;
+}
+
+export interface ProductCategoryDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: ProductCategoryDto[];
 }
 
 export interface ProductOrderItemDto {

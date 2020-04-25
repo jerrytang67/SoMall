@@ -254,7 +254,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
             builder.Entity<AppProductCategory>(b =>
             {
                 b.ToTable(MallConsts.DbTablePrefix + "AppProductCategory", MallConsts.DbSchema);
-                b.ConfigureFullAudited();
+                b.ConfigureCreationAudited();
                 b.HasKey(x => new {x.AppName, x.ProductCategoryId});
                 b.Property(x => x.AppName).HasMaxLength(MallConsts.MaxNameLength);
 

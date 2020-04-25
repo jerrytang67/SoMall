@@ -41,8 +41,19 @@ namespace TT.Abp.Mall.Domain.Products
     }
 
 
-    public class AppProductCategory : FullAuditedEntity, IMultiTenant
+    public class AppProductCategory : CreationAuditedEntity, IMultiTenant
     {
+        private AppProductCategory()
+        {
+        }
+
+        public AppProductCategory(string appName, Guid productCategoryId, Guid? tenantId)
+        {
+            AppName = appName;
+            ProductCategoryId = productCategoryId;
+            TenantId = tenantId;
+        }
+
         public string AppName { get; protected set; }
         public Guid ProductCategoryId { get; protected set; }
 
@@ -62,7 +73,7 @@ namespace TT.Abp.Mall.Domain.Products
     {
         public string AppName { get; set; }
         public Guid ProductCategoryId { get; set; }
-        public Guid ProductCategoryName { get; set; }
+        public string ProductCategoryName { get; set; }
         public virtual int Sort { get; set; }
     }
 }

@@ -34,13 +34,15 @@ namespace TT.Abp.Mall
 
             #endregion
 
-
             #region Products
 
             CreateMap<ProductCategory, ProductCategoryDto>();
+            CreateMap<ProductCategory, CategoryCreateOrUpdateDto>();
 
             CreateMap<AppProductCategory, AppProductCategoryDto>()
-                .ForMember(x => x.ProductCategoryName, opt => opt.MapFrom(x => x.ProductCategory.Name));
+                .ForMember(x => x.ProductCategoryName, opt => opt.MapFrom(x => x.ProductCategory.Name))
+                .ReverseMap()
+                ;
 
 
             CreateMap<ProductSpu, ProductSpuDto>();
@@ -50,7 +52,8 @@ namespace TT.Abp.Mall
                 .ForMember(x => x.SpuName, opt => opt.MapFrom(x => x.Spu.Name))
                 ;
 
-            CreateMap<CategoryCreateOrUpdateDto, ProductCategory>();
+            CreateMap<CategoryCreateOrUpdateDto, ProductCategory>()
+                .ForMember(x=>x.AppProductCategories,opt=>opt.Ignore());
 
             CreateMap<SpuCreateOrUpdateDto, ProductSpu>()
                 .ForMember(x => x.Skus, opt => opt.Ignore())

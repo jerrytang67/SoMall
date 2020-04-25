@@ -44,7 +44,7 @@ export interface ISku {
     limitBuyCount?: number;
     unit?: string;
     num?: number;
-    checked?:boolean;
+    checked?: boolean;
 
 }
 
@@ -59,6 +59,8 @@ class Shop extends VuexModule {
     private selectIndex: number = 0;
 
     private spuList: ISpu[] = []
+
+    private categories: any[] = [];
 
     get shops() { return this.shopList }
 
@@ -75,57 +77,66 @@ class Shop extends VuexModule {
             { coverImageUrls: [] }
     }
 
+    get getCategories() {
+        return this.categories;
+    }
+
     get getSpuList() { return this.spuList }
 
     @Mutation
-    SET_LIST(payload: IMallShop[]) {
+    private SET_LIST(payload: IMallShop[]) {
         this.shopList = [...payload];
     }
 
     @Mutation
-    SET_CURRENT_SHOP(payload: IMallShop) {
+    private SET_CURRENT_SHOP(payload: IMallShop) {
         console.log("mutaction:SET_CURRENT_SHOP", payload)
         this.currentShop = payload;
     }
 
     @Mutation
-    SET_SPU_LIST(payload: ISpu[]) {
+    private SET_SPU_LIST(payload: ISpu[]) {
         console.log("mutaction:SET_SPU_LIST", payload)
         this.spuList = payload;
     }
 
     @Mutation
-    SET_CURRENT_SPU(payload: ISpu) {
+    private SET_CURRENT_SPU(payload: ISpu) {
         console.log("mutaction:SET_CURRENT_SPU", payload)
         this.currentSpu = payload;
     }
     @Mutation
-    SET_SELECT_INDEX(payload: number) {
+    private SET_SELECT_INDEX(payload: number) {
         console.log("mutaction:SET_SELECT_INDEX", payload)
         this.selectIndex = payload;
     }
 
     @Mutation
-    SET_NUM(num: number, index: number | undefined) {
+    private SET_NUM(num: number, index: number | undefined) {
         index = index || this.selectIndex;
         let sku = this.currentSpu.skus![index];
         sku.num = num;
     }
 
+    @Mutation
+    private SET_CATEGORIES(payload: any[]) {
+        this.categories = payload;
+    }
+
     @Action({ commit: 'SET_LIST' })
-    SetList(shops: IMallShop[]) {
+    public SetList(shops: IMallShop[]) {
         return shops;
     }
 
     @Action
-    async GetAndSetCurrentShop(shopId: string) {
+    public async GetAndSetCurrentShop(shopId: string) {
         await api.shop_get(shopId).then((res: any) => {
             this.SET_CURRENT_SHOP(res);
         })
     }
 
     @Action
-    async GetAndSetSpuList(shopId: string) {
+    public async GetAndSetSpuList(shopId: string) {
         await api.spu_getList({ shopId }).then((res: any) => {
             this.SET_SPU_LIST(res.items);
         })
@@ -133,7 +144,7 @@ class Shop extends VuexModule {
 
 
     @Action
-    async GetAndSetCurrentSpu(id: string) {
+    public async GetAndSetCurrentSpu(id: string) {
         await api.spu_get({ id: id }).then((res: any) => {
             this.SET_CURRENT_SPU(res);
             this.SET_SELECT_INDEX(0);
@@ -142,13 +153,32 @@ class Shop extends VuexModule {
 
 
     @Action
-    async SetSelectSkuIndex(index: number) {
+    public async SetSelectSkuIndex(index: number) {
         this.SET_SELECT_INDEX(index);
     }
 
     @Action
-    SetNum(num: number, index: number | undefined = undefined) {
+    public SetNum(num: number, index: number | undefined = undefined) {
         this.SET_NUM(num, index);
+    }
+
+    @Action
+    public SetCategories(categories: any[]) {
+        this.SET_CATEGORIES(categories)
+    }
+
+    private index_spus: any[] = []
+
+    get getIndexSpus() { return this.index_spus }
+
+    @Action
+    public SetIndexSpus(spus: any[]) {
+        this.SET_INDEX_SPUS(spus)
+    }
+
+    @Mutation
+    private SET_INDEX_SPUS(payload: any[]) {
+        this.index_spus = payload;
     }
 
 }

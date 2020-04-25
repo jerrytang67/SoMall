@@ -13,6 +13,12 @@ import { AppCreateOrUpdateDto } from 'src/api/appService';
     <se label="客户端名" error="请填写">
         <input type="text" nz-input [(ngModel)]="form.clientName" name="clientName" required>
     </se>
+    <se label="ProviderName" error="请填写">
+        <input type="text" nz-input [(ngModel)]="form.providerName" name="providerName" required>
+    </se>
+    <se label="ProviderKey" error="请填写">
+        <input type="text" nz-input [(ngModel)]="form.providerKey" name="providerKey">
+    </se>
 </form>
     `
 })

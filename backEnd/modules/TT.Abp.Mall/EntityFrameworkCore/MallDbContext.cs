@@ -44,6 +44,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         public virtual DbSet<UserCoupon> UserCoupons { get; set; }
         
         public DbSet<TenPayNotify> TenPayNotify { get; set; }
+        
+        public DbSet<AppProductCategory> AppProductCategory { get; set; }
 
         public MallDbContext(DbContextOptions<MallDbContext> options)
             : base(options)

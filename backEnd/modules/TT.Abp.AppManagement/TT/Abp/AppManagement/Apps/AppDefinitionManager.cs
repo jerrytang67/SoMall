@@ -30,14 +30,14 @@ namespace TT.Abp.AppManagement.Apps
         public AppDefinition Get(string name)
         {
             Check.NotNull(name, nameof(name));
-
+            
             var app = GetOrNull(name);
-
+            
             if (app == null)
             {
                 throw new AbpException("Undefined setting: " + name);
             }
-
+            
             return app;
         }
 

@@ -130,8 +130,6 @@ export default class CreateOrder extends BaseView {
       AddressModule.GetAndSetUserAddressList();
    }
 
-   
-
    async created() {}
 
    get sku() {

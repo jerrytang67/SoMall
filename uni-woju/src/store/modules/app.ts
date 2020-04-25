@@ -7,10 +7,12 @@ import { ShopModule } from './shop';
 class App extends VuexModule {
 
     @Action
-    public Init() {
-        api.init({}).then((res: any) => {
+    public Init(data: any = {}) {
+        api.init(data).then((res: any) => {
             //console.log(res);
             ShopModule.SetList(res.shops);
+            ShopModule.SetCategories(res.categories);
+            ShopModule.SetIndexSpus(res.spus);
         });
     }
 }

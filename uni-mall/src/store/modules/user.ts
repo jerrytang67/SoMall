@@ -142,8 +142,7 @@ class User extends VuexModule {
                                     .client_miniAuth({
                                         code: res1.code,
                                         iv: res1.iv,
-                                        encryptedData: res1.encryptedData,
-                                        appid: process.env.APPID
+                                        encryptedData: res1.encryptedData
                                     })
                                     .then((res: any) => {
                                         if (res.accessToken) {

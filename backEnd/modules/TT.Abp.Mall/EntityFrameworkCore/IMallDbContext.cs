@@ -41,5 +41,6 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         DbSet<UserCoupon> UserCoupons { get; set; }
 
         DbSet<TenPayNotify> TenPayNotify { get; set; }
+        DbSet<AppProductCategory> AppProductCategory { get; set; }
     }
 }

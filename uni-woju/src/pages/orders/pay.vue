@@ -72,7 +72,8 @@ export default class Pay extends BaseView {
       if (this.payType === 1) {
          api.tenpay({
             orderId: this.currentOrder.id,
-            openid: this.openid
+            openid: this.openid,
+            client: "mall"
          }).then((obj: any) => {
             console.log(obj);
 

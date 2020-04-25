@@ -37,15 +37,19 @@ namespace TT.Abp.AppManagement.Application
 
         public Dictionary<string, string> Value { get; set; }
 
-         public  string ProviderName { get;  set; }
+        public string ProviderName { get; set; }
 
-         public  string ProviderKey { get;  set; }
+        public string ProviderKey { get; set; }
     }
 
     public class AppCreateOrUpdateDto
     {
-        [Required] public string Name { get; set; }
+        [NotNull] public string Name { get; set; }
 
-        [Required] public string ClientName { get; set; }
+        [NotNull] public string ClientName { get; set; }
+
+        [NotNull] public string ProviderName { get; set; }
+
+        [CanBeNull] public string ProviderKey { get; set; }
     }
 }
