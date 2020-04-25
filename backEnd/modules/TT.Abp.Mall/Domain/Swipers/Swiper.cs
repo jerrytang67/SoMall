@@ -8,7 +8,7 @@ namespace TT.Abp.Mall.Domain.Swipers
 {
     public class Swiper : FullAuditedAggregateRoot<Guid>, IMultiShop, IMultiTenant
     {
-        private Swiper()
+        public Swiper()
         {
         }
 

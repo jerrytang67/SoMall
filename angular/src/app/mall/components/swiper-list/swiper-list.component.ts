@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
-import { {{ properCase name }}ProxyService } from 'src/api/appService';
-import { {{ properCase name }}EditComponent } from './{{ camelCase name }}-edit.component';
-
+import { SwiperProxyService } from 'src/api/appService';
+import { SwiperEditComponent } from './swiper-edit.component';
+import { getRndAppColor } from '@core/utils/radomAppColor';
 @Component({
-  selector: 'app-{{ camelCase name }}-list',
-  templateUrl: './{{ camelCase name }}-list.component.html'
+  selector: 'app-swiper-list',
+  templateUrl: './swiper-list.component.html'
 })
-export class {{ properCase name }}ListComponent implements OnInit {
+export class SwiperListComponent implements OnInit {
 
   dataItems: any[] = [];
   pageingInfo = {
     totalItems: 0,
     pageNumber: 1,
     pageSize: 10,
-    isTableLoading: false
+    isTableLoading: false,
+    sorting: "sort desc"
   };
   constructor(
     private modalService: NzModalService,
     private message: NzMessageService,
     private route: ActivatedRoute,
-    private api: {{ properCase name }}ProxyService
+    private api: SwiperProxyService
   ) {
 
   }
@@ -36,6 +37,7 @@ export class {{ properCase name }}ListComponent implements OnInit {
   refresh() {
     this.pageingInfo.isTableLoading = true;
     this.api.getList({
+      sorting: this.pageingInfo.sorting,
       maxResultCount: this.pageingInfo.pageSize,
       skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize
     }).subscribe(res => {
@@ -47,13 +49,14 @@ export class {{ properCase name }}ListComponent implements OnInit {
   }
 
   guid = '00000000-0000-0000-0000-000000000000';
-  create(item:any){
+  create(item: any) {
     this.api.getForEdit({ id: this.guid }).subscribe(res => {
       const modal = this.modalService.create({
         nzTitle: '新建',
-        nzContent: {{ properCase name }}EditComponent,
+        nzContent: SwiperEditComponent,
         nzComponentParams: {
-          form: { ...res.data }
+          form: { ...res.data },
+          apps: res.schema.apps
         },
         nzFooter: [
           {
@@ -76,15 +79,15 @@ export class {{ properCase name }}ListComponent implements OnInit {
       });
     })
   }
-
-  edit(item:any){
+  edit(item: any) {
     this.api.getForEdit({ id: item.id }).subscribe(res => {
       const modal = this.modalService.create({
         nzTitle: '编辑',
-        nzContent: {{ properCase name }}EditComponent,
+        nzContent: SwiperEditComponent,
         nzComponentParams: {
           id: item.id,
-          form: { ...res.data }
+          form: { ...res.data },
+          apps: res.schema.apps
         },
         nzFooter: [
           {
@@ -108,10 +111,11 @@ export class {{ properCase name }}ListComponent implements OnInit {
       });
     })
   }
-  delete(item:any){
+  delete(item: any) {
     this.api.delete({ id: item.id }).subscribe(() => {
       this.message.success("删除成功");
       this.refresh();
     })
   }
+
 }

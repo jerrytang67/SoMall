@@ -24,6 +24,7 @@ export const menu = [
     { text: "商城用户", link: "/mall/users", icon: "far fa-user" },
     { text: "优惠券列表", link: "/mall/coupons", icon: "far fa-user" },
     { text: "用户优惠券", link: "/mall/userCoupons", icon: "far fa-user" },
+    { text: "滚动广告", link: "/mall/swiper", icon: "far fa-ads" },
 
     { text: '访客管理', heading: true },
     { text: "表单列表", link: "/visitor/forms", icon: 'fa fa-address-book' },

@@ -10,6 +10,8 @@ using TT.Abp.Mall.Application.Partners;
 using TT.Abp.Mall.Application.Pays;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Application.Swipers;
+using TT.Abp.Mall.Application.Swipers.Dtos;
 using TT.Abp.Mall.Application.Users;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Addresses;
@@ -18,6 +20,7 @@ using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
 
 namespace TT.Abp.Mall
@@ -53,7 +56,7 @@ namespace TT.Abp.Mall
                 ;
 
             CreateMap<CategoryCreateOrUpdateDto, ProductCategory>()
-                .ForMember(x=>x.AppProductCategories,opt=>opt.Ignore());
+                .ForMember(x => x.AppProductCategories, opt => opt.Ignore());
 
             CreateMap<SpuCreateOrUpdateDto, ProductSpu>()
                 .ForMember(x => x.Skus, opt => opt.Ignore())
@@ -111,6 +114,10 @@ namespace TT.Abp.Mall
             CreateMap<TenPayNotify, TenPayNotifyDto>();
 
             #endregion
+
+            CreateMap<Swiper, SwiperDto>();
+            CreateMap<Swiper, SwiperCreateOrUpdateDto>()
+                .ReverseMap();
         }
     }
 }

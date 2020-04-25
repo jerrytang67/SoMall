@@ -1,14 +1,14 @@
 <template>
    <view class="content">
       <!-- 头部轮播 -->
-      <view class="carousel-section">
+      <view class="carousel-section" v-if="swipers.length">
          <!-- 标题栏和状态栏占位符 -->
          <view class="titleNview-placing"></view>
          <!-- 背景色区域 -->
-         <view class="titleNview-background" :style="{backgroundColor:titleNViewBackground}"></view>
+         <view class="titleNview-background"></view>
          <swiper class="carousel" circular @change="swiperChange">
-            <swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage({title: '轮播广告'})">
-               <image :src="item.src" />
+            <swiper-item v-for="(item, index) in swipers" :key="index" class="carousel-item">
+               <image :src="item.coverImageUrl" />
             </swiper-item>
          </swiper>
          <!-- 自定义swiper指示器 -->
@@ -83,10 +83,13 @@ export default class About extends BaseView {
       };
    }
 
+   swipers: any[] = [];
+
    async loadData() {
-      this.titleNViewBackground = this.carouselList[0].background;
-      this.swiperLength = this.carouselList.length;
-      this.carouselList = this.carouselList;
+      await api.swiper_getList({ keywords: "index" }).then((res: any) => {
+         this.swipers = res.items;
+         this.swiperLength = this.swipers.length;
+      });
    }
 
    get shops() {
@@ -133,12 +136,10 @@ export default class About extends BaseView {
 
    swiperCurrent = 0;
    swiperLength = 0;
-   titleNViewBackground = "";
    //轮播图切换修改背景色
    swiperChange(e: any) {
       const index = e.detail.current;
       this.swiperCurrent = index;
-      this.titleNViewBackground = this.carouselList[index].background;
    }
 }
 </script>

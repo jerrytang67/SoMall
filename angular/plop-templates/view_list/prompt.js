@@ -31,6 +31,11 @@ module.exports = {
         path: `src/app/${module}/components/${name}-list/${name}-list.component.ts`,
         templateFile: 'plop-templates/view_list/ts.hbs',
       },
+      {
+        type: 'add',
+        path: `src/app/${module}/components/${name}-list/${name}-edit.component.ts`,
+        templateFile: 'plop-templates/view_list/edit.hbs',
+      },
     ];
     return actions;
   },

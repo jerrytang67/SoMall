@@ -18,20 +18,22 @@
         [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
         (nzPageSizeChange)="refresh()">
         <thead>
-            <!-- <th>id</th> -->
-            <th>payType</th>
-            <th>billNo</th>
-            <th>priceOriginal</th>
-            <th>pricePaidIn</th>
-            <th>payType</th>
-            <th>addressRealName</th>
-            <th>addressPhone</th>
-            <th>addressLocationAddress</th>
-            <th>addressLocationLable</th>
-            <th>comment</th>
-            <th>time</th>
-            <th>shop</th>
-            <th></th>
+            <tr>
+                <!-- <th>id</th> -->
+                <th>payType</th>
+                <th>billNo</th>
+                <th>priceOriginal</th>
+                <th>pricePaidIn</th>
+                <th>payType</th>
+                <th>addressRealName</th>
+                <th>addressPhone</th>
+                <th>addressLocationAddress</th>
+                <th>addressLocationLable</th>
+                <th>comment</th>
+                <th>time</th>
+                <th>shop</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">

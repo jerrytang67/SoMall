@@ -16,6 +16,8 @@ import { CouponListComponent } from './components/coupon-list/coupon-list.compon
 import { UserCouponListComponent } from './components/userCoupon-list/userCoupon-list.component';
 import { PartnerListComponent } from './components/partner-list/partner-list.component';
 import { PayOrderListComponent } from './components/payOrder-list/payOrder-list.component';
+import { SwiperListComponent } from './components/swiper-list/swiper-list.component';
+import { SwiperEditComponent } from './components/swiper-list/swiper-edit.component';
 
 
 const COMPONENTS = [
@@ -29,9 +31,12 @@ const COMPONENTS = [
   CouponListComponent,
   UserCouponListComponent,
   PartnerListComponent,
-  PayOrderListComponent]
+  PayOrderListComponent,
+  SwiperListComponent
 
-const ENTRYCOMPONENTS = [CategoryEditComponent]
+]
+
+const ENTRYCOMPONENTS = [CategoryEditComponent, SwiperEditComponent]
 
 @NgModule({
   declarations: [...COMPONENTS, ...ENTRYCOMPONENTS],

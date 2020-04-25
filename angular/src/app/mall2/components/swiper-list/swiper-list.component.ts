@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
-import { {{ properCase name }}ProxyService } from 'src/api/appService';
-import { {{ properCase name }}EditComponent } from './{{ camelCase name }}-edit.component';
+import { SwiperProxyService } from 'src/api/appService';
 
 @Component({
-  selector: 'app-{{ camelCase name }}-list',
-  templateUrl: './{{ camelCase name }}-list.component.html'
+  selector: 'app-swiper-list',
+  templateUrl: './swiper-list.component.html'
 })
-export class {{ properCase name }}ListComponent implements OnInit {
+export class SwiperListComponent implements OnInit {
 
   dataItems: any[] = [];
   pageingInfo = {
@@ -21,7 +20,7 @@ export class {{ properCase name }}ListComponent implements OnInit {
     private modalService: NzModalService,
     private message: NzMessageService,
     private route: ActivatedRoute,
-    private api: {{ properCase name }}ProxyService
+    private api: SwiperProxyService
   ) {
 
   }
@@ -51,7 +50,7 @@ export class {{ properCase name }}ListComponent implements OnInit {
     this.api.getForEdit({ id: this.guid }).subscribe(res => {
       const modal = this.modalService.create({
         nzTitle: '新建',
-        nzContent: {{ properCase name }}EditComponent,
+        nzContent: SwiperEditComponent,
         nzComponentParams: {
           form: { ...res.data }
         },
@@ -81,7 +80,7 @@ export class {{ properCase name }}ListComponent implements OnInit {
     this.api.getForEdit({ id: item.id }).subscribe(res => {
       const modal = this.modalService.create({
         nzTitle: '编辑',
-        nzContent: {{ properCase name }}EditComponent,
+        nzContent: SwiperEditComponent,
         nzComponentParams: {
           id: item.id,
           form: { ...res.data }

@@ -18,14 +18,15 @@
         [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
         (nzPageSizeChange)="refresh()">
         <thead>
-            <th width="140px">操作</th>
-            <th width="280px">id</th>
-            <th>name</th>
-            <th>clientName</th>
-            <th>providerName</th>
-            <th>providerKey</th>
-            <th>value</th>
-
+            <tr>
+                <th width="140px">操作</th>
+                <th width="280px">id</th>
+                <th>name</th>
+                <th>clientName</th>
+                <th>providerName</th>
+                <th>providerKey</th>
+                <th>value</th>
+            </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">

@@ -362,6 +362,8 @@ export class CouponProxyService {
   getPublishList(
     params: {
       /**  */
+      keywords?: string;
+      /**  */
       shopId?: string;
       /**  */
       appName?: string;
@@ -403,6 +405,8 @@ export class CouponProxyService {
    */
   getList(
     params: {
+      /**  */
+      keywords?: string;
       /**  */
       shopId?: string;
       /**  */
@@ -824,6 +828,8 @@ export class PartnerProxyService {
   getList(
     params: {
       /**  */
+      keywords?: string;
+      /**  */
       shopId?: string;
       /**  */
       appName?: string;
@@ -859,6 +865,8 @@ export class PayOrderProxyService {
       /**  */
       billNo?: string;
       /**  */
+      keywords?: string;
+      /**  */
       shopId?: string;
       /**  */
       appName?: string;
@@ -884,6 +892,8 @@ export class PayOrderProxyService {
   getList(
     params: {
       /**  */
+      keywords?: string;
+      /**  */
       shopId?: string;
       /**  */
       appName?: string;
@@ -908,6 +918,8 @@ export class PayOrderProxyService {
    */
   getPublicList(
     params: {
+      /**  */
+      keywords?: string;
       /**  */
       shopId?: string;
       /**  */
@@ -993,6 +1005,8 @@ export class ProductCategoryProxyService {
   getList(
     params: {
       /**  */
+      keywords?: string;
+      /**  */
       shopId?: string;
       /**  */
       appName?: string;
@@ -1073,6 +1087,8 @@ export class ProductOrderProxyService {
   getList(
     params: {
       /**  */
+      keywords?: string;
+      /**  */
       shopId?: string;
       /**  */
       appName?: string;
@@ -1129,6 +1145,8 @@ export class ProductOrderProxyService {
    */
   getPublicList(
     params: {
+      /**  */
+      keywords?: string;
       /**  */
       shopId?: string;
       /**  */
@@ -1212,6 +1230,8 @@ export class ProductSkuProxyService {
    */
   getList(
     params: {
+      /**  */
+      keywords?: string;
       /**  */
       shopId?: string;
       /**  */
@@ -1363,6 +1383,8 @@ export class ProductSpuProxyService {
    */
   getList(
     params: {
+      /**  */
+      keywords?: string;
       /**  */
       shopId?: string;
       /**  */
@@ -1676,6 +1698,151 @@ export class ShopProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class SwiperProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getPublishList(
+    params: {
+      /**  */
+      keywords?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      appName?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<SwiperDtoListResultDto> {
+    let url = '/api/mall/swiper/getPublishList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<SwiperDtoListResultDto>;
+  }
+  /**
+   *
+   */
+  getForEdit(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<SwiperCreateOrUpdateDtoGetForEditOutput> {
+    let url = '/api/mall/swiper/getForEdit';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<SwiperCreateOrUpdateDtoGetForEditOutput>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<SwiperDto> {
+    let url = '/api/mall/swiper/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<SwiperDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      keywords?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      appName?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<SwiperDtoPagedResultDto> {
+    let url = '/api/mall/swiper/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<SwiperDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: SwiperCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<SwiperDto> {
+    let url = '/api/mall/swiper/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<SwiperDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: SwiperCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<SwiperDto> {
+    let url = '/api/mall/swiper/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<SwiperDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/swiper/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class UserProxyService {
   constructor(private http: HttpClient) {}
 
@@ -1854,6 +2021,8 @@ export class UserCouponProxyService {
       /**  */
       couponId?: string;
       /**  */
+      keywords?: string;
+      /**  */
       shopId?: string;
       /**  */
       appName?: string;
@@ -1880,6 +2049,8 @@ export class UserCouponProxyService {
     params: {
       /**  */
       couponId?: string;
+      /**  */
+      keywords?: string;
       /**  */
       shopId?: string;
       /**  */
@@ -2176,9 +2347,7 @@ export class WeixinProxyService {
   miniAuth(
     params: {
       /**  */
-      appid?: string;
-      /**  */
-      appSec?: string;
+      appName?: string;
       /** requestBody */
       body?: WeChatMiniProgramAuthenticateModel;
     } = {} as any
@@ -4257,6 +4426,82 @@ export interface VisitorShopCreateOrEditDto {
   description?: string;
 }
 
+export interface SwiperDto {
+  /**  */
+  groupName?: string;
+
+  /**  */
+  appName?: string;
+
+  /**  */
+  coverImageUrl?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  redirectUrl?: string;
+
+  /**  */
+  state?: number;
+
+  /**  */
+  sort?: number;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface SwiperDtoListResultDto {
+  /**  */
+  items?: SwiperDto[];
+}
+
+export interface SwiperCreateOrUpdateDto {
+  /**  */
+  groupName?: string;
+
+  /**  */
+  appName?: string;
+
+  /**  */
+  coverImageUrl?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  redirectUrl?: string;
+
+  /**  */
+  state?: number;
+
+  /**  */
+  sort?: number;
+
+  /**  */
+  shopId?: string;
+}
+
+export interface SwiperCreateOrUpdateDtoGetForEditOutput {
+  /**  */
+  data?: SwiperCreateOrUpdateDto;
+
+  /**  */
+  schema?: any | null;
+}
+
+export interface SwiperDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: SwiperDto[];
+}
+
 export interface TenantDto {
   /**  */
   name?: string;
@@ -4549,6 +4794,9 @@ export interface WechatUserinfo {
 
   /**  */
   fromClient?: ClientType;
+
+  /**  */
+  appName?: string;
 
   /**  */
   creationTime?: Date;

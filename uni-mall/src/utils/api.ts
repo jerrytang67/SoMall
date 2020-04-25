@@ -63,5 +63,7 @@ export default {
     // pay
     client_sumbitOrder: (data: any) => request("POST", `/api/mall/client/sumbitOrder`, data),
 
-    tenpay: (data: any) => request('POST', '/api/mall/productOrder/pay', data)
+    tenpay: (data: any) => request('POST', '/api/mall/productOrder/pay', data),
+
+    swiper_getList: (data: any) => request("GET", `/api/mall/swiper/getPublishList`, data),
 };

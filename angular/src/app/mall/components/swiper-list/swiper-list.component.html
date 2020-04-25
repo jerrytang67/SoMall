@@ -1,10 +1,10 @@
-<nz-page-header nzTitle="租户列表">
+<nz-page-header nzTitle="swiper">
     <nz-breadcrumb nz-page-header-breadcrumb>
         <nz-breadcrumb-item>
             <a [routerLink]="['/']">首页</a>
         </nz-breadcrumb-item>
         <nz-breadcrumb-item>
-            <a [routerLink]="['/tenant']">{{"tenant"| translate}}</a>
+            <a [routerLink]="['/mall']"> {{'mall'|translate}}</a>
         </nz-breadcrumb-item>
     </nz-breadcrumb>
 </nz-page-header>
@@ -19,20 +19,35 @@
         (nzPageSizeChange)="refresh()">
         <thead>
             <tr>
-                <th>id</th>
-                <th>name</th>
+                <th width="100px">app</th>
+                <th width="270px">封面</th>
+                <th>分组名称</th>
+                <th>介绍</th>
+                <th>排序</th>
+                <th>跳转</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
                 <td>
-                    <button nz-button nzType="primary" nzSize="small" (click)="edit(item)">{{'edit' | translate}}</button>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
-                        nzPopconfirmPlacement="top">{{'delete' | translate}}</button>
+                    <nz-tag nzColor="green"> {{item.appName}}</nz-tag>
+                </td>
+                <td>
+                    <img [src]="item.coverImageUrl" style="width:256px;height:128px;" />
+                </td>
+
+                <td>{{item.groupName}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.sort}}</td>
+                <td>{{item.redirectUrl}}</td>
+                <td>
+                    <button nz-button nzType="primary" nzShape="circle" (click)="edit(item)">
+                        <i nz-icon nzType="edit"></i>
+                    </button>
+                    <nz-divider nzType=" vertical"></nz-divider>
+                    <button nz-button nzType="danger" nzShape="circle" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
+                        nzPopconfirmPlacement="top"><i nz-icon nzType="delete"></i></button>
                 </td>
             </tr>
         </tbody>
