@@ -11,7 +11,6 @@
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <button nz-button nzSize="large" class="mr-4" (click)="create()" nzType="primary">{{'add' | translate}}</button>
         <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
     <nz-table #dataTable nzShowSizeChanger nzShowPagination [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
@@ -50,7 +49,6 @@
                 <td>{{item.comment}}</td>
                 <td>{{item.creationTime | momentFromNow}}</td>
                 <td>{{item.shop.name}}</td>
-                <td></td>
                 <td>
                     <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/order-edit', item.id]">{{'edit' | translate}}</button>
                     <!-- <nz-divider nzType="vertical"></nz-divider>

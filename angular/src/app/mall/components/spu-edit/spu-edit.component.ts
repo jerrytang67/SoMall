@@ -6,8 +6,7 @@ import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 
 @Component({
   selector: 'app-spu-edit',
-  styles: [`
-  `],
+  styleUrls: ["spu-edit.component.scss"],
   templateUrl: './spu-edit.component.html'
 })
 export class SpuEditComponent implements OnInit {
@@ -82,7 +81,7 @@ export class SpuEditComponent implements OnInit {
             return {
               label: p.value,
               value: p.value,
-              checked: false
+              checked: res.data.appProductSpus.filter(x => x.appName === p.value).length > 0
             }
           })
         }
@@ -118,7 +117,7 @@ export class SpuEditComponent implements OnInit {
       if (this.spuId !== this.guid)
         this.api.update({
           id: this.spuId,
-          body: this.validateForm.value
+          body: Object.assign({}, this.validateForm.value, { apps: this.apps })
         }).subscribe(res => {
           if (res.id) { this.router.navigate(['/mall/spus']) }
         })

@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -204,11 +204,11 @@ export class AppProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
     let url = '/api/app/app/getList';
@@ -735,11 +735,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -1510,11 +1510,11 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
     let url = '/api/app/realNameInfo/getList';
@@ -1547,11 +1547,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -2332,11 +2332,11 @@ export class WechatUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
     let url = '/api/app/wechatUser/getList';
@@ -4353,6 +4353,271 @@ export interface SkuCreateOrUpdateDto {
   unit?: string;
 }
 
+export interface AppProductCategory {
+  /**  */
+  appName?: string;
+
+  /**  */
+  productCategoryId?: string;
+
+  /**  */
+  sort?: number;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  productCategory?: ProductCategory;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+}
+
+export interface ProductCategory {
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  logoImageUrl?: string;
+
+  /**  */
+  redirectUrl?: string;
+
+  /**  */
+  spuList?: ProductSpu[];
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  sort?: number;
+
+  /**  */
+  isGlobal?: boolean;
+
+  /**  */
+  appProductCategories?: AppProductCategory[];
+
+  /**  */
+  isDeleted?: boolean;
+
+  /**  */
+  deleterId?: string;
+
+  /**  */
+  deletionTime?: Date;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  extraProperties?: object;
+
+  /**  */
+  concurrencyStamp?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ProductSku {
+  /**  */
+  spuId?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  price?: number;
+
+  /**  */
+  desc?: string;
+
+  /**  */
+  purchaseNotes?: string;
+
+  /**  */
+  originPrice?: number;
+
+  /**  */
+  vipPrice?: number;
+
+  /**  */
+  coverImageUrls?: string[];
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  stockCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  limitBuyCount?: number;
+
+  /**  */
+  unit?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  spu?: ProductSpu;
+
+  /**  */
+  isDeleted?: boolean;
+
+  /**  */
+  deleterId?: string;
+
+  /**  */
+  deletionTime?: Date;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  extraProperties?: object;
+
+  /**  */
+  concurrencyStamp?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface ProductSpu {
+  /**  */
+  categoryId?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  name?: string;
+
+  /**  */
+  code?: string;
+
+  /**  */
+  descCommon?: string;
+
+  /**  */
+  purchaseNotesCommon?: string;
+
+  /**  */
+  dateTimeStart?: Date;
+
+  /**  */
+  dateTimeEnd?: Date;
+
+  /**  */
+  limitBuyCount?: number;
+
+  /**  */
+  soldCount?: number;
+
+  /**  */
+  category?: ProductCategory;
+
+  /**  */
+  skus?: ProductSku[];
+
+  /**  */
+  appProductSpus?: AppProductSpu[];
+
+  /**  */
+  isDeleted?: boolean;
+
+  /**  */
+  deleterId?: string;
+
+  /**  */
+  deletionTime?: Date;
+
+  /**  */
+  lastModificationTime?: Date;
+
+  /**  */
+  lastModifierId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  extraProperties?: object;
+
+  /**  */
+  concurrencyStamp?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface AppProductSpu {
+  /**  */
+  appName?: string;
+
+  /**  */
+  productSpuId?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  productSpu?: ProductSpu;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+}
+
 export interface SpuCreateOrUpdateDto {
   /**  */
   shopId?: string;
@@ -4389,6 +4654,12 @@ export interface SpuCreateOrUpdateDto {
 
   /**  */
   skus?: SkuCreateOrUpdateDto[];
+
+  /**  */
+  appProductSpus?: AppProductSpu[];
+
+  /**  */
+  apps?: object[];
 }
 
 export interface SpuCreateOrUpdateDtoGetForEditOutput {

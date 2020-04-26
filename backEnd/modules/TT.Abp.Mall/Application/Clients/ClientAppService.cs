@@ -98,7 +98,11 @@ namespace TT.Abp.Mall.Application.Clients
             var shops = await _shopRepository.GetListAsync();
             var categories = await _categoryRepository.GetPublicListAsync(new MallRequestDto() {ShopId = input.ShopId, AppName = appName});
 
-            var spus = await _spuRepository.Include(x => x.Skus).ToListAsync();
+            var spus = await _spuRepository
+                .Include(x => x.AppProductSpus)
+                .Include(x => x.Skus)
+                .Where(x => x.AppProductSpus.Any(x => x.AppName == appName))
+                .ToListAsync();
 
             return new
             {
@@ -114,7 +118,7 @@ namespace TT.Abp.Mall.Application.Clients
         public async Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel)
         {
             var appName = _httpContextAccessor.GetAppName();
-            
+
             return await _weixinAppService.MiniAuth(loginModel, appName);
         }
 

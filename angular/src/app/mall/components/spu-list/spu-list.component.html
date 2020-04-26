@@ -20,25 +20,46 @@
         <thead>
             <tr>
                 <!-- <th>Id</th> -->
-                <th>商户</th>
-                <th>Category</th>
-                <th>Name</th>
-                <th>Code</th>
-                <th>price</th>
+                <th width="100px">商户</th>
+                <th width="100px">分类</th>
+                <th width="250px">商品名称</th>
+                <th width="200px">编码</th>
+                <th width="400px">价格</th>
+                <th>
+                    客户端 <tt-tooltip text="按需显示的APP"></tt-tooltip>
+                </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
-                <td>{{item.shop.name}}</td>
+                <td >
+                    {{item.shop.name}}
+                </td>
                 <td>{{item.category.name}}</td>
-                <td>
-                    <nz-avatar nzShape="square" [nzSize]="98" nzSize="large" nzIcon="user" [nzSrc]="item.skus[0].coverImageUrls[0]"></nz-avatar>
-                    {{item.name}}
+                <td class="h4">{{item.name}}
                 </td>
                 <td>{{item.code}}</td>
-                <td>{{item.skus[0].price | currency}}</td>
+                <td style="padding:0;">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th style="width:250px;">Sku名称</th>
+                            <th>价格</th>
+                        </tr>
+                        <tr *ngFor="let sku of item.skus">
+                            <td>
+                                <nz-avatar nzShape="square" [nzSize]="48" nzSize="large" nzIcon="user" [nzSrc]="sku.coverImageUrls[0]"></nz-avatar>
+                            </td>
+                            <td> {{sku.name}}</td>
+                            <td>{{sku.price | currency}}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductSpus"> {{app.appName}}</nz-tag>
+                </td>
                 <td>
                     <button nz-button nzType="primary" nzShape="circle" [routerLink]="['/mall/spu-edit', item.id]">
                         <i nz-icon nzType="edit"></i>

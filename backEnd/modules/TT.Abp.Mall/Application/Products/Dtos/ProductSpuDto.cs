@@ -74,5 +74,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         /// 限购
         /// </summary>
         public int? LimitBuyCount { get; set; }
+
+        public List<AppProductSpuDto> AppProductSpus { get; set; }
     }
 }

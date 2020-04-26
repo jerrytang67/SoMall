@@ -47,7 +47,10 @@ namespace TT.Abp.Mall
                 .ReverseMap()
                 ;
 
-
+            CreateMap<AppProductSpu, AppProductSpuDto>()
+                .ReverseMap()
+                ;
+            
             CreateMap<ProductSpu, ProductSpuDto>();
             CreateMap<ProductSpu, ProductSpuDtoBase>();
             CreateMap<ProductSku, ProductSkuDto>()
@@ -60,11 +63,14 @@ namespace TT.Abp.Mall
 
             CreateMap<SpuCreateOrUpdateDto, ProductSpu>()
                 .ForMember(x => x.Skus, opt => opt.Ignore())
+                .ForMember(x => x.AppProductSpus, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<SkuCreateOrUpdateDto, ProductSku>()
                 .ReverseMap();
 
+            
+            
             #endregion
 
 

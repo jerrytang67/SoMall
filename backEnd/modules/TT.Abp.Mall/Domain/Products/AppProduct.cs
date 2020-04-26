@@ -6,6 +6,18 @@ namespace TT.Abp.Mall.Domain.Products
 {
     public class AppProductSpu : CreationAuditedEntity, IMultiTenant
     {
+        private AppProductSpu()
+        {
+        }
+
+
+        public AppProductSpu(string appName, Guid productSpuId, Guid? tenantId)
+        {
+            AppName = appName;
+            ProductSpuId = productSpuId;
+            TenantId = tenantId;
+        }
+
         public virtual string AppName { get; protected set; }
 
         public virtual Guid ProductSpuId { get; set; }

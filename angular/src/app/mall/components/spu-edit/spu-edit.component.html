@@ -9,8 +9,11 @@
     </nz-breadcrumb>
 </nz-page-header>
 
-<nz-checkbox-group [(ngModel)]="apps" name="apps" (ngModelChange)="updateSingleChecked($event)">
-</nz-checkbox-group>
+<div class="apps">
+
+    <nz-checkbox-group [(ngModel)]="apps" name="apps" (ngModelChange)="updateSingleChecked($event)">
+    </nz-checkbox-group>
+</div>
 
 <div class="d-flex justify-content-end">
     <button nz-button nzSize="large" (click)="addSku()" class="mr-4">{{ "mall.sku.add" | translate}}</button>

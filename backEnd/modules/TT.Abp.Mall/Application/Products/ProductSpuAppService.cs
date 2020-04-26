@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.Xml;
 using Newtonsoft.Json.Linq;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Products.Dtos;
@@ -24,6 +25,7 @@ namespace TT.Abp.Mall.Application.Products
         private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<ProductSku, Guid> _skuRepository;
         private readonly IRepository<ProductCategory, Guid> _categoryRepository;
+        private readonly IRepository<AppProductSpu> _appProductRepository;
         private readonly IMallShopRepository _mallShopRepository;
         private readonly IMallShopLookupService _mallShopLookupService;
         private readonly IAppDefinitionManager _appDefinitionManager;
@@ -33,6 +35,7 @@ namespace TT.Abp.Mall.Application.Products
             IRepository<ProductSpu, Guid> repository,
             IRepository<ProductSku, Guid> skuRepository,
             IRepository<ProductCategory, Guid> categoryRepository,
+            IRepository<AppProductSpu> appProductRepository,
             IMallShopRepository mallShopRepository,
             IMallShopLookupService mallShopLookupService,
             IAppDefinitionManager appDefinitionManager
@@ -46,6 +49,7 @@ namespace TT.Abp.Mall.Application.Products
             _guidGenerator = guidGenerator;
             _skuRepository = skuRepository;
             _categoryRepository = categoryRepository;
+            _appProductRepository = appProductRepository;
             _mallShopRepository = mallShopRepository;
             _mallShopLookupService = mallShopLookupService;
             _appDefinitionManager = appDefinitionManager;
@@ -86,9 +90,8 @@ namespace TT.Abp.Mall.Application.Products
 
         public override async Task<ProductSpuDto> UpdateAsync(Guid id, SpuCreateOrUpdateDto input)
         {
-            var local = await Repository.FirstOrDefaultAsync(x => (x.Code == input.Code || (x.Name == input.Name && x.CategoryId == input.CategoryId)) && x.Id != id);
-
-            if (local != null)
+            if (await Repository
+                .AnyAsync(x => (x.Code == input.Code || (x.Name == input.Name && x.CategoryId == input.CategoryId)) && x.Id != id))
             {
                 throw new UserFriendlyException("同分类下不能同名或商品编号相同");
             }
@@ -96,8 +99,12 @@ namespace TT.Abp.Mall.Application.Products
 
             await CheckUpdatePolicyAsync();
 
-            var entity = await Repository.Include(x => x.Skus).FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await Repository
+                .Include(x => x.AppProductSpus)
+                .Include(x => x.Skus).FirstOrDefaultAsync(x => x.Id == id);
             ObjectMapper.Map(input, entity);
+
+
             await Repository.UpdateAsync(entity, autoSave: true);
 
             var dbIds = entity.Skus.Select(x => x.Id).ToList();
@@ -127,6 +134,35 @@ namespace TT.Abp.Mall.Application.Products
                 await _skuRepository.DeleteAsync(noUsed);
             }
 
+
+            #region apps
+
+            foreach (var jo in input.Apps)
+            {
+                var appName = jo["value"] + "";
+                var value = Convert.ToBoolean(jo["checked"]);
+                if (value)
+                {
+                    if ((entity.AppProductSpus).All(x => x.AppName != appName))
+                    {
+                        await _appProductRepository.InsertAsync(new AppProductSpu(
+                            appName, id, entity.TenantId), autoSave: true);
+                    }
+                }
+                else
+                {
+                    if (entity.AppProductSpus != null && entity.AppProductSpus.Count > 0)
+                    {
+                        var existCate = entity.AppProductSpus.FirstOrDefault(x => x.AppName == appName);
+                        if (existCate != null)
+                            await _appProductRepository.DeleteAsync(existCate, autoSave: true);
+                    }
+                }
+            }
+
+            #endregion
+
+
             return MapToGetOutputDto(entity);
         }
 
@@ -138,7 +174,10 @@ namespace TT.Abp.Mall.Application.Products
         /// <returns></returns>
         public async Task<GetForEditOutput<SpuCreateOrUpdateDto>> GetForEdit(Guid id)
         {
-            var find = await Repository.Include(x => x.Skus).FirstOrDefaultAsync(z => z.Id == id);
+            var find = await Repository
+                .Include(x => x.Skus)
+                .Include(x => x.AppProductSpus)
+                .FirstOrDefaultAsync(z => z.Id == id);
 
             var schema = JToken.FromObject(new { });
 
@@ -150,7 +189,7 @@ namespace TT.Abp.Mall.Application.Products
 
             var apps = _appDefinitionManager.GetAll();
             schema["apps"] = apps.GetSelection("string", "appName", @"{0}", new[] {"Name"}, "Name");
-            
+
             return new GetForEditOutput<SpuCreateOrUpdateDto>(
                 ObjectMapper.Map<ProductSpu, SpuCreateOrUpdateDto>(find ?? new ProductSpu()
                 {
@@ -160,7 +199,7 @@ namespace TT.Abp.Mall.Application.Products
                     }
                 }), schema);
         }
-        
+
         public override async Task<PagedResultDto<ProductSpuDto>> GetListAsync(MallRequestDto input)
         {
             var spuDtos = await base.GetListAsync(input);
@@ -194,6 +233,7 @@ namespace TT.Abp.Mall.Application.Products
         {
             return Repository
                 .Include(x => x.Category)
+                .Include(x => x.AppProductSpus)
                 .Include(x => x.Skus)
                 .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
                 .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);

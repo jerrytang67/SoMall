@@ -55,15 +55,5 @@ export class OrderListComponent implements OnInit {
     console.log(event)
 
   }
-  create(item: any) {
 
-  }
-
-  edit(item: any) {
-
-  }
-
-  delete(item: any) {
-
-  }
 }
