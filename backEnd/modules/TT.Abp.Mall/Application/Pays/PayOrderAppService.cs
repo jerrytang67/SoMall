@@ -53,7 +53,7 @@ namespace TT.Abp.Mall.Application.Pays
 
             var totalCount = await query.CountAsync();
 
-            query = query.OrderBy(input.Sorting);
+            query = query.OrderBy(input.Sorting ?? "id desc");
 
             query = query.PageBy(input);
 
