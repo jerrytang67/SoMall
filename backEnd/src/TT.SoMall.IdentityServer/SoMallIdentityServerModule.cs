@@ -14,6 +14,7 @@ using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.Localization;
 using TT.SoMall.MultiTenancy;
 using StackExchange.Redis;
+using TT.Abp.Core;
 using TT.SoMall.Menus;
 using Volo.Abp;
 using Volo.Abp.Account;
@@ -43,7 +44,9 @@ namespace TT.SoMall
         typeof(AbpAccountApplicationModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
         typeof(SoMallEntityFrameworkCoreDbMigrationsModule),
-        typeof(AbpAspNetCoreSerilogModule)
+        typeof(AbpAspNetCoreSerilogModule),
+        typeof(TtCoreModule)
+
     )]
     public class SoMallIdentityServerModule : AbpModule
     {

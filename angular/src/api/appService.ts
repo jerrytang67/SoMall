@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -204,11 +204,11 @@ export class AppProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
     let url = '/api/app/app/getList';
@@ -735,11 +735,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -1510,11 +1510,11 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
     let url = '/api/app/realNameInfo/getList';
@@ -1547,11 +1547,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -2332,11 +2332,11 @@ export class WechatUserProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
     let url = '/api/app/wechatUser/getList';

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using DotNetCore.CAP;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using StackExchange.Redis;
@@ -24,11 +25,6 @@ namespace TT.SoMall
             var configuration = services.GetConfiguration();
             services.Configure<RedisOptions>(configuration.GetSection("Redis"));
             services.AddSingleton<IRedisClient, RedisClient>();
-            
-            // ABP
-            services.AddApplication<SoMallHttpApiHostModule>();
-            // ABP End
-
 
             services.AddCap(x =>
             {
@@ -46,12 +42,26 @@ namespace TT.SoMall
                 });
             });
 
-            services.AddControllers();
+            // services.Configure<ForwardedHeadersOptions>(options =>
+            // {
+            //     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            //     options.KnownNetworks.Clear();
+            //     options.KnownProxies.Clear();
+            // });
+
+            // ABP
+            services.AddApplication<SoMallHttpApiHostModule>();
+            // ABP End
         }
 
         public void Configure(IApplicationBuilder app)
         {
             IdentityModelEventSource.ShowPII = true;
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.InitializeApplication();
 
