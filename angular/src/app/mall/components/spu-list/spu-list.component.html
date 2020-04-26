@@ -58,7 +58,7 @@
                     </table>
                 </td>
                 <td>
-                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductSpus"> {{app.appName}}</nz-tag>
+                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductSpus"> {{app.appName | translate}}</nz-tag>
                 </td>
                 <td>
                     <button nz-button nzType="primary" nzShape="circle" [routerLink]="['/mall/spu-edit', item.id]">

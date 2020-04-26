@@ -52,7 +52,7 @@
                     <i nz-icon nzType="check-circle" nzTheme="twotone" nzTwotoneColor="#52c41a" *ngIf="item.isGlobal"></i>
                 </td>
                 <td>
-                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductCategories"> {{app.appName}}</nz-tag>
+                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductCategories"> {{app.appName | translate}}</nz-tag>
                 </td>
                 <td>{{item.shopId}}</td>
                 <td>

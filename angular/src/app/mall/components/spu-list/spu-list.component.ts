@@ -50,7 +50,7 @@ export class SpuListComponent implements OnInit {
     this.router.navigate(["/mall/spu-create", ""])
   }
 
-  colorList: string[] = ["magenta", "volcano", "orange", "#2db7f5", "#87d068", "#108ee9", "#f50",]
+  colorList: string[] = ["magenta", "green", "volcano", "blue", "orange", "#2db7f5", "#87d068", "#108ee9", "#f50",]
   appList: string[] = []
 
   getRndColor(str) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ProductCategoryProxyService, ProductCategoryDto } from 'src/api/appService';
 import { CategoryEditComponent } from '../category-edit/category-edit.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-category-list',
@@ -21,7 +22,8 @@ export class CategoryListComponent implements OnInit {
   constructor(
     private api: ProductCategoryProxyService,
     private modalService: NzModalService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private translate: TranslateService
   ) {
 
   }
@@ -90,7 +92,7 @@ export class CategoryListComponent implements OnInit {
           form: { ...res.data },
           apps: res.schema.apps.map(p => {
             return {
-              label: p.value,
+              label: this.translate.instant(p.value),
               value: p.value,
               checked: res.data.appProductCategories.filter(x => x.appName === p.value).length > 0
             }
@@ -127,7 +129,7 @@ export class CategoryListComponent implements OnInit {
     })
   }
 
-  colorList: string[] = ["magenta", "volcano", "orange", "#2db7f5", "#87d068", "#108ee9", "#f50",]
+  colorList: string[] = ["magenta", "green", "volcano", "blue", "orange", "#2db7f5", "#87d068", "#108ee9", "#f50",]
   appList: string[] = []
 
   getRndColor(str) {

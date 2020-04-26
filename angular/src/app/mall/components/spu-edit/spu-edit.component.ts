@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SpuCreateOrUpdateDto, ProductSpuProxyService, SkuCreateOrUpdateDto } from 'src/api/appService';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService, UploadFile } from 'ng-zorro-antd';
+import { TranslatorService } from '@core/translator/translator.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-spu-edit',
@@ -33,7 +35,8 @@ export class SpuEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private translate: TranslateService
   ) { }
 
   guid = '00000000-0000-0000-0000-000000000000';
@@ -79,7 +82,7 @@ export class SpuEditComponent implements OnInit {
 
           this.apps = res.schema.apps.map(p => {
             return {
-              label: p.value,
+              label: this.translate.instant(p.value),
               value: p.value,
               checked: res.data.appProductSpus.filter(x => x.appName === p.value).length > 0
             }

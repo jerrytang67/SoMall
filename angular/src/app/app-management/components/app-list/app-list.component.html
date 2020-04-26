@@ -20,12 +20,12 @@
         <thead>
             <tr>
                 <th width="140px">操作</th>
-                <th width="280px">id</th>
+                <!-- <th width="280px">id</th> -->
                 <th>name</th>
                 <th>clientName</th>
                 <th>providerName</th>
                 <th>providerKey</th>
-                <th>value</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -37,17 +37,23 @@
                     <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
                         nzPopconfirmPlacement="top">{{'delete' | translate}}</button>
                 </td>
-                <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
+                <!-- <td>{{item.id}}</td> -->
+                <td>{{item.name}} <nz-tag> {{item.name | translate}} </nz-tag>
+                </td>
                 <td>{{item.clientName}}</td>
                 <td>{{item.providerName}}</td>
                 <td>{{item.providerKey}}</td>
-                <td>
-                    <div class="d-flex justify-content-around" *ngFor="let key of item.value | keyvalue">
-                        <nz-tag> {{key.key}}</nz-tag>
-                        <nz-tag nzColor="#BA55D3"> {{key.value}}</nz-tag>
-
-                    </div>
+                <td style="padding:0;">
+                    <table class="table">
+                        <tr class="text-primary">
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr *ngFor="let key of item.value | keyvalue">
+                            <td style="width:150px;">{{key.key}}</td>
+                            <td> ********** </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </tbody>
