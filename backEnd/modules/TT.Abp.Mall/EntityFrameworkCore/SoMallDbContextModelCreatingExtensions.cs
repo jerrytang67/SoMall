@@ -263,6 +263,19 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                     .OnDelete(DeleteBehavior.Cascade); //级联删除
             });
 
+            builder.Entity<AppProductSpu>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "AppProductSpus", MallConsts.DbSchema);
+                b.ConfigureCreationAudited();
+                b.HasKey(x => new {x.AppName, x.ProductSpuId});
+                b.Property(x => x.AppName).HasMaxLength(MallConsts.MaxNameLength);
+
+                // Many-To-One
+                b.HasOne(x => x.ProductSpu).WithMany(x => x.AppProductSpus).HasForeignKey(x => x.ProductSpuId)
+                    .OnDelete(DeleteBehavior.Cascade); //级联删除
+            });
+
+
             builder.Entity<Swiper>(b =>
             {
                 b.ToTable(MallConsts.DbTablePrefix + "Swipers", MallConsts.DbSchema);

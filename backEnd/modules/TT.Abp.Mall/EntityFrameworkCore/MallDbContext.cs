@@ -19,40 +19,42 @@ namespace TT.Abp.Mall.EntityFrameworkCore
     public class MallDbContext : AbpDbContext<MallDbContext>, IMallDbContext
     {
         public virtual DbSet<MallUser> MallUsers { get; set; }
-        
+
         public virtual DbSet<MallShop> MallShops { get; set; }
 
         public virtual DbSet<ProductSpu> ProductSpu { get; set; }
-        
+
         public virtual DbSet<ProductSku> ProductSku { get; set; }
-        
+
         public virtual DbSet<ProductCategory> ProductCategory { get; set; }
-        
+
         public virtual DbSet<PayOrder> PayOrders { get; set; }
-        
+
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
-        
+
         public virtual DbSet<ProductOrderItem> ProductOrderItems { get; set; }
-        
+
         public virtual DbSet<Address> Addresses { get; set; }
-        
+
         public virtual DbSet<Comment> Comments { get; set; }
-        
+
         public virtual DbSet<Partner> Partners { get; set; }
-        
-        
+
+
         public virtual DbSet<Coupon> Coupons { get; set; }
-        
+
         public virtual DbSet<UserCoupon> UserCoupons { get; set; }
-        
+
         public DbSet<TenPayNotify> TenPayNotify { get; set; }
-        
+
         public DbSet<AppProductCategory> AppProductCategory { get; set; }
         
+        public DbSet<AppProductSpu> AppProductSpus { get; set; }
+
         public DbSet<Swiper> Swipers { get; set; }
-        
+
         public DbSet<NewsCategory> NewsCategories { get; set; }
-        
+
         public DbSet<NewsContent> NewsContents { get; set; }
 
         public MallDbContext(DbContextOptions<MallDbContext> options)

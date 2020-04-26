@@ -66,5 +66,6 @@ namespace TT.Abp.Mall.Domain.Products
         [ForeignKey("CategoryId")] public virtual ProductCategory Category { get; set; }
 
         public virtual ICollection<ProductSku> Skus { get; set; }
+        public virtual ICollection<AppProductSpu> AppProductSpus { get; set; }
     }
 }
