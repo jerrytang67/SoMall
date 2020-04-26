@@ -170,7 +170,7 @@ export class TtUploadComponent implements OnChanges {
         // console.log(this._value);
         if (e.type === "success") {
             const url = e.file.response.url;
-            const v = `${this.ossQuery.getValue().domainHost}${url}${this.customSuffix}${this.thumbStr}`;
+            const v = `${this.ossQuery.getValue().domainHost}${url}${this.customSuffix}${this.customSuffix ? this.thumbStr : ''}`;
             if (this.length > 1)
                 this.updateValue([...this._value, v])
             else

@@ -4,8 +4,8 @@ import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-category-edit',
-  template: `
+    selector: 'app-category-edit',
+    template: `
   <form nz-form #f="ngForm" (ngSubmit)="onSubmit(f)" se-container="1" labelWidth="100">
     <se label="logoImageUrl">
         <tt-upload [(ngModel)]="form.logoImageUrl" name="logoImageUrl" [length]="1"></tt-upload>
@@ -26,7 +26,7 @@ import { HttpClient } from '@angular/common/http';
         <nz-switch [(ngModel)]="form.isGlobal" name="isGlobal"></nz-switch>
     </se>
     <se label="展示APP">
-    <nz-checkbox-group [(ngModel)]="apps" name="apps" (ngModelChange)="updateSingleChecked($event)">
+        <nz-checkbox-group [(ngModel)]="apps" name="apps" (ngModelChange)="updateSingleChecked($event)">
         </nz-checkbox-group>
     </se>
 </form>
@@ -34,33 +34,33 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoryEditComponent implements OnInit {
 
-  @ViewChild('f', { static: true }) f: NgForm;
+    @ViewChild('f', { static: true }) f: NgForm;
 
-  @Input() title: string;
+    @Input() title: string;
 
-  @Input() id: string;
+    @Input() id: string;
 
-  @Input() apps: any[];
+    @Input() apps: any[];
 
-  @Input() form: CategoryCreateOrUpdateDto;
+    @Input() form: CategoryCreateOrUpdateDto;
 
-  i: any = {};
+    i: any = {};
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  ngOnInit() {
+    ngOnInit() {
 
-  }
+    }
 
-  onSubmit(f: NgForm) { }
+    onSubmit(f: NgForm) { }
 
-  ngOnDestroy(): void {
-  };
+    ngOnDestroy(): void {
+    };
 
 
-  updateSingleChecked(event) {
-    console.log(event)
-  }
+    updateSingleChecked(event) {
+        console.log(event)
+    }
 
 }

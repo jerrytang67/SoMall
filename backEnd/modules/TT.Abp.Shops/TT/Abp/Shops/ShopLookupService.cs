@@ -13,7 +13,7 @@ namespace TT.Abp.Shops
         where TShop : class, IShop
         where TShopRepository : IShopRepository<TShop>
     {
-        protected bool SkipExternalLookupIfLocalUserExists { get; set; } = false;
+        protected bool SkipExternalLookupIfLocalShopExists { get; set; } = false;
 
         public IExternalShopLookupServiceProvider ExternalShopLookupServiceProvider { get; set; }
         public ILogger<ShopLookupService<TShop, TShopRepository>> Logger { get; set; }
@@ -40,7 +40,7 @@ namespace TT.Abp.Shops
                 return localShop;
             }
 
-            if (SkipExternalLookupIfLocalUserExists && localShop != null)
+            if (SkipExternalLookupIfLocalShopExists && localShop != null)
             {
                 return localShop;
             }

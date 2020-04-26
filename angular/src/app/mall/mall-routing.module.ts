@@ -17,7 +17,7 @@ import { PayOrderListComponent } from './components/payOrder-list/payOrder-list.
 import { SwiperListComponent } from './components/swiper-list/swiper-list.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'shops', pathMatch: 'full', data: { breadcrumb: "商城" } },
+  { path: '', redirectTo: 'shops', pathMatch: 'full' },
   {
     path: '',
     component: LayoutComponent,

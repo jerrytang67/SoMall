@@ -5,17 +5,17 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-spu-list',
-  templateUrl: './spu-list.component.html',
-  styleUrls: ['./spu-list.component.scss']
+  templateUrl: './spu-list.component.html'
 })
 export class SpuListComponent implements OnInit {
 
   dataItems: any[] = [];
   pageingInfo = {
     totalItems: 0,
-    pageNumber: 0,
-    pageSize: 0,
-    isTableLoading: false
+    pageNumber: 1,
+    pageSize: 10,
+    isTableLoading: false,
+    sorting: "id desc"
   };
   constructor(
     private api: ProductSpuProxyService,
@@ -34,6 +34,7 @@ export class SpuListComponent implements OnInit {
     this.api.getList().subscribe(res => {
       console.log(res);
       this.dataItems = res.items;
+      this.pageingInfo.totalItems = res.totalCount;
       this.pageingInfo.isTableLoading = false;
     })
   }

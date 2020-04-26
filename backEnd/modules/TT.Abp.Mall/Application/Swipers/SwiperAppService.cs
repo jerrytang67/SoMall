@@ -75,7 +75,7 @@ namespace TT.Abp.Mall.Application.Swipers
             return new GetForEditOutput<SwiperCreateOrUpdateDto>(
                 ObjectMapper.Map<Swiper, SwiperCreateOrUpdateDto>(find ?? new Swiper()), schema);
         }
-        
+
         public override Task<SwiperDto> CreateAsync(SwiperCreateOrUpdateDto input)
         {
             return base.CreateAsync(input);

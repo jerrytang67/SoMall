@@ -9,6 +9,9 @@
     </nz-breadcrumb>
 </nz-page-header>
 
+<nz-checkbox-group [(ngModel)]="apps" name="apps" (ngModelChange)="updateSingleChecked($event)">
+</nz-checkbox-group>
+
 <div class="d-flex justify-content-end">
     <button nz-button nzSize="large" (click)="addSku()" class="mr-4">{{ "mall.sku.add" | translate}}</button>
     <button nz-button nzSize="large" nzType="primary" (click)="onSubmit()">{{ "submit" | translate}}</button>
@@ -77,7 +80,7 @@
             <div [formGroupName]="idx">
 
                 <div>{{sku.coverImageUrls | json}}</div>
-                <tt-upload class="coverImage" formControlName="coverImageUrls" [length]="3"></tt-upload>
+                <tt-upload class="coverImage" formControlName="coverImageUrls" [length]="3" customSuffix=""></tt-upload>
                 <div nz-row>
                     <nz-form-item nz-col [nzSpan]="12">
                         <nz-form-label nzFor="name" nzRequired>SKU名称</nz-form-label>

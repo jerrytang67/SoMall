@@ -1,0 +1,50 @@
+<nz-page-header nzTitle="auditLog">
+    <nz-breadcrumb nz-page-header-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/']">首页</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/auditLog']"> {{ "auditLog" | translate}}</a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+</nz-page-header>
+
+<nz-card [nzExtra]="extraAction">
+    <ng-template #extraAction>
+        <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
+    </ng-template>
+    <nz-table #dataTable nzShowSizeChanger nzShowPagination [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
+        [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
+        (nzPageSizeChange)="refresh()">
+        <thead>
+            <tr>
+                <th>executionTime</th>
+                <th>TenantName</th>
+                <th>UserName</th>
+                <th>url</th>
+                <th>exceptions</th>
+                <th>ClientIpAddress</th>
+                <th>ClientId</th>
+                <th>browserInfo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataTable.data">
+                <td>{{item.executionTime | momentFromNow}}</td>
+                <td>{{item.tenantName}}</td>
+                <td>{{item.userName}}</td>
+                <td>{{item.url }}</td>
+                <td>
+                    <i *ngIf="item.exceptions" class="fas fa-exclamation-circle fa-lg m-1 text-danger" nz-popover nzPopoverTitle="Error"
+                        nzPopoverPlacement="bottomRight" [nzPopoverContent]="item.exceptions">
+                    </i>
+                </td>
+                <td>{{item.clientIpAddress }}</td>
+                <td>{{item.clientId }}</td>
+                <td>
+                    <tt-tooltip *ngIf="item.browserInfo" [text]="item.browserInfo" icon="fab fa-internet-explorer"></tt-tooltip>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

@@ -40,8 +40,11 @@ export class SpuEditComponent implements OnInit {
   guid = '00000000-0000-0000-0000-000000000000';
   optionList: any[];
   shopList: any[];
+  apps: any[] = [];
 
   ngOnInit(): void {
+
+
     this.validateForm = this.fb.group({
       shopId: null,
       categoryId: null,
@@ -73,6 +76,14 @@ export class SpuEditComponent implements OnInit {
             purchaseNotesCommon: this.form.purchaseNotesCommon,
             descCommon: this.form.descCommon,
             skus: this.form.skus
+          })
+
+          this.apps = res.schema.apps.map(p => {
+            return {
+              label: p.value,
+              value: p.value,
+              checked: false
+            }
           })
         }
       )
@@ -136,6 +147,10 @@ export class SpuEditComponent implements OnInit {
     else {
       this.message.warning("至少要保留一个商品信息")
     }
+  }
+
+  updateSingleChecked(event) {
+    console.log(event)
   }
 
 

@@ -38,16 +38,8 @@ const routes: Routes = [
   { path: 'visitor', loadChildren: () => import(/* webpackChunkName: "VisitorModule" */ '../visitor/visitor.module').then(m => m.VisitorModule), data: { breadcrumb: "访客管理系统" } },
 
   { path: 'account-management', loadChildren: () => import(/* webpackChunkName: "AccountManagementModule" */ '../account-management/account-management.module').then(m => m.AccountManagementModule), data: { breadcrumb: "微信用户管理" } },
-  {
-    path: 'demo',
-    component: LayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'demo1', component: Demo1Component, data: { title: 'demo1' },
-      }
-    ],
-  },
+
+  { path: 'auditLog', loadChildren: () => import(/* webpackChunkName: "AuditLogModule" */ '../auditLog/auditLog.module').then(m => m.AuditLogModule), data: { breadcrumb: "审计日志" } },
   {
     path: 'exception',
     component: LayoutComponent,

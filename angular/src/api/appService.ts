@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -204,11 +204,11 @@ export class AppProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
     let url = '/api/app/app/getList';
@@ -269,6 +269,51 @@ export class AppProxyService {
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class AuditLogProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  getAuditLogs(
+    params: {
+      /**  */
+      startDate?: string;
+      /**  */
+      endDate?: string;
+      /**  */
+      userName?: string;
+      /**  */
+      serviceName?: string;
+      /**  */
+      methodName?: string;
+      /**  */
+      browserInfo?: string;
+      /**  */
+      hasException?: boolean;
+      /**  */
+      minExecutionDuration?: number;
+      /**  */
+      maxExecutionDuration?: number;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<AuditLogListDtoPagedResultDto> {
+    let url = '/api/app/auditLog/getAuditLogs';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<AuditLogListDtoPagedResultDto>;
   }
 }
 
@@ -690,11 +735,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -1465,11 +1510,11 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
     let url = '/api/app/realNameInfo/getList';
@@ -1502,11 +1547,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -1748,6 +1793,22 @@ export class SwiperProxyService {
   /**
    *
    */
+  create(
+    params: {
+      /** requestBody */
+      body?: SwiperCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<SwiperDto> {
+    let url = '/api/mall/swiper/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<SwiperDto>;
+  }
+  /**
+   *
+   */
   get(
     params: {
       /**  */
@@ -1788,22 +1849,6 @@ export class SwiperProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<SwiperDtoPagedResultDto>;
-  }
-  /**
-   *
-   */
-  create(
-    params: {
-      /** requestBody */
-      body?: SwiperCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<SwiperDto> {
-    let url = '/api/mall/swiper/create';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<SwiperDto>;
   }
   /**
    *
@@ -2287,11 +2332,11 @@ export class WechatUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
     let url = '/api/app/wechatUser/getList';
@@ -2971,6 +3016,163 @@ export interface AppCreateOrUpdateDto {
 
   /**  */
   providerKey?: string;
+}
+
+export interface EntityPropertyChange {
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  entityChangeId?: string;
+
+  /**  */
+  newValue?: string;
+
+  /**  */
+  originalValue?: string;
+
+  /**  */
+  propertyName?: string;
+
+  /**  */
+  propertyTypeFullName?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface EntityChange {
+  /**  */
+  auditLogId?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  changeTime?: Date;
+
+  /**  */
+  changeType?: EntityChangeType;
+
+  /**  */
+  entityTenantId?: string;
+
+  /**  */
+  entityId?: string;
+
+  /**  */
+  entityTypeFullName?: string;
+
+  /**  */
+  propertyChanges?: EntityPropertyChange[];
+
+  /**  */
+  extraProperties?: object;
+
+  /**  */
+  id?: string;
+}
+
+export interface AuditLogAction {
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  auditLogId?: string;
+
+  /**  */
+  serviceName?: string;
+
+  /**  */
+  methodName?: string;
+
+  /**  */
+  parameters?: string;
+
+  /**  */
+  executionTime?: Date;
+
+  /**  */
+  executionDuration?: number;
+
+  /**  */
+  extraProperties?: object;
+
+  /**  */
+  id?: string;
+}
+
+export interface AuditLogListDto {
+  /**  */
+  applicationName?: string;
+
+  /**  */
+  userId?: string;
+
+  /**  */
+  userName?: string;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  tenantName?: string;
+
+  /**  */
+  impersonatorUserId?: string;
+
+  /**  */
+  impersonatorTenantId?: string;
+
+  /**  */
+  executionTime?: Date;
+
+  /**  */
+  executionDuration?: number;
+
+  /**  */
+  clientIpAddress?: string;
+
+  /**  */
+  clientName?: string;
+
+  /**  */
+  clientId?: string;
+
+  /**  */
+  correlationId?: string;
+
+  /**  */
+  browserInfo?: string;
+
+  /**  */
+  httpMethod?: string;
+
+  /**  */
+  url?: string;
+
+  /**  */
+  exceptions?: string;
+
+  /**  */
+  comments?: string;
+
+  /**  */
+  httpStatusCode?: number;
+
+  /**  */
+  entityChanges?: EntityChange[];
+
+  /**  */
+  actions?: AuditLogAction[];
+}
+
+export interface AuditLogListDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: AuditLogListDto[];
 }
 
 export interface ICurrentUser {
@@ -4817,6 +5019,12 @@ export enum LocationType {
   'bd09' = 'bd09',
   'gcj02' = 'gcj02',
   'wgs84' = 'wgs84'
+}
+
+export enum EntityChangeType {
+  'Created' = 'Created',
+  'Updated' = 'Updated',
+  'Deleted' = 'Deleted'
 }
 
 export enum UseType {

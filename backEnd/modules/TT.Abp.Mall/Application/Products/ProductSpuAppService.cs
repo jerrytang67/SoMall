@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
+using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Products;
@@ -25,6 +26,7 @@ namespace TT.Abp.Mall.Application.Products
         private readonly IRepository<ProductCategory, Guid> _categoryRepository;
         private readonly IMallShopRepository _mallShopRepository;
         private readonly IMallShopLookupService _mallShopLookupService;
+        private readonly IAppDefinitionManager _appDefinitionManager;
 
         public ProductSpuAppService(
             IGuidGenerator guidGenerator,
@@ -32,7 +34,8 @@ namespace TT.Abp.Mall.Application.Products
             IRepository<ProductSku, Guid> skuRepository,
             IRepository<ProductCategory, Guid> categoryRepository,
             IMallShopRepository mallShopRepository,
-            IMallShopLookupService mallShopLookupService
+            IMallShopLookupService mallShopLookupService,
+            IAppDefinitionManager appDefinitionManager
         ) : base(repository)
         {
             base.GetListPolicyName = MallPermissions.Products.Default;
@@ -45,6 +48,7 @@ namespace TT.Abp.Mall.Application.Products
             _categoryRepository = categoryRepository;
             _mallShopRepository = mallShopRepository;
             _mallShopLookupService = mallShopLookupService;
+            _appDefinitionManager = appDefinitionManager;
         }
 
         public override async Task<ProductSpuDto> GetAsync(Guid id)
@@ -144,6 +148,9 @@ namespace TT.Abp.Mall.Application.Products
             var shops = await _mallShopRepository.GetListAsync();
             schema["shopId"] = shops.GetSelection("string", "shopId", @"{0}", new[] {"Name"}, "Id");
 
+            var apps = _appDefinitionManager.GetAll();
+            schema["apps"] = apps.GetSelection("string", "appName", @"{0}", new[] {"Name"}, "Name");
+            
             return new GetForEditOutput<SpuCreateOrUpdateDto>(
                 ObjectMapper.Map<ProductSpu, SpuCreateOrUpdateDto>(find ?? new ProductSpu()
                 {
@@ -153,8 +160,7 @@ namespace TT.Abp.Mall.Application.Products
                     }
                 }), schema);
         }
-
-
+        
         public override async Task<PagedResultDto<ProductSpuDto>> GetListAsync(MallRequestDto input)
         {
             var spuDtos = await base.GetListAsync(input);
