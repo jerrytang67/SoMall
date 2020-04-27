@@ -22,7 +22,7 @@ namespace TT.Abp.Mall.Domain
 
         public enum PayType
         {
-            UnPay = 0,
+            未支付 = 0,
             [Display(Name = "微信")] 微信 = 1,
             [Display(Name = "微信扫码")] 微信扫码 = 2,
             [Display(Name = "支付宝")] 支付宝 = 3,
@@ -43,7 +43,8 @@ namespace TT.Abp.Mall.Domain
             未完成 = 0,
             正在派送 = 2,
             派送完成 = 4,
-            完成 = 9
+            完成 = 9,
+            售后 = 11
         }
 
         public enum ProductOrderType : int

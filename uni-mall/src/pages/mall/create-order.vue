@@ -124,6 +124,8 @@ import api from "@/utils/api";
 
 @Component
 export default class CreateOrder extends BaseView {
+   needLogin = true;
+
    comment: string = "";
 
    async onLoad(query: any) {

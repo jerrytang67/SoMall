@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
 using Volo.Abp.Application.Dtos;
@@ -128,7 +129,7 @@ namespace TT.Abp.Mall.Application.Orders
         public async Task<object> PayAsync(OrderPayRequestDto input)
         {
             var productOrder = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
-            
+
             var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
             var app = await _appProvider.GetOrNullAsync(appName);
             var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
@@ -170,10 +171,21 @@ namespace TT.Abp.Mall.Application.Orders
         }
 
 
+        /// <summary>
+        /// 客户端获取当前登录用户的订单
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [Authorize]
         public async Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(MallRequestDto input)
         {
-            var query = CreateFilteredQuery(input).Where(x => x.CreatorId == CurrentUser.Id);
+            var query = CreateFilteredQuery(input)
+                    .Where(x => x.CreatorId == CurrentUser.Id)
+                    .WhereIf(input.State.HasValue && input.State == 1, x => x.PayType == MallEnums.PayType.未支付)
+                    .WhereIf(input.State.HasValue && input.State == 2, x => x.PayType != MallEnums.PayType.未支付 && x.State != MallEnums.OrderState.完成)
+                    .WhereIf(input.State.HasValue && input.State == 3, x => x.PayType != MallEnums.PayType.未支付 && x.State == MallEnums.OrderState.完成)
+                    .WhereIf(input.State.HasValue && input.State == 4, x => x.PayType != MallEnums.PayType.未支付 && x.State == MallEnums.OrderState.售后)
+                ;
 
             var totalCount = await AsyncQueryableExecuter.CountAsync(query);
 

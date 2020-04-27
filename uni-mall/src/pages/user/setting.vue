@@ -45,6 +45,9 @@ import { Tips } from "@/utils/tips";
 import { UserModule } from "@/store/modules/user";
 @Component
 export default class SettingPage extends BaseView {
+
+   needLogin = true;
+
    navTo(url: string) {
       uni.navigateTo({ url });
    }

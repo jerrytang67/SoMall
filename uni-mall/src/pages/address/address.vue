@@ -76,6 +76,8 @@ import { AddressModule, IAddress } from "@/store/modules/address";
 
 @Component
 export default class MyAddress extends BaseView {
+   needLogin = true;
+
    async onLoad(options: any) {
       await AddressModule.GetAndSetUserAddressList();
    }

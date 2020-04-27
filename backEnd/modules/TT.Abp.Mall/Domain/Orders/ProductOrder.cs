@@ -33,7 +33,7 @@ namespace TT.Abp.Mall.Domain.Orders
 
         public MallEnums.ProductOrderType Type { get; set; } = MallEnums.ProductOrderType.未标记;
 
-        public MallEnums.PayType PayType { get; set; } = MallEnums.PayType.UnPay;
+        public MallEnums.PayType PayType { get; set; } = MallEnums.PayType.未支付;
 
         public string Comment { get; set; }
 

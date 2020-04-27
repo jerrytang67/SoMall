@@ -6,11 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="TT\Abp\Cms\Application" />
-      <Folder Include="TT\Abp\Cms\Domain" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\TT.Abp.AppManagement\TT.Abp.AppManagement.csproj" />
       <ProjectReference Include="..\TT.Abp.Weixin\TT.Abp.Weixin.csproj" />
     </ItemGroup>

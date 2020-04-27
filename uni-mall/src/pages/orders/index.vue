@@ -17,7 +17,7 @@
                <view v-for="(item,index) in tabItem.orderList" :key="index" class="order-item">
                   <view class="i-top b-b">
                      <text class="time">{{item.creationTime}}</text>
-                     <text class="state" :style="{color: item.stateTipColor}">{{item.state}}</text>
+                     <text class="state" :style="{color: item.stateTipColor}">{{item.payType}}</text>
                   </view>
 
                   <scroll-view v-if="item.orderItems.length > 1" class="goods-box" scroll-x>
@@ -42,8 +42,9 @@
                      <text class="price">143.7</text>
                   </view>
                   <view class="action-box b-t" v-if="item.state != 9">
-                     <button class="action-btn" @click="cancelOrder(item)">取消订单</button>
-                     <button class="action-btn recom" @tap="rePay(item)">重新支付</button>
+                     <button class="action-btn" @click="cancelOrder(item)" v-if="item.payType === '未支付'">取消订单</button>
+                     <button class="action-btn" @click="cancelOrder(item)" v-if="item.payType !== '未支付'">申请退款</button>
+                     <button class="action-btn recom" v-if="item.payType === '未支付'" @tap="rePay(item)">重新支付</button>
                   </view>
                </view>
 
@@ -64,6 +65,8 @@ import { Tips } from "@/utils/tips";
 
 @Component({ components: { empty } })
 export default class Orders extends BaseView {
+   needLogin = true;
+
    async onLoad(options: any) {
       /**
        * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
@@ -72,23 +75,23 @@ export default class Orders extends BaseView {
       // this.tabCurrentIndex = +options.state || 0;
    }
 
-   onShow() {
-      if (uni.getStorageSync("Order_Select_Index")) {
-         this.tabCurrentIndex = uni.getStorageSync("Order_Select_Index");
-         uni.removeStorageSync("Order_Select_Index");
+   async onShow() {
+      console.log("Orders onShow()");
+      if (await uni.getStorageSync("Order_Select_Index")) {
+         this.tabCurrentIndex = await uni.getStorageSync("Order_Select_Index");
+         await uni.removeStorageSync("Order_Select_Index");
       }
-   }
-
-   async created() {
-      // #ifndef MP
-      await this.loadData();
-      // #endif
-
-      // #ifdef MP
-      if (this.tabCurrentIndex == 0) {
+      if (this.openid) {
+         // #ifndef MP
          await this.loadData();
+         // #endif
+
+         // #ifdef MP
+         if (this.tabCurrentIndex == 0) {
+            await this.loadData();
+         }
+         // #endif
       }
-      // #endif
    }
 
    tabCurrentIndex = 0;
@@ -122,7 +125,7 @@ export default class Orders extends BaseView {
       },
       {
          state: 3,
-         text: "待评价",
+         text: "已完成",
          loadingType: "more",
          orderList: [],
          loaded: false,

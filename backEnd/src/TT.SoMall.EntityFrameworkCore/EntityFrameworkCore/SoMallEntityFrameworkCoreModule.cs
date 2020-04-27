@@ -2,6 +2,7 @@
 using TT.Abp.AccountManagement;
 using TT.Abp.AppManagement;
 using TT.Abp.AppManagement.AppManagement;
+using TT.Abp.Cms;
 using TT.Abp.Core;
 using TT.Abp.Mall;
 using TT.Abp.OssManagement;
@@ -41,7 +42,8 @@ namespace TT.SoMall.EntityFrameworkCore
         typeof(OssManagementModule),
         typeof(WeixinModule),
         typeof(MallModule),
-        typeof(VisitorManagementModule)
+        typeof(VisitorManagementModule),
+        typeof(CmsModule)
     )]
     public class SoMallEntityFrameworkCoreModule : AbpModule
     {

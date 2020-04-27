@@ -58,6 +58,8 @@ import api from "@/utils/api";
 
 @Component
 export default class ProfilePage extends BaseView {
+   needLogin = true;
+
    comment: string = "";
 
    profile: {

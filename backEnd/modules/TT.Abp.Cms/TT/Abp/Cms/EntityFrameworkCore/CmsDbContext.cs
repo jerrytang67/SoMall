@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TT.Abp.Cms.Domain;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace TT.Abp.Cms.EntityFrameworkCore
@@ -15,5 +16,7 @@ namespace TT.Abp.Cms.EntityFrameworkCore
 
             builder.ConfigureCms();
         }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }

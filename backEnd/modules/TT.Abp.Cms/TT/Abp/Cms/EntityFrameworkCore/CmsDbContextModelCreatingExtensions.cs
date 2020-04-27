@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TT.Abp.Cms.Domain;
 using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace TT.Abp.Cms.EntityFrameworkCore
 {
@@ -9,13 +11,20 @@ namespace TT.Abp.Cms.EntityFrameworkCore
         {
             Check.NotNull(builder, nameof(builder));
 
-            // builder.Entity<MallUser>(b =>
-            // {
-            //     b.ToTable(MallConsts.DbTablePrefix + "Users", MallConsts.DbSchema);
-            //
-            //     b.ConfigureAbpUser();
-            //     b.ConfigureExtraProperties();
-            // });
+            builder.Entity<Category>(b =>
+            {
+                b.ToTable(CmsConsts.DbTablePrefix + "Categories", CmsConsts.DbSchema);
+
+                b.ConfigureFullAuditedAggregateRoot();
+
+                b.Property(x => x.Name).IsRequired().HasMaxLength(32);
+            });
         }
+    }
+
+    public static class CmsConsts
+    {
+        public const string DbTablePrefix = "Cms.";
+        public const string DbSchema = "";
     }
 }

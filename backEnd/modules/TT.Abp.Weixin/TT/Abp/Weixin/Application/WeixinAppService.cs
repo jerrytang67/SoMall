@@ -105,7 +105,7 @@ namespace TT.Abp.Weixin.Application
             var app = await _appProvider.GetOrNullAsync(appName);
             var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
             var appSec = app["appsec"] ?? throw new AbpException($"App:{appName} appsec未设置");
-            
+
             var session = await _weixinManager.Mini_Code2Session(loginModel.code, appid, appSec);
 
             // 解密用户信息
@@ -117,7 +117,6 @@ namespace TT.Abp.Weixin.Application
 
             // 更新数据库
             await _capBus.PublishAsync("weixin.services.mini.getuserinfo", miniUserInfo);
-            var token = "";
 
             var user = await _identityUserStore.FindByLoginAsync($"unionid", miniUserInfo.unionid);
             if (user == null)
@@ -134,8 +133,10 @@ namespace TT.Abp.Weixin.Application
                     var passHash = _passwordHasher.HashPassword(user, "1q2w3E*");
                     await _identityUserStore.CreateAsync(user);
                     await _identityUserStore.SetPasswordHashAsync(user, passHash);
+
                     await _identityUserStore.AddLoginAsync(user,
                         new UserLoginInfo($"unionid", miniUserInfo.unionid, "unionid"));
+
                     await _identityUserStore.AddLoginAsync(user,
                         new UserLoginInfo($"{appid}_openid", miniUserInfo.openid, "openid"));
 
@@ -165,7 +166,13 @@ namespace TT.Abp.Weixin.Application
                         }
                     }
                 });
-            token = result.AccessToken;
+
+            var token = result.AccessToken;
+
+            if (token.IsNullOrEmptyOrWhiteSpace())
+            {
+                throw new Exception("RequestTokenAsync Error");
+            }
 
             return await Task.FromResult(new
             {
