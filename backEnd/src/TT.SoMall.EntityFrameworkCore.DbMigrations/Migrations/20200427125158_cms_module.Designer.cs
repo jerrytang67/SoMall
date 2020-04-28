@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TT.SoMall.EntityFrameworkCore;
 
 namespace TT.SoMall.Migrations
 {
     [DbContext(typeof(SoMallMigrationsDbContext))]
-    partial class SoMallMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200427125158_cms_module")]
+    partial class cms_module
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,12 +160,12 @@ namespace TT.SoMall.Migrations
                         .HasMaxLength(64);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(64)")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("ProviderName")
                         .HasColumnType("nvarchar(2)")
                         .HasMaxLength(2);
+
+                    b.Property<string>("ProviderName")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");

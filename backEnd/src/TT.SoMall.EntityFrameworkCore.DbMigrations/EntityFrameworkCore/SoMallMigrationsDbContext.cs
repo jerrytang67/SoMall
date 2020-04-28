@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TT.Abp.AccountManagement.EntityFrameworkCore;
 using TT.Abp.AppManagement.EntityFrameworkCore;
+using TT.Abp.Cms.EntityFrameworkCore;
 using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Abp.Shops.EntityFrameworkCore;
 using TT.Abp.VisitorManagement.EntityFrameworkCore;
@@ -66,6 +67,8 @@ namespace TT.SoMall.EntityFrameworkCore
             builder.ConfigureWeixinManagement();
 
             builder.ConfigureAppManagement();
+            
+            builder.ConfigureCms();
         }
     }
 }

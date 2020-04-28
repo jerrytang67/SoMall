@@ -44,7 +44,7 @@ namespace TT.Abp.AppManagement
                 options.ValueProviders.Add<DefaultValueAppValueProvider>();
                 options.ValueProviders.Add<ConfigurationAppValueProvider>();
                 options.ValueProviders.Add<GlobalAppValueProvider>();
-                options.ValueProviders.Add<TenantSettingValueProvider>();
+                options.ValueProviders.Add<TenantAppValueProvider>();
             });
         }
 

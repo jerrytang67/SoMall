@@ -74,17 +74,17 @@ export class AddressProxyService {
   /**
    *
    */
-  address(
+  getList(
     params: {
-      /**  */
-      sorting?: string;
       /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
-    let url = '/api/mall/address';
+    let url = '/api/mall/address/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -95,13 +95,13 @@ export class AddressProxyService {
   /**
    *
    */
-  address1(
+  create(
     params: {
       /** requestBody */
       body?: AddressCreateOrUpdateDto;
     } = {} as any
   ): Observable<AddressDto> {
-    let url = '/api/mall/address';
+    let url = '/api/mall/address/create';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -111,15 +111,15 @@ export class AddressProxyService {
   /**
    *
    */
-  address2(
+  update(
     params: {
       /**  */
-      id: string;
+      id?: string;
       /** requestBody */
       body?: AddressCreateOrUpdateDto;
     } = {} as any
   ): Observable<AddressDto> {
-    let url = '/api/mall/address/';
+    let url = '/api/mall/address/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -130,13 +130,13 @@ export class AddressProxyService {
   /**
    *
    */
-  address3(
+  delete(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/mall/address/';
+    let url = '/api/mall/address/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -146,34 +146,34 @@ export class AddressProxyService {
   /**
    *
    */
-  address4(
+  setDefault(
     params: {
       /**  */
-      id: string;
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/address/setDefault';
+    let options: any = {
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
     } = {} as any
   ): Observable<AddressDto> {
-    let url = '/api/mall/address/';
+    let url = '/api/mall/address/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<AddressDto>;
-  }
-  /**
-   *
-   */
-  setDefault(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/address//setDefault';
-    let options: any = {
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<any>;
   }
 }
 
@@ -184,13 +184,13 @@ export class AppProxyService {
   /**
    *
    */
-  app(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<AppDto> {
-    let url = '/api/app/app/';
+    let url = '/api/app/app/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -201,52 +201,17 @@ export class AppProxyService {
   /**
    *
    */
-  app1(
+  getList(
     params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: AppCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<AppDto> {
-    let url = '/api/app/app/';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<AppDto>;
-  }
-  /**
-   *
-   */
-  app2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/app/app/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  app3(
-    params: {
-      /**  */
-      sorting?: string;
       /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
-    let url = '/api/app/app';
+    let url = '/api/app/app/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -257,18 +222,53 @@ export class AppProxyService {
   /**
    *
    */
-  app4(
+  create(
     params: {
       /** requestBody */
       body?: AppCreateOrUpdateDto;
     } = {} as any
   ): Observable<AppDto> {
-    let url = '/api/app/app';
+    let url = '/api/app/app/create';
     let options: any = {
       body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<AppDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: AppCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<AppDto> {
+    let url = '/api/app/app/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<AppDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/app/app/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -279,7 +279,7 @@ export class AuditLogProxyService {
   /**
    *
    */
-  auditLogs(
+  getAuditLogs(
     params: {
       /**  */
       startDate?: string;
@@ -307,7 +307,7 @@ export class AuditLogProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<AuditLogListDtoPagedResultDto> {
-    let url = '/api/app/auditLog/auditLogs';
+    let url = '/api/app/auditLog/getAuditLogs';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -318,99 +318,19 @@ export class AuditLogProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
-export class ClientProxyService {
-  constructor(private http: HttpClient) {}
-
-  /**
-   *
-   */
-  init(
-    params: {
-      /** requestBody */
-      body?: ClientInitRequestDto;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/client/init';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  miniAuth(
-    params: {
-      /** requestBody */
-      body?: WeChatMiniProgramAuthenticateModel;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/client/miniAuth';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  userAddressList(): Observable<AddressDtoListResultDto> {
-    let url = '/api/mall/client/userAddressList';
-    let options: any = {
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<AddressDtoListResultDto>;
-  }
-  /**
-   *
-   */
-  sumbitOrder(
-    params: {
-      /** requestBody */
-      body?: ProductOrderRequestDto;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/client/sumbitOrder';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  payNotifyUrl(
-    params: {
-      /** requestBody */
-      body?: TenPayNotifyXml;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/client/payNotifyUrl';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<any>;
-  }
-}
-
-@Injectable({ providedIn: 'root' })
 export class CmsCategoryProxyService {
   constructor(private http: HttpClient) {}
 
   /**
    *
    */
-  cmsCategory(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<CategoryDto> {
-    let url = '/api/cms/cmsCategory/';
+    let url = '/api/cms/cmsCategory/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -421,52 +341,17 @@ export class CmsCategoryProxyService {
   /**
    *
    */
-  cmsCategory1(
+  getList(
     params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: Category;
-    } = {} as any
-  ): Observable<CategoryDto> {
-    let url = '/api/cms/cmsCategory/';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<CategoryDto>;
-  }
-  /**
-   *
-   */
-  cmsCategory2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/cms/cmsCategory/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  cmsCategory3(
-    params: {
-      /**  */
-      sorting?: string;
       /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<CategoryDtoPagedResultDto> {
-    let url = '/api/cms/cmsCategory';
+    let url = '/api/cms/cmsCategory/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -477,18 +362,53 @@ export class CmsCategoryProxyService {
   /**
    *
    */
-  cmsCategory4(
+  create(
     params: {
       /** requestBody */
-      body?: Category;
+      body?: CategoryCreateOrUpdate;
     } = {} as any
   ): Observable<CategoryDto> {
-    let url = '/api/cms/cmsCategory';
+    let url = '/api/cms/cmsCategory/create';
     let options: any = {
       body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<CategoryDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CategoryCreateOrUpdate;
+    } = {} as any
+  ): Observable<CategoryDto> {
+    let url = '/api/cms/cmsCategory/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<CategoryDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/cms/cmsCategory/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -499,7 +419,7 @@ export class CouponProxyService {
   /**
    *
    */
-  publishList(
+  getPublishList(
     params: {
       /**  */
       state?: number;
@@ -517,7 +437,7 @@ export class CouponProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<CouponDtoListResultDto> {
-    let url = '/api/mall/coupon/publishList';
+    let url = '/api/mall/coupon/getPublishList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -528,13 +448,13 @@ export class CouponProxyService {
   /**
    *
    */
-  coupon(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<CouponDto> {
-    let url = '/api/mall/coupon/';
+    let url = '/api/mall/coupon/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -545,42 +465,7 @@ export class CouponProxyService {
   /**
    *
    */
-  coupon1(
-    params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: CouponCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<CouponDto> {
-    let url = '/api/mall/coupon/';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<CouponDto>;
-  }
-  /**
-   *
-   */
-  coupon2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/coupon/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  coupon3(
+  getList(
     params: {
       /**  */
       state?: number;
@@ -598,7 +483,7 @@ export class CouponProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<CouponDtoPagedResultDto> {
-    let url = '/api/mall/coupon';
+    let url = '/api/mall/coupon/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -609,18 +494,53 @@ export class CouponProxyService {
   /**
    *
    */
-  coupon4(
+  create(
     params: {
       /** requestBody */
       body?: CouponCreateOrUpdateDto;
     } = {} as any
   ): Observable<CouponDto> {
-    let url = '/api/mall/coupon';
+    let url = '/api/mall/coupon/create';
     let options: any = {
       body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<CouponDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CouponCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<CouponDto> {
+    let url = '/api/mall/coupon/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<CouponDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/coupon/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -631,8 +551,8 @@ export class FormProxyService {
   /**
    *
    */
-  form(): Observable<FormDtoListResultDto> {
-    let url = '/api/Visitor/form';
+  getList(): Observable<FormDtoListResultDto> {
+    let url = '/api/Visitor/form/getList';
     let options: any = {
       method: 'get'
     };
@@ -641,29 +561,13 @@ export class FormProxyService {
   /**
    *
    */
-  form1(
-    params: {
-      /** requestBody */
-      body?: FormCreateOrEditDto;
-    } = {} as any
-  ): Observable<FormDto> {
-    let url = '/api/Visitor/form';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<FormDto>;
-  }
-  /**
-   *
-   */
-  form2(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<FormDto> {
-    let url = '/api/Visitor/form/';
+    let url = '/api/Visitor/form/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -674,15 +578,31 @@ export class FormProxyService {
   /**
    *
    */
-  form3(
+  create(
     params: {
-      /**  */
-      id: string;
       /** requestBody */
       body?: FormCreateOrEditDto;
     } = {} as any
   ): Observable<FormDto> {
-    let url = '/api/Visitor/form/';
+    let url = '/api/Visitor/form/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<FormDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: FormCreateOrEditDto;
+    } = {} as any
+  ): Observable<FormDto> {
+    let url = '/api/Visitor/form/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -693,13 +613,13 @@ export class FormProxyService {
   /**
    *
    */
-  form4(
+  delete(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/Visitor/form/';
+    let url = '/api/Visitor/form/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -709,13 +629,13 @@ export class FormProxyService {
   /**
    *
    */
-  shops(
+  getShops(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<VisitorShopDto[]> {
-    let url = '/api/Visitor/form//shops';
+    let url = '/api/Visitor/form/getShops';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -726,13 +646,13 @@ export class FormProxyService {
   /**
    *
    */
-  shopForm(
+  getShopForm(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/Visitor/form//shopForm';
+    let url = '/api/Visitor/form/getShopForm';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -743,13 +663,13 @@ export class FormProxyService {
   /**
    *
    */
-  shop(
+  addShop(
     params: {
       /** requestBody */
       body?: FormAddShopRequestDto;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/Visitor/form/shop';
+    let url = '/api/Visitor/form/addShop';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -765,13 +685,13 @@ export class MallShopProxyService {
   /**
    *
    */
-  mallShop(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<MallShopDto> {
-    let url = '/api/mall/mallShop/';
+    let url = '/api/mall/mallShop/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -782,8 +702,8 @@ export class MallShopProxyService {
   /**
    *
    */
-  mallShop1(): Observable<MallShopDtoListResultDto> {
-    let url = '/api/mall/mallShop';
+  getList(): Observable<MallShopDtoListResultDto> {
+    let url = '/api/mall/mallShop/getList';
     let options: any = {
       method: 'get'
     };
@@ -814,13 +734,13 @@ export class MallUserProxyService {
   /**
    *
    */
-  mallUser(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<MallUserDto> {
-    let url = '/api/mall/mallUser/';
+    let url = '/api/mall/mallUser/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -831,52 +751,17 @@ export class MallUserProxyService {
   /**
    *
    */
-  mallUser1(
+  getList(
     params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: MallUserDto;
-    } = {} as any
-  ): Observable<MallUserDto> {
-    let url = '/api/mall/mallUser/';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<MallUserDto>;
-  }
-  /**
-   *
-   */
-  mallUser2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/mallUser/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  mallUser3(
-    params: {
-      /**  */
-      sorting?: string;
       /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
-    let url = '/api/mall/mallUser';
+    let url = '/api/mall/mallUser/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -887,18 +772,53 @@ export class MallUserProxyService {
   /**
    *
    */
-  mallUser4(
+  create(
     params: {
       /** requestBody */
       body?: MallUserDto;
     } = {} as any
   ): Observable<MallUserDto> {
-    let url = '/api/mall/mallUser';
+    let url = '/api/mall/mallUser/create';
     let options: any = {
       body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<MallUserDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: MallUserDto;
+    } = {} as any
+  ): Observable<MallUserDto> {
+    let url = '/api/mall/mallUser/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<MallUserDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/mallUser/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -909,8 +829,8 @@ export class OssProxyService {
   /**
    *
    */
-  config(): Observable<any> {
-    let url = '/api/app/oss/config';
+  getConfig(): Observable<any> {
+    let url = '/api/app/oss/getConfig';
     let options: any = {
       method: 'get'
     };
@@ -919,13 +839,13 @@ export class OssProxyService {
   /**
    *
    */
-  signature(
+  getSignature(
     params: {
       /**  */
       data?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/oss/signature';
+    let url = '/api/app/oss/getSignature';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -952,19 +872,48 @@ export class PartnerProxyService {
   /**
    *
    */
-  partner(
+  get(
     params: {
       /**  */
-      userId?: string;
+      userId: string;
     } = {} as any
   ): Observable<PartnerDto> {
-    let url = '/api/mall/partner';
+    let url = '/api/mall/partner/get/';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<PartnerDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      state?: number;
+      /**  */
+      keywords?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      appName?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<PartnerDtoPagedResultDto> {
+    let url = '/api/mall/partner/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PartnerDtoPagedResultDto>;
   }
 }
 
@@ -975,7 +924,7 @@ export class PayOrderProxyService {
   /**
    *
    */
-  payOrder(
+  get(
     params: {
       /**  */
       id?: string;
@@ -997,7 +946,7 @@ export class PayOrderProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<PayOrderDto> {
-    let url = '/api/mall/payOrder';
+    let url = '/api/mall/payOrder/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1008,7 +957,7 @@ export class PayOrderProxyService {
   /**
    *
    */
-  publicList(
+  getList(
     params: {
       /**  */
       state?: number;
@@ -1026,7 +975,36 @@ export class PayOrderProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<PayOrderDtoPagedResultDto> {
-    let url = '/api/mall/payOrder/publicList';
+    let url = '/api/mall/payOrder/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PayOrderDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  getPublicList(
+    params: {
+      /**  */
+      state?: number;
+      /**  */
+      keywords?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      appName?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<PayOrderDtoPagedResultDto> {
+    let url = '/api/mall/payOrder/getPublicList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1043,13 +1021,13 @@ export class ProductCategoryProxyService {
   /**
    *
    */
-  forEdit(
+  getForEdit(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<CategoryCreateOrUpdateDtoGetForEditOutput> {
-    let url = '/api/mall/productCategory//forEdit';
+    let url = '/api/mall/productCategory/getForEdit';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1060,15 +1038,15 @@ export class ProductCategoryProxyService {
   /**
    *
    */
-  productCategory(
+  update(
     params: {
       /**  */
-      id: string;
+      id?: string;
       /** requestBody */
       body?: CategoryCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductCategoryDto> {
-    let url = '/api/mall/productCategory/';
+    let url = '/api/mall/productCategory/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -1079,13 +1057,13 @@ export class ProductCategoryProxyService {
   /**
    *
    */
-  productCategory1(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<ProductCategoryDto> {
-    let url = '/api/mall/productCategory/';
+    let url = '/api/mall/productCategory/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1096,23 +1074,7 @@ export class ProductCategoryProxyService {
   /**
    *
    */
-  productCategory2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/productCategory/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  productCategory3(
+  getList(
     params: {
       /**  */
       state?: number;
@@ -1130,7 +1092,7 @@ export class ProductCategoryProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductCategoryDtoPagedResultDto> {
-    let url = '/api/mall/productCategory';
+    let url = '/api/mall/productCategory/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1141,18 +1103,34 @@ export class ProductCategoryProxyService {
   /**
    *
    */
-  productCategory4(
+  create(
     params: {
       /** requestBody */
       body?: CategoryCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductCategoryDto> {
-    let url = '/api/mall/productCategory';
+    let url = '/api/mall/productCategory/create';
     let options: any = {
       body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<ProductCategoryDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/productCategory/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1163,13 +1141,13 @@ export class ProductOrderProxyService {
   /**
    *
    */
-  productOrder(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<ProductOrderDto> {
-    let url = '/api/mall/productOrder/';
+    let url = '/api/mall/productOrder/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1180,42 +1158,7 @@ export class ProductOrderProxyService {
   /**
    *
    */
-  productOrder1(
-    params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: ProductOrderCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<ProductOrderDto> {
-    let url = '/api/mall/productOrder/';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<ProductOrderDto>;
-  }
-  /**
-   *
-   */
-  productOrder2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/productOrder/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  productOrder3(
+  getList(
     params: {
       /**  */
       state?: number;
@@ -1233,7 +1176,7 @@ export class ProductOrderProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductOrderDtoPagedResultDto> {
-    let url = '/api/mall/productOrder';
+    let url = '/api/mall/productOrder/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1244,13 +1187,13 @@ export class ProductOrderProxyService {
   /**
    *
    */
-  productOrder4(
+  create(
     params: {
       /** requestBody */
       body?: ProductOrderCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductOrderDto> {
-    let url = '/api/mall/productOrder';
+    let url = '/api/mall/productOrder/create';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -1276,7 +1219,7 @@ export class ProductOrderProxyService {
   /**
    *
    */
-  publicList(
+  getPublicList(
     params: {
       /**  */
       state?: number;
@@ -1294,13 +1237,48 @@ export class ProductOrderProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductOrderDtoPagedResultDto> {
-    let url = '/api/mall/productOrder/publicList';
+    let url = '/api/mall/productOrder/getPublicList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<ProductOrderDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: ProductOrderCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductOrderDto> {
+    let url = '/api/mall/productOrder/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductOrderDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/productOrder/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1311,13 +1289,13 @@ export class ProductSkuProxyService {
   /**
    *
    */
-  productSku(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<ProductSkuDto> {
-    let url = '/api/mall/productSku/';
+    let url = '/api/mall/productSku/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1328,42 +1306,7 @@ export class ProductSkuProxyService {
   /**
    *
    */
-  productSku1(
-    params: {
-      /**  */
-      id: string;
-      /** requestBody */
-      body?: SkuCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<ProductSkuDto> {
-    let url = '/api/mall/productSku/';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<ProductSkuDto>;
-  }
-  /**
-   *
-   */
-  productSku2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/productSku/';
-    let options: any = {
-      params: { id: params.id },
-      method: 'delete'
-    };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
-  }
-  /**
-   *
-   */
-  productSku3(
+  getList(
     params: {
       /**  */
       state?: number;
@@ -1381,7 +1324,7 @@ export class ProductSkuProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductSkuDtoPagedResultDto> {
-    let url = '/api/mall/productSku';
+    let url = '/api/mall/productSku/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1392,18 +1335,53 @@ export class ProductSkuProxyService {
   /**
    *
    */
-  productSku4(
+  create(
     params: {
       /** requestBody */
       body?: SkuCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductSkuDto> {
-    let url = '/api/mall/productSku';
+    let url = '/api/mall/productSku/create';
     let options: any = {
       body: params.body,
       method: 'post'
     };
     return (this.http.request('post', url, options) as any) as Observable<ProductSkuDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: SkuCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductSkuDto> {
+    let url = '/api/mall/productSku/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<ProductSkuDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/productSku/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1414,13 +1392,13 @@ export class ProductSpuProxyService {
   /**
    *
    */
-  productSpu(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<ProductSpuDto> {
-    let url = '/api/mall/productSpu/';
+    let url = '/api/mall/productSpu/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1431,15 +1409,31 @@ export class ProductSpuProxyService {
   /**
    *
    */
-  productSpu1(
+  create(
     params: {
-      /**  */
-      id: string;
       /** requestBody */
       body?: SpuCreateOrUpdateDto;
     } = {} as any
   ): Observable<ProductSpuDto> {
-    let url = '/api/mall/productSpu/';
+    let url = '/api/mall/productSpu/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<ProductSpuDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: SpuCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<ProductSpuDto> {
+    let url = '/api/mall/productSpu/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -1450,39 +1444,24 @@ export class ProductSpuProxyService {
   /**
    *
    */
-  productSpu2(
+  getForEdit(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/productSpu/';
+  ): Observable<SpuCreateOrUpdateDtoGetForEditOutput> {
+    let url = '/api/mall/productSpu/getForEdit';
+    const _copy: any = { ...params };
     let options: any = {
-      params: { id: params.id },
-      method: 'delete'
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
     };
-    return (this.http.request('delete', url, options) as any) as Observable<any>;
+    return (this.http.request('get', url, options) as any) as Observable<SpuCreateOrUpdateDtoGetForEditOutput>;
   }
   /**
    *
    */
-  productSpu3(
-    params: {
-      /** requestBody */
-      body?: SpuCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<ProductSpuDto> {
-    let url = '/api/mall/productSpu';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<ProductSpuDto>;
-  }
-  /**
-   *
-   */
-  productSpu4(
+  getList(
     params: {
       /**  */
       state?: number;
@@ -1500,7 +1479,7 @@ export class ProductSpuProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<ProductSpuDtoPagedResultDto> {
-    let url = '/api/mall/productSpu';
+    let url = '/api/mall/productSpu/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1511,19 +1490,18 @@ export class ProductSpuProxyService {
   /**
    *
    */
-  forEdit(
+  delete(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
-  ): Observable<SpuCreateOrUpdateDtoGetForEditOutput> {
-    let url = '/api/mall/productSpu//forEdit';
-    const _copy: any = { ...params };
+  ): Observable<any> {
+    let url = '/api/mall/productSpu/delete';
     let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
+      params: { id: params.id },
+      method: 'delete'
     };
-    return (this.http.request('get', url, options) as any) as Observable<SpuCreateOrUpdateDtoGetForEditOutput>;
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
   }
 }
 
@@ -1534,8 +1512,8 @@ export class PublicProxyService {
   /**
    *
    */
-  currentUser(): Observable<UserProfileInput> {
-    let url = '/api/app/public/currentUser';
+  getCurrentUser(): Observable<UserProfileInput> {
+    let url = '/api/app/public/getCurrentUser';
     let options: any = {
       method: 'get'
     };
@@ -1566,17 +1544,17 @@ export class RealNameInfoProxyService {
   /**
    *
    */
-  realNameInfo(
+  getList(
     params: {
-      /**  */
-      sorting?: string;
       /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
-    let url = '/api/app/realNameInfo';
+    let url = '/api/app/realNameInfo/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1606,11 +1584,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -1698,7 +1676,7 @@ export class ShopProxyService {
   /**
    *
    */
-  shop(
+  getList(
     params: {
       /**  */
       maxResultCount?: number;
@@ -1706,7 +1684,7 @@ export class ShopProxyService {
       skipCount?: number;
     } = {} as any
   ): Observable<ShopDtoPagedResultDto> {
-    let url = '/api/app/shop';
+    let url = '/api/app/shop/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1717,13 +1695,47 @@ export class ShopProxyService {
   /**
    *
    */
-  shop1(
+  getByShortName(
+    params: {
+      /**  */
+      shortName?: string;
+    } = {} as any
+  ): Observable<ShopDto> {
+    let url = '/api/app/shop/getByShortName';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<ShopDto> {
+    let url = '/api/app/shop/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
+  }
+  /**
+   *
+   */
+  create(
     params: {
       /** requestBody */
       body?: VisitorShopCreateOrEditDto;
     } = {} as any
   ): Observable<ShopDto> {
-    let url = '/api/app/shop';
+    let url = '/api/app/shop/create';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -1733,49 +1745,15 @@ export class ShopProxyService {
   /**
    *
    */
-  byShortName(
+  update(
     params: {
       /**  */
-      shortName?: string;
-    } = {} as any
-  ): Observable<ShopDto> {
-    let url = '/api/app/shop/byShortName';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
-  }
-  /**
-   *
-   */
-  shop2(
-    params: {
-      /**  */
-      id: string;
-    } = {} as any
-  ): Observable<ShopDto> {
-    let url = '/api/app/shop/';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<ShopDto>;
-  }
-  /**
-   *
-   */
-  shop3(
-    params: {
-      /**  */
-      id: string;
+      id?: string;
       /** requestBody */
       body?: VisitorShopCreateOrEditDto;
     } = {} as any
   ): Observable<ShopDto> {
-    let url = '/api/app/shop/';
+    let url = '/api/app/shop/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -1786,13 +1764,13 @@ export class ShopProxyService {
   /**
    *
    */
-  shop4(
+  delete(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/shop/';
+    let url = '/api/app/shop/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -1808,7 +1786,7 @@ export class SwiperProxyService {
   /**
    *
    */
-  publishList(
+  getPublishList(
     params: {
       /**  */
       state?: number;
@@ -1826,7 +1804,7 @@ export class SwiperProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<SwiperDtoListResultDto> {
-    let url = '/api/mall/swiper/publishList';
+    let url = '/api/mall/swiper/getPublishList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1837,13 +1815,13 @@ export class SwiperProxyService {
   /**
    *
    */
-  forEdit(
+  getForEdit(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<SwiperCreateOrUpdateDtoGetForEditOutput> {
-    let url = '/api/mall/swiper//forEdit';
+    let url = '/api/mall/swiper/getForEdit';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1854,13 +1832,13 @@ export class SwiperProxyService {
   /**
    *
    */
-  swiper(
+  create(
     params: {
       /** requestBody */
       body?: SwiperCreateOrUpdateDto;
     } = {} as any
   ): Observable<SwiperDto> {
-    let url = '/api/mall/swiper';
+    let url = '/api/mall/swiper/create';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -1870,7 +1848,24 @@ export class SwiperProxyService {
   /**
    *
    */
-  swiper1(
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<SwiperDto> {
+    let url = '/api/mall/swiper/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<SwiperDto>;
+  }
+  /**
+   *
+   */
+  getList(
     params: {
       /**  */
       state?: number;
@@ -1888,7 +1883,7 @@ export class SwiperProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<SwiperDtoPagedResultDto> {
-    let url = '/api/mall/swiper';
+    let url = '/api/mall/swiper/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -1899,32 +1894,15 @@ export class SwiperProxyService {
   /**
    *
    */
-  swiper2(
+  update(
     params: {
       /**  */
-      id: string;
-    } = {} as any
-  ): Observable<SwiperDto> {
-    let url = '/api/mall/swiper/';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<SwiperDto>;
-  }
-  /**
-   *
-   */
-  swiper3(
-    params: {
-      /**  */
-      id: string;
+      id?: string;
       /** requestBody */
       body?: SwiperCreateOrUpdateDto;
     } = {} as any
   ): Observable<SwiperDto> {
-    let url = '/api/mall/swiper/';
+    let url = '/api/mall/swiper/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -1935,13 +1913,13 @@ export class SwiperProxyService {
   /**
    *
    */
-  swiper4(
+  delete(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/mall/swiper/';
+    let url = '/api/mall/swiper/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -2124,7 +2102,7 @@ export class UserCouponProxyService {
   /**
    *
    */
-  userCoupon(
+  getList(
     params: {
       /**  */
       couponId?: string;
@@ -2144,7 +2122,7 @@ export class UserCouponProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<UserCouponDtoPagedResultDto> {
-    let url = '/api/mall/userCoupon';
+    let url = '/api/mall/userCoupon/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -2155,23 +2133,7 @@ export class UserCouponProxyService {
   /**
    *
    */
-  userCoupon1(
-    params: {
-      /** requestBody */
-      body?: UserCouponCreateOrUpdateDto;
-    } = {} as any
-  ): Observable<UserCouponDto> {
-    let url = '/api/mall/userCoupon';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<UserCouponDto>;
-  }
-  /**
-   *
-   */
-  publicList(
+  getPublicList(
     params: {
       /**  */
       couponId?: string;
@@ -2191,7 +2153,7 @@ export class UserCouponProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<UserCouponDtoListResultDto> {
-    let url = '/api/mall/userCoupon/publicList';
+    let url = '/api/mall/userCoupon/getPublicList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -2202,13 +2164,13 @@ export class UserCouponProxyService {
   /**
    *
    */
-  userCoupon2(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<UserCouponDto> {
-    let url = '/api/mall/userCoupon/';
+    let url = '/api/mall/userCoupon/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -2219,15 +2181,31 @@ export class UserCouponProxyService {
   /**
    *
    */
-  userCoupon3(
+  create(
     params: {
-      /**  */
-      id: string;
       /** requestBody */
       body?: UserCouponCreateOrUpdateDto;
     } = {} as any
   ): Observable<UserCouponDto> {
-    let url = '/api/mall/userCoupon/';
+    let url = '/api/mall/userCoupon/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<UserCouponDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: UserCouponCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<UserCouponDto> {
+    let url = '/api/mall/userCoupon/update';
     let options: any = {
       params: { id: params.id },
       body: params.body,
@@ -2238,13 +2216,13 @@ export class UserCouponProxyService {
   /**
    *
    */
-  userCoupon4(
+  delete(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/mall/userCoupon/';
+    let url = '/api/mall/userCoupon/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -2300,7 +2278,7 @@ export class VisitorLogProxyService {
   /**
    *
    */
-  visitorLog(
+  getList(
     params: {
       /**  */
       formId?: string;
@@ -2314,7 +2292,7 @@ export class VisitorLogProxyService {
       maxResultCount?: number;
     } = {} as any
   ): Observable<VisitorLogDtoPagedResultDto> {
-    let url = '/api/Visitor/visitorLog';
+    let url = '/api/Visitor/visitorLog/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -2325,13 +2303,13 @@ export class VisitorLogProxyService {
   /**
    *
    */
-  visitorLog1(
+  get(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<VisitorLogDto> {
-    let url = '/api/Visitor/visitorLog/';
+    let url = '/api/Visitor/visitorLog/get';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -2342,13 +2320,13 @@ export class VisitorLogProxyService {
   /**
    *
    */
-  visitorLog2(
+  delete(
     params: {
       /**  */
-      id: string;
+      id?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/Visitor/visitorLog/';
+    let url = '/api/Visitor/visitorLog/delete';
     let options: any = {
       params: { id: params.id },
       method: 'delete'
@@ -2396,17 +2374,17 @@ export class WechatUserProxyService {
   /**
    *
    */
-  wechatUser(
+  getList(
     params: {
-      /**  */
-      sorting?: string;
       /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
-    let url = '/api/app/wechatUser';
+    let url = '/api/app/wechatUser/getList';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -2439,13 +2417,13 @@ export class WeixinProxyService {
   /**
    *
    */
-  accessToken(
+  getAccessToken(
     params: {
       /**  */
       appid?: string;
     } = {} as any
   ): Observable<string> {
-    let url = '/api/app/weixin/accessToken';
+    let url = '/api/app/weixin/getAccessToken';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -2459,12 +2437,12 @@ export class WeixinProxyService {
   miniAuth(
     params: {
       /**  */
-      appName?: string;
+      appName: string;
       /** requestBody */
       body?: WeChatMiniProgramAuthenticateModel;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/weixin/miniAuth';
+    let url = '/api/app/weixin/miniAuth/';
     let options: any = {
       body: params.body,
       method: 'post'
@@ -2491,7 +2469,7 @@ export class WeixinProxyService {
   /**
    *
    */
-  unLimitQr(
+  getUnLimitQr(
     params: {
       /**  */
       scene?: string;
@@ -2499,7 +2477,7 @@ export class WeixinProxyService {
       page?: string;
     } = {} as any
   ): Observable<any> {
-    let url = '/api/app/weixin/unLimitQr';
+    let url = '/api/app/weixin/getUnLimitQr';
     const _copy: any = { ...params };
     let options: any = {
       params: new HttpParams({ fromObject: _copy }),
@@ -3063,6 +3041,14 @@ export interface AppDto {
   id?: string;
 }
 
+export interface AppDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: AppDto[];
+}
+
 export interface AppCreateOrUpdateDto {
   /**  */
   name?: string;
@@ -3075,14 +3061,6 @@ export interface AppCreateOrUpdateDto {
 
   /**  */
   providerKey?: string;
-}
-
-export interface AppDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: AppDto[];
 }
 
 export interface EntityPropertyChange {
@@ -3686,50 +3664,17 @@ export interface CategoryDto {
   id?: string;
 }
 
-export interface Category {
-  /**  */
-  name?: string;
-
-  /**  */
-  tenantId?: string;
-
-  /**  */
-  isDeleted?: boolean;
-
-  /**  */
-  deleterId?: string;
-
-  /**  */
-  deletionTime?: Date;
-
-  /**  */
-  lastModificationTime?: Date;
-
-  /**  */
-  lastModifierId?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  extraProperties?: object;
-
-  /**  */
-  concurrencyStamp?: string;
-
-  /**  */
-  id?: string;
-}
-
 export interface CategoryDtoPagedResultDto {
   /**  */
   totalCount?: number;
 
   /**  */
   items?: CategoryDto[];
+}
+
+export interface CategoryCreateOrUpdate {
+  /**  */
+  name?: string;
 }
 
 export interface CouponDto {
@@ -3778,6 +3723,14 @@ export interface CouponDtoListResultDto {
   items?: CouponDto[];
 }
 
+export interface CouponDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: CouponDto[];
+}
+
 export interface CouponCreateOrUpdateDto {
   /**  */
   amount?: number;
@@ -3811,14 +3764,6 @@ export interface CouponCreateOrUpdateDto {
 
   /**  */
   datetimeEnd?: Date;
-}
-
-export interface CouponDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: CouponDto[];
 }
 
 export interface IValueValidator {
@@ -4123,6 +4068,14 @@ export interface PartnerDto {
   unavblBalance?: number;
 }
 
+export interface PartnerDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: PartnerDto[];
+}
+
 export interface PayOrderDto {
   /**  */
   id?: string;
@@ -4398,8 +4351,6 @@ export interface ProductOrderDto {
   id?: string;
 }
 
-export interface ProductOrderCreateOrUpdateDto {}
-
 export interface ProductOrderDtoPagedResultDto {
   /**  */
   totalCount?: number;
@@ -4407,6 +4358,8 @@ export interface ProductOrderDtoPagedResultDto {
   /**  */
   items?: ProductOrderDto[];
 }
+
+export interface ProductOrderCreateOrUpdateDto {}
 
 export interface OrderPayRequestDto {
   /**  */
@@ -4417,6 +4370,14 @@ export interface OrderPayRequestDto {
 
   /**  */
   openid?: string;
+}
+
+export interface ProductSkuDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: ProductSkuDto[];
 }
 
 export interface SkuCreateOrUpdateDto {
@@ -4467,14 +4428,6 @@ export interface SkuCreateOrUpdateDto {
 
   /**  */
   unit?: string;
-}
-
-export interface ProductSkuDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: ProductSkuDto[];
 }
 
 export interface AppProductCategory {
@@ -4786,20 +4739,20 @@ export interface SpuCreateOrUpdateDto {
   apps?: object[];
 }
 
-export interface ProductSpuDtoPagedResultDto {
-  /**  */
-  totalCount?: number;
-
-  /**  */
-  items?: ProductSpuDto[];
-}
-
 export interface SpuCreateOrUpdateDtoGetForEditOutput {
   /**  */
   data?: SpuCreateOrUpdateDto;
 
   /**  */
   schema?: any | null;
+}
+
+export interface ProductSpuDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: ProductSpuDto[];
 }
 
 export interface ProfileDto {
@@ -5260,17 +5213,17 @@ export interface UserCouponDtoPagedResultDto {
   items?: UserCouponDto[];
 }
 
+export interface UserCouponDtoListResultDto {
+  /**  */
+  items?: UserCouponDto[];
+}
+
 export interface UserCouponCreateOrUpdateDto {
   /**  */
   couponId?: string;
 
   /**  */
   ownerUserId?: string;
-}
-
-export interface UserCouponDtoListResultDto {
-  /**  */
-  items?: UserCouponDto[];
 }
 
 export interface UserData {

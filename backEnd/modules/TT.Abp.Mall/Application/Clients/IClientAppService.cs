@@ -13,6 +13,6 @@ namespace TT.Abp.Mall.Application.Clients
         Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel);
         Task<ListResultDto<AddressDto>> GetUserAddressListAsync();
         Task<object> SumbitOrder(ProductOrderRequestDto input);
-        Task<object> PayNotifyUrl([FromBody] TenPayNotifyXml input);
+        Task<object> PayNotifyUrl(string appName, [FromBody] TenPayNotifyXml input);
     }
 }

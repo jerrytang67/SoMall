@@ -1,5 +1,8 @@
 <template>
    <view class="content">
+      <!-- #ifdef MP-WEIXIN -->
+      <official-account></official-account>
+      <!-- #endif -->
       <!-- 头部轮播 -->
       <view class="carousel-section" v-if="swipers.length">
          <!-- 标题栏和状态栏占位符 -->

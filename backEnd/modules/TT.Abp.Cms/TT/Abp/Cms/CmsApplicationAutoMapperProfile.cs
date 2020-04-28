@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using TT.Abp.Cms.Application;
+using TT.Abp.Cms.Domain;
 
 namespace TT.Abp.Cms
 {
@@ -7,6 +9,8 @@ namespace TT.Abp.Cms
         public CmsApplicationAutoMapperProfile()
         {
             // CreateMap<MallUser, MallUserDto>();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryCreateOrUpdate, Category>();
         }
     }
 }

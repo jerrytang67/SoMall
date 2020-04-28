@@ -9,7 +9,7 @@ namespace TT.Abp.Cms.EntityFrameworkCore
     {
         public static void ConfigureCms(this ModelBuilder builder)
         {
-            Check.NotNull(builder, nameof(builder));
+            //Check.NotNull(builder, nameof(builder));
 
             builder.Entity<Category>(b =>
             {
@@ -25,6 +25,6 @@ namespace TT.Abp.Cms.EntityFrameworkCore
     public static class CmsConsts
     {
         public const string DbTablePrefix = "Cms.";
-        public const string DbSchema = "";
+        public const string DbSchema = null;
     }
 }

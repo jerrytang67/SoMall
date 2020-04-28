@@ -4,14 +4,14 @@ using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.AppManagement.Apps
 {
-    public class TenantSettingValueProvider : AppValueProvider
+    public class TenantAppValueProvider : AppValueProvider
     {
         public const string ProviderName = "T";
         public override string Name => ProviderName;
         protected ICurrentTenant CurrentTenant { get; }
 
 
-        public TenantSettingValueProvider(IAppStore appStore, ICurrentTenant currentTenant)
+        public TenantAppValueProvider(IAppStore appStore, ICurrentTenant currentTenant)
             : base(appStore)
         {
             CurrentTenant = currentTenant;

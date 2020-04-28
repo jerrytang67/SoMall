@@ -81,6 +81,11 @@ namespace TT.Abp.Mall.Domain.Products
         }
 
 
+        public void SetTenant(Guid? tenantId)
+        {
+            tenantId = tenantId;
+        }
+
         public void NewId(IGuidGenerator guidGenerator)
         {
             Id = guidGenerator.Create();

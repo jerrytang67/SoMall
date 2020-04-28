@@ -121,6 +121,7 @@ import { ShopModule } from "@/store/modules/shop";
 import { AddressModule } from "@/store/modules/address";
 import { BaseView } from "../baseView";
 import api from "@/utils/api";
+import { Tips } from "@/utils/tips";
 
 @Component
 export default class CreateOrder extends BaseView {
@@ -154,11 +155,14 @@ export default class CreateOrder extends BaseView {
          skus: [this.sku],
          address: this.selectAddress,
          comment: this.comment
-      }).then(res => {
-         if (res) {
+      }).then(
+         (res: any) => {
             uni.navigateTo({ url: "/pages/orders/pay?orderId=" + res });
+         },
+         err => {
+            Tips.info(err.message);
          }
-      });
+      );
    }
 }
 </script>

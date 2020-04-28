@@ -44,6 +44,11 @@ namespace TT.SoMall
                     url += $"/{{{secondaryIds[0].ParameterName}}}";
                 }
             }
+            
+            if (action.Parameters.Any(p => p.ParameterName == "appName"))
+            {
+                url += "/{appName}";
+            }
 
             return url;
         }
@@ -56,6 +61,7 @@ namespace TT.SoMall
             var actionNameInUrl = action.ActionName
                 //.RemoveHttpMethodPrefix(action.ActionName, httpMethod)
                 .RemovePostFix("Async");
+            
             if (configuration?.UrlActionNameNormalizer == null)
             {
                 return actionNameInUrl;

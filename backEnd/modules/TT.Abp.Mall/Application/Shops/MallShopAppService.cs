@@ -78,12 +78,12 @@ namespace TT.Abp.Mall.Application.Shops
         {
             var localShops = await _mallShopRepository.GetShopsAsync(input.ShopIds);
 
-            foreach (var localShop in localShops)
+            foreach (var shopId in input.ShopIds)
             {
                 // if (localShop.All(x => x.Id != id))
                 // {
                 // shop will auto sync to mallShop table
-                var syncShop = await _mallShopLookupService.FindByIdAsync(localShop.Id);
+                var syncShop = await _mallShopLookupService.FindByIdAsync(shopId);
                 //localShop.Update(syncShop as IShopData);
                 // }
             }

@@ -5,6 +5,7 @@ using System.Linq;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Shops;
 using TT.Extensions;
+using Volo.Abp.Auditing;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
@@ -17,13 +18,12 @@ namespace TT.Abp.Mall.Domain.Pays
         /// 单位:分
         /// </summary>
         public virtual int TotalPrice { get; protected set; }
-
         [NotNull] public virtual string Body { get; protected set; }
-
 
         [NotNull] public virtual string BillNo { get; protected set; }
 
         [NotNull] public virtual string OpenId { get; protected set; }
+        
         [NotNull] public virtual string MchId { get; protected set; }
 
         [NotNull] public virtual string AppName { get; protected set; }

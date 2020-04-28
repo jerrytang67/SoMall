@@ -21,5 +21,6 @@ codegen({
     'Features',
     'AbpTenantProxy',
     'Account',
+    'Client',
   ],
 });

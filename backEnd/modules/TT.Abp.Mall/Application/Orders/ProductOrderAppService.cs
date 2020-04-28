@@ -149,25 +149,24 @@ namespace TT.Abp.Mall.Application.Orders
                 partnerId: null
             );
 
-            var insertAsync = await _payOrderRepository.InsertAsync(payorder, autoSave: true);
+            var insertPayOrder = await _payOrderRepository.InsertAsync(payorder, autoSave: false);
 
-            productOrder.SetBillNo(insertAsync.Id, insertAsync.BillNo);
+            productOrder.SetBillNo(insertPayOrder.Id, insertPayOrder.BillNo);
 
-            var result = await _payApi.UnifiedOrderAsync(
+            var unifiedResult = await _payApi.UnifiedOrderAsync(
                 appid,
                 mchId,
                 mchKey,
                 body: productOrder.OrderItems.First().SpuName,
-                outTradeNo: insertAsync.BillNo,
+                outTradeNo: insertPayOrder.BillNo,
                 totalFee: Convert.ToInt32(productOrder.PriceOriginal * 100),
-                notifyUrl: notifyUrl,
+                notifyUrl: notifyUrl.EnsureEndsWith('/') + appName,
                 tradeType: Consts.TradeType.JsApi,
                 openId: input.openid,
                 billCreateIp: _httpContext.HttpContext.Connection.RemoteIpAddress.ToString()
             );
 
-
-            return result;
+            return unifiedResult;
         }
 
 

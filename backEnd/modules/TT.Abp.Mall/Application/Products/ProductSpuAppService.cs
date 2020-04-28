@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.Xml;
@@ -74,6 +75,8 @@ namespace TT.Abp.Mall.Application.Products
 
             var entity = MapToEntity(input);
 
+            TryToSetTenantId(entity);
+
             await Repository.InsertAsync(entity);
 
             foreach (var skuInput in input.Skus)
@@ -81,6 +84,7 @@ namespace TT.Abp.Mall.Application.Products
                 skuInput.SpuId = entity.Id;
                 var sku = ObjectMapper.Map<SkuCreateOrUpdateDto, ProductSku>(skuInput);
                 sku.NewId(_guidGenerator);
+                sku.SetTenant(entity.TenantId);
                 await _skuRepository.InsertAsync(sku);
             }
 
@@ -102,6 +106,9 @@ namespace TT.Abp.Mall.Application.Products
             var entity = await Repository
                 .Include(x => x.AppProductSpus)
                 .Include(x => x.Skus).FirstOrDefaultAsync(x => x.Id == id);
+
+            input.DescCommon = Regex.Replace(input.DescCommon, @"(style=""height:\d+px; width:\d+px"")", @"class=""img""");
+
             ObjectMapper.Map(input, entity);
 
 
@@ -116,6 +123,7 @@ namespace TT.Abp.Mall.Application.Products
                 {
                     dbIds.Remove(sku.Id);
                     skuInput.Id = sku.Id;
+                    skuInput.Desc = Regex.Replace(skuInput.Desc, @"(style=""height:\d+px; width:\d+px"")", @"class=""img""");
                     ObjectMapper.Map(skuInput, sku);
                     await _skuRepository.UpdateAsync(sku, autoSave: true);
                 }
@@ -124,6 +132,8 @@ namespace TT.Abp.Mall.Application.Products
                     skuInput.SpuId = entity.Id;
                     sku = ObjectMapper.Map<SkuCreateOrUpdateDto, ProductSku>(skuInput);
                     sku.NewId(_guidGenerator);
+                    sku.Desc = Regex.Replace(sku.Desc, @"(style=""height:\d+px; width:\d+px"")", @"class=""img""");
+                    sku.SetTenant(entity.TenantId);
                     await _skuRepository.InsertAsync(sku);
                 }
             }

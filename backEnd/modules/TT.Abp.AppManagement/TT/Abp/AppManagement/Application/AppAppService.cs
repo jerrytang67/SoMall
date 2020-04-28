@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using TT.Abp.AppManagement.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.AppManagement.Application
 {
@@ -22,6 +24,16 @@ namespace TT.Abp.AppManagement.Application
             base.CreatePolicyName = AppManagementPermissions.Apps.Create;
             base.UpdatePolicyName = AppManagementPermissions.Apps.Update;
             base.DeletePolicyName = AppManagementPermissions.Apps.Delete;
+        }
+
+        protected override IQueryable<App> CreateFilteredQuery(PagedAndSortedResultRequestDto input)
+        {
+            var query = Repository
+                    .WhereIf(CurrentTenant.Id.HasValue, x => x.ProviderName == "T" && x.ProviderKey == CurrentTenant.Id.Value.ToString())
+                    .WhereIf(!CurrentTenant.Id.HasValue, x => x.ProviderName == "T" && x.ProviderKey == null)
+                ;
+
+            return query;
         }
     }
 

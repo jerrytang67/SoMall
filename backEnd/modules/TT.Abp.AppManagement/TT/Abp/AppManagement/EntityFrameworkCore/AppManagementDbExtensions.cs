@@ -25,7 +25,7 @@ namespace TT.Abp.AppManagement.EntityFrameworkCore
                         new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}));
 
                 b.Property(x => x.ProviderKey).HasMaxLength(AppManagementConsts.ProviderKeyLength);
-                b.Property(x => x.ProviderName).HasMaxLength(AppManagementConsts.MaxNameLength);
+                b.Property(x => x.ProviderName).HasMaxLength(AppManagementConsts.ProviderNameLength);
             });
         }
     }

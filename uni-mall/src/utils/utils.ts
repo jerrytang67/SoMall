@@ -13,13 +13,18 @@ const httpsPromisify = (fn: Function) => {
             }: any) => {
                 uni.hideLoading();
                 uni.hideNavigationBarLoading();
-                resolve(data)
+                if (data.error) {
+                    return reject(data.error)
+                }
+                else {
+                    return resolve(data)
+                }
             }
             options!.fail = (err: any) => {
                 console.log(err)
                 uni.hideLoading();
                 uni.hideNavigationBarLoading();
-                reject(err)
+                return reject(err)
             }
             fn(options)
         })
