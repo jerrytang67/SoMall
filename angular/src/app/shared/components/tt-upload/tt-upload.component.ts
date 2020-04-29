@@ -169,10 +169,11 @@ export class TtUploadComponent implements OnChanges {
         // console.log(this.value);
         // console.log(this._value);
         if (e.type === "success") {
+            debugger;
             const url = e.file.response.url;
             const v = `${this.ossQuery.getValue().domainHost}${url}${this.customSuffix}${this.customSuffix ? this.thumbStr : ''}`;
             if (this.length > 1)
-                this.updateValue([...this._value, v])
+                this.updateValue([...this._value || [], v])
             else
                 this.updateValue(v);
             this.imgList.pop();

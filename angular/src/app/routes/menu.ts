@@ -13,6 +13,7 @@ export const menu = [
 
     { text: '商家管理', heading: true },
     { text: "商家列表", link: "/shop-management", icon: "fa fa-store" },
+    { text: "CMS", link: "/cms", icon: "fa fa-store" },
 
     { text: '商城系统', heading: true },
     { text: "商铺", link: "/mall/shops", icon: "fa fa-store" },

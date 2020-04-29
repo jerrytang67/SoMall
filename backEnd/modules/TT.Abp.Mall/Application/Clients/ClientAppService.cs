@@ -56,8 +56,15 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly ISignatureGenerator _signatureGenerator;
 
         public ClientAppService(
+            //其它模块
             IGuidGenerator guidGenerator,
+            ICapPublisher capBus,
+            ISignatureGenerator signatureGenerator,
             IWeixinAppService weixinAppService,
+            IAppDefinitionManager appDefinitionManager,
+            IAppProvider appProvider,
+
+            //本模块
             IMallShopLookupService shopLookupService,
             IMallShopRepository shopRepository,
             IReadOnlyRepository<Address, Guid> addressRepository,
@@ -66,13 +73,11 @@ namespace TT.Abp.Mall.Application.Clients
             IProductCategoryRepository categoryRepository,
             IRepository<ProductSpu, Guid> spuRepository,
             IPayOrderRepository payOrderRepository,
+
+            //系统
             ISettingProvider setting,
-            IAppProvider appProvider,
             IHttpContextAccessor httpContextAccessor,
-            ILocalEventBus eventBus,
-            ICapPublisher capBus,
-            IAppDefinitionManager appDefinitionManager,
-            ISignatureGenerator signatureGenerator
+            ILocalEventBus eventBus
         )
         {
             _guidGenerator = guidGenerator;

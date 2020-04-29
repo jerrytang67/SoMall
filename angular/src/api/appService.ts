@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -204,11 +204,11 @@ export class AppProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
     let url = '/api/app/app/getList';
@@ -324,6 +324,23 @@ export class CmsCategoryProxyService {
   /**
    *
    */
+  getForEdit(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<CategoryCreateOrUpdateGetForEditOutput> {
+    let url = '/api/cms/cmsCategory/getForEdit';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CategoryCreateOrUpdateGetForEditOutput>;
+  }
+  /**
+   *
+   */
   get(
     params: {
       /**  */
@@ -344,11 +361,11 @@ export class CmsCategoryProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<CategoryDtoPagedResultDto> {
     let url = '/api/cms/cmsCategory/getList';
@@ -754,11 +771,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -1547,11 +1564,11 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
     let url = '/api/app/realNameInfo/getList';
@@ -1584,11 +1601,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -2377,11 +2394,11 @@ export class WechatUserProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
     let url = '/api/app/wechatUser/getList';
@@ -3656,6 +3673,19 @@ export interface TenPayNotifyXml {
   return_msg?: string;
 }
 
+export interface CategoryCreateOrUpdate {
+  /**  */
+  name?: string;
+}
+
+export interface CategoryCreateOrUpdateGetForEditOutput {
+  /**  */
+  data?: CategoryCreateOrUpdate;
+
+  /**  */
+  schema?: any | null;
+}
+
 export interface CategoryDto {
   /**  */
   name?: string;
@@ -3670,11 +3700,6 @@ export interface CategoryDtoPagedResultDto {
 
   /**  */
   items?: CategoryDto[];
-}
-
-export interface CategoryCreateOrUpdate {
-  /**  */
-  name?: string;
 }
 
 export interface CouponDto {

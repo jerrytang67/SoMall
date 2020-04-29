@@ -83,7 +83,7 @@ namespace TT.Abp.Mall.Domain.Products
 
         public void SetTenant(Guid? tenantId)
         {
-            tenantId = tenantId;
+            TenantId = tenantId;
         }
 
         public void NewId(IGuidGenerator guidGenerator)

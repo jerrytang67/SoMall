@@ -22,7 +22,7 @@ export class OssService {
             let opts = {
                 "save-key": `/${accessId}/{year}/{mon}/{day}/{random32}{.suffix}`,
                 bucket: bucketName,
-                expiration: Math.round(new Date().getTime() / 1000) + 3600,
+                expiration: Math.round(new Date().getTime() / 1000) + 36000,
                 date: date
             };
             let policy = base64.encode(JSON.stringify(opts));

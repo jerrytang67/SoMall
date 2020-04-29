@@ -44,17 +44,17 @@
          <view class="loading-text">{{loadingText}}</view>
       </view>
 
-      <view class="cu-card" v-for="(x,idx) in shops" :key="idx">
+      <!-- <view class="cu-card" v-for="(x,idx) in shops" :key="idx">
          <view class="cu-item shadow" @tap="toShop(x.id)">
             <view class="title">
                <view class="text-cut">{{x.name}}</view>
             </view>
             <view class="content">
                <image :src="x.logoImage" mode="widthFix" style="width:150upx;"></image>
-               <!-- <view class="desc">
+               <view class="desc">
                   <view class="text-content" v-html="x.description">
                   </view>
-               </view> -->
+               </view> 
             </view>
          </view>
       </view>
@@ -64,7 +64,7 @@
          <button v-else class="cu-btn block margin-tb-sm lg" :class="'bg-' + theme" @tap.stop="submit">
             <text class="cuIcon-loading2 cuIconfont-spin" v-if="loadding"></text>
             提交</button>
-      </view>
+      </view> -->
 
    </view>
 </template>

@@ -18,13 +18,13 @@
         [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
         (nzPageSizeChange)="refresh()">
         <thead>
-            <tr>
+            <tr >
                 <!-- <th>Id</th> -->
-                <th width="100px">商户</th>
-                <th width="100px">分类</th>
-                <th width="250px">商品名称</th>
-                <th width="200px">编码</th>
-                <th width="400px">价格</th>
+                <th class="text-center" width="100px">商户</th>
+                <th class="text-center" width="100px">分类</th>
+                <th class="text-center" width="250px">商品名称</th>
+                <th class="text-center" width="200px">编码</th>
+                <th class="text-center" width="400px">价格</th>
                 <th>
                     客户端 <tt-tooltip text="按需显示的APP"></tt-tooltip>
                 </th>
@@ -34,26 +34,31 @@
         <tbody>
             <tr *ngFor="let item of dataTable.data">
                 <!-- <td>{{item.id}}</td> -->
-                <td >
+                <td>
                     {{item.shop.name}}
                 </td>
                 <td>{{item.category.name}}</td>
                 <td class="h4">{{item.name}}
                 </td>
                 <td>{{item.code}}</td>
-                <td style="padding:0;">
-                    <table class="table">
+                <td class=" p-0">
+                    <table class="table table-sm table-striped table-hover">
                         <tr>
                             <th></th>
-                            <th style="width:250px;">Sku名称</th>
-                            <th>价格</th>
+                            <th style="width:200px;" class="text-center">Sku名称</th>
+                            <th style="width:50px;" class="text-center">库存</th>
+                            <th class="text-center">价格</th>
                         </tr>
-                        <tr *ngFor="let sku of item.skus">
+                        <tr *ngFor="let sku of item.skus" [class.bg-gray]="sku.stockCount===0">
                             <td>
                                 <nz-avatar nzShape="square" [nzSize]="48" nzSize="large" nzIcon="user" [nzSrc]="sku.coverImageUrls[0]"></nz-avatar>
                             </td>
                             <td> {{sku.name}}</td>
-                            <td>{{sku.price | currency}}</td>
+                            <td class=" text-center">
+                                {{sku.stockCount}}
+                            </td>
+                            <td class=" text-center">
+                                {{sku.price | currency}} <br /> {{sku.unit}}</td>
                         </tr>
                     </table>
                 </td>

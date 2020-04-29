@@ -10,7 +10,8 @@ namespace TT.Abp.Cms
         {
             // CreateMap<MallUser, MallUserDto>();
             CreateMap<Category, CategoryDto>();
-            CreateMap<CategoryCreateOrUpdate, Category>();
+            CreateMap<CategoryCreateOrUpdate, Category>()
+                .ReverseMap();
         }
     }
 }

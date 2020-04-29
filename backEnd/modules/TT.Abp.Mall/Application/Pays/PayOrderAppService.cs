@@ -21,8 +21,7 @@ namespace TT.Abp.Mall.Application.Pays
         Task<PagedResultDto<PayOrderDto>> GetListAsync(MallRequestDto input);
         Task<PagedResultDto<PayOrderDto>> GetPublicListAsync(MallRequestDto input);
     }
-
-
+    
     public class PayOrderAppService : ApplicationService, IPayOrderAppService
     {
         private readonly IPayOrderRepository _repository;
@@ -43,8 +42,7 @@ namespace TT.Abp.Mall.Application.Pays
                 return ObjectMapper.Map<PayOrder, PayOrderDto>(await _repository.GetQuery().FirstOrDefaultAsync(x => x.Id == input.Id));
             }
         }
-
-
+        
         public async Task<PagedResultDto<PayOrderDto>> GetListAsync(MallRequestDto input)
         {
             await AuthorizationService.CheckAsync(MallPermissions.PayOrders.Default);
@@ -63,8 +61,7 @@ namespace TT.Abp.Mall.Application.Pays
 
             return result;
         }
-
-
+        
         #region for Client
 
         [Authorize]
