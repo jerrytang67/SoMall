@@ -324,6 +324,22 @@ export class CmsCategoryProxyService {
   /**
    *
    */
+  create(
+    params: {
+      /** requestBody */
+      body?: CategoryCreateOrUpdate;
+    } = {} as any
+  ): Observable<CategoryDto> {
+    let url = '/api/cms/cmsCategory/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<CategoryDto>;
+  }
+  /**
+   *
+   */
   getForEdit(
     params: {
       /**  */
@@ -337,6 +353,42 @@ export class CmsCategoryProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<CategoryCreateOrUpdateGetForEditOutput>;
+  }
+  /**
+   *
+   */
+  dianZan(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/cms/cmsCategory/dianZan';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CategoryCreateOrUpdate;
+    } = {} as any
+  ): Observable<CategoryDto> {
+    let url = '/api/cms/cmsCategory/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<CategoryDto>;
   }
   /**
    *
@@ -375,41 +427,6 @@ export class CmsCategoryProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<CategoryDtoPagedResultDto>;
-  }
-  /**
-   *
-   */
-  create(
-    params: {
-      /** requestBody */
-      body?: CategoryCreateOrUpdate;
-    } = {} as any
-  ): Observable<CategoryDto> {
-    let url = '/api/cms/cmsCategory/create';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<CategoryDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      id?: string;
-      /** requestBody */
-      body?: CategoryCreateOrUpdate;
-    } = {} as any
-  ): Observable<CategoryDto> {
-    let url = '/api/cms/cmsCategory/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<CategoryDto>;
   }
   /**
    *
@@ -3678,20 +3695,20 @@ export interface CategoryCreateOrUpdate {
   name?: string;
 }
 
-export interface CategoryCreateOrUpdateGetForEditOutput {
-  /**  */
-  data?: CategoryCreateOrUpdate;
-
-  /**  */
-  schema?: any | null;
-}
-
 export interface CategoryDto {
   /**  */
   name?: string;
 
   /**  */
   id?: string;
+}
+
+export interface CategoryCreateOrUpdateGetForEditOutput {
+  /**  */
+  data?: CategoryCreateOrUpdate;
+
+  /**  */
+  schema?: any | null;
 }
 
 export interface CategoryDtoPagedResultDto {

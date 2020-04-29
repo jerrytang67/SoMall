@@ -21,6 +21,7 @@
             <tr>
                 <th>id</th>
                 <th>name</th>
+                <th>zan</th>
                 <th></th>
             </tr>
         </thead>
@@ -28,7 +29,10 @@
             <tr *ngFor="let item of dataTable.data">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
+                <td>{{item.zan}}</td>
                 <td>
+                    <button nz-button nzType="primary" nzSize="small" (click)="zan(item)">zan</button>
+                    <nz-divider nzType=" vertical"></nz-divider>
                     <button nz-button nzType="primary" nzSize="small" (click)="edit(item)">{{'edit' | translate}}</button>
                     <nz-divider nzType=" vertical"></nz-divider>
                         <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"

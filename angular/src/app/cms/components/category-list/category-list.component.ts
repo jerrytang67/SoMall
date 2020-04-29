@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryEditComponent } from './category-edit.component';
-import { CmsCategoryProxyService } from 'src/api/appService';
+import { CmsCategoryProxyService, CategoryDto } from 'src/api/appService';
 
 @Component({
   selector: 'app-category-list',
@@ -47,7 +47,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   guid = '00000000-0000-0000-0000-000000000000';
-  create(item:any){
+  create(item: any) {
     this.api.getForEdit({ id: this.guid }).subscribe(res => {
       const modal = this.modalService.create({
         nzTitle: '新建',
@@ -77,7 +77,7 @@ export class CategoryListComponent implements OnInit {
     })
   }
 
-  edit(item:any){
+  edit(item: any) {
     this.api.getForEdit({ id: item.id }).subscribe(res => {
       const modal = this.modalService.create({
         nzTitle: '编辑',
@@ -108,10 +108,19 @@ export class CategoryListComponent implements OnInit {
       });
     })
   }
-  delete(item:any){
+  delete(item: any) {
     this.api.delete({ id: item.id }).subscribe(() => {
       this.message.success("删除成功");
       this.refresh();
     })
+  }
+
+  zan(item: CategoryDto) {
+    this.api.dianZan({ id: item.id }).subscribe(() => {
+
+      this.refresh();
+    });
+
+
   }
 }

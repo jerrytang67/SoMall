@@ -7,8 +7,6 @@ import { LayoutModule } from '../layout/layout.module';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { CategoryEditComponent } from './components/category-list/category-edit.component';
 
-
-
 const COMPONENTS = [CategoryListComponent
 ]
 

@@ -6,9 +6,10 @@ namespace TT.Abp.Cms.EntityFrameworkCore
 {
     public class CmsDbContext : AbpDbContext<CmsDbContext>, ICmsDbContext
     {
-        
         public DbSet<Category> Categories { get; set; }
         
+        public DbSet<CategoryEvent> CategoriesEvents { get; set; }
+
         public CmsDbContext(DbContextOptions<CmsDbContext> options) : base(options)
         {
         }
@@ -19,6 +20,5 @@ namespace TT.Abp.Cms.EntityFrameworkCore
 
             builder.ConfigureCms();
         }
-
     }
 }

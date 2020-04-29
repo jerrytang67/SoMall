@@ -18,7 +18,7 @@ namespace TT.Abp.Cms
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAbpDbContext<CmsDbContext>(options => { options.AddDefaultRepositories(); });
+            context.Services.AddAbpDbContext<CmsDbContext>(options => { options.AddDefaultRepositories(true); });
 
             context.Services.AddAutoMapperObjectMapper<CmsModule>();
 
