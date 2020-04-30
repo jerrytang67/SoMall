@@ -8,7 +8,7 @@ using TT.Abp.Shops.Application.Dtos;
 using TT.SoMall;
 using Xunit;
 
-namespace TT.Abp.Modules.Tests.Samples
+namespace TT.Abp.Modules.Tests.Mall
 {
     /* This is just an example test class.
      * Normally, you don't test code of the modules you are using

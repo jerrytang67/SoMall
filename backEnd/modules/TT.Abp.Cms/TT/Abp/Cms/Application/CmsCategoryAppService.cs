@@ -17,7 +17,15 @@ using Volo.Abp.EventBus.Local;
 
 namespace TT.Abp.Cms.Application
 {
-    public class CmsCategoryAppService : CrudAppService<Category, CategoryDto, Guid, PagedAndSortedResultRequestDto, CategoryCreateOrUpdate, CategoryCreateOrUpdate>
+    public interface ICmsCategoryAppService : ICrudAppService<CategoryDto, Guid, PagedAndSortedResultRequestDto,
+        CategoryCreateOrUpdate, CategoryCreateOrUpdate>
+    {
+        Task<GetForEditOutput<CategoryCreateOrUpdate>> GetForEdit(Guid id);
+        Task DianZan(Guid id);
+    }
+
+    public class CmsCategoryAppService : CrudAppService<Category, CategoryDto, Guid, PagedAndSortedResultRequestDto,
+        CategoryCreateOrUpdate, CategoryCreateOrUpdate>,ICmsCategoryAppService
     {
         private readonly IRepository<CategoryEvent, Guid> _eventRepository;
         private readonly ICapPublisher _capBus;

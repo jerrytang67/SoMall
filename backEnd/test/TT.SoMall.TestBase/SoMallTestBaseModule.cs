@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using DotNetCore.CAP;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp;
 using Volo.Abp.Authorization;
@@ -15,19 +16,18 @@ namespace TT.SoMall
         typeof(AbpTestBaseModule),
         typeof(AbpAuthorizationModule),
         typeof(SoMallDomainModule)
-        )]
+    )]
     public class SoMallTestBaseModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            Configure<AbpBackgroundJobOptions>(options =>
-            {
-                options.IsJobExecutionEnabled = false;
-            });
+            Configure<AbpBackgroundJobOptions>(options => { options.IsJobExecutionEnabled = false; });
 
             // var hostingEnvironment = Mock.Of<IWebHostEnvironment>(e => e.ApplicationName == name);
-            
+
             context.Services.AddSingleton<IWebHostEnvironment>();
+
+            context.Services.AddSingleton<ICapPublisher, MyCapService>();
 
             context.Services.AddAlwaysAllowAuthorization();
         }
