@@ -2,12 +2,13 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Serilog;
 using TT.Abp.Cms.Domain;
-using TT.Abp.Cms.Events.Locals;
 using TT.Abp.Mall.Application.Products;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -19,17 +20,14 @@ namespace TT.Abp.Cms.Application
     public class CmsCategoryAppService : CrudAppService<Category, CategoryDto, Guid, PagedAndSortedResultRequestDto, CategoryCreateOrUpdate, CategoryCreateOrUpdate>
     {
         private readonly IRepository<CategoryEvent, Guid> _eventRepository;
-        private readonly ILocalEventBus _eventBus;
         private readonly ICapPublisher _capBus;
 
         public CmsCategoryAppService(
             IRepository<Category, Guid> repository,
             IRepository<CategoryEvent, Guid> eventRepository,
-            ILocalEventBus eventBus,
             ICapPublisher capBus) : base(repository)
         {
             _eventRepository = eventRepository;
-            _eventBus = eventBus;
             _capBus = capBus;
             // base.GetListPolicyName = CmsPermissions.Categories.Default;
             base.CreatePolicyName = CmsPermissions.Categories.Create;
@@ -51,7 +49,8 @@ namespace TT.Abp.Cms.Application
             return MapToGetOutputDto(entity);
         }
 
-        // [Authorize]
+
+        [Authorize]
         public async Task<GetForEditOutput<CategoryCreateOrUpdate>> GetForEdit(Guid id)
         {
             var find = await Repository
@@ -68,12 +67,16 @@ namespace TT.Abp.Cms.Application
         {
             var find = await Repository
                 .FirstOrDefaultAsync(z => z.Id == id);
-
+            
             find.AddZan();
+            
+            Log.Warning(JsonConvert.SerializeObject(find));
 
+            // await _capBus.PublishAsync("cms.category.zan",  find);
             await _capBus.PublishAsync("cms.category.zan", ObjectMapper.Map<Category, CategoryDto>(find));
         }
 
+        
         [HttpPut]
         public override async Task<CategoryDto> UpdateAsync(Guid id, CategoryCreateOrUpdate input)
         {

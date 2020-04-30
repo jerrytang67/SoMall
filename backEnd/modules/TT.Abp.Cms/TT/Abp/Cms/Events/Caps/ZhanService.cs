@@ -12,12 +12,12 @@ using Volo.Abp.Uow;
 
 namespace TT.Abp.Cms.Events.Caps
 {
-    public class CapService : ICapSubscribe, ITransientDependency
+    public class CmsCapService : ICapSubscribe, ITransientDependency
     {
         private readonly IRepository<Category, Guid> _repository;
         private readonly UnitOfWorkManager _unitOfWorkManager;
 
-        public CapService(
+        public CmsCapService(
             IRepository<Category, Guid> repository,
             UnitOfWorkManager unitOfWorkManager
         )
