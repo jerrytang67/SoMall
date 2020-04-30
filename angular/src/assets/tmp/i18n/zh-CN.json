@@ -169,5 +169,6 @@
     "mall.address.add": "添加地址",
     "mall_mini": "商城小程序",
     "woju_mini": "莴聚小程序",
-    "visitor_mini": "访客小程序"
+    "visitor_mini": "访客小程序",
+    "trip_mini":"旅游小程序"
 }

@@ -16,6 +16,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Utils;
 using TT.Extensions;
 using TT.HttpClient.Weixin;
 using Volo.Abp;
@@ -130,7 +131,7 @@ namespace TT.Abp.Mall.Application.Orders
         {
             var productOrder = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
 
-            var appName = _httpContextAccessor?.HttpContext.Request.Headers["AppName"].FirstOrDefault();
+            var appName = _httpContextAccessor?.GetAppName();
             var app = await _appProvider.GetOrNullAsync(appName);
             var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
 

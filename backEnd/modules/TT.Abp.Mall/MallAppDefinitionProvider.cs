@@ -12,6 +12,10 @@ namespace TT.Abp.Mall
             
             context.Add(
                 new AppDefinition("woju_mini", "SoMall_App")
+            );            
+            
+            context.Add(
+                new AppDefinition("trip_mini", "SoMall_App")
             );
         }
     }

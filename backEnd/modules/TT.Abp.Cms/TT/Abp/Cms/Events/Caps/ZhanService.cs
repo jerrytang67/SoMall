@@ -33,8 +33,8 @@ namespace TT.Abp.Cms.Events.Caps
             {
                 var find = await _repository.FirstOrDefaultAsync(x => x.Id == input.Id);
 
-                find.Zan += 1;
-
+                find.AddZan();    
+                
                 await uow.SaveChangesAsync();
             }
         }
