@@ -9,6 +9,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Users;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Users;
 using Volo.Abp.EventBus.Local;

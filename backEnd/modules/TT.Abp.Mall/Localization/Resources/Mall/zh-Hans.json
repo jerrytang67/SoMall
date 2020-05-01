@@ -1,0 +1,10 @@
+﻿{
+  "culture": "zh-Hans",
+  "texts": {
+    "Permission:MallUsers": "商城用户",
+    "Permission:Addresses": "用户地址",
+    "trip_mini": "旅游小程序",
+    "mall_mini": "商城小程序",
+    "woju_mini": "莴聚小程序"
+  }
+}

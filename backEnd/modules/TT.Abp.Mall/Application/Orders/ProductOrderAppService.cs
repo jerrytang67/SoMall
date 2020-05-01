@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
@@ -127,7 +128,7 @@ namespace TT.SoMall
 
             context.Services.AddSwaggerGenNewtonsoftSupport();
         }
-
+        
         private void ConfigureLocalization()
         {
             Configure<AbpLocalizationOptions>(options =>

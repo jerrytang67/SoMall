@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Products;
 using TT.Abp.Mall.Application.Swipers.Dtos;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Utils;
 using TT.Extensions;

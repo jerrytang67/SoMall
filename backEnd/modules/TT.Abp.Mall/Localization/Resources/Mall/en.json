@@ -1,0 +1,10 @@
+﻿{
+  "culture": "en",
+  "texts": {
+    "Permission:MallUsers": "MallUsers",
+    "Permission:Addresses": "Addresses",
+    "trip_mini": "trip_mini",
+    "mall_mini": "mall_mini",
+    "woju_mini": "woju_mini"
+  }
+}

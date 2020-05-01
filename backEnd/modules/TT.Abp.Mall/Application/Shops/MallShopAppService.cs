@@ -10,18 +10,10 @@ using TT.Abp.Shops.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
+using Volo.Abp.Uow;
 
 namespace TT.Abp.Mall.Application.Shops
 {
-    public interface IMallShopAppService
-    {
-        Task<MallShopDto> GetAsync(Guid id);
-
-        Task<ListResultDto<MallShopDto>> GetListAsync();
-
-        Task ShopSync(ShopSyncRequestDto input);
-    }
-
     public class MallShopAppService : ApplicationService, IMallShopAppService
     {
         private readonly IMallShopLookupService _mallShopLookupService;
@@ -52,26 +44,6 @@ namespace TT.Abp.Mall.Application.Shops
                 ObjectMapper.Map<List<MallShop>, List<MallShopDto>>(shops)
             );
         }
-
-        // [Authorize]
-        // public async Task UpdateAsync(Guid id, MallShopCreateOrEditDto input)
-        // {
-        //     var find = await _mallShopRepository.GetAsync(id);
-        //
-        //     if (find == null)
-        //     {
-        //         throw new EntityNotFoundException(typeof(MallShop), id);
-        //     }
-        //
-        //
-        //     find.SetName(body.Name);
-        //     find.SetShortName(body.ShortName);
-        //     find.SetLogoImage(body.LogoImage);
-        //     find.SetCoverImage(body.CoverImage);
-        //     find.SetDescription(body.Description);
-        //
-        //     return ObjectMapper.Map<Shop, ShopDto>(find);
-        // }
 
         [HttpPost]
         public async Task ShopSync(ShopSyncRequestDto input)

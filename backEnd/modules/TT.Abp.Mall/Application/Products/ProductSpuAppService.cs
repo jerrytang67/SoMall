@@ -5,12 +5,15 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration.Xml;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json.Linq;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Localization;
 using TT.Extensions;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -30,6 +33,7 @@ namespace TT.Abp.Mall.Application.Products
         private readonly IMallShopRepository _mallShopRepository;
         private readonly IMallShopLookupService _mallShopLookupService;
         private readonly IAppDefinitionManager _appDefinitionManager;
+        private readonly IStringLocalizer<MallResource> _localizer;
 
         public ProductSpuAppService(
             IGuidGenerator guidGenerator,
@@ -39,7 +43,8 @@ namespace TT.Abp.Mall.Application.Products
             IRepository<AppProductSpu> appProductRepository,
             IMallShopRepository mallShopRepository,
             IMallShopLookupService mallShopLookupService,
-            IAppDefinitionManager appDefinitionManager
+            IAppDefinitionManager appDefinitionManager,
+            IStringLocalizer<MallResource> localizer
         ) : base(repository)
         {
             base.GetListPolicyName = MallPermissions.Products.Default;
@@ -54,6 +59,7 @@ namespace TT.Abp.Mall.Application.Products
             _mallShopRepository = mallShopRepository;
             _mallShopLookupService = mallShopLookupService;
             _appDefinitionManager = appDefinitionManager;
+            _localizer = localizer;
         }
 
         public override async Task<ProductSpuDto> GetAsync(Guid id)

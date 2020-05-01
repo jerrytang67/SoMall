@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Authorization;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Users;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;

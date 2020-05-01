@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application.Products.Dtos;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Products;
 using TT.Extensions;
 using Volo.Abp.Application.Services;

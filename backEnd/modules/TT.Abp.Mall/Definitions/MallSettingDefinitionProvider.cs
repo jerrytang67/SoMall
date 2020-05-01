@@ -1,6 +1,6 @@
 ﻿using Volo.Abp.Settings;
 
-namespace TT.Abp.Mall.Application
+namespace TT.Abp.Mall.Definitions
 {
     public class MallSettingDefinitionProvider : SettingDefinitionProvider
     {

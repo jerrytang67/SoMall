@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using TT.Abp.Mall.Application.Products.Dtos;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Products;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;

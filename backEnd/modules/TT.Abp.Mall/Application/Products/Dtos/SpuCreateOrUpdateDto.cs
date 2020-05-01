@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json.Linq;
 using TT.Abp.AppManagement.Application;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Shops;
 

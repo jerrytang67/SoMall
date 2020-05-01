@@ -26,4 +26,19 @@
       <ProjectReference Include="..\TT.Core\TT.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="Localization\Resources\Mall\zh-Hans.json" />
+      <EmbeddedResource Include="Localization\Resources\Mall\zh-Hans.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </EmbeddedResource>
+      <Content Remove="Localization\Resources\Mall\en.json" />
+      <EmbeddedResource Include="Localization\Resources\Mall\en.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
 </Project>

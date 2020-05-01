@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using TT.Abp.Mall.Application.Coupons.Dtos;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;

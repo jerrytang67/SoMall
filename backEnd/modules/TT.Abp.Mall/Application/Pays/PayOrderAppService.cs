@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Extensions;

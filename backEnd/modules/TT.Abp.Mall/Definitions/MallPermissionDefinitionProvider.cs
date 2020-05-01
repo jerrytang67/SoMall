@@ -3,7 +3,7 @@ using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 using Volo.Abp.Reflection;
 
-namespace TT.Abp.Mall
+namespace TT.Abp.Mall.Definitions
 {
     public class MallPermissions
     {
@@ -31,8 +31,8 @@ namespace TT.Abp.Mall
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
             public const string Update = Default + ".Update";
-            
-        } 
+        }
+
         public static class ProductOrders
         {
             public const string Default = GroupName + ".ProductOrder";
@@ -91,13 +91,13 @@ namespace TT.Abp.Mall
             addresses.AddChild(MallPermissions.Addresses.Delete, L("Permission:Delete"));
             addresses.AddChild(MallPermissions.Addresses.Create, L("Permission:Create"));
 
-            
+
             var products = mallGroup.AddPermission(MallPermissions.Products.Default, L("Permission:Products"));
             products.AddChild(MallPermissions.Products.Update, L("Permission:Edit"));
             products.AddChild(MallPermissions.Products.Delete, L("Permission:Delete"));
             products.AddChild(MallPermissions.Products.Create, L("Permission:Create"));
-            
-            
+
+
             var orders = mallGroup.AddPermission(MallPermissions.ProductOrders.Default, L("Permission:ProductOrders"));
             orders.AddChild(MallPermissions.ProductOrders.Update, L("Permission:Edit"));
             orders.AddChild(MallPermissions.ProductOrders.Delete, L("Permission:Delete"));

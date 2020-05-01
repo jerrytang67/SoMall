@@ -1,13 +1,19 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AppManagement;
 using TT.Abp.Mall.Application.Clients;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.EntityFrameworkCore;
+using TT.Abp.Mall.Localization;
 using TT.Abp.Shops;
 using TT.Abp.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Http.Client;
+using Volo.Abp.Localization;
+using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
+using Volo.Abp.Validation.Localization;
+using Volo.Abp.VirtualFileSystem;
 
 namespace TT.Abp.Mall
 {
@@ -43,6 +49,24 @@ namespace TT.Abp.Mall
 
             // CAP
             //context.Services.AddTransient<ITenPayNotifyCapSubscriberService, TenPayNotifyCapSubscriberService>();
+
+
+            Configure<AbpVirtualFileSystemOptions>(options =>
+            {
+                // "YourRootNameSpace" is the root namespace of your project. It can be empty if your root namespace is empty.
+                options.FileSets.AddEmbedded<MallModule>("TT.Abp.Mall");
+            });
+
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                //Define a new localization resource (TestResource)
+                options.Resources
+                    .Add<MallResource>("zh-Hans")
+                    // .AddBaseTypes(typeof(AbpValidationResource))
+                    .AddVirtualJson("/Localization/Resources/Mall");
+            });
+
+            Configure<AbpExceptionLocalizationOptions>(options => { options.MapCodeNamespace("Mall", typeof(MallResource)); });
         }
     }
 }

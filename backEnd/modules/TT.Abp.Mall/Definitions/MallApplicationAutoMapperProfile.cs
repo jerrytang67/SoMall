@@ -1,10 +1,6 @@
-﻿using System;
-using AutoMapper;
-using TT.Abp.Mall.Application.Addresses;
+﻿using AutoMapper;
 using TT.Abp.Mall.Application.Addresses.Dtos;
-using TT.Abp.Mall.Application.Coupons;
 using TT.Abp.Mall.Application.Coupons.Dtos;
-using TT.Abp.Mall.Application.Orders;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Partners;
 using TT.Abp.Mall.Application.Pays;
@@ -23,7 +19,7 @@ using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
 
-namespace TT.Abp.Mall
+namespace TT.Abp.Mall.Definitions
 {
     public class MallApplicationAutoMapperProfile : Profile
     {
@@ -50,7 +46,7 @@ namespace TT.Abp.Mall
             CreateMap<AppProductSpu, AppProductSpuDto>()
                 .ReverseMap()
                 ;
-            
+
             CreateMap<ProductSpu, ProductSpuDto>();
             CreateMap<ProductSpu, ProductSpuDtoBase>();
             CreateMap<ProductSku, ProductSkuDto>()
@@ -69,8 +65,6 @@ namespace TT.Abp.Mall
             CreateMap<SkuCreateOrUpdateDto, ProductSku>()
                 .ReverseMap();
 
-            
-            
             #endregion
 
 

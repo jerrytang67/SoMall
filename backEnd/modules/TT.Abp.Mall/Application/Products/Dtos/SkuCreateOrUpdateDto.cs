@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Products;
 
 namespace TT.Abp.Mall.Application.Products.Dtos
