@@ -1,6 +1,12 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 
 import { SettingsService } from './core/settings/settings.service';
+import { SignalRGroupAdapter } from './layout/signalr-group-adapter';
+import { ChatAdapter } from 'ng-chat';
+import { SignalRAdapter } from './layout/SignalRAdapter';
+import { HttpClient } from '@angular/common/http';
+import { AuthQuery } from 'src/store/auth/auth.query';
+import { DemoAdapter } from './layout/demoAdapter';
 
 @Component({
     selector: 'app-root',
@@ -20,7 +26,20 @@ export class AppComponent implements OnInit {
     @HostBinding('class.aside-toggled') get asideToggled() { return this.settings.getLayoutSetting('asideToggled'); };
     @HostBinding('class.aside-collapsed-text') get isCollapsedText() { return this.settings.getLayoutSetting('isCollapsedText'); };
 
-    constructor(public settings: SettingsService) { }
+    constructor(
+        public settings: SettingsService,
+        private http: HttpClient,
+        private authQuery: AuthQuery
+    ) {
+
+        this.authQuery.profile$.subscribe(res => {
+            if (res.sub) {
+                this.username = res.name;
+                // this.adapter = new SignalRAdapter(res.sub, this.http);
+                this.joinSignalRChatRoom();
+            }
+        })
+    }
 
     ngOnInit() {
         // prevent empty links to reload the page
@@ -29,5 +48,31 @@ export class AppComponent implements OnInit {
             if (target.tagName === 'A' && ['', '#'].indexOf(target.getAttribute('href')) > -1)
                 e.preventDefault();
         });
+    }
+
+    currentTheme = 'dark-theme';
+
+    triggeredEvents = [];
+
+    fileUploadUrl: string = `${SignalRAdapter.serverBaseUrl}home/UploadFile`;
+
+    userId: string = "offline-demo";
+    username: string;
+
+    adapter: ChatAdapter = new DemoAdapter();
+
+    signalRAdapter: SignalRGroupAdapter;
+
+    switchTheme(theme: string): void {
+        this.currentTheme = theme;
+    }
+
+    onEventTriggered(event: string): void {
+        this.triggeredEvents.push(event);
+    }
+
+    joinSignalRChatRoom(): void {
+        console.log("joinSignalRChatRoom");
+        this.signalRAdapter = new SignalRGroupAdapter(this.username, this.http);
     }
 }

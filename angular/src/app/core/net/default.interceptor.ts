@@ -179,12 +179,6 @@ export class DefaultInterceptor implements HttpInterceptor {
       token = getStore<User>("auth").access_token
     let headers = req.headers.set("Authorization", `Bearer ${token}`);
 
-    headers = req.headers.set(".AspNetCore.Culture", `c=zh-Hans|uic=zh-Hans`);
-
-    if (__tenant) {
-      headers = req.headers.set("__tenant", `4df058f8-fb18-6524-a154-39f49f58a925`);
-    }
-
     // 统一加上服务端前缀
     let url = req.url;
     if (!url.startsWith('https://') && !url.startsWith('http://')) {

@@ -36,6 +36,8 @@ import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 registerLocaleData(zh);
 
+import { NgChatModule } from 'ng-chat';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -47,6 +49,7 @@ registerLocaleData(zh);
     LayoutModule,
     SharedModule.forRoot(),
     RoutesModule,
+    NgChatModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

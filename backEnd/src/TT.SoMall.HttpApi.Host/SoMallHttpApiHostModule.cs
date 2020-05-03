@@ -128,7 +128,7 @@ namespace TT.SoMall
 
             context.Services.AddSwaggerGenNewtonsoftSupport();
         }
-        
+
         private void ConfigureLocalization()
         {
             Configure<AbpLocalizationOptions>(options =>

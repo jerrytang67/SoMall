@@ -12,4 +12,9 @@
     </section>
     <!-- Page footer-->
     <footer class="footer-container" app-footer></footer>
+    <ng-chat [adapter]="signalRAdapter" [groupAdapter]="signalRAdapter" [userId]="signalRAdapter.userId" [historyEnabled]="false" [pollFriendsList]="true"
+        [fileUploadUrl]="fileUploadUrl" (onParticipantClicked)="onEventTriggered('ParticipantClicked triggered')"
+        (onParticipantChatOpened)="onEventTriggered('ParticipantChatOpened triggered')"
+        (onParticipantChatClosed)="onEventTriggered('ParticipantChatClosed triggered')" (onMessagesSeen)="onEventTriggered('MessageSeen triggered')">
+    </ng-chat>
 </div>

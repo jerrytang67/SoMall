@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TT.SoMall.Localization;
@@ -20,7 +21,10 @@ namespace TT.SoMall.Controllers
         {
             return await Task.FromResult(Content("ok"));
         }
-        
-        
+
+        public IActionResult ListFriends([FromBody] dynamic payload)
+        {
+            return Json(GroupChatHub.ConnectedParticipants((string) payload.currentUserId));
+        }
     }
 }

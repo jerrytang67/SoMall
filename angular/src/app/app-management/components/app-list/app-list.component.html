@@ -14,9 +14,7 @@
         <button nz-button nzSize="large" class="mr-4" (click)="create()" nzType="primary">{{'add' | translate}}</button>
         <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
-    <nz-table #dataTable nzShowSizeChanger nzShowPagination [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
-        [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
-        (nzPageSizeChange)="refresh()">
+    <nz-table #dataTable [nzData]=" apps$ | async" [nzLoading]="pageingInfo.isTableLoading">
         <thead>
             <tr>
                 <th width="140px">操作</th>

@@ -13,6 +13,7 @@ using IdentityServer4.Validation;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
+using Newtonsoft.Json.Serialization;
 using StackExchange.Redis;
 using TT.HttpClient.Weixin;
 
@@ -42,6 +43,8 @@ namespace TT.SoMall
                 });
             });
 
+            services.AddSignalR();
+
             // services.Configure<ForwardedHeadersOptions>(options =>
             // {
             //     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -67,6 +70,13 @@ namespace TT.SoMall
 
             app.UseCapDashboard();
 
+            app.UseSignalR(routes =>
+            {
+                //routes.MapHub<ChatHub>("/chat");
+                routes.MapHub<GroupChatHub>("/groupchat");
+            });
+
+            
             app.MapWhen(
                 ctx =>
                     ctx.Request.Path.ToString().StartsWith("/Home/"),

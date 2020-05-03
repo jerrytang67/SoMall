@@ -3,6 +3,8 @@ import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { AppProxyService } from 'src/api/appService';
 import { EditAppComponent } from './edit-app.component';
+import { AppsService } from '../../store/apps.service';
+import { AppsQuery } from '../../store/apps.query';
 
 @Component({
   selector: 'app-app-list',
@@ -17,13 +19,17 @@ export class AppListComponent implements OnInit {
     pageSize: 10,
     isTableLoading: false
   };
+
+  apps$ = this.appsQuery.selectAll();
+
   constructor(
     private modalService: NzModalService,
     private message: NzMessageService,
     private route: ActivatedRoute,
-    private api: AppProxyService
+    private api: AppProxyService,
+    private appService: AppsService,
+    private appsQuery: AppsQuery
   ) {
-
   }
 
   ngOnInit() {
@@ -31,19 +37,11 @@ export class AppListComponent implements OnInit {
       console.log(params)
       this.refresh();
     });
-
   }
   refresh() {
     this.pageingInfo.isTableLoading = true;
-    this.api.getList({
-      maxResultCount: this.pageingInfo.pageSize,
-      skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize
-    }).subscribe(res => {
-      console.log(res);
-      this.dataItems = res.items;
-      this.pageingInfo.totalItems = res.totalCount;
-      this.pageingInfo.isTableLoading = false;
-    })
+    this.appService.getAll();
+    this.pageingInfo.isTableLoading = false;
   }
 
 
