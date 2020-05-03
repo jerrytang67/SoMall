@@ -1,23 +1,34 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TT.Abp.OssManagement;
 using TT.Oss;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.Auditing;
+using Volo.Abp.Identity;
 using Volo.Abp.Settings;
+using IdentityUser = Volo.Abp.Identity.IdentityUser;
 
 namespace TT.SoMall.Controllers
 {
+    [DisableAuditing]
     public class HomeController : AbpController
     {
         private readonly ISettingProvider _setting;
+        private readonly IdentityUserStore _identityUserStore;
 
-        public HomeController(ISettingProvider setting)
+        private readonly IdentityUserManager _userManager;
+
+        public HomeController(ISettingProvider setting,
+            IdentityUserStore identityUserStore,
+            IdentityUserManager userManager)
         {
             _setting = setting;
+            _identityUserStore = identityUserStore;
+            _userManager = userManager;
         }
 
         public ActionResult Index()
@@ -25,11 +36,25 @@ namespace TT.SoMall.Controllers
             return Redirect("/swagger");
         }
 
+        [DisableAuditing]
         [HttpPost]
         public IActionResult ListFriends([FromBody] dynamic payload)
         {
             return Json(GroupChatHub.ConnectedParticipants((string) payload.currentUserId));
         }
+
+
+        // public async Task ChangePassword(string id)
+        // {
+        //     var user = await _userManager.FindByIdAsync(id);
+        //
+        //     if (user != null)
+        //     {
+        //         await _userManager.ChangePasswordAsync(user,"1q2w3E*","1q2w3E*");
+        //     }
+        //
+        //     await Task.CompletedTask;
+        // }
 
 
         private async Task<UpYun> GetUploader()

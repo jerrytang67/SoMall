@@ -21,10 +21,5 @@ namespace TT.SoMall.Controllers
         {
             return await Task.FromResult(Content("ok"));
         }
-
-        public IActionResult ListFriends([FromBody] dynamic payload)
-        {
-            return Json(GroupChatHub.ConnectedParticipants((string) payload.currentUserId));
-        }
     }
 }

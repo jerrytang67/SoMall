@@ -20,7 +20,7 @@ const request = (
         data: data,
         method: method,
         header: {
-            "__tenant":"4DF058F8-FB18-6524-A154-39F49F58A925",
+            //"__tenant":"4DF058F8-FB18-6524-A154-39F49F58A925",
             "content-type": "application/json",
             "Authorization": `Bearer ${uni.getStorageSync("token") || ''}`,
             "AppName": "mall_mini"
