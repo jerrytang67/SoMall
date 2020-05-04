@@ -8,10 +8,12 @@ import * as signalR from "@aspnet/signalr";
 export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapter {
     public userId: string;
 
+
+
     private hubConnection: signalR.HubConnection
     public static serverBaseUrl: string = 'http://127.0.0.1:44340/'; // Set this to 'https://localhost:5001/' if running locally
 
-    constructor(private username: string, private http: HttpClient) {
+    constructor(private username: string, private avatar: string, private http: HttpClient) {
         super();
 
         this.initializeConnection();
@@ -54,7 +56,7 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
 
     joinRoom(): void {
         if (this.hubConnection && this.hubConnection.state == signalR.HubConnectionState.Connected) {
-            this.hubConnection.send("join", this.username);
+            this.hubConnection.send("join", this.username, this.avatar);
         }
     }
 

@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json.Serialization;
 using StackExchange.Redis;
 using TT.HttpClient.Weixin;
+using Volo.Abp.Security.Claims;
 
 namespace TT.SoMall
 {
@@ -74,7 +75,6 @@ namespace TT.SoMall
                 routes.MapHub<GroupChatHub>("/groupchat");
             });
 
-            
             app.MapWhen(
                 ctx =>
                     ctx.Request.Path.ToString().StartsWith("/Home/"),
@@ -84,6 +84,7 @@ namespace TT.SoMall
                     app2.UseMvcWithDefaultRouteAndArea();
                 }
             );
+            
         }
     }
 }

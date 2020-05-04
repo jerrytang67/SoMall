@@ -59,7 +59,8 @@ namespace TT.SoMall.IdentityServer
                 "name",
                 "phone_number",
                 "phone_number_verified",
-                "role"
+                "role",
+                "picture"
             };
 
             await CreateApiResourceAsync("SoMall", commonApiUserClaims);

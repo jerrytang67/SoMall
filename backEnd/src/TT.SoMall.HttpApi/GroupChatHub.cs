@@ -21,9 +21,9 @@ namespace TT.SoMall
         public GroupChatHub(IRedisClient redisClient)
         {
             _redisClient = redisClient;
-            _allConnectedParticipants = new List<ParticipantResponseViewModel>();
-            _redisClient.Database.KeyDelete("AllConnectedParticipants");
-            //_allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+
+            var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
+            _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
         }
 
         private void AddConnect(ParticipantResponseViewModel item)
@@ -69,7 +69,7 @@ namespace TT.SoMall
             return FilteredGroupParticipants(currentUserId).Where(x => x.Participant.Id != currentUserId);
         }
 
-        public void Join(string userName)
+        public void Join(string userName, string avatar = "")
         {
             lock (ParticipantsConnectionLock)
             {
@@ -83,6 +83,7 @@ namespace TT.SoMall
                     {
                         DisplayName = userName,
                         ConnectionId = Context.ConnectionId,
+                        Avatar = avatar,
                         Id = Context.ConnectionId
                     }
                 });

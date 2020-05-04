@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
             if (res.sub) {
                 this.username = res.name;
                 this.userId = res.sub;
+                this.avatar = res.picture;
                 // this.adapter = new SignalRAdapter(res.sub, this.http);
                 this.joinSignalRChatRoom();
             }
@@ -59,7 +60,7 @@ export class AppComponent implements OnInit {
 
     userId: string = "offline-demo";
     username: string;
-
+    avatar: string;
     adapter: ChatAdapter = new DemoAdapter();
 
     signalRAdapter: SignalRGroupAdapter;
@@ -74,6 +75,6 @@ export class AppComponent implements OnInit {
 
     joinSignalRChatRoom(): void {
         console.log("joinSignalRChatRoom");
-        this.signalRAdapter = new SignalRGroupAdapter(this.username, this.http);
+        this.signalRAdapter = new SignalRGroupAdapter(this.username, this.avatar, this.http);
     }
 }

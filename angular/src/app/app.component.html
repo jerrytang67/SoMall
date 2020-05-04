@@ -1,6 +1,6 @@
 <router-outlet></router-outlet>
 
-<ng-chat  *ngIf="signalRAdapter && signalRAdapter.userId" [adapter]="signalRAdapter" [groupAdapter]="signalRAdapter" [userId]="signalRAdapter.userId" [historyEnabled]="false" [pollFriendsList]="true"
+<ng-chat [theme]="currentTheme" title="在线用户列表"  *ngIf="signalRAdapter && signalRAdapter.userId" [adapter]="signalRAdapter" [groupAdapter]="signalRAdapter" [userId]="signalRAdapter.userId" [historyEnabled]="false" [pollFriendsList]="true"
     [fileUploadUrl]="fileUploadUrl" (onParticipantClicked)="onEventTriggered('ParticipantClicked triggered')"
     (onParticipantChatOpened)="onEventTriggered('ParticipantChatOpened triggered')"
     (onParticipantChatClosed)="onEventTriggered('ParticipantChatClosed triggered')" (onMessagesSeen)="onEventTriggered('MessageSeen triggered')">
