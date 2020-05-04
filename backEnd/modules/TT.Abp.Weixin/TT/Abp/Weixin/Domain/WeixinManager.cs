@@ -13,6 +13,7 @@ using TT.HttpClient.Weixin;
 using TT.HttpClient.Weixin.Helpers;
 using TT.HttpClient.Weixin.WeixiinResult;
 using TT.Oss;
+using TT.Redis;
 using Volo.Abp;
 using Volo.Abp.Caching;
 using Volo.Abp.DependencyInjection;
@@ -155,7 +156,7 @@ namespace TT.Abp.Weixin.Domain
         public virtual async Task<string> Getwxacodeunlimit(string scene, string page = "pages/index/index")
         {
             var key = "SoMall:QR:Mini";
-            var cache = await _redisClient.HashGetAsync(key, scene);
+            var cache = await _redisClient.Database.HashGetAsync(key, scene);
 
             if (cache.HasValue)
             {
@@ -175,7 +176,7 @@ namespace TT.Abp.Weixin.Domain
             if (result)
             {
                 var path = $"{upyun.Domain}/somall/mini_qr/{scene}.jpg";
-                await _redisClient.HashSetAsync(key, scene,
+                await _redisClient.Database.HashSetAsync(key, scene,
                     path);
                 return path;
             }

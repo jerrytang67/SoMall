@@ -10,7 +10,7 @@ namespace TT.Abp.Weixin.Domain
             return new object[] {appid, openid};
         }
 
-        private WechatUserinfo()
+        public WechatUserinfo()
         {
         }
 

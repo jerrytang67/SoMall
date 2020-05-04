@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
+using StackExchange.Redis;
+using TT.Redis;
 
 namespace TT.SoMall
 {
@@ -15,21 +16,55 @@ namespace TT.SoMall
 
     public class GroupChatHub : Hub
     {
-        private static List<ParticipantResponseViewModel> AllConnectedParticipants { get; set; } = new List<ParticipantResponseViewModel>();
+        private readonly IRedisClient _redisClient;
+
+        public GroupChatHub(IRedisClient redisClient)
+        {
+            _redisClient = redisClient;
+            _allConnectedParticipants = new List<ParticipantResponseViewModel>();
+            _redisClient.Database.KeyDelete("AllConnectedParticipants");
+            //_allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+        }
+
+        private void AddConnect(ParticipantResponseViewModel item)
+        {
+            lock (ParticipantsConnectionLock)
+            {
+                _redisClient.Database.HashSet("AllConnectedParticipants", item.Participant.Id, JsonConvert.SerializeObject(item));
+                var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
+                _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+            }
+        }
+
+        private void RemoveConnect(string connectId)
+        {
+            lock (ParticipantsConnectionLock)
+            {
+                _redisClient.Database.HashDelete("AllConnectedParticipants", connectId);
+                var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
+                _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+            }
+        }
+
+
+        private List<ParticipantResponseViewModel> _allConnectedParticipants;
+
+        public List<ParticipantResponseViewModel> AllConnectedParticipants => _allConnectedParticipants;
+
         private static List<ParticipantResponseViewModel> DisconnectedParticipants { get; set; } = new List<ParticipantResponseViewModel>();
         private static List<GroupChatParticipantViewModel> AllGroupParticipants { get; set; } = new List<GroupChatParticipantViewModel>();
 
         private object ParticipantsConnectionLock = new object();
 
-        private static IEnumerable<ParticipantResponseViewModel> FilteredGroupParticipants(string currentUserId)
+        private IEnumerable<ParticipantResponseViewModel> FilteredGroupParticipants(string currentUserId)
         {
-            return AllConnectedParticipants
+            return AllConnectedParticipants.ToList()
                 .Where(p => p.Participant.ParticipantType == ChatParticipantTypeEnum.User
                             || AllGroupParticipants.Any(g => g.Id == p.Participant.Id && g.ChattingTo.Any(u => u.Id == currentUserId))
                 );
         }
 
-        public static IEnumerable<ParticipantResponseViewModel> ConnectedParticipants(string currentUserId)
+        public IEnumerable<ParticipantResponseViewModel> ConnectedParticipants(string currentUserId)
         {
             return FilteredGroupParticipants(currentUserId).Where(x => x.Participant.Id != currentUserId);
         }
@@ -38,7 +73,7 @@ namespace TT.SoMall
         {
             lock (ParticipantsConnectionLock)
             {
-                AllConnectedParticipants.Add(new ParticipantResponseViewModel()
+                AddConnect(new ParticipantResponseViewModel()
                 {
                     Metadata = new ParticipantMetadataViewModel()
                     {
@@ -47,6 +82,7 @@ namespace TT.SoMall
                     Participant = new ChatParticipantViewModel()
                     {
                         DisplayName = userName,
+                        ConnectionId = Context.ConnectionId,
                         Id = Context.ConnectionId
                     }
                 });
@@ -85,11 +121,9 @@ namespace TT.SoMall
         public void SendMsg(string msg)
         {
             //{"type":1,"fromId":123,"toId":"8ss_ttkQHMql3M-SFviTFQ","message":"123","dateSent":"2020-05-03T14:22:47.965Z"}
-
             var message = JsonConvert.DeserializeObject<MessageViewModel>(msg);
 
             var sender = AllConnectedParticipants.Find(x => x.Participant.Id == message.FromId);
-
             if (sender != null)
             {
                 var groupDestinatary = AllGroupParticipants.Where(x => x.Id == message.ToId).FirstOrDefault();
@@ -112,11 +146,9 @@ namespace TT.SoMall
             }
         }
 
-
         public void NewMsg(MessageViewModel message)
         {
             var sender = AllConnectedParticipants.Find(x => x.Participant.Id == message.FromId);
-
             if (sender != null)
             {
                 var groupDestinatary = AllGroupParticipants.Where(x => x.Id == message.ToId).FirstOrDefault();
@@ -151,10 +183,11 @@ namespace TT.SoMall
 
                     var groupsParticipantIsIn = AllGroupParticipants.Where(x => x.ChattingTo.Any(u => u.Id == participant.Participant.Id));
 
-                    AllConnectedParticipants.RemoveAll(x => groupsParticipantIsIn.Any(g => g.Id == x.Participant.Id));
+                    RemoveConnect(Context.ConnectionId);
+
                     AllGroupParticipants.RemoveAll(x => groupsParticipantIsIn.Any(g => g.Id == x.Id));
 
-                    AllConnectedParticipants.Remove(participant);
+                    //AllConnectedParticipants.Remove(participant);
                     DisconnectedParticipants.Add(participant);
 
                     Clients.All.SendAsync("friendsListChanged", AllConnectedParticipants);

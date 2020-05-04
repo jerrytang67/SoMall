@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
         this.authQuery.profile$.subscribe(res => {
             if (res.sub) {
                 this.username = res.name;
+                this.userId = res.sub;
                 // this.adapter = new SignalRAdapter(res.sub, this.http);
                 this.joinSignalRChatRoom();
             }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TT.Abp.Core.Services;
+using TT.Redis;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Auditing;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -19,6 +20,10 @@ namespace TT.Abp.Core
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            var configuration = context.Services.GetConfiguration();
+
+            context.Services.Configure<RedisOptions>(configuration.GetSection("Redis"));
+            context.Services.AddSingleton<IRedisClient, RedisClient>();
 
             Configure<AbpAuditingOptions>(options =>
             {
@@ -35,7 +40,6 @@ namespace TT.Abp.Core
                 options.MinifyGeneratedScript = true;
                 options.ConventionalControllers.Create(typeof(TtCoreModule).Assembly);
             });
-
 
             context.Services.AddAutoMapperObjectMapper<TtCoreModule>();
         }

@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TT.Abp.OssManagement;
 using TT.Oss;
+using TT.Redis;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Auditing;
 using Volo.Abp.Identity;
 using Volo.Abp.Settings;
-using IdentityUser = Volo.Abp.Identity.IdentityUser;
-
 namespace TT.SoMall.Controllers
 {
     [DisableAuditing]
@@ -19,15 +20,18 @@ namespace TT.SoMall.Controllers
     {
         private readonly ISettingProvider _setting;
         private readonly IdentityUserStore _identityUserStore;
+        private readonly IRedisClient _redisClient;
 
         private readonly IdentityUserManager _userManager;
 
         public HomeController(ISettingProvider setting,
             IdentityUserStore identityUserStore,
+            IRedisClient redisClient,
             IdentityUserManager userManager)
         {
             _setting = setting;
             _identityUserStore = identityUserStore;
+            _redisClient = redisClient;
             _userManager = userManager;
         }
 
@@ -40,7 +44,18 @@ namespace TT.SoMall.Controllers
         [HttpPost]
         public IActionResult ListFriends([FromBody] dynamic payload)
         {
-            return Json(GroupChatHub.ConnectedParticipants((string) payload.currentUserId));
+            var list = new List<ParticipantResponseViewModel>();
+            var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
+            foreach (var v in all)
+            {
+                var t = JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString());
+                list.Add(t);
+            }
+
+            var result = list
+                    .Where(p => p.Participant.ParticipantType == ChatParticipantTypeEnum.User && p.Participant.Id != (string) payload.currentUserId).ToList()
+                ;
+            return Json(result);
         }
 
 
