@@ -6,7 +6,7 @@
             <view class="content padding-tb-sm" @tap.stop="select(x)">
                <view class="content">
                   <text class="cuIcon-location text-red"></text>
-                  <text class="text-black text-bold text-lg">{{x.locationLable}}</text>
+                  <text class="text-black text-bold text-lg">{{x.locationLabel}}</text>
                </view>
                <view class="text-black flex" style="margin-left:calc(1.6em + 10rpx)">
                   <view>{{x.realName}}</view>
@@ -46,7 +46,7 @@
                   </view>
                   <view class="cu-form-group">
                      <view class="title">楼号-门牌</view>
-                     <input placeholder="具体收货地址" :value="form.locationLable" @input="onInput" data-name="locationLable" />
+                     <input placeholder="具体收货地址" :value="form.locationLabel" @input="onInput" data-name="locationLabel" />
                   </view>
                   <view class="flex margin-xs">
                      <view class="flex-treble">
@@ -152,7 +152,7 @@ export default class MyAddress extends BaseView {
 
             this.form = Object.assign({}, this.form, {
                locationAddress: res.address,
-               locationLable: res.name,
+               locationLabel: res.name,
                lat: res.latitude,
                lng: res.longitude,
                locationType: "gcj02"

@@ -8,7 +8,7 @@ namespace TT.Abp.Mall.Application.Addresses.Dtos
     {
         [NotNull] public string RealName { get; set; }
         [NotNull] public string Phone { get; set; }
-        [NotNull] public string LocationLable { get; set; }
+        [NotNull] public string LocationLabel { get; set; }
         [NotNull] public string LocationAddress { get; set; }
         public string NickName { get; set; }
         public double? Lat { get; set; }

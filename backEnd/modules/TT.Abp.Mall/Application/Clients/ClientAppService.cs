@@ -158,7 +158,7 @@ namespace TT.Abp.Mall.Application.Clients
                 AddressRealName = input.Address.RealName,
                 AddressNickName = input.Address.NickName,
                 AddressPhone = input.Address.Phone,
-                AddressLocationLable = input.Address.LocationLable,
+                AddressLocationLabel = input.Address.LocationLabel,
                 AddressLocationAddress = input.Address.LocationAddress,
             };
 

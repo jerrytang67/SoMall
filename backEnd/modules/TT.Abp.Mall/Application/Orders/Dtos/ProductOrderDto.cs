@@ -40,7 +40,7 @@ namespace TT.Abp.Mall.Application.Orders.Dtos
 
         public string AddressPhone { get; set; }
 
-        public string AddressLocationLable { get; set; }
+        public string AddressLocationLabel { get; set; }
 
         public string AddressLocationAddress { get; set; }
 

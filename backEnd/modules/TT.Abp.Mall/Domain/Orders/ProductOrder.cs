@@ -47,7 +47,7 @@ namespace TT.Abp.Mall.Domain.Orders
 
         public string AddressPhone { get; set; }
 
-        public string AddressLocationLable { get; set; }
+        public string AddressLocationLabel { get; set; }
 
         public string AddressLocationAddress { get; set; }
 

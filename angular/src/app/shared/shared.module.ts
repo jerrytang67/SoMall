@@ -88,6 +88,9 @@ import { TtTooltip } from './components/tt-tooltip/tt-tooltip.component';
 import { TtUploadComponent } from './components/tt-upload/tt-upload.component';
 import { UtilsModule } from './utils/utils.module';
 
+import { BaiduMapModule } from 'angular2-baidu-map'
+import { TtMapComponent } from './components/tt-map/tt-map.component';
+
 const BSMODULES = [
   TooltipModule.forRoot(),
   TabsModule.forRoot(),
@@ -169,14 +172,15 @@ const THIRDMODULES = [
   // NgZorroAntdModule, 
   CKEditorModule,
   SEModule,
-  UtilsModule
+  UtilsModule,
+  BaiduMapModule.forRoot({ ak: 'hLA0PXEzz7VxhiwpUtAWZknyzOqh1zGf' })
 ];
 // #endregion
 
 // #region your componets & directives
 
 const COMPONENTS = [ExceptionComponent, ShopSelectComponent];
-const MyCOMPONENTS = [TtTooltip, TtUploadComponent];
+const MyCOMPONENTS = [TtTooltip, TtUploadComponent, TtMapComponent];
 const DIRECTIVES = [];
 // #endregion
 

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.Application.Partners.Dtos;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Partners;
+using TT.Extensions;
 using TT.SoMall.Users;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -23,6 +25,8 @@ namespace TT.Abp.Mall.Application.Partners
         Task<PagedResultDto<PartnerDto>> GetListAsync(MallRequestDto input);
 
         Task PublicEdit(PartnerCreateOrUpdateDto input);
+
+        Task<PartnerCreateOrUpdateDto> GetCurrent();
     }
 
 
@@ -58,10 +62,46 @@ namespace TT.Abp.Mall.Application.Partners
 
             var entities = await query.ToListAsync();
 
+            var resultDtos = ObjectMapper.Map<List<Partner>, List<PartnerDto>>(entities);
+
+            foreach (var dto in resultDtos)
+            {
+                (dto.Lat, dto.Lng) = ConvertGeo(dto.Lat, dto.Lng, dto.LocationType, input.LocationType);
+            }
+
             return new PagedResultDto<PartnerDto>(
                 totalCount,
-                ObjectMapper.Map<List<Partner>, List<PartnerDto>>(entities)
+                resultDtos
             );
+        }
+
+        private static (double? lat, double? lng) ConvertGeo(double? inputLat, double? inputLng, MallEnums.LocationType inputType, MallEnums.LocationType outType)
+        {
+            if (inputLat.HasValue && inputLng.HasValue)
+            {
+                return (inputType, outType) switch
+                {
+                    (MallEnums.LocationType.gcj02, MallEnums.LocationType.bd09) => (inputLat.Value, inputLng.Value).GCJ02ToBD09(),
+                    (MallEnums.LocationType.bd09, MallEnums.LocationType.gcj02) => (inputLat.Value, inputLng.Value).BD09ToGCJ02(),
+                    _ => (inputLat, inputLng),
+                };
+            }
+
+            return (null, null);
+        }
+
+
+        [Authorize]
+        public async Task<PartnerCreateOrUpdateDto> GetCurrent()
+        {
+            var find = await _repository.FirstOrDefaultAsync(x => x.UserId == CurrentUser.Id);
+
+            if (find == null)
+            {
+                return new PartnerCreateOrUpdateDto();
+            }
+
+            return ObjectMapper.Map<Partner, PartnerCreateOrUpdateDto>(find);
         }
 
 

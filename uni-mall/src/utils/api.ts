@@ -70,5 +70,6 @@ export default {
 
     // partner
 
-    partner_publicEdit: (data: any) => request("POST", `/api/mall/partner/publicEdit`, data)
+    partner_publicEdit: (data: any) => request("POST", `/api/mall/partner/publicEdit`, data),
+    partner_getCurrent: () => request("GET", `/api/mall/partner/getCurrent`)
 };

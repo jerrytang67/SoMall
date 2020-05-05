@@ -464,6 +464,8 @@ export class CouponProxyService {
       /**  */
       appName?: string;
       /**  */
+      locationType?: LocationType;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -509,6 +511,8 @@ export class CouponProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -934,6 +938,8 @@ export class PartnerProxyService {
       /**  */
       appName?: string;
       /**  */
+      locationType?: LocationType;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -948,6 +954,32 @@ export class PartnerProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<PartnerDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  getCurrent(): Observable<PartnerCreateOrUpdateDto> {
+    let url = '/api/mall/partner/getCurrent';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<PartnerCreateOrUpdateDto>;
+  }
+  /**
+   *
+   */
+  publicEdit(
+    params: {
+      /** requestBody */
+      body?: PartnerCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/partner/publicEdit';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
   }
 }
 
@@ -972,6 +1004,8 @@ export class PayOrderProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -1002,6 +1036,8 @@ export class PayOrderProxyService {
       /**  */
       appName?: string;
       /**  */
+      locationType?: LocationType;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1030,6 +1066,8 @@ export class PayOrderProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -1119,6 +1157,8 @@ export class ProductCategoryProxyService {
       /**  */
       appName?: string;
       /**  */
+      locationType?: LocationType;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1203,6 +1243,8 @@ export class ProductOrderProxyService {
       /**  */
       appName?: string;
       /**  */
+      locationType?: LocationType;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1263,6 +1305,8 @@ export class ProductOrderProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -1350,6 +1394,8 @@ export class ProductSkuProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -1505,6 +1551,8 @@ export class ProductSpuProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -1831,6 +1879,8 @@ export class SwiperProxyService {
       /**  */
       appName?: string;
       /**  */
+      locationType?: LocationType;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -1909,6 +1959,8 @@ export class SwiperProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -2149,6 +2201,8 @@ export class UserCouponProxyService {
       /**  */
       appName?: string;
       /**  */
+      locationType?: LocationType;
+      /**  */
       sorting?: string;
       /**  */
       skipCount?: number;
@@ -2179,6 +2233,8 @@ export class UserCouponProxyService {
       shopId?: string;
       /**  */
       appName?: string;
+      /**  */
+      locationType?: LocationType;
       /**  */
       sorting?: string;
       /**  */
@@ -2988,7 +3044,7 @@ export interface AddressDto {
   phone?: string;
 
   /**  */
-  locationLable?: string;
+  locationLabel?: string;
 
   /**  */
   locationAddress?: string;
@@ -3037,7 +3093,7 @@ export interface AddressCreateOrUpdateDto {
   phone?: string;
 
   /**  */
-  locationLable?: string;
+  locationLabel?: string;
 
   /**  */
   locationAddress?: string;
@@ -3700,6 +3756,9 @@ export interface CategoryDto {
   name?: string;
 
   /**  */
+  zan?: number;
+
+  /**  */
   id?: string;
 }
 
@@ -4051,12 +4110,6 @@ export interface PartnerDetail {
   noticeContent?: string;
 
   /**  */
-  openid?: string;
-
-  /**  */
-  unionid?: string;
-
-  /**  */
   weixin?: string;
 
   /**  */
@@ -4064,6 +4117,9 @@ export interface PartnerDetail {
 }
 
 export interface PartnerDto {
+  /**  */
+  backupPhone?: string;
+
   /**  */
   updateDate?: Date;
 
@@ -4089,6 +4145,9 @@ export interface PartnerDto {
   locationAddress?: string;
 
   /**  */
+  locationType?: LocationType;
+
+  /**  */
   detail?: PartnerDetail;
 
   /**  */
@@ -4098,10 +4157,7 @@ export interface PartnerDto {
   phone?: string;
 
   /**  */
-  nickname?: string;
-
-  /**  */
-  headImageUrl?: string;
+  headImgUrl?: string;
 
   /**  */
   avblBalance?: number;
@@ -4116,6 +4172,35 @@ export interface PartnerDtoPagedResultDto {
 
   /**  */
   items?: PartnerDto[];
+}
+
+export interface PartnerCreateOrUpdateDto {
+  /**  */
+  realName?: string;
+
+  /**  */
+  phone?: string;
+
+  /**  */
+  phoneBackup?: string;
+
+  /**  */
+  lat?: number;
+
+  /**  */
+  lng?: number;
+
+  /**  */
+  locationLabel?: string;
+
+  /**  */
+  locationAddress?: string;
+
+  /**  */
+  locationType?: LocationType;
+
+  /**  */
+  introducting?: string;
 }
 
 export interface PayOrderDto {
@@ -4366,7 +4451,7 @@ export interface ProductOrderDto {
   addressPhone?: string;
 
   /**  */
-  addressLocationLable?: string;
+  addressLocationLabel?: string;
 
   /**  */
   addressLocationAddress?: string;

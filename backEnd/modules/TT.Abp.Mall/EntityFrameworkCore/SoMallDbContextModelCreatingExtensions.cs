@@ -120,7 +120,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.AddressRealName).HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.AddressNickName).HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.AddressPhone).HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.AddressLocationLable).HasMaxLength(MallConsts.MaxOrderComentLength);
+                b.Property(x => x.AddressLocationLabel).HasMaxLength(MallConsts.MaxOrderComentLength);
                 b.Property(x => x.AddressLocationAddress).HasMaxLength(MallConsts.MaxOrderComentLength);
 
                 b.HasMany(x => x.OrderItems).WithOne(x => x.Order);
@@ -150,7 +150,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.ConfigureFullAudited();
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.LocationLable).IsRequired().HasMaxLength(MallConsts.MaxImageLength);
+                b.Property(x => x.LocationLabel).IsRequired().HasMaxLength(MallConsts.MaxImageLength);
                 b.Property(x => x.LocationAddress).HasMaxLength(MallConsts.MaxImageLength);
                 b.Property(x => x.NickName).HasMaxLength(MallConsts.MaxNameLength);
             });

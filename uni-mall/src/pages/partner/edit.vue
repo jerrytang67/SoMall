@@ -28,7 +28,7 @@
          </view>
          <view class="cu-form-group">
             <view class="title">楼号-门牌</view>
-            <input class="text-right" v-model="profile.locationLable" placeholder="具体地址" />
+            <input class="text-right" v-model="profile.locationLabel" placeholder="具体地址" />
          </view>
          <view class="cu-form-group">
             <view class="title">自我介绍</view>
@@ -88,7 +88,9 @@ export default class PartnerEditPage extends BaseView {
 
    async onShow() {
       await UserModule.CheckLogin();
-      this.profile = Object.assign({}, this.profile);
+      api.partner_getCurrent().then((res: any) => {
+         this.profile = Object.assign({}, this.profile, res);
+      });
    }
 
    unable(event: any, str: string) {
@@ -98,9 +100,7 @@ export default class PartnerEditPage extends BaseView {
 
    save() {
       console.log(this.profile);
-      api.partner_publicEdit(this.profile).then(() => {
-
-      });
+      api.partner_publicEdit(this.profile).then(() => {});
    }
 
    getPhoneNumber(e: any) {

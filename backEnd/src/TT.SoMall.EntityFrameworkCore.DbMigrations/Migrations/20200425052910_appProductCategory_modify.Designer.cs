@@ -227,7 +227,7 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("LocationLable")
+                    b.Property<string>("LocationLabel")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -440,7 +440,7 @@ namespace TT.SoMall.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("AddressLocationLable")
+                    b.Property<string>("AddressLocationLabel")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 

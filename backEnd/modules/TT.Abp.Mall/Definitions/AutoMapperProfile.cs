@@ -3,6 +3,7 @@ using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Coupons.Dtos;
 using TT.Abp.Mall.Application.Orders.Dtos;
 using TT.Abp.Mall.Application.Partners;
+using TT.Abp.Mall.Application.Partners.Dtos;
 using TT.Abp.Mall.Application.Pays;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Application.Shops;
@@ -93,7 +94,10 @@ namespace TT.Abp.Mall.Definitions
 
             CreateMap<Partner, PartnerDto>();
             CreateMap<PartnerCreateOrUpdateDto, Partner>()
-                .AfterMap((src, dest) => dest.Detail.Introducting = src.Introducting);
+                .AfterMap((src, dest) => dest.Detail.Introducting = src.Introducting)
+                .ReverseMap()
+                .AfterMap((src, dest) => dest.Introducting = src.Detail.Introducting)
+                ;
 
             #endregion
 

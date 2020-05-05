@@ -13,7 +13,8 @@ namespace TT.Abp.Mall.Application.Addresses.Dtos
     {
         public string RealName { get; set; }
         public string Phone { get; set; }
-        public string LocationLable { get; set; }
+        
+        public string LocationLabel { get; set; }
         public string LocationAddress { get; set; }
         public string NickName { get; set; }
         //是否为默认地址

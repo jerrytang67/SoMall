@@ -45,6 +45,7 @@
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "ajv": "^6.10.2",
+    "angular2-baidu-map": "^8.0.0",
     "file-saver": "^2.0.2",
     "jweixin-module": "^1.6.0",
     "modernizr": "^3.9.1",

@@ -4,8 +4,6 @@ using Volo.Abp.Application.Dtos;
 
 namespace TT.Abp.Mall.Application.Partners.Dtos
 {
-    
-    
     /// <summary>
     /// <see cref="Partner"/>
     /// </summary>
@@ -16,10 +14,8 @@ namespace TT.Abp.Mall.Application.Partners.Dtos
         public string RealName { get; set; }
 
         public string Phone { get; set; }
-
-        public string Nickname { get; set; }
-
-        public string HeadImageUrl { get; set; }
+        
+        public string HeadImgUrl { get; set; }
 
         /// <summary>
         /// 可用余额

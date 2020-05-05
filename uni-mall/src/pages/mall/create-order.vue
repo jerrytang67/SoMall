@@ -10,7 +10,7 @@
                   <text class="mobile">{{selectAddress.phone}}</text>
                </view>
                <text class="address">
-                  {{selectAddress.locationAddress}}{{selectAddress.locationLable}}
+                  {{selectAddress.locationAddress}}{{selectAddress.locationLabel}}
                </text>
             </view>
             <text class="yticon icon-you"></text>
