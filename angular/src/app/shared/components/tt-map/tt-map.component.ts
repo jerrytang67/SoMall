@@ -3,7 +3,7 @@ import { ControlAnchor, MapOptions, MapTypeControlOptions, MapTypeControlType, N
 
 @Component({
     selector: 'tt-map',
-    template: `<baidu-map #map [options]="options"  style="display: block; width: 100vw; height: 500px;">
+    template: `<baidu-map #map [options]="options" [style.height]="height" style="display: block; width: 100%;" [class]="ngClass">
   <marker
    *ngFor="let marker of markers"
    [point]="marker.point"
@@ -17,10 +17,11 @@ import { ControlAnchor, MapOptions, MapTypeControlOptions, MapTypeControlType, N
 export class TtMapComponent implements OnInit {
 
     @ViewChild("map") map: any
-
     @Input() options: MapOptions;
+    @Input() markers: Array<{ point: Point; options?: MarkerOptions; info?: { title: string, content: string } }>;
+    @Input() height: string = "500px";
 
-    @Input() markers: Array<{ point: Point; options?: MarkerOptions; info?: { title: string, content: string } }>
+    @Input() ngClass: string = "";
 
     ngOnInit() {
     }

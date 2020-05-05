@@ -12,8 +12,6 @@ namespace TT.Abp.AccountManagement.Domain.Dtos
 
         [Required] [DisplayName("手机")] public string Phone { get; set; }
 
-        [DisplayName("备用手机")] public string PhoneBackup { get; set; }
-
         [DisplayName("认证类型")] public AccountEnums.RealNameInfoType Type { get; set; }
 
         [Required] [DisplayName("身份证-正面")] public string IDCardFrontUrl { get; set; }

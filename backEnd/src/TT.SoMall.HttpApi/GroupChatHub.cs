@@ -18,19 +18,17 @@ namespace TT.SoMall
     public class GroupChatHub : Hub
     {
         private readonly IRedisClient _redisClient;
-        private readonly ICurrentUser _currentUser;
 
-        private static readonly ConnectionMapping<string> _connections = 
+        private static readonly ConnectionMapping<string> _connections =
             new ConnectionMapping<string>();
-        
-        public GroupChatHub(IRedisClient redisClient ,ICurrentUser currentUser)
+
+        public GroupChatHub(IRedisClient redisClient)
         {
             _redisClient = redisClient;
-            _currentUser = currentUser;
 
             var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
             _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
-            
+
             var allDis = _redisClient.Database.HashGetAll("DisconnectedParticipants");
             _disconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
         }
@@ -81,7 +79,7 @@ namespace TT.SoMall
 
 
         private List<ParticipantResponseViewModel> _disconnectedParticipants;
-        
+
         private List<ParticipantResponseViewModel> DisconnectedParticipants => _disconnectedParticipants;
         private static List<GroupChatParticipantViewModel> AllGroupParticipants { get; set; } = new List<GroupChatParticipantViewModel>();
 
@@ -234,8 +232,8 @@ namespace TT.SoMall
             // string name = _currentUser.UserName;
             //
             // _connections.Add(name, Context.ConnectionId);
-            
-            
+
+
             lock (ParticipantsConnectionLock)
             {
                 var connectionIndex = DisconnectedParticipants.FindIndex(x => x.Participant.Id == Context.ConnectionId);

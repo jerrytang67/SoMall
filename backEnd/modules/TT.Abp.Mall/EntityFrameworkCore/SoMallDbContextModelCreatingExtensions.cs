@@ -174,7 +174,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.ConfigureFullAudited();
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxPhoneLength);
-                b.Property(x => x.PhoneBackup).IsRequired().HasMaxLength(MallConsts.MaxPhoneLength);
+                b.Property(x => x.PhoneBackup).HasMaxLength(MallConsts.MaxPhoneLength);
                 b.Property(x => x.HeadImgUrl).HasMaxLength(MallConsts.MaxImageLength);
 
                 b.Property(x => x.LocationLabel).HasMaxLength(MallConsts.MaxNameLength);

@@ -8,10 +8,10 @@
         </nz-breadcrumb-item>
     </nz-breadcrumb>
 </nz-page-header>
+<tt-map *ngIf="options" [options]="options" [markers]="markers" height="550px" ngClass="my-1"></tt-map>
 
 <nz-card [nzExtra]="extraAction">
     <ng-template #extraAction>
-        <button nz-button nzSize="large" class="mr-4" (click)="create()" nzType="primary">{{'add' | translate}}</button>
         <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
     <nz-table #dataTable nzShowSizeChanger nzShowPagination [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
@@ -19,30 +19,27 @@
         (nzPageSizeChange)="refresh()">
         <thead>
             <tr>
+                <th></th>
                 <th>realName</th>
                 <th>phone</th>
                 <th>state</th>
                 <th>locationLabel</th>
                 <th>locationAddress</th>
-                <th></th>
             </tr>
-
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
+                <td>
+                    <button nz-button nzType="primary" nzShape="circle" (click)="edit(item)">
+                        <i nz-icon nzType="edit"></i>
+                    </button>
+                </td>
                 <td>{{item.realName}}</td>
                 <td>{{item.phone}}</td>
                 <td>{{item.state}}</td>
                 <td>{{item.locationLabel}}</td>
                 <td>{{item.locationAddress}}</td>
-                <td>
-                    <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/partner-edit', item.id]">{{'edit' | translate}}</button>
-                    <nz-divider nzType="vertical"></nz-divider>
-                    <button nz-button nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
-                        nzPopconfirmPlacement="top">{{'delete' | translate}}</button>
-                </td>
             </tr>
         </tbody>
     </nz-table>
 </nz-card>
-<tt-map *ngIf="options" [options]="options" [markers]="markers"></tt-map>

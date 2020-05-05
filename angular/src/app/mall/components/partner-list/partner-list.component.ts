@@ -15,7 +15,7 @@ export class PartnerListComponent implements OnInit {
   pageingInfo = {
     totalItems: 0,
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 20,
     isTableLoading: false
   };
   constructor(
@@ -56,8 +56,9 @@ export class PartnerListComponent implements OnInit {
             lng: item.lng
           },
           info: {
-            title: item.realName,
-            content: item.phone
+            title: `${item.realName} ${item.phone}`,
+            content: `${item.locationAddress}
+            <br/>${item.locationLabel}`
           }
         }
       })

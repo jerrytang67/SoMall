@@ -100,7 +100,12 @@ export default class PartnerEditPage extends BaseView {
 
    save() {
       console.log(this.profile);
-      api.partner_publicEdit(this.profile).then(() => {});
+      api.partner_publicEdit(this.profile).then(() => {
+         Tips.info("提交成功,请等待审核");
+         setTimeout(() => {
+            this.toBack();
+         }, 500);
+      });
    }
 
    getPhoneNumber(e: any) {

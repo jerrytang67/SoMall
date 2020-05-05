@@ -98,10 +98,10 @@ export default class ProfilePage extends BaseView {
 
    save() {
       api.public_updateUserProfile(this.profile).then(() => {
-		  UserModule.CheckLogin();
-		  Tips.info("更新成功");
-		  this.toBack();
-	  });
+         UserModule.CheckLogin();
+         Tips.info("更新成功");
+         this.toBack();
+      });
    }
 
    getPhoneNumber(e: any) {
