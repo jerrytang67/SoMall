@@ -13,6 +13,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Auditing;
 using Volo.Abp.Identity;
 using Volo.Abp.Settings;
+
 namespace TT.SoMall.Controllers
 {
     [DisableAuditing]
@@ -59,17 +60,44 @@ namespace TT.SoMall.Controllers
         }
 
 
-        // public async Task ChangePassword(string id)
-        // {
-        //     var user = await _userManager.FindByIdAsync(id);
-        //
-        //     if (user != null)
-        //     {
-        //         await _userManager.ChangePasswordAsync(user,"1q2w3E*","1q2w3E*");
-        //     }
-        //
-        //     await Task.CompletedTask;
-        // }
+        [HttpGet]
+        public IActionResult HistoryMessage(string from, string to)
+        {
+            return Json(new List<MessageViewModel>()
+            {
+                new MessageViewModel()
+                {
+                    Type = 1,
+                    FromId = from,
+                    ToId = to,
+                    Message = "from to to",
+                    DateSent = DateTime.Now,
+                    DateSeen = DateTime.Now
+                },
+                new MessageViewModel()
+                {
+                    Type = 1,
+                    FromId = from,
+                    ToId = to,
+                    Message = "from to to 2",
+                    DateSent = DateTime.Now,
+                    DateSeen = DateTime.Now
+                }
+            });
+        }
+
+
+        public async Task ChangePassword(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user != null)
+            {
+                await _userManager.ChangePasswordAsync(user, "1q2w3E*", "1q2w3E*");
+            }
+
+            await Task.CompletedTask;
+        }
 
 
         private async Task<UpYun> GetUploader()

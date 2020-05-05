@@ -74,6 +74,18 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
     getMessageHistory(destinataryId: any): Observable<Message[]> {
         // This could be an API call to your web application that would go to the database
         // and retrieve a N amount of history messages between the users.
+
+        // return this.http
+        //     .get(`${SignalRGroupAdapter.serverBaseUrl}home/historyMessage`, {
+        //         params: {
+        //             from: destinataryId,
+        //             to: destinataryId
+        //         }
+        //     })
+        //     .pipe(
+        //         map((res: any) => res),
+        //         catchError((error: any) => Observable.throw(error.error || 'Server error'))
+        //     );
         return of([]);
     }
 

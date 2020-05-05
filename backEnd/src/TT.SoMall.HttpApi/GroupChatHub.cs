@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using TT.Redis;
+using Volo.Abp.Users;
 
 namespace TT.SoMall
 {
@@ -17,13 +18,21 @@ namespace TT.SoMall
     public class GroupChatHub : Hub
     {
         private readonly IRedisClient _redisClient;
+        private readonly ICurrentUser _currentUser;
 
-        public GroupChatHub(IRedisClient redisClient)
+        private static readonly ConnectionMapping<string> _connections = 
+            new ConnectionMapping<string>();
+        
+        public GroupChatHub(IRedisClient redisClient ,ICurrentUser currentUser)
         {
             _redisClient = redisClient;
+            _currentUser = currentUser;
 
             var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
             _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+            
+            var allDis = _redisClient.Database.HashGetAll("DisconnectedParticipants");
+            _disconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
         }
 
         private void AddConnect(ParticipantResponseViewModel item)
@@ -46,12 +55,34 @@ namespace TT.SoMall
             }
         }
 
+        private void AddDisconnect(ParticipantResponseViewModel item)
+        {
+            lock (ParticipantsConnectionLock)
+            {
+                _redisClient.Database.HashSet("DisconnectedParticipants", item.Participant.Id, JsonConvert.SerializeObject(item));
+                var allDis = _redisClient.Database.HashGetAll("DisconnectedParticipants");
+                _disconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+            }
+        }
+
+        private void RemoveDisconnect(string connectId)
+        {
+            lock (ParticipantsConnectionLock)
+            {
+                _redisClient.Database.HashDelete("DisconnectedParticipants", connectId);
+                var allDis = _redisClient.Database.HashGetAll("DisconnectedParticipants");
+                _disconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+            }
+        }
+
 
         private List<ParticipantResponseViewModel> _allConnectedParticipants;
-
         public List<ParticipantResponseViewModel> AllConnectedParticipants => _allConnectedParticipants;
 
-        private static List<ParticipantResponseViewModel> DisconnectedParticipants { get; set; } = new List<ParticipantResponseViewModel>();
+
+        private List<ParticipantResponseViewModel> _disconnectedParticipants;
+        
+        private List<ParticipantResponseViewModel> DisconnectedParticipants => _disconnectedParticipants;
         private static List<GroupChatParticipantViewModel> AllGroupParticipants { get; set; } = new List<GroupChatParticipantViewModel>();
 
         private object ParticipantsConnectionLock = new object();
@@ -185,11 +216,11 @@ namespace TT.SoMall
                     var groupsParticipantIsIn = AllGroupParticipants.Where(x => x.ChattingTo.Any(u => u.Id == participant.Participant.Id));
 
                     RemoveConnect(Context.ConnectionId);
-
                     AllGroupParticipants.RemoveAll(x => groupsParticipantIsIn.Any(g => g.Id == x.Id));
+                    AddDisconnect(participant);
 
                     //AllConnectedParticipants.Remove(participant);
-                    DisconnectedParticipants.Add(participant);
+                    // DisconnectedParticipants.Add(participant);
 
                     Clients.All.SendAsync("friendsListChanged", AllConnectedParticipants);
                 }
@@ -200,6 +231,11 @@ namespace TT.SoMall
 
         public override Task OnConnectedAsync()
         {
+            // string name = _currentUser.UserName;
+            //
+            // _connections.Add(name, Context.ConnectionId);
+            
+            
             lock (ParticipantsConnectionLock)
             {
                 var connectionIndex = DisconnectedParticipants.FindIndex(x => x.Participant.Id == Context.ConnectionId);
@@ -208,8 +244,8 @@ namespace TT.SoMall
                 {
                     var participant = DisconnectedParticipants.ElementAt(connectionIndex);
 
-                    DisconnectedParticipants.Remove(participant);
-                    AllConnectedParticipants.Add(participant);
+                    RemoveDisconnect(participant.Participant.Id);
+                    AddConnect(participant);
 
                     Clients.All.SendAsync("friendsListChanged", AllConnectedParticipants);
                 }

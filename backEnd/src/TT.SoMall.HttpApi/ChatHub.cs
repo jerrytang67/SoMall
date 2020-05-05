@@ -121,7 +121,7 @@ namespace TT.SoMall
         {
             lock (ParticipantsConnectionLock)
             {
-                var user = _currentUser;
+                // var user = _currentUser;
                 var connectionIndex = DisconnectedParticipants.FindIndex(x => x.Participant.Id == Context.ConnectionId);
 
                 if (connectionIndex >= 0)
@@ -129,6 +129,7 @@ namespace TT.SoMall
                     var participant = DisconnectedParticipants.ElementAt(connectionIndex);
 
                     DisconnectedParticipants.Remove(participant);
+                    
                     AllConnectedParticipants.Add(participant);
 
                     Clients.All.SendAsync("friendsListChanged", AllConnectedParticipants);

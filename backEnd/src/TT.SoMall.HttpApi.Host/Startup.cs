@@ -69,12 +69,12 @@ namespace TT.SoMall
 
             app.UseCapDashboard();
 
-            app.UseSignalR(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                //routes.MapHub<ChatHub>("/chat");
-                routes.MapHub<GroupChatHub>("/groupchat");
+                // endpoints.MapHub<GroupChatHub>("/chat");
+                endpoints.MapHub<GroupChatHub>("/groupchat");
             });
-
+            
             app.MapWhen(
                 ctx =>
                     ctx.Request.Path.ToString().StartsWith("/Home/"),
