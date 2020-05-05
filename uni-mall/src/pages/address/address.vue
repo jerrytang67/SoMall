@@ -157,6 +157,25 @@ export default class MyAddress extends BaseView {
                lng: res.longitude,
                locationType: "gcj02"
             });
+         },
+         fail: e => {
+            console.log(e.errMsg);
+            if (e.errMsg == "chooseLocation:fail cancel") {
+               Tips.info("用户取消");
+            } else if (e.errMsg == "chooseLocation:fail auth deny") {
+               // 定位权限未开启，引导设置
+               uni.showModal({
+                  title: "温馨提示",
+                  content: "您已拒绝定位,请开启",
+                  confirmText: "去设置",
+                  success(res) {
+                     if (res.confirm) {
+                        //打开授权设置
+                        uni.openSetting();
+                     }
+                  }
+               });
+            }
          }
       });
    }

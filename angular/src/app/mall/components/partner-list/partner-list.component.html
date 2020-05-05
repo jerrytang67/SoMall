@@ -19,14 +19,22 @@
         (nzPageSizeChange)="refresh()">
         <thead>
             <tr>
-                <th>id</th>
+                <th>realName</th>
+                <th>phone</th>
+                <th>state</th>
+                <th>locationLabel</th>
+                <th>locationAddress</th>
                 <th></th>
             </tr>
 
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
-                <td></td>
+                <td>{{item.realName}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.state}}</td>
+                <td>{{item.locationLabel}}</td>
+                <td>{{item.locationAddress}}</td>
                 <td>
                     <button nz-button nzType="primary" nzSize="small" [routerLink]="['/mall/partner-edit', item.id]">{{'edit' | translate}}</button>
                     <nz-divider nzType="vertical"></nz-divider>

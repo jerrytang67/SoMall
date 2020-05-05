@@ -173,12 +173,12 @@ namespace TT.Abp.Mall.EntityFrameworkCore
 
                 b.ConfigureFullAudited();
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.Nickname).HasMaxLength(MallConsts.MaxNameLength);
-                b.Property(x => x.HeadImageUrl).HasMaxLength(MallConsts.MaxImageLength);
+                b.Property(x => x.Phone).IsRequired().HasMaxLength(MallConsts.MaxPhoneLength);
+                b.Property(x => x.PhoneBackup).IsRequired().HasMaxLength(MallConsts.MaxPhoneLength);
+                b.Property(x => x.HeadImgUrl).HasMaxLength(MallConsts.MaxImageLength);
 
-                b.Property(x => x.LocationLabel).HasMaxLength(MallConsts.MaxImageLength);
-                b.Property(x => x.LocationAddress).HasMaxLength(MallConsts.MaxImageLength);
+                b.Property(x => x.LocationLabel).HasMaxLength(MallConsts.MaxNameLength);
+                b.Property(x => x.LocationAddress).HasMaxLength(MallConsts.MaxNameLength);
 
                 b.OwnsOne(p => p.Detail,
                     ob => ob.ToTable(MallConsts.DbTablePrefix + "PartnerDetails", MallConsts.DbSchema));

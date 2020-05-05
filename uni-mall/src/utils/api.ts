@@ -67,4 +67,8 @@ export default {
     tenpay: (data: any) => request('POST', '/api/mall/productOrder/pay', data),
 
     swiper_getList: (data: any) => request("GET", `/api/mall/swiper/getPublishList`, data),
+
+    // partner
+
+    partner_publicEdit: (data: any) => request("POST", `/api/mall/partner/publicEdit`, data)
 };

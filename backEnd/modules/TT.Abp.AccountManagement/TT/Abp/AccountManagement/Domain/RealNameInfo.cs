@@ -18,7 +18,6 @@ namespace TT.Abp.AccountManagement.Domain
 
         [NotNull] public string Phone { get; protected set; }
 
-        public string PhoneBackup { get; protected set; }
 
         public AccountEnums.RealNameInfoType Type { get; protected set; }
 

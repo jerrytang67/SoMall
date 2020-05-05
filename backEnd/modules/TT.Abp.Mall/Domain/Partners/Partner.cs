@@ -11,29 +11,26 @@ namespace TT.Abp.Mall.Domain.Partners
     {
         public Guid UserId { get; set; }
 
+
+        private Partner()
+        {
+        }
+
+        public Partner(Guid userId)
+        {
+            UserId = userId;
+        }
+
         public override object[] GetKeys()
         {
             return new object[] {UserId};
         }
 
-        protected Partner()
-        {
-        }
+        [NotNull] public virtual string RealName { get; protected set; }
+        [NotNull] public virtual string Phone { get; protected set; }
 
-        public Partner(string realName, string phone, string nickname, string headImageUrl)
-        {
-            RealName = realName;
-            Phone = phone;
-            Nickname = nickname;
-            HeadImageUrl = headImageUrl;
-        }
-
-        [NotNull] public string RealName { get; protected set; }
-        [NotNull] public string Phone { get; protected set; }
-        public string Nickname { get; protected set; }
-        public string HeadImageUrl { get; protected set; }
-
-        public DateTime UpdateDate { get; set; } = DateTime.Now;
+        public virtual string HeadImgUrl { get; protected set; }
+        [NotNull] public virtual string PhoneBackup { get; protected set; }
 
         public MallEnums.PartnerState State { get; protected set; } = MallEnums.PartnerState.待审核;
 
@@ -52,19 +49,20 @@ namespace TT.Abp.Mall.Domain.Partners
         /// </summary>
         public virtual decimal TotalWithdrawals { get; protected set; } = 0;
 
-        public DateTime? LastLoginDate { get; set; }
+        public DateTime? LastLoginDate { get; protected set; }
 
         //locaton info
-        public virtual double? Lat { get; set; }
+        public virtual double? Lat { get; protected set; }
 
-        public virtual double? Lng { get; set; }
-        public virtual string LocationLabel { get; set; }
-        public virtual string LocationAddress { get; set; }
+        public virtual double? Lng { get; protected set; }
+        public virtual string LocationLabel { get; protected set; }
+        public virtual string LocationAddress { get; protected set; }
 
+        public virtual MallEnums.LocationType LocationType { get; protected set; }
         public virtual ICollection<PartnerProduct> PartnerProducts { get; set; }
 
         public int Views { get; set; } = 0;
-        public PartnerDetail Detail { get; set; }
+        public PartnerDetail Detail { get; set; } = new PartnerDetail();
 
         public Guid? TenantId { get; protected set; }
     }
@@ -75,8 +73,6 @@ namespace TT.Abp.Mall.Domain.Partners
         public virtual string NoticeContent { get; set; }
 
         //以下信息基于微信
-        public virtual string openid { get; set; }
-        public virtual string unionid { get; set; }
         public virtual string weixin { get; set; } //微信号
 
         /// <summary>

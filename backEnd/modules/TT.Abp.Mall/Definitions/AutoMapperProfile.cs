@@ -92,9 +92,10 @@ namespace TT.Abp.Mall.Definitions
             #region Partners
 
             CreateMap<Partner, PartnerDto>();
+            CreateMap<PartnerCreateOrUpdateDto, Partner>()
+                .AfterMap((src, dest) => dest.Detail.Introducting = src.Introducting);
 
             #endregion
-
 
             #region Coupons
 

@@ -19,7 +19,6 @@ namespace TT.Abp.AccountManagement.EntityFrameworkCore
 
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(AccountManagementConsts.MaxNameLength);
                 b.Property(x => x.Phone).IsRequired().HasMaxLength(AccountManagementConsts.MaxNameLength);
-                b.Property(x => x.PhoneBackup).HasMaxLength(AccountManagementConsts.MaxNameLength);
 
                 b.Property(x => x.IDCardFrontUrl).IsRequired().HasMaxLength(AccountManagementConsts.MaxNameLength);
                 b.Property(x => x.IDCardBackUrl).IsRequired().HasMaxLength(AccountManagementConsts.MaxNameLength);

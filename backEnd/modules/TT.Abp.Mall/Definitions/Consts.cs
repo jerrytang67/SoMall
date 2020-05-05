@@ -7,6 +7,8 @@
         public const string DbSchema = null;
 
         public const int MaxNameLength = 64;
+        
+        public const int MaxPhoneLength = 16;
 
         public const int MaxShortNameLength = 16;
 

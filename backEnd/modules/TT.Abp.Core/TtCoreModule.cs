@@ -44,4 +44,9 @@ namespace TT.Abp.Core
             context.Services.AddAutoMapperObjectMapper<TtCoreModule>();
         }
     }
+
+
+
+
+
 }
