@@ -51,6 +51,13 @@ import api from "@/utils/api";
 
 @Component
 export default class PartnerEditPage extends BaseView {
+   onLoad() {
+      UserModule.CheckLogin();
+      api.partner_getCurrent().then((res: any) => {
+         this.profile = Object.assign({}, this.profile, res);
+      });
+   }
+
    needLogin = true;
    basics = 0;
    numList = [
@@ -86,12 +93,7 @@ export default class PartnerEditPage extends BaseView {
       return UserModule.getUser;
    }
 
-   async onShow() {
-      await UserModule.CheckLogin();
-      api.partner_getCurrent().then((res: any) => {
-         this.profile = Object.assign({}, this.profile, res);
-      });
-   }
+   async onShow() {}
 
    unable(event: any, str: string) {
       str = str || "不能修改";

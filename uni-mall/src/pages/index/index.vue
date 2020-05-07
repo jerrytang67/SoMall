@@ -1,8 +1,22 @@
 <template>
    <view class="content">
-      <!-- #ifdef MP-WEIXIN -->
-      <official-account></official-account>
+      <!-- 小程序头部兼容 -->
+      <!-- #ifdef MP -->
+      <view class="cu-bar search bg-white">
+         <view class="action">
+            <text>吴江</text>
+            <!-- <text class="cuIcon-triangledownfill"></text> -->
+         </view>
+         <view class="search-form round">
+            <text class="cuIcon-search"></text>
+            <input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="搜索" confirm-type="search" />
+         </view>
+         <view class="action">
+            <text class="cuIcon-scan text-gray"></text>
+         </view>
+      </view>
       <!-- #endif -->
+
       <!-- 头部轮播 -->
       <view class="carousel-section" v-if="swipers.length">
          <!-- 标题栏和状态栏占位符 -->
@@ -170,7 +184,6 @@ page {
    .cate-section {
       position: relative;
       z-index: 5;
-      border-radius: 16upx 16upx 0 0;
       margin-top: -20upx;
    }
    .carousel-section {
@@ -196,13 +209,11 @@ page {
 .carousel-section {
    position: relative;
    padding-top: 10px;
-
    .titleNview-placing {
       height: var(--status-bar-height);
       padding-top: 44px;
       box-sizing: content-box;
    }
-
    .titleNview-background {
       position: absolute;
       top: 0;
@@ -215,18 +226,15 @@ page {
 .carousel {
    width: 100%;
    height: 350upx;
-
    .carousel-item {
       width: 100%;
       height: 100%;
       padding: 0 28upx;
       overflow: hidden;
    }
-
    image {
       width: 100%;
       height: 100%;
-      border-radius: 10upx;
    }
 }
 .swiper-dots {
@@ -266,7 +274,7 @@ page {
    justify-content: space-between;
    align-items: center;
    flex-wrap: wrap;
-   padding: 30upx 30upx;
+   padding: 10upx;
    background: #fff;
    .cate-item {
       display: flex;

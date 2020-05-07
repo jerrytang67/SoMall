@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="TT\Abp\Audit\Application" />
+      <Folder Include="TT\Abp\Audit\Domain" />
+      <Folder Include="TT\Abp\Audit\EntityFrameworkCore" />
+    </ItemGroup>
+
+</Project>
