@@ -4,6 +4,7 @@ import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 import * as signalR from "@aspnet/signalr";
+import { environment } from '@env/environment';
 
 export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapter {
     public userId: string;
@@ -11,7 +12,7 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
 
 
     private hubConnection: signalR.HubConnection
-    public static serverBaseUrl: string = 'http://127.0.0.1:44340/'; // Set this to 'https://localhost:5001/' if running locally
+    public static serverBaseUrl: string = environment.apis.default.url; // Set this to 'https://localhost:5001/' if running locally
 
     constructor(private username: string, private avatar: string, private http: HttpClient) {
         super();
@@ -21,7 +22,7 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
 
     private initializeConnection(): void {
         this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl(`${SignalRGroupAdapter.serverBaseUrl}groupchat`)
+            .withUrl(`${SignalRGroupAdapter.serverBaseUrl}/groupchat`)
             .build();
 
         this.hubConnection
@@ -64,7 +65,7 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
         // List connected users to show in the friends list
         // Sending the userId from the request body as this is just a demo 
         return this.http
-            .post(`${SignalRGroupAdapter.serverBaseUrl}home/listFriends`, { currentUserId: this.userId })
+            .post(`${SignalRGroupAdapter.serverBaseUrl}/home/listFriends`, { currentUserId: this.userId })
             .pipe(
                 map((res: any) => res),
                 catchError((error: any) => Observable.throw(error.error || 'Server error'))
@@ -76,7 +77,7 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
         // and retrieve a N amount of history messages between the users.
 
         // return this.http
-        //     .get(`${SignalRGroupAdapter.serverBaseUrl}home/historyMessage`, {
+        //     .get(`${SignalRGroupAdapter.serverBaseUrl}/home/historyMessage`, {
         //         params: {
         //             from: destinataryId,
         //             to: destinataryId
