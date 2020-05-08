@@ -12,53 +12,45 @@ namespace TT.Extensions
     {
         public static async Task<T> GetJsonAsync<T>(string url)
         {
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-                var responseBody = await response.Content.ReadAsStringAsync();
-                responseBody = responseBody.Replace("\uFEFF", "");
+            using var client = new HttpClient();
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var responseBody = await response.Content.ReadAsStringAsync();
+            responseBody = responseBody.Replace("\uFEFF", "");
 
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //if header auth are needed
-                //var token = Convert.ToBase64String(Encoding.ASCII.GetBytes(token);
-                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", token);
-                return JsonConvert.DeserializeObject<T>(responseBody);
-            }
+            //if header auth are needed
+            //var token = Convert.ToBase64String(Encoding.ASCII.GetBytes(token);
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("token", token);
+            return JsonConvert.DeserializeObject<T>(responseBody);
         }
 
 
         public static async Task<T> PostAsync<T>(string url, object data) where T : class, new()
         {
+            string content = JsonConvert.SerializeObject(data);
             try
             {
-                using (var client = new System.Net.Http.HttpClient())
-                {
-                    string content = JsonConvert.SerializeObject(data);
-                    var buffer = Encoding.UTF8.GetBytes(content);
-                    var byteContent = new ByteArrayContent(buffer);
-                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    var response = await client.PostAsync(url, byteContent).ConfigureAwait(false);
-                    string result = await response.Content.ReadAsStringAsync();
-                    if (response.StatusCode != HttpStatusCode.OK)
-                    {
-                        return new T();
-                    }
-
-                    return JsonConvert.DeserializeObject<T>(result);
-                }
+                using var client = new HttpClient();
+                var buffer = Encoding.UTF8.GetBytes(content);
+                var byteContent = new ByteArrayContent(buffer);
+                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var response = await client.PostAsync(url, byteContent).ConfigureAwait(false);
+                var result = await response.Content.ReadAsStringAsync();
+                return response.StatusCode != HttpStatusCode.OK ? new T() : JsonConvert.DeserializeObject<T>(result);
             }
             catch (WebException ex)
             {
-                if (ex.Response != null)
+                if (ex.Response == null)
                 {
-                    string responseContent = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
-                    throw new System.Exception($"response :{responseContent}", ex);
+                    throw;
                 }
 
-                throw;
+                var responseContent = new StreamReader(ex.Response.GetResponseStream()).ReadToEnd();
+                throw new System.Exception($"response :{responseContent}", ex);
+
             }
         }
 
@@ -73,8 +65,8 @@ namespace TT.Extensions
             var buffer = Encoding.UTF8.GetBytes(postData);
             request.ContentLength = buffer.Length;
             request.GetRequestStream().Write(buffer, 0, buffer.Length);
-            var response = (HttpWebResponse) request.GetResponse();
-            var ms = new MemoryStream();
+            using var response = (HttpWebResponse) request.GetResponse();
+            using var ms = new MemoryStream();
             response.GetResponseStream()?.CopyTo(ms);
             return ms.ToArray();
         }

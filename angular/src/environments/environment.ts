@@ -24,6 +24,7 @@ export const environment = {
   apis: {
     default: {
       url: 'http://127.0.0.1:44340',
+      signalR: "ws://127.0.0.1:44340"
     },
   },
   localization: {

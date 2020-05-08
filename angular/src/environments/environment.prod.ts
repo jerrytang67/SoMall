@@ -24,6 +24,7 @@ export const environment = {
   apis: {
     default: {
       url: 'https://demo.somall.top',
+      signalR : "wss://demo.somall.top/signalR"
     },
   },
   localization: {

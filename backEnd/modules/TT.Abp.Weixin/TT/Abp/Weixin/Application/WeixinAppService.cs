@@ -201,6 +201,7 @@ namespace TT.Abp.Weixin.Application
         {
             var shorter = scene.ToShortString();
             var url = await _weixinManager.Getwxacodeunlimit(shorter, page);
+
             return new {url};
         }
 

@@ -153,6 +153,7 @@ namespace TT.SoMall
                 options.AddPolicy(DefaultCorsPolicyName, builder =>
                 {
                     builder
+                        //.AllowAnyOrigin()
                         .WithOrigins(
                             configuration["App:CorsOrigins"]
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)

@@ -13,7 +13,7 @@
     "ng": "ng",
     "start": "ng serve --host 192.168.3.50",
     "hmr": "ng serve -c=hmr",
-    "build": "node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng build --prod --aot=false --build-optimizer=false",
+    "build": "node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng build --prod --aot=false --build-optimizer=false --base-href /admin/",
     "analyze": "node --max_old_space_size=5120 ./node_modules/@angular/cli/bin/ng build --prod --stats-json",
     "lint": "npm run lint:ts && npm run lint:style",
     "lint:ts": "tslint -p tsconfig.app.json -c tslint.json \"src/**/*.ts\" --fix",

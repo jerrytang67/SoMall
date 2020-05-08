@@ -31,6 +31,8 @@ namespace TT.Demo.Host
 
             app.UseDefaultFiles();
 
+            app.UseWebSockets();
+            
             await app.UseOcelot();
         }
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DotNetCore.CAP;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
@@ -192,25 +191,6 @@ namespace TT.Abp.Weixin.Domain
             var username = await _setting.GetOrNullAsync(OssManagementSettings.AccessId);
             return new UpYun(bucketName, username,
                 pwd, domain);
-        }
-    }
-
-
-    public class WexinCapSubscriberService : ICapSubscribe, IScopedDependency
-    {
-        private readonly WeixinManager _weixinManager;
-
-        public WexinCapSubscriberService(WeixinManager weixinManager)
-        {
-            _weixinManager = weixinManager;
-        }
-
-        [CapSubscribe("weixin.services.mini.getuserinfo")]
-        public async Task Subscriber(MiniUserInfoResult userInfo)
-        {
-            Log.Logger.Warning("Cap");
-            Log.Logger.Warning(JsonConvert.SerializeObject(userInfo));
-            await _weixinManager.CreateOrUpdate(userInfo);
         }
     }
 }
