@@ -131,14 +131,24 @@ namespace TT.Abp.Mall.Application.Partners
     /// </summary>
     public class PartnerCreateOrUpdateDto
     {
-        [Required] [DisplayName("姓名")] public string RealName { get; set; }
-        [Required] [DisplayName("电话")] public string Phone { get; set; }
+        [Required(ErrorMessage = "姓名 必填")]
+        [DisplayName("姓名")]
+        public string RealName { get; set; }
+
+        [Required(ErrorMessage = "电话 必填")]
+        [DisplayName("电话")]
+        public string Phone { get; set; }
+
         [DisplayName("备用电话")] public string PhoneBackup { get; set; }
         public double? Lat { get; set; }
         public double? Lng { get; set; }
-        [Required] [DisplayName("地址")] public string LocationLabel { get; set; }
+
+        [Required(ErrorMessage = "地址 必填")]
+        [DisplayName("地址")]
+        public string LocationLabel { get; set; }
+
         public string LocationAddress { get; set; }
         public MallEnums.LocationType LocationType { get; set; }
-        [Required] public string Introducting { get; set; }
+        [Required(ErrorMessage = "个人介绍 必填")] public string Introducting { get; set; }
     }
 }

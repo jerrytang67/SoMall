@@ -56,5 +56,10 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public int? LimitBuyCount { get; set; }
         
         public string Unit { get; set; }
+        
+        public bool CommissionEnable { get; set; }
+        
+        public decimal? CommissionPrice { get; set; }
+
     }
 }

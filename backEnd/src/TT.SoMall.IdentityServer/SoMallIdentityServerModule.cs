@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -46,7 +47,6 @@ namespace TT.SoMall
         typeof(SoMallEntityFrameworkCoreDbMigrationsModule),
         typeof(AbpAspNetCoreSerilogModule),
         typeof(TtCoreModule)
-
     )]
     public class SoMallIdentityServerModule : AbpModule
     {
@@ -92,7 +92,7 @@ namespace TT.SoMall
             Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "SoMall:"; });
 
             context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:ConnectionString"]; });
-            
+
             context.Services.AddCors(options =>
             {
                 options.AddPolicy(DefaultCorsPolicyName, builder =>
@@ -111,7 +111,7 @@ namespace TT.SoMall
                         .AllowCredentials();
                 });
             });
-            
+
             Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MultiTenancyConsts.IsEnabled; });
 
             ConfigureNavigationServices(configuration);
@@ -130,9 +130,12 @@ namespace TT.SoMall
             {
                 app.UseMultiTenancy();
             }
+
             app.UseIdentityServer();
             app.UseAuthorization();
-            app.UseAbpRequestLocalization();
+
+            app.UseAbpRequestLocalization(option => { option.DefaultRequestCulture = new RequestCulture("zh-Hans"); });
+
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseMvcWithDefaultRouteAndArea();

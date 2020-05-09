@@ -11,7 +11,7 @@
 
 <div class="apps">
     <nz-checkbox-group [(ngModel)]="apps" name="apps" (ngModelChange)="updateSingleChecked($event)">
-        
+
     </nz-checkbox-group>
 </div>
 
@@ -154,6 +154,20 @@
                         <nz-form-label [nzSpan]="4" nzFor="dateTimeEnd">结束时间</nz-form-label>
                         <nz-form-control [nzSpan]="18">
                             <nz-date-picker nzSize="large" nzShowTime formControlName="dateTimeEnd"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-row>
+                    <nz-form-item nz-col [nzSpan]="12">
+                        <nz-form-label [nzSpan]="6" nzFor="commissionPrice" nzRequired>佣金</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <input nz-input type="number" formControlName="commissionPrice" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-col [nzSpan]="12">
+                        <nz-form-label [nzSpan]="6" nzFor="commissionEnable">开启佣金</nz-form-label>
+                        <nz-form-control [nzSpan]="18">
+                            <nz-switch formControlName="commissionEnable"></nz-switch>
                         </nz-form-control>
                     </nz-form-item>
                 </div>

@@ -2742,6 +2742,33 @@ export interface ApplicationApiDescriptionModel {
   types?: object;
 }
 
+export interface RemoteServiceValidationErrorInfo {
+  /**  */
+  message?: string;
+
+  /**  */
+  members?: string[];
+}
+
+export interface RemoteServiceErrorInfo {
+  /**  */
+  code?: string;
+
+  /**  */
+  message?: string;
+
+  /**  */
+  details?: string;
+
+  /**  */
+  validationErrors?: RemoteServiceValidationErrorInfo[];
+}
+
+export interface RemoteServiceErrorResponse {
+  /**  */
+  error?: RemoteServiceErrorInfo;
+}
+
 export interface LanguageInfo {
   /**  */
   cultureName?: string;
@@ -2817,6 +2844,9 @@ export interface ApplicationLocalizationConfigurationDto {
 
   /**  */
   currentCulture?: CurrentCultureDto;
+
+  /**  */
+  defaultResourceName?: string;
 }
 
 export interface ApplicationAuthConfigurationDto {
@@ -2867,6 +2897,116 @@ export interface CurrentTenantDto {
   isAvailable?: boolean;
 }
 
+export interface LocalizableStringDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  resource?: string;
+}
+
+export interface ExtensionPropertyApiGetDto {
+  /**  */
+  isAvailable?: boolean;
+}
+
+export interface ExtensionPropertyApiCreateDto {
+  /**  */
+  isAvailable?: boolean;
+}
+
+export interface ExtensionPropertyApiUpdateDto {
+  /**  */
+  isAvailable?: boolean;
+}
+
+export interface ExtensionPropertyApiDto {
+  /**  */
+  onGet?: ExtensionPropertyApiGetDto;
+
+  /**  */
+  onCreate?: ExtensionPropertyApiCreateDto;
+
+  /**  */
+  onUpdate?: ExtensionPropertyApiUpdateDto;
+}
+
+export interface ExtensionPropertyUiTableDto {
+  /**  */
+  isVisible?: boolean;
+}
+
+export interface ExtensionPropertyUiFormDto {
+  /**  */
+  isVisible?: boolean;
+}
+
+export interface ExtensionPropertyUiDto {
+  /**  */
+  onTable?: ExtensionPropertyUiTableDto;
+
+  /**  */
+  onCreateForm?: ExtensionPropertyUiFormDto;
+
+  /**  */
+  onEditForm?: ExtensionPropertyUiFormDto;
+}
+
+export interface ExtensionPropertyAttributeDto {
+  /**  */
+  type?: string;
+
+  /**  */
+  typeSimple?: string;
+
+  /**  */
+  configuration?: object;
+}
+
+export interface ExtensionPropertyDto {
+  /**  */
+  type?: string;
+
+  /**  */
+  typeSimple?: string;
+
+  /**  */
+  displayName?: LocalizableStringDto;
+
+  /**  */
+  api?: ExtensionPropertyApiDto;
+
+  /**  */
+  ui?: ExtensionPropertyUiDto;
+
+  /**  */
+  attributes?: ExtensionPropertyAttributeDto[];
+
+  /**  */
+  configuration?: object;
+}
+
+export interface EntityExtensionDto {
+  /**  */
+  properties?: object;
+
+  /**  */
+  configuration?: object;
+}
+
+export interface ModuleExtensionDto {
+  /**  */
+  entities?: object;
+
+  /**  */
+  configuration?: object;
+}
+
+export interface ObjectExtensionsDto {
+  /**  */
+  modules?: object;
+}
+
 export interface ApplicationConfigurationDto {
   /**  */
   localization?: ApplicationLocalizationConfigurationDto;
@@ -2888,6 +3028,9 @@ export interface ApplicationConfigurationDto {
 
   /**  */
   currentTenant?: CurrentTenantDto;
+
+  /**  */
+  objectExtensions?: ObjectExtensionsDto;
 }
 
 export interface FindTenantResultDto {
@@ -2978,33 +3121,6 @@ export interface IdentityUserDto {
 
   /**  */
   extraProperties?: object;
-}
-
-export interface RemoteServiceValidationErrorInfo {
-  /**  */
-  message?: string;
-
-  /**  */
-  members?: string[];
-}
-
-export interface RemoteServiceErrorInfo {
-  /**  */
-  code?: string;
-
-  /**  */
-  message?: string;
-
-  /**  */
-  details?: string;
-
-  /**  */
-  validationErrors?: RemoteServiceValidationErrorInfo[];
-}
-
-export interface RemoteServiceErrorResponse {
-  /**  */
-  error?: RemoteServiceErrorInfo;
 }
 
 export interface MallUserDto {
@@ -4555,6 +4671,12 @@ export interface SkuCreateOrUpdateDto {
 
   /**  */
   unit?: string;
+
+  /**  */
+  commissionEnable?: boolean;
+
+  /**  */
+  commissionPrice?: number;
 }
 
 export interface AppProductCategory {
@@ -4693,6 +4815,12 @@ export interface ProductSku {
 
   /**  */
   shopId?: string;
+
+  /**  */
+  commissionPrice?: number;
+
+  /**  */
+  commissionEnable?: boolean;
 
   /**  */
   spu?: ProductSpu;
@@ -4977,9 +5105,6 @@ export interface RealNameInfoDto {
 
   /**  */
   phone?: string;
-
-  /**  */
-  phoneBackup?: string;
 
   /**  */
   type?: RealNameInfoType;

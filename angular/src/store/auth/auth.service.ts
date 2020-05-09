@@ -12,7 +12,7 @@ export function getClientSettings(): UserManagerSettings {
         client_id: 'SoMall_App',
         userStore: new WebStorageStateStore({ store: window.localStorage }),
         redirect_uri: window.location.origin + environment.SERVER_URL + '/callback.html',
-        post_logout_redirect_uri: window.location.origin + environment.SERVER_URL + '/signout-callback.html',
+        //post_logout_redirect_uri: window.location.origin + environment.SERVER_URL + '/signout-callback.html',
         response_type: 'id_token token',
         scope: "address email openid phone profile role SoMall",
         accessTokenExpiringNotificationTime: 20,

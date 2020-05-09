@@ -110,6 +110,8 @@ export class SpuEditComponent implements OnInit {
       "soldCount": [item.soldCount, [Validators.required, Validators.min(0)]],
       "stockCount": item.stockCount,
       "limitBuyCount": item.limitBuyCount,
+      "commissionEnable":item.commissionEnable,
+      "commissionPrice":item.commissionPrice
     });
   }
 

@@ -44,13 +44,25 @@ namespace TT.SoMall.Menus
             var l = context.ServiceProvider.GetRequiredService<IStringLocalizer<SoMallResource>>();
 
             // context.Menu.Items.Insert(0, new ApplicationMenuItem("SoMall.Home", l["Menu:Home"], "/"));
-            
+
             context.Menu.AddItem(
                 new ApplicationMenuItem("Shop", l["Menu:Shop"])
                     .AddItem(
                         new ApplicationMenuItem("Shops", l["Menu:Shop"], url: "/Shops")
                     )
             );
+
+#if DEBUG
+            context.Menu.AddItem(
+                new ApplicationMenuItem("admin", "管理后台",url:"http://192.168.3.50:4200/")
+            );
+#else
+            context.Menu.AddItem(
+                new ApplicationMenuItem("admin", "管理后台",url:"/admin")
+            );
+#endif
+
+
             return Task.CompletedTask;
         }
 
