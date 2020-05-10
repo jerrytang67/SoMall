@@ -42,7 +42,7 @@ export class OrderListComponent implements OnInit {
       maxResultCount: this.pageingInfo.pageSize,
       skipCount: (this.pageingInfo.pageNumber - 1) * this.pageingInfo.pageSize,
       shopId: this.shopId,
-      sorting:"id desc"
+      sorting: "id desc"
     }).subscribe(res => {
       console.log(res);
       this.dataItems = res.items;
@@ -56,4 +56,7 @@ export class OrderListComponent implements OnInit {
 
   }
 
+  view(item: any) {
+
+  }
 }

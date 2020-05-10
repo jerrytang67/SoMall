@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\modules\TT.Abp.AccountManagement\TT.Abp.AccountManagement.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.AppManagement\TT.Abp.AppManagement.csproj" />
+    <ProjectReference Include="..\..\modules\TT.Abp.Audit\TT.Abp.Audit.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.Cms\TT.Abp.Cms.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.Core\TT.Abp.Core.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.Mall\TT.Abp.Mall.csproj" />

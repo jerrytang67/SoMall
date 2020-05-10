@@ -12,8 +12,12 @@ namespace TT.Abp.Mall.Application
 
         public Guid? ShopId { get; set; }
 
-        [CanBeNull] public string AppName { get; set; }
+        public Guid? SpuId { get; set; }
+
+        public Guid? SkuId { get; set; }
         
+        [CanBeNull] public string AppName { get; set; }
+
         public MallEnums.LocationType LocationType { get; set; } = MallEnums.LocationType.bd09;
     }
 }
