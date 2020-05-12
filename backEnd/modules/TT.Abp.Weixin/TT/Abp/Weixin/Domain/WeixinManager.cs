@@ -152,9 +152,14 @@ namespace TT.Abp.Weixin.Domain
             return null;
         }
 
-        public virtual async Task<string> Getwxacodeunlimit(string scene, string page = "pages/index/index")
+        public virtual async Task<string> Getwxacodeunlimit(string appId, string appSec, string scene, string page = "pages/index/index")
         {
-            var key = "SoMall:QR:Mini";
+            if (page.IsNullOrEmptyOrWhiteSpace())
+            {
+                page = "pages/index/index";
+            }
+
+            var key = $"SoMall:QR:{appId}";
             var cache = await _redisClient.Database.HashGetAsync(key, scene);
 
             if (cache.HasValue)
@@ -162,16 +167,14 @@ namespace TT.Abp.Weixin.Domain
                 return cache.ToString();
             }
 
-            var appId = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
-            var appSec = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppSecret);
-
             var token = await GetAccessTokenAsync(appId, appSec);
 
-            var url = $"https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token={token}";
-            var img = HttpEx.PostGotImageByte(url, new {scene, page});
+            var img = await _weixinApi.WxacodeGetUnlimit(token, scene, page);
+
             var upyun = await GetUploader();
-            var result = upyun.writeFile($"/somall/mini_qr/{scene}.jpg", img,
-                true);
+
+            var result = upyun.writeFile($"/somall/mini_qr/{scene}.jpg", img, true);
+
             if (result)
             {
                 var path = $"{upyun.Domain}/somall/mini_qr/{scene}.jpg";

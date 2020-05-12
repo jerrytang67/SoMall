@@ -87,11 +87,12 @@ namespace TT.Abp.Modules.Tests.Mall
         public async Task GetSpuQr()
         {
             //act
-            var result = await _spuAppService.GetQr(new MallRequestDto() {Keywords = "!@3"});
+            var result = await _spuAppService.GetQr(new MallRequestDto() {Keywords = "!@3", AppName = "mall_mini"});
             result.Params["Keywords"].ShouldBe("!@3");
             result.Id.ShouldNotBeNull();
             result.CreatorId.ShouldBe(_currentUser.Id);
             result.CreationTime.ShouldNotBeNull();
+            result.ViewCount.ShouldBe(1);
         }
     }
 }

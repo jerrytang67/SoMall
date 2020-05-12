@@ -91,6 +91,13 @@ import { ShopModule } from "@/store/modules/shop";
 import api from "@/utils/api";
 @Component
 export default class About extends BaseView {
+   async onLoad(options: any) {
+      const scene = decodeURIComponent(options.scene);
+      if (scene !== "undefined") {
+         console.log("scene:", scene);
+      }
+   }
+
    theme = "red";
 
    onShareAppMessage(option: any) {

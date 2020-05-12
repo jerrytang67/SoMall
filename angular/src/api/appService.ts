@@ -447,6 +447,150 @@ export class CmsCategoryProxyService {
 }
 
 @Injectable({ providedIn: 'root' })
+export class CommentProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: CommentCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<CommentDto> {
+    let url = '/api/mall/comment/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<CommentDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: CommentCreateOrUpdateDto;
+    } = {} as any
+  ): Observable<CommentDto> {
+    let url = '/api/mall/comment/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<CommentDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      state?: number;
+      /**  */
+      keywords?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
+      appName?: string;
+      /**  */
+      locationType?: LocationType;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<CommentDtoPagedResultDto> {
+    let url = '/api/mall/comment/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CommentDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  getPublishList(
+    params: {
+      /**  */
+      state?: number;
+      /**  */
+      keywords?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
+      appName?: string;
+      /**  */
+      locationType?: LocationType;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<CommentDtoPagedResultDto> {
+    let url = '/api/mall/comment/getPublishList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CommentDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<CommentDto> {
+    let url = '/api/mall/comment/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<CommentDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/comment/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
 export class CouponProxyService {
   constructor(private http: HttpClient) {}
 
@@ -461,6 +605,10 @@ export class CouponProxyService {
       keywords?: string;
       /**  */
       shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
       /**  */
       appName?: string;
       /**  */
@@ -509,6 +657,10 @@ export class CouponProxyService {
       keywords?: string;
       /**  */
       shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
       /**  */
       appName?: string;
       /**  */
@@ -936,6 +1088,10 @@ export class PartnerProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -1003,6 +1159,10 @@ export class PayOrderProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -1034,6 +1194,10 @@ export class PayOrderProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -1064,6 +1228,10 @@ export class PayOrderProxyService {
       keywords?: string;
       /**  */
       shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
       /**  */
       appName?: string;
       /**  */
@@ -1155,6 +1323,10 @@ export class ProductCategoryProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -1241,6 +1413,10 @@ export class ProductOrderProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -1303,6 +1479,10 @@ export class ProductOrderProxyService {
       keywords?: string;
       /**  */
       shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
       /**  */
       appName?: string;
       /**  */
@@ -1392,6 +1572,10 @@ export class ProductSkuProxyService {
       keywords?: string;
       /**  */
       shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
       /**  */
       appName?: string;
       /**  */
@@ -1550,6 +1734,10 @@ export class ProductSpuProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -1568,6 +1756,22 @@ export class ProductSpuProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<ProductSpuDtoPagedResultDto>;
+  }
+  /**
+   *
+   */
+  getQr(
+    params: {
+      /** requestBody */
+      body?: MallRequestDto;
+    } = {} as any
+  ): Observable<QrDetail> {
+    let url = '/api/mall/productSpu/getQr';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<QrDetail>;
   }
   /**
    *
@@ -1877,6 +2081,10 @@ export class SwiperProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -1957,6 +2165,10 @@ export class SwiperProxyService {
       keywords?: string;
       /**  */
       shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
       /**  */
       appName?: string;
       /**  */
@@ -2199,6 +2411,10 @@ export class UserCouponProxyService {
       /**  */
       shopId?: string;
       /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
       appName?: string;
       /**  */
       locationType?: LocationType;
@@ -2231,6 +2447,10 @@ export class UserCouponProxyService {
       keywords?: string;
       /**  */
       shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
       /**  */
       appName?: string;
       /**  */
@@ -3894,6 +4114,63 @@ export interface CategoryDtoPagedResultDto {
   items?: CategoryDto[];
 }
 
+export interface CommentCreateOrUpdateDto {
+  /**  */
+  content?: string;
+
+  /**  */
+  spuId?: string;
+
+  /**  */
+  skuId?: string;
+
+  /**  */
+  shopId?: string;
+}
+
+export interface CommentDto {
+  /**  */
+  buyerName?: string;
+
+  /**  */
+  buyerAvatar?: string;
+
+  /**  */
+  content?: string;
+
+  /**  */
+  level?: number;
+
+  /**  */
+  status?: number;
+
+  /**  */
+  spuId?: string;
+
+  /**  */
+  skuId?: string;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface CommentDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: CommentDto[];
+}
+
 export interface CouponDto {
   /**  */
   amount?: number;
@@ -5008,6 +5285,70 @@ export interface ProductSpuDtoPagedResultDto {
 
   /**  */
   items?: ProductSpuDto[];
+}
+
+export interface MallRequestDto {
+  /**  */
+  state?: number;
+
+  /**  */
+  keywords?: string;
+
+  /**  */
+  shopId?: string;
+
+  /**  */
+  spuId?: string;
+
+  /**  */
+  skuId?: string;
+
+  /**  */
+  appName?: string;
+
+  /**  */
+  locationType?: LocationType;
+
+  /**  */
+  sorting?: string;
+
+  /**  */
+  skipCount?: number;
+
+  /**  */
+  maxResultCount?: number;
+}
+
+export interface QrDetail {
+  /**  */
+  appName?: string;
+
+  /**  */
+  eventName?: string;
+
+  /**  */
+  params?: object;
+
+  /**  */
+  viewCount?: number;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  path?: string;
+
+  /**  */
+  qrImageUrl?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
 }
 
 export interface ProfileDto {

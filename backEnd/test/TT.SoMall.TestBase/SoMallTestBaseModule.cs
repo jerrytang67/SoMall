@@ -1,6 +1,11 @@
 ﻿using DotNetCore.CAP;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Primitives;
+using NSubstitute;
+using TT.Abp.Mall.Utils;
 using Volo.Abp;
 using Volo.Abp.Authorization;
 using Volo.Abp.Autofac;
@@ -29,7 +34,12 @@ namespace TT.SoMall
 
             context.Services.AddSingleton<ICapPublisher, MyCapService>();
 
-            context.Services.AddAlwaysAllowAuthorization();
+            var httpContextAccessorMock = Substitute.For<IHttpContextAccessor>();
+            httpContextAccessorMock.HttpContext = new DefaultHttpContext();
+            httpContextAccessorMock.HttpContext.Request.Headers.Add("AppName", new StringValues("mall_mini"));
+            
+            //context.Services.Replace(ServiceDescriptor.Transient<IHttpContextAccessor>(b => httpContextAccessor));
+            //context.Services.AddSingleton<IHttpContextAccessor>(httpContextAccessor);
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)

@@ -200,7 +200,7 @@ namespace TT.Abp.Weixin.Application
         public async Task<object> GetUnLimitQr(Guid scene, string page = null)
         {
             var shorter = scene.ToShortString();
-            var url = await _weixinManager.Getwxacodeunlimit(shorter, page);
+            var url = await _weixinManager.Getwxacodeunlimit("", shorter, page);
 
             return new {url};
         }
