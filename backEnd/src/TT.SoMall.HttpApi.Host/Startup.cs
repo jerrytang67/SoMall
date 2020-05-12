@@ -25,7 +25,7 @@ namespace TT.SoMall
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = services.GetConfiguration();
-            
+
             services.AddCap(x =>
             {
                 var rabbitOptions = configuration.GetSection("RabbitMQ");
@@ -43,13 +43,6 @@ namespace TT.SoMall
             });
 
             services.AddSignalR();
-
-            // services.Configure<ForwardedHeadersOptions>(options =>
-            // {
-            //     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            //     options.KnownNetworks.Clear();
-            //     options.KnownProxies.Clear();
-            // });
 
             // ABP
             services.AddApplication<SoMallHttpApiHostModule>();
@@ -69,12 +62,8 @@ namespace TT.SoMall
 
             app.UseCapDashboard();
 
-            app.UseEndpoints(endpoints =>
-            {
-                // endpoints.MapHub<GroupChatHub>("/chat");
-                endpoints.MapHub<GroupChatHub>("/groupchat");
-            });
-            
+            app.UseEndpoints(endpoints => { endpoints.MapHub<GroupChatHub>("/groupchat"); });
+
             app.MapWhen(
                 ctx =>
                     ctx.Request.Path.ToString().StartsWith("/Home/"),
@@ -84,7 +73,6 @@ namespace TT.SoMall
                     app2.UseMvcWithDefaultRouteAndArea();
                 }
             );
-            
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AppManagement;
 using TT.Abp.Mall.Application.Clients;
 using TT.Abp.Mall.Definitions;
@@ -67,6 +69,9 @@ namespace TT.Abp.Mall
             });
 
             Configure<AbpExceptionLocalizationOptions>(options => { options.MapCodeNamespace("Mall", typeof(MallResource)); });
+
+            // JUST PUT THIS LINE TO USE MediatR Modules
+            context.Services.AddMediatR(typeof(MallModule).GetTypeInfo().Assembly);
         }
     }
 }

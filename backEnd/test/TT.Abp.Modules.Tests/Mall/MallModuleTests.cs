@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Shouldly;
+using TT.Abp.Mall.Application;
+using TT.Abp.Mall.Application.Products;
 using TT.Abp.Mall.Application.Shops;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops.Application.Dtos;
 using TT.SoMall;
+using Volo.Abp.Users;
 using Xunit;
 
 namespace TT.Abp.Modules.Tests.Mall
@@ -21,12 +24,18 @@ namespace TT.Abp.Modules.Tests.Mall
         private readonly IMallShopRepository _ShopRepository;
 
         private readonly IMallShopAppService _shopAppService;
+        private readonly IProductSpuAppService _spuAppService;
+
+        private readonly ICurrentUser _currentUser;
+
 
         public MallModuleTests()
         {
             _ShopLookupService = GetRequiredService<IMallShopLookupService>();
             _ShopRepository = GetRequiredService<IMallShopRepository>();
             _shopAppService = GetRequiredService<IMallShopAppService>();
+            _spuAppService = GetRequiredService<IProductSpuAppService>();
+            _currentUser = GetRequiredService<ICurrentUser>();
         }
 
         [Fact]
@@ -72,6 +81,17 @@ namespace TT.Abp.Modules.Tests.Mall
 
             //Assert
             list.Items.Count.ShouldBe(2);
+        }
+
+        [Fact]
+        public async Task GetSpuQr()
+        {
+            //act
+            var result = await _spuAppService.GetQr(new MallRequestDto() {Keywords = "!@3"});
+            result.Params["Keywords"].ShouldBe("!@3");
+            result.Id.ShouldNotBeNull();
+            result.CreatorId.ShouldBe(_currentUser.Id);
+            result.CreationTime.ShouldNotBeNull();
         }
     }
 }

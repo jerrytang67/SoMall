@@ -11,6 +11,7 @@ using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
+using TT.Abp.Mall.Domain.Shares;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
@@ -310,6 +311,23 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.HasOne(x => x.Category).WithMany(x => x.Contents).HasForeignKey(x => x.CategoryId)
                     .OnDelete(DeleteBehavior.Restrict);
             });
+
+            builder.Entity<QrDetail>(b =>
+                {
+                    b.ToTable(MallConsts.DbTablePrefix + "QrDetails", MallConsts.DbSchema);
+                    b.ConfigureCreationAudited();
+                    b.Property(x => x.AppName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                    b.Property(x => x.EventName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                    b.Property(x => x.Path).HasMaxLength(MallConsts.MaxImageLength);
+                    b.Property(x => x.QrImageUrl).HasMaxLength(MallConsts.MaxImageLength);
+
+                    b.Property(x => x.Params).HasConversion(
+                        v => JsonConvert.SerializeObject(v,
+                            new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}),
+                        v => JsonConvert.DeserializeObject<Dictionary<string, string>>(v,
+                            new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}));
+                }
+            );
         }
     }
 }

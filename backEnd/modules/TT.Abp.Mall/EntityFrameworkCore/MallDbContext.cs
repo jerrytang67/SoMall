@@ -7,6 +7,7 @@ using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Partners;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
+using TT.Abp.Mall.Domain.Shares;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
@@ -56,6 +57,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         public DbSet<NewsCategory> NewsCategories { get; set; }
 
         public DbSet<NewsContent> NewsContents { get; set; }
+        
+        public DbSet<QrDetail> QrDetails { get; set; }
 
         public MallDbContext(DbContextOptions<MallDbContext> options)
             : base(options)

@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.ComponentModel;
+using System.Reflection;
+using MediatR;
+using MediatR.Pipeline;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using TT.Abp.Core.Services;
 using TT.Redis;
@@ -41,12 +45,11 @@ namespace TT.Abp.Core
                 options.ConventionalControllers.Create(typeof(TtCoreModule).Assembly);
             });
 
+
             context.Services.AddAutoMapperObjectMapper<TtCoreModule>();
+
+            // JUST PUT THIS LINE TO USE MediatR Modules
+            //context.Services.AddMediatR(typeof(TtCoreModule).GetTypeInfo().Assembly);
         }
     }
-
-
-
-
-
 }
