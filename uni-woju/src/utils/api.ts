@@ -30,6 +30,7 @@ const request = (
 export default {
     // default
     init: (data: any) => request('POST', `/api/mall/client/init`, data),
+    getQrDetail: (id: string) => request("GET", `/api/mall/client/getQrDetail?id=${id}`), //this id is shortGuid
     checkLogin: () => request("GET", `/api/app/public/GetCurrentUser`),
     getPhone: (data: any) => request("POST", `/api/app/weixin/getPhone`, data),
 
@@ -66,4 +67,11 @@ export default {
     tenpay: (data: any) => request('POST', '/api/mall/productOrder/pay', data),
 
     swiper_getList: (data: any) => request("GET", `/api/mall/swiper/getPublishList`, data),
+
+    // partner
+
+    partner_publicEdit: (data: any) => request("POST", `/api/mall/partner/publicEdit`, data),
+    partner_getCurrent: () => request("GET", `/api/mall/partner/getCurrent`),
+
+
 };

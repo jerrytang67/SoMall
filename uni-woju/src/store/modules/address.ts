@@ -11,7 +11,7 @@ export interface IAddress {
 
     isDefault?: boolean;
     /**  */
-    locationLable?: string;
+    locationLabel?: string;
     /**  */
     locationAddress?: string;
     /**  */
@@ -26,7 +26,7 @@ export interface IAddress {
 
 @Module({ dynamic: true, store, name: 'address' })
 class Address extends VuexModule {
-    private selectAddress: IAddress = { realName: "", phone: "", locationLable: "", locationAddress: "" }
+    private selectAddress: IAddress = { realName: "", phone: "", locationLabel: "", locationAddress: "" }
 
     private addressList: IAddress[] = []
 

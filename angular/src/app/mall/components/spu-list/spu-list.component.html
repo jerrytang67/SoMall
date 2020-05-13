@@ -63,12 +63,10 @@
                     </table>
                 </td>
                 <td>
-                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductSpus"> {{app.appName | translate}}</nz-tag>
+                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductSpus" (click)="getQR(item,app.appName)">
+                        {{app.appName | translate}}</nz-tag>
                 </td>
                 <td>
-                    <button nz-button nzType="primary" nzShape="circle" (click)="getQR(item)">
-                        <i nz-icon nzType="scan"></i>
-                    </button>
                     <button nz-button nzType="primary" nzShape="circle" [routerLink]="['/mall/spu-edit', item.id]">
                         <i nz-icon nzType="edit"></i>
                     </button>

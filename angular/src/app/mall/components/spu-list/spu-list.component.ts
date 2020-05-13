@@ -63,13 +63,13 @@ export class SpuListComponent implements OnInit {
     }
   }
 
-  getQR(item: ProductSpuDto) {
+  getQR(item: ProductSpuDto, appName: string) {
     this.api.getQr({
       body: {
-        appName: "mall_mini",
+        appName: appName,
         spuId: item.id
       }
-    }).subscribe(res=>{
+    }).subscribe(res => {
       console.log(res);
     })
   }

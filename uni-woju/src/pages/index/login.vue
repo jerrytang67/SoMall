@@ -9,6 +9,15 @@
          <view class="welcome">
             欢迎回来！
          </view>
+         <!-- #ifdef MP-WEIXIN -->
+         <!-- <view class="input-content">
+            <view class="input-item">
+               <text class="tit">当前手机号登录</text>
+               <input type="number" v-model="mobile" placeholder="请输入手机号码" maxlength="11" data-key="mobile" />
+            </view>
+         </view> -->
+         <!-- #endif -->
+         <!-- #ifndef MP-WEIXIN -->
          <view class="input-content">
             <view class="input-item">
                <text class="tit">手机号码</text>
@@ -19,6 +28,10 @@
                <input type="mobile" v-model="password" placeholder="8-18位不含特殊字符的数字、字母组合" placeholder-class="input-empty" maxlength="20" password data-key="password" @confirm="toLogin" />
             </view>
          </view>
+         <view class="forget-section">
+            忘记密码?
+         </view>
+         <!-- #endif -->
          <view class="padding-xl">
             <button v-if="!openid" class="cu-btn block margin-tb-sm lg" :class="'bg-' + theme" open-type="getUserInfo" @getuserinfo="bindGetUserInfo($event,true)">
                {{loginBtnTest}}</button>
@@ -26,14 +39,14 @@
                <text class="cuIcon-loading2 cuIconfont-spin" v-if="loadding"></text>
                提交</button>
          </view>
-         <view class="forget-section">
-            忘记密码?
-         </view>
+
       </view>
+      <!-- #ifndef MP-WEIXIN -->
       <view class="register-section">
          还没有账号?
          <text @click="toRegist">马上注册</text>
       </view>
+      <!-- #endif -->
    </view>
 </template>
 

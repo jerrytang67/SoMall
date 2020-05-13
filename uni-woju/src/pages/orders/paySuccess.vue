@@ -13,9 +13,11 @@
 
 <script lang="ts">
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
-import {BaseView} from "../baseView"
+import { BaseView } from "../baseView";
 @Component
 export default class About extends BaseView {
+   needLogin = true;
+
    created() {
       console.log("created");
    }

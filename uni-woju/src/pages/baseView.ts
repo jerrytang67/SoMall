@@ -1,9 +1,12 @@
-import { Vue, Component, Prop } from "vue-property-decorator";
+import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { UserModule } from '@/store/modules/user';
 import { Tips } from '@/utils/tips';
+import { QrModule, IQrDetail } from '@/store/modules/qr';
 
 @Component
 export class BaseView extends Vue {
+    public needLogin = false;
+
     public modalName: string = "";
 
     public loginBtnTest: string = "登录";
@@ -19,6 +22,32 @@ export class BaseView extends Vue {
     get userinfo() {
         return UserModule.getUserInfo;
     }
+
+    get currentQrDetail() {
+        return QrModule.get_Current_QrDtail;
+    }
+
+    onShow() {
+        // 判断当前页是否需要登录
+        console.log("baseView onShow,needLogin:", this.needLogin)
+        if (this.needLogin && !this.openid) {
+            uni.showModal({
+                content: "需要登录后才能继续",
+                success: e => {
+                    if (e.confirm) {
+                        setTimeout(() => {
+                            this.toLogin();
+                        }, 200);
+                    }
+                    else {
+                        uni.navigateBack();
+                    }
+                }
+            });
+
+        }
+    }
+
 
     initUser() {
         // if (this.token) {
@@ -79,6 +108,17 @@ export class BaseView extends Vue {
 
     hideModal() {
         this.modalName = ""
+    }
+
+
+    @Watch("currentQrDetail")
+    qrChange(val: IQrDetail) {
+        if (val && val.eventName) {
+            console.log("qrChange", val)
+            if (val.eventName === "mall_product_page" && val.params!.spuId) {
+                this.toSpu(val.params!.spuId!)
+            }
+        }
     }
 }
 

@@ -6,7 +6,7 @@
             <view class="content padding-tb-sm" @tap.stop="select(x)">
                <view class="content">
                   <text class="cuIcon-location text-red"></text>
-                  <text class="text-black text-bold text-lg">{{x.locationLable}}</text>
+                  <text class="text-black text-bold text-lg">{{x.locationLabel}}</text>
                </view>
                <view class="text-black flex" style="margin-left:calc(1.6em + 10rpx)">
                   <view>{{x.realName}}</view>
@@ -46,7 +46,7 @@
                   </view>
                   <view class="cu-form-group">
                      <view class="title">楼号-门牌</view>
-                     <input placeholder="具体收货地址" :value="form.locationLable" @input="onInput" data-name="locationLable" />
+                     <input placeholder="具体收货地址" :value="form.locationLabel" @input="onInput" data-name="locationLabel" />
                   </view>
                   <view class="flex margin-xs">
                      <view class="flex-treble">
@@ -76,6 +76,8 @@ import { AddressModule, IAddress } from "@/store/modules/address";
 
 @Component
 export default class MyAddress extends BaseView {
+   needLogin = true;
+
    async onLoad(options: any) {
       await AddressModule.GetAndSetUserAddressList();
    }
@@ -150,11 +152,30 @@ export default class MyAddress extends BaseView {
 
             this.form = Object.assign({}, this.form, {
                locationAddress: res.address,
-               locationLable: res.name,
+               locationLabel: res.name,
                lat: res.latitude,
                lng: res.longitude,
                locationType: "gcj02"
             });
+         },
+         fail: e => {
+            console.log(e.errMsg);
+            if (e.errMsg == "chooseLocation:fail cancel") {
+               Tips.info("用户取消");
+            } else if (e.errMsg == "chooseLocation:fail auth deny") {
+               // 定位权限未开启，引导设置
+               uni.showModal({
+                  title: "温馨提示",
+                  content: "您已拒绝定位,请开启",
+                  confirmText: "去设置",
+                  success(res) {
+                     if (res.confirm) {
+                        //打开授权设置
+                        uni.openSetting();
+                     }
+                  }
+               });
+            }
          }
       });
    }

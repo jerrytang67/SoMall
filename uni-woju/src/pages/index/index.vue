@@ -1,7 +1,24 @@
 <template>
    <view class="content">
+      <!-- 小程序头部兼容 -->
+      <!-- #ifdef MP -->
+      <view class="cu-bar search bg-white">
+         <view class="action">
+            <text>吴江</text>
+            <!-- <text class="cuIcon-triangledownfill"></text> -->
+         </view>
+         <view class="search-form round">
+            <text class="cuIcon-search"></text>
+            <input @focus="InputFocus" @blur="InputBlur" :adjust-position="false" type="text" placeholder="搜索" confirm-type="search" />
+         </view>
+         <view class="action">
+            <text class="cuIcon-scan text-gray"></text>
+         </view>
+      </view>
+      <!-- #endif -->
+
       <!-- 头部轮播 -->
-      <view class="carousel-section"  v-if="swipers.length">
+      <view class="carousel-section" v-if="swipers.length">
          <!-- 标题栏和状态栏占位符 -->
          <view class="titleNview-placing"></view>
          <!-- 背景色区域 -->
@@ -41,17 +58,17 @@
          <view class="loading-text">{{loadingText}}</view>
       </view>
 
-      <view class="cu-card" v-for="(x,idx) in shops" :key="idx">
+      <!-- <view class="cu-card" v-for="(x,idx) in shops" :key="idx">
          <view class="cu-item shadow" @tap="toShop(x.id)">
             <view class="title">
                <view class="text-cut">{{x.name}}</view>
             </view>
             <view class="content">
                <image :src="x.logoImage" mode="widthFix" style="width:150upx;"></image>
-               <!-- <view class="desc">
+               <view class="desc">
                   <view class="text-content" v-html="x.description">
                   </view>
-               </view> -->
+               </view> 
             </view>
          </view>
       </view>
@@ -61,7 +78,7 @@
          <button v-else class="cu-btn block margin-tb-sm lg" :class="'bg-' + theme" @tap.stop="submit">
             <text class="cuIcon-loading2 cuIconfont-spin" v-if="loadding"></text>
             提交</button>
-      </view>
+      </view> -->
 
    </view>
 </template>
@@ -71,9 +88,19 @@ import { BaseView } from "@/pages/baseView.ts";
 
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import { ShopModule } from "@/store/modules/shop";
+import { QrModule } from "@/store/modules/qr";
 import api from "@/utils/api";
+
 @Component
 export default class About extends BaseView {
+   async onLoad(options: any) {
+      const scene = decodeURIComponent(options.scene);
+      if (scene !== "undefined") {
+         console.log("scene:", scene);
+         QrModule.GetQrDetail(scene);
+      }
+   }
+
    theme = "red";
 
    onShareAppMessage(option: any) {
@@ -167,7 +194,6 @@ page {
    .cate-section {
       position: relative;
       z-index: 5;
-      border-radius: 16upx 16upx 0 0;
       margin-top: -20upx;
    }
    .carousel-section {
@@ -193,13 +219,11 @@ page {
 .carousel-section {
    position: relative;
    padding-top: 10px;
-
    .titleNview-placing {
       height: var(--status-bar-height);
       padding-top: 44px;
       box-sizing: content-box;
    }
-
    .titleNview-background {
       position: absolute;
       top: 0;
@@ -212,18 +236,15 @@ page {
 .carousel {
    width: 100%;
    height: 350upx;
-
    .carousel-item {
       width: 100%;
       height: 100%;
       padding: 0 28upx;
       overflow: hidden;
    }
-
    image {
       width: 100%;
       height: 100%;
-      border-radius: 10upx;
    }
 }
 .swiper-dots {
@@ -263,7 +284,7 @@ page {
    justify-content: space-between;
    align-items: center;
    flex-wrap: wrap;
-   padding: 30upx 30upx;
+   padding: 10upx;
    background: #fff;
    .cate-item {
       display: flex;

@@ -83,6 +83,12 @@
 			"style": {
 				"navigationBarTitleText": "个人资料"
 			}
+		},
+		{
+			"path": "pages/partner/edit",
+			"style": {
+				"navigationBarTitleText": "合伙人申请"
+			}
 		}
 	],
 	"globalStyle": {

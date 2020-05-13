@@ -23,8 +23,7 @@ const request = (
             //"__tenant":"4DF058F8-FB18-6524-A154-39F49F58A925",
             "content-type": "application/json",
             "Authorization": `Bearer ${uni.getStorageSync("token") || ''}`,
-            "AppName": "mall_mini",
-            '.AspNetCore.Culture': 'c=zh-Hans|uic=zh-Hans'
+            "AppName": "mall_mini"
         }
     });
 };

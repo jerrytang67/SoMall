@@ -583,7 +583,14 @@ page {
       }
    }
    rich-text {
+      // .p {
+      //    padding-left: 36upx;
+      //    padding-right: 36upx;
+      // }
       margin-bottom: 20upx;
+      .img {
+         width: 750upx;
+      }
    }
 }
 

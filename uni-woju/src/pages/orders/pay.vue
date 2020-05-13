@@ -51,6 +51,8 @@ import { Tips } from "@/utils/tips";
 
 @Component
 export default class Pay extends BaseView {
+   needLogin = true;
+
    async onLoad(options: any) {
       if (options.orderId) {
          OrderModule.GetAndSetCurrentOrder(options.orderId);

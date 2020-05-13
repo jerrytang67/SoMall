@@ -103,6 +103,8 @@ class Shop extends VuexModule {
     @Mutation
     private SET_CURRENT_SPU(payload: ISpu) {
         console.log("mutaction:SET_CURRENT_SPU", payload)
+        payload.descCommon = payload.descCommon!.replace(/<img/g, "<img class='img'")
+        payload.descCommon = payload.descCommon!.replace(/<p/g, "<p class='p'")
         this.currentSpu = payload;
     }
     @Mutation
