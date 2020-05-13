@@ -88,13 +88,16 @@ import { BaseView } from "@/pages/baseView.ts";
 
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import { ShopModule } from "@/store/modules/shop";
+import { QrModule } from "@/store/modules/qr";
 import api from "@/utils/api";
+
 @Component
 export default class About extends BaseView {
    async onLoad(options: any) {
       const scene = decodeURIComponent(options.scene);
       if (scene !== "undefined") {
          console.log("scene:", scene);
+         QrModule.GetQrDetail(scene);
       }
    }
 

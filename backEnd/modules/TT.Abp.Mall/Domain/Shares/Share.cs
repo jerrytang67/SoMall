@@ -23,6 +23,9 @@ namespace TT.Abp.Mall.Domain.Shares
 
         [NotNull] public string EventName { get; protected set; }
 
+        /// <summary>
+        /// Params must camelCase because api's jsonConvert not do it
+        /// </summary>
         public Dictionary<string, string> Params { get; protected set; } = new Dictionary<string, string>();
 
         public int ViewCount { get; protected set; }

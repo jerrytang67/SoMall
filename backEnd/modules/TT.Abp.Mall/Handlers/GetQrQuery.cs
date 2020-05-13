@@ -2,12 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application;
 using TT.Abp.Mall.Domain.Shares;
-using TT.Abp.Mall.Utils;
 using TT.Abp.Weixin.Domain;
 using TT.Extensions;
 using Volo.Abp;
@@ -22,7 +20,7 @@ namespace TT.Abp.Mall.Handlers
         public MallRequestDto Input { get; }
         public string EventName { get; }
 
-        public GetQrQuery(MallRequestDto input,string eventName)
+        public GetQrQuery(MallRequestDto input, string eventName)
         {
             Input = input;
             EventName = eventName;
@@ -55,8 +53,8 @@ namespace TT.Abp.Mall.Handlers
             public virtual async Task<QrDetail> Handle(GetQrQuery request, CancellationToken cancellationToken)
             {
                 var detail = new QrDetail(request.Input.AppName, request.EventName, _currentTenant.Id);
-                detail.Params.Add("SpuId", request.Input.SpuId.ToString());
-                detail.Params.Add("Keywords", request.Input.Keywords);
+                detail.Params.Add("spuId", request.Input.SpuId.ToString());
+                detail.Params.Add("keywords", request.Input.Keywords);
 
                 var app = await _appProvider.GetOrNullAsync(request.Input.AppName);
                 if (app == null)
@@ -66,9 +64,9 @@ namespace TT.Abp.Mall.Handlers
 
                 var entity = await _repository.InsertAsync(detail, autoSave: true, cancellationToken: cancellationToken);
                 var qr = await _weixinManager.Getwxacodeunlimit(app["appid"], app["appsec"], entity.Id.ToShortString(), detail.Path);
-                
+
                 entity.SetQrUrl(qr);
-                
+
                 return await Task.FromResult(entity);
             }
         }

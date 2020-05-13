@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Clients.Dtos;
+using TT.Abp.Mall.Domain.Shares;
 using TT.Abp.Weixin.Application.Dtos;
 using Volo.Abp.Application.Dtos;
 
@@ -14,5 +15,6 @@ namespace TT.Abp.Mall.Application.Clients
         Task<ListResultDto<AddressDto>> GetUserAddressListAsync();
         Task<object> SumbitOrder(ProductOrderRequestDto input);
         Task<object> PayNotifyUrl(string appName, [FromBody] TenPayNotifyXml input);
+        Task<QrDetail> GetQrDetail(string id);
     }
 }

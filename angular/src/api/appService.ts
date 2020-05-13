@@ -4014,6 +4014,38 @@ export interface ProductOrderRequestDto {
   comment?: string;
 }
 
+export interface QrDetail {
+  /**  */
+  appName?: string;
+
+  /**  */
+  eventName?: string;
+
+  /**  */
+  params?: object;
+
+  /**  */
+  viewCount?: number;
+
+  /**  */
+  tenantId?: string;
+
+  /**  */
+  path?: string;
+
+  /**  */
+  qrImageUrl?: string;
+
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
 export interface TenPayNotifyXml {
   /**  */
   appid?: string;
@@ -5317,38 +5349,6 @@ export interface MallRequestDto {
 
   /**  */
   maxResultCount?: number;
-}
-
-export interface QrDetail {
-  /**  */
-  appName?: string;
-
-  /**  */
-  eventName?: string;
-
-  /**  */
-  params?: object;
-
-  /**  */
-  viewCount?: number;
-
-  /**  */
-  tenantId?: string;
-
-  /**  */
-  path?: string;
-
-  /**  */
-  qrImageUrl?: string;
-
-  /**  */
-  creationTime?: Date;
-
-  /**  */
-  creatorId?: string;
-
-  /**  */
-  id?: string;
 }
 
 export interface ProfileDto {

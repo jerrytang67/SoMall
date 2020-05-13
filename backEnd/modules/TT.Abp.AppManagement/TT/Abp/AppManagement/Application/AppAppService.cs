@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using TT.Abp.AppManagement.Apps;
 using TT.Abp.AppManagement.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -18,8 +20,14 @@ namespace TT.Abp.AppManagement.Application
 
     public class AppAppService : CrudAppService<App, AppDto, Guid, PagedAndSortedResultRequestDto, AppCreateOrUpdateDto, AppCreateOrUpdateDto>
     {
-        public AppAppService(IRepository<App, Guid> repository) : base(repository)
+        private readonly IAppDefinitionManager _appDefinitionManager;
+
+        public AppAppService(
+            IRepository<App, Guid> repository,
+            IAppDefinitionManager appDefinitionManager
+        ) : base(repository)
         {
+            _appDefinitionManager = appDefinitionManager;
             base.GetListPolicyName = AppManagementPermissions.Apps.Default;
             base.CreatePolicyName = AppManagementPermissions.Apps.Create;
             base.UpdatePolicyName = AppManagementPermissions.Apps.Update;
@@ -34,6 +42,12 @@ namespace TT.Abp.AppManagement.Application
                 ;
 
             return query;
+        }
+
+        public async Task<IReadOnlyList<AppDefinition>> GetPublishList()
+        {
+            var list = _appDefinitionManager.GetAll();
+            return await Task.FromResult(list);
         }
     }
 

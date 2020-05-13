@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using DotNetCore.CAP;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +19,7 @@ using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
+using TT.Abp.Mall.Domain.Shares;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Utils;
 using TT.Abp.Weixin.Application;
@@ -29,7 +30,6 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.EventBus.Distributed;
 using Volo.Abp.EventBus.Local;
 using Volo.Abp.Guids;
 using Volo.Abp.Settings;
@@ -52,6 +52,7 @@ namespace TT.Abp.Mall.Application.Clients
         private readonly IAppProvider _appProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILocalEventBus _eventBus;
+        private readonly IMediator _mediator;
         private readonly ICapPublisher _capBus;
         private readonly IAppDefinitionManager _appDefinitionManager;
         private readonly ISignatureGenerator _signatureGenerator;
@@ -78,7 +79,8 @@ namespace TT.Abp.Mall.Application.Clients
             //系统
             ISettingProvider setting,
             IHttpContextAccessor httpContextAccessor,
-            ILocalEventBus eventBus
+            ILocalEventBus eventBus,
+            IMediator mediator
         )
         {
             _guidGenerator = guidGenerator;
@@ -95,6 +97,7 @@ namespace TT.Abp.Mall.Application.Clients
             _appProvider = appProvider;
             _httpContextAccessor = httpContextAccessor;
             _eventBus = eventBus;
+            _mediator = mediator;
             _capBus = capBus;
             _appDefinitionManager = appDefinitionManager;
             _signatureGenerator = signatureGenerator;
@@ -191,6 +194,14 @@ namespace TT.Abp.Mall.Application.Clients
             var result = await _orderRepository.InsertAsync(order);
 
             return await Task.FromResult(result.Id);
+        }
+
+
+        [HttpGet]
+        public async Task<QrDetail> GetQrDetail(string id)
+        {
+            var qrDetail = await _mediator.Send(new GetQrDetailQuery(id));
+            return qrDetail;
         }
 
 

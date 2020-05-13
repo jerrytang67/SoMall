@@ -7,5 +7,5 @@
 * 前端框架：angular 9、uni-app
 * UI类库：ant-zorro、colorui
 
-[GitHub](https://github.com/jerrytang67/SoMallt)
+[GitHub](https://github.com/jerrytang67/SoMall)
 [Get Started](README.md)

@@ -32,6 +32,7 @@ const request = (
 export default {
     // default
     init: (data: any) => request('POST', `/api/mall/client/init`, data),
+    getQrDetail: (id: string) => request("GET", `/api/mall/client/getQrDetail?id=${id}`), //this id is shortGuid
     checkLogin: () => request("GET", `/api/app/public/GetCurrentUser`),
     getPhone: (data: any) => request("POST", `/api/app/weixin/getPhone`, data),
 
@@ -72,5 +73,7 @@ export default {
     // partner
 
     partner_publicEdit: (data: any) => request("POST", `/api/mall/partner/publicEdit`, data),
-    partner_getCurrent: () => request("GET", `/api/mall/partner/getCurrent`)
+    partner_getCurrent: () => request("GET", `/api/mall/partner/getCurrent`),
+
+
 };
