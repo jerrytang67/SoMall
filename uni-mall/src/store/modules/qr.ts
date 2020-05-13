@@ -10,7 +10,7 @@ export interface IQrDetail {
         keywords?: string;
     };
     creationTime?: Date;
-    path: string;
+    path?: string;
 
 }
 
@@ -18,7 +18,7 @@ export interface IQrDetail {
 @Module({ dynamic: true, store, name: 'qr' })
 class Qr extends VuexModule {
 
-    private current_qrDetail?: IQrDetail;
+    private current_qrDetail: IQrDetail = {};
 
     get get_Current_QrDtail() { return this.current_qrDetail }
 

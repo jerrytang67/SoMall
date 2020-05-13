@@ -1,6 +1,7 @@
 import { Vue, Component, Prop, Watch } from "vue-property-decorator";
 import { UserModule } from '@/store/modules/user';
 import { Tips } from '@/utils/tips';
+import { QrModule, IQrDetail } from '@/store/modules/qr';
 
 @Component
 export class BaseView extends Vue {
@@ -20,6 +21,10 @@ export class BaseView extends Vue {
 
     get userinfo() {
         return UserModule.getUserInfo;
+    }
+
+    get currentQrDetail() {
+        return QrModule.get_Current_QrDtail;
     }
 
     onShow() {
@@ -103,6 +108,17 @@ export class BaseView extends Vue {
 
     hideModal() {
         this.modalName = ""
+    }
+
+
+    @Watch("currentQrDetail")
+    qrChange(val: IQrDetail) {
+        if (val && val.eventName) {
+            console.log("qrChange", val)
+            if (val.eventName === "mall_product_page" && val.params!.spuId) {
+                this.toSpu(val.params!.spuId!)
+            }
+        }
     }
 }
 

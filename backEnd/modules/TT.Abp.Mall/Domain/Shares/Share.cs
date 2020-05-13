@@ -40,8 +40,7 @@ namespace TT.Abp.Mall.Domain.Shares
         public string Path { get; protected set; }
 
         [CanBeNull] public string QrImageUrl { get; protected set; }
-
-
+        
         public void Viewd()
         {
             ViewCount += 1;
