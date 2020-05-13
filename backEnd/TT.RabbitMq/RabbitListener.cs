@@ -33,7 +33,7 @@ namespace TT.RabbitMQ
                 };
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
-                _logger.LogInformation($"RabbitMQ 连接成功");
+                _logger.LogInformation($"RabbitMqListener 连接成功");
             }
             catch (Exception ex)
             {

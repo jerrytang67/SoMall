@@ -75,9 +75,13 @@ namespace TT.RabbitMQ
         public virtual void PushDelyMessage(object message, int ttl, string queryName)
         {
             queryName ??= _options.QueryName;
-
             var delayworkexchange = _options.DelayWorkExchangeName; // dead letter exchange
             var delayexchange = _options.DelayExchangeName;
+
+            if (string.IsNullOrWhiteSpace(delayworkexchange) || string.IsNullOrWhiteSpace(delayexchange))
+            {
+                throw new Exception("没有设置死信队列交换机");
+            }
 
             var queueArgs = new Dictionary<string, object>
             {
