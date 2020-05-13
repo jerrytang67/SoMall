@@ -33,7 +33,7 @@ namespace TT.Abp.Mall.Application.Clients
             public virtual async Task<QrDetail> Handle(GetQrDetailQuery request, CancellationToken cancellationToken)
             {
                 var entity = await _repository.FirstOrDefaultAsync(x => x.Id == request.Id.FromShortString(), cancellationToken: cancellationToken);
-
+            
                 return entity;
             }
         }

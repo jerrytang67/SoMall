@@ -7,7 +7,7 @@
         public const string DbSchema = null;
 
         public const int MaxNameLength = 64;
-        
+
         public const int MaxPhoneLength = 16;
 
         public const int MaxShortNameLength = 16;
@@ -21,5 +21,7 @@
         public const int MaxOrderComentLength = 255;
 
         public const int MaxComentLength = 1024;
+
+        public const int PayAutoCancelTime = 10; // 半小时关闭订单
     }
 }

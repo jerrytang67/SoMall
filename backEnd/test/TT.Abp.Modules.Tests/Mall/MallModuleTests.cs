@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Shouldly;
 using TT.Abp.Mall.Application;
+using TT.Abp.Mall.Application.Pays;
 using TT.Abp.Mall.Application.Products;
 using TT.Abp.Mall.Application.Shops;
+using TT.Abp.Mall.Domain.Pays;
+using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Shops.Application.Dtos;
 using TT.SoMall;
@@ -82,6 +86,21 @@ namespace TT.Abp.Modules.Tests.Mall
             //Assert
             list.Items.Count.ShouldBe(2);
         }
+
+        [Fact]
+        public async Task PayOrder_Convert_Test()
+        {
+            var str = @"{""Id"": ""e8689d8f-43e4-20f7-fc93-39f52104e06f""}";
+
+            var payDto = JsonConvert.DeserializeObject<PayOrderDto>(str);
+            var pay = JsonConvert.DeserializeObject<PayOrder>(str);
+            payDto.Id.ShouldBe(new Guid("e8689d8f-43e4-20f7-fc93-39f52104e06f")); // it True
+            //pay.Id.ShouldBe(new Guid("e8689d8f-43e4-20f7-fc93-39f52104e06f")); // wrong
+            
+            var spu = JsonConvert.DeserializeObject<ProductSpu>(str);
+            spu.Id.ShouldBe(new Guid("e8689d8f-43e4-20f7-fc93-39f52104e06f")); // wrong
+        }
+
 
         [Fact]
         public async Task GetSpuQr()

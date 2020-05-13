@@ -14,16 +14,23 @@ namespace TT.Abp.Mall.Domain.Pays
 {
     public class PayOrder : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMultiShop
     {
+        public PayOrder()
+        {
+        }
+
+        public override Guid Id { get; protected set; }
+
         /// <summary>
         /// 单位:分
         /// </summary>
         public virtual int TotalPrice { get; protected set; }
+
         [NotNull] public virtual string Body { get; protected set; }
 
         [NotNull] public virtual string BillNo { get; protected set; }
 
         [NotNull] public virtual string OpenId { get; protected set; }
-        
+
         [NotNull] public virtual string MchId { get; protected set; }
 
         [NotNull] public virtual string AppName { get; protected set; }

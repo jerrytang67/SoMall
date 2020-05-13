@@ -20,6 +20,7 @@ using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Utils;
 using TT.Extensions;
 using TT.HttpClient.Weixin;
+using TT.RabbitMQ;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
@@ -43,6 +44,7 @@ namespace TT.Abp.Mall.Application.Orders
         private readonly IHttpContextAccessor _httpContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAppProvider _appProvider;
+        private readonly RabbitMqPublisher _rabbit;
 
 
         public ProductOrderAppService(
@@ -53,8 +55,8 @@ namespace TT.Abp.Mall.Application.Orders
             ISettingProvider setting,
             IHttpContextAccessor httpContext,
             IHttpContextAccessor httpContextAccessor,
-            IAppProvider appProvider
-        ) : base(repository)
+            IAppProvider appProvider,
+            RabbitMqPublisher rabbit) : base(repository)
         {
             _payApi = payApi;
             _payOrderRepository = payOrderRepository;
@@ -63,6 +65,7 @@ namespace TT.Abp.Mall.Application.Orders
             _httpContext = httpContext;
             _httpContextAccessor = httpContextAccessor;
             _appProvider = appProvider;
+            _rabbit = rabbit;
 
             base.GetListPolicyName = MallPermissions.ProductOrders.Default;
             base.GetPolicyName = MallPermissions.ProductOrders.Default;
@@ -151,7 +154,7 @@ namespace TT.Abp.Mall.Application.Orders
                 partnerId: null
             );
 
-            var insertPayOrder = await _payOrderRepository.InsertAsync(payorder, autoSave: false);
+            var insertPayOrder = await _payOrderRepository.InsertAsync(payorder, autoSave: true);
 
             productOrder.SetBillNo(insertPayOrder.Id, insertPayOrder.BillNo);
 
@@ -168,7 +171,15 @@ namespace TT.Abp.Mall.Application.Orders
                 billCreateIp: _httpContext.HttpContext.Connection.RemoteIpAddress.ToString()
             );
 
+            _rabbit.PushDelyMessage(new PayOrderLisenerData {Type = "PayOrder", Data = insertPayOrder}, MallConsts.PayAutoCancelTime, "SoMall_DelayQueue"); // 半小时内未支付删除
+
             return unifiedResult;
+        }
+
+        public class PayOrderLisenerData
+        {
+            public string Type { get; set; }
+            public PayOrder Data { get; set; }
         }
 
 

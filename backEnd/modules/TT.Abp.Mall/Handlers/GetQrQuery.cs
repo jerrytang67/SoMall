@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.Mall.Application;
 using TT.Abp.Mall.Domain.Shares;
@@ -52,7 +53,12 @@ namespace TT.Abp.Mall.Handlers
             [UnitOfWork]
             public virtual async Task<QrDetail> Handle(GetQrQuery request, CancellationToken cancellationToken)
             {
-                var detail = new QrDetail(request.Input.AppName, request.EventName, _currentTenant.Id);
+                var dbEntity = await _repository.FirstOrDefaultAsync(x => x.AppName == request.Input.AppName && x.EventName == request.EventName && x.EventKey == request.Input.SpuId.ToString());
+
+                if (dbEntity != null)
+                    return dbEntity;
+
+                var detail = new QrDetail(request.Input.AppName, request.EventName, request.Input.SpuId?.ToString(), _currentTenant.Id);
                 detail.Params.Add("spuId", request.Input.SpuId.ToString());
                 detail.Params.Add("keywords", request.Input.Keywords);
 

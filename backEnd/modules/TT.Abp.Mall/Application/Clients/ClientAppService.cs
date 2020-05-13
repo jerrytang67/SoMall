@@ -201,6 +201,7 @@ namespace TT.Abp.Mall.Application.Clients
         public async Task<QrDetail> GetQrDetail(string id)
         {
             var qrDetail = await _mediator.Send(new GetQrDetailQuery(id));
+            qrDetail.Viewd();
             return qrDetail;
         }
 

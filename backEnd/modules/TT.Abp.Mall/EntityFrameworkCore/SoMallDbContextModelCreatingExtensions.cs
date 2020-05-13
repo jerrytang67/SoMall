@@ -318,6 +318,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                     b.ConfigureCreationAudited();
                     b.Property(x => x.AppName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                     b.Property(x => x.EventName).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
+                    b.Property(x => x.EventKey).HasMaxLength(MallConsts.MaxImageLength);
                     b.Property(x => x.Path).HasMaxLength(MallConsts.MaxImageLength);
                     b.Property(x => x.QrImageUrl).HasMaxLength(MallConsts.MaxImageLength);
 

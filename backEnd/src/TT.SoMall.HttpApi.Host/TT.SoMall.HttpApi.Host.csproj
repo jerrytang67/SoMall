@@ -35,6 +35,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\modules\TT.Abp.Shops\TT.Abp.Shops.csproj" />
+        <ProjectReference Include="..\..\TT.RabbitMq\TT.RabbitMq.csproj" />
         <ProjectReference Include="..\TT.SoMall.Application\TT.SoMall.Application.csproj" />
         <ProjectReference Include="..\TT.SoMall.EntityFrameworkCore.DbMigrations\TT.SoMall.EntityFrameworkCore.DbMigrations.csproj" />
         <ProjectReference Include="..\TT.SoMall.HttpApi\TT.SoMall.HttpApi.csproj" />

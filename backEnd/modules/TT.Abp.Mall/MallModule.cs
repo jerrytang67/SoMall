@@ -37,21 +37,15 @@ namespace TT.Abp.Mall
 
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<MallApplicationAutoMapperProfile>(validate: false); });
 
-            Configure<AbpAspNetCoreMvcOptions>(options =>
-            {
+            Configure<AbpAspNetCoreMvcOptions>(options => {
                 options.MinifyGeneratedScript = true;
-                options.ConventionalControllers.Create(typeof(MallModule).Assembly
-                    , opts => { opts.RootPath = "mall"; });
+                options.ConventionalControllers.Create(typeof(MallModule).Assembly, opts => { opts.RootPath = "mall"; });
             });
 
             context.Services.AddTransient<IExternalShopLookupServiceProvider, DefaultShopLookupServiceProvider>();
 
             //创建动态客户端代理
             context.Services.AddHttpClientProxies(typeof(WeixinModule).Assembly);
-
-            // CAP
-            //context.Services.AddTransient<ITenPayNotifyCapSubscriberService, TenPayNotifyCapSubscriberService>();
-
 
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
@@ -61,9 +55,7 @@ namespace TT.Abp.Mall
 
             Configure<AbpLocalizationOptions>(options =>
             {
-                //Define a new localization resource (TestResource)
-                options.Resources
-                    .Add<MallResource>("zh-Hans")
+                options.Resources.Add<MallResource>("zh-Hans")
                     // .AddBaseTypes(typeof(AbpValidationResource))
                     .AddVirtualJson("/Localization/Resources/Mall");
             });
@@ -72,6 +64,7 @@ namespace TT.Abp.Mall
 
             // JUST PUT THIS LINE TO USE MediatR Modules
             context.Services.AddMediatR(typeof(MallModule).GetTypeInfo().Assembly);
+            
         }
     }
 }

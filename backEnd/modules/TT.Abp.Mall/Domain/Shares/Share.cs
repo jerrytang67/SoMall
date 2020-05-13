@@ -12,16 +12,19 @@ namespace TT.Abp.Mall.Domain.Shares
         {
         }
 
-        public QrDetail([NotNull] string appName, [NotNull] string eventName, Guid? tenantId = null)
+        public QrDetail([NotNull] string appName, [NotNull] string eventName, string eventKey = null, Guid? tenantId = null)
         {
             AppName = appName;
             EventName = eventName;
             TenantId = tenantId;
+            EventKey = eventKey;
         }
 
         [NotNull] public string AppName { get; protected set; }
 
         [NotNull] public string EventName { get; protected set; }
+
+        [CanBeNull] public string EventKey { get; protected set; }
 
         /// <summary>
         /// Params must camelCase because api's jsonConvert not do it
@@ -40,7 +43,7 @@ namespace TT.Abp.Mall.Domain.Shares
         public string Path { get; protected set; }
 
         [CanBeNull] public string QrImageUrl { get; protected set; }
-        
+
         public void Viewd()
         {
             ViewCount += 1;

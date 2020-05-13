@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using DotNetCore.CAP;
-using IdentityServer4.Models;
-using IdentityServer4.Validation;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
-using Newtonsoft.Json.Serialization;
-using StackExchange.Redis;
-using TT.HttpClient.Weixin;
-using Volo.Abp.Security.Claims;
+using TT.Abp.Mall.Liseners;
+using TT.RabbitMQ;
 
 namespace TT.SoMall
 {
@@ -44,6 +33,9 @@ namespace TT.SoMall
 
             services.AddSignalR();
 
+            services.Configure<RabbitMqOptions>(configuration.GetSection("RabbitMQ"));
+            services.AddSingleton<RabbitMqPublisher>();
+            services.AddHostedService<PayOrderLisener>();
             // ABP
             services.AddApplication<SoMallHttpApiHostModule>();
             // ABP End

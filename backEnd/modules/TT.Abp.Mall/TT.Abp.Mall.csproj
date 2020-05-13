@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\TT.RabbitMq\TT.RabbitMq.csproj" />
       <ProjectReference Include="..\TT.Abp.AppManagement\TT.Abp.AppManagement.csproj" />
       <ProjectReference Include="..\TT.Abp.Core\TT.Abp.Core.csproj" />
       <ProjectReference Include="..\TT.Abp.Shops\TT.Abp.Shops.csproj" />
