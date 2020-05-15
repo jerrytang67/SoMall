@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Shops;
+using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
@@ -29,7 +30,7 @@ namespace TT.Abp.Mall.Domain.Orders
 
         DateTime? DatetimeComplate { get; set; }
 
-        public MallEnums.OrderState State { get; set; } = MallEnums.OrderState.未完成;
+        public MallEnums.OrderState State { get; protected set; } = MallEnums.OrderState.未完成;
 
         public MallEnums.ProductOrderType Type { get; set; } = MallEnums.ProductOrderType.未标记;
 
@@ -71,8 +72,32 @@ namespace TT.Abp.Mall.Domain.Orders
         {
             PayType = payType;
             PricePaidIn = paidIn;
-            
-            
+        }
+
+        public bool CanIRefund()
+        {
+            if (PayType == MallEnums.PayType.未支付)
+            {
+                throw new UserFriendlyException("未支付");
+            }
+
+            if (!PricePaidIn.HasValue || PricePaidIn == 0)
+            {
+                throw new UserFriendlyException("实收为0");
+            }
+
+            // TODO:已完成是否可退款开关
+            if (State == MallEnums.OrderState.完成)
+            {
+                throw new UserFriendlyException("已完成不能退款");
+            }
+
+            return true;
+        }
+
+        public void Refund()
+        {
+            State = MallEnums.OrderState.退款中;
         }
     }
 }

@@ -73,7 +73,6 @@ namespace TT.RabbitMQ
                 if (result)
                 {
                     _channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
-                    
                 }
                 // else
                 // {

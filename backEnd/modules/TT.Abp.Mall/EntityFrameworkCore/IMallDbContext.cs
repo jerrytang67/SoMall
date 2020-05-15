@@ -29,7 +29,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         DbSet<ProductCategory> ProductCategory { get; set; }
 
         DbSet<PayOrder> PayOrders { get; set; }
-
+        DbSet<RefundLog> RefundLogs { get; set; }
+        
         DbSet<ProductOrder> ProductOrders { get; set; }
 
         DbSet<ProductOrderItem> ProductOrderItems { get; set; }

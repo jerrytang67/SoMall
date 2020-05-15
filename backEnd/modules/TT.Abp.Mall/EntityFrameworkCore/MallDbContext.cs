@@ -30,6 +30,8 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         public virtual DbSet<ProductCategory> ProductCategory { get; set; }
 
         public virtual DbSet<PayOrder> PayOrders { get; set; }
+        
+        public virtual DbSet<RefundLog> RefundLogs { get; set; }
 
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
 

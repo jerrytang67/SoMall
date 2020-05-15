@@ -18,43 +18,41 @@
         (nzPageSizeChange)="refresh()">
         <thead>
             <tr>
-                <!-- <th>id</th> -->
-                <th>payType</th>
-                <th>billNo</th>
+                <th width="150px"></th>
+                <th>state</th>
+                <!-- <th>billNo</th> -->
                 <th>priceOriginal</th>
                 <th>pricePaidIn</th>
                 <th>payType</th>
                 <th>addressRealName</th>
-                <th>addressPhone</th>
-                <th>addressLocationAddress</th>
-                <th>addressLocationLabel</th>
-                <th>comment</th>
                 <th>time</th>
                 <th>shop</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of dataTable.data">
-                <!-- <td>{{item.id}}</td> -->
-                <td>{{item.payType}}</td>
-                <td>{{item.billNo}}</td>
+                <td>
+                    <button nz-button nzType="primary" nzShape="circle" (click)="view(item)">
+                        <i nz-icon nzType="info"></i>
+                    </button>
+                    <button nz-button nzType="default" nzShape="circle" (click)="refund(item)" *ngIf="item.pricePaidIn">
+                        <i nz-icon nzIconfont="icon-tuikuanshouhou"></i>
+                    </button>
+                </td>
+                <td>{{item.billNo}}<br />
+                    {{item.state}}
+                    <!-- <td>{{item.billNo}}</td> -->
                 <td>{{item.priceOriginal | currency}}</td>
                 <td>{{item.pricePaidIn | currency}}</td>
                 <td>{{item.payType}}</td>
-                <td>{{item.addressRealName}}</td>
-                <td>{{item.addressPhone}}</td>
-                <td>{{item.addressLocationAddress}}</td>
-                <td>{{item.addressLocationLabel}}</td>
-                <td>{{item.comment}}</td>
+                <td>{{item.addressRealName}}<br />
+                    {{item.addressPhone}}<br />
+                    {{item.addressLocationAddress}}<br />
+                    {{item.addressLocationLabel}}<br />
+                    {{item.comment}}</td>
                 <td>{{item.creationTime | momentFromNow}}</td>
                 <td>{{item.shop.name}}</td>
-                <td>
-                    <button nz-button nzType="primary" nzSize="small" (click)="view(item)">{{'view' | translate}}</button>
-                    <!-- <nz-divider nzType="vertical"></nz-divider>
-                    <button nz-button *ngIf="!item.pricePaidIn" nzType="danger" nzSize="small" nz-popconfirm [nzPopconfirmTitle]="'确定删除吗?'" (nzOnConfirm)="delete(item)"
-                        nzPopconfirmPlacement="top">{{'delete' | translate}}</button> -->
-                </td>
+
             </tr>
         </tbody>
     </nz-table>

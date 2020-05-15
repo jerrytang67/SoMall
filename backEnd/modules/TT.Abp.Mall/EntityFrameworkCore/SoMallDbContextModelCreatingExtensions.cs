@@ -329,6 +329,16 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                             new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}));
                 }
             );
+            builder.Entity<RefundLog>(b =>
+            {
+                b.ToTable(MallConsts.DbTablePrefix + "RefundLogs", MallConsts.DbSchema);
+                b.ConfigureFullAuditedAggregateRoot();
+
+                b.Property(x => x.BillNo).IsRequired().HasMaxLength(48);
+                b.Property(x => x.Reason).HasMaxLength(MallConsts.MaxShortDescLength);
+                
+                
+            });
         }
     }
 }

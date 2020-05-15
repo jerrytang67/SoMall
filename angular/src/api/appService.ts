@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -184,6 +184,16 @@ export class AppProxyService {
   /**
    *
    */
+  getPublishList(): Observable<AppDefinition[]> {
+    let url = '/api/app/app/getPublishList';
+    let options: any = {
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<AppDefinition[]>;
+  }
+  /**
+   *
+   */
   get(
     params: {
       /**  */
@@ -204,11 +214,11 @@ export class AppProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
     let url = '/api/app/app/getList';
@@ -413,11 +423,11 @@ export class CmsCategoryProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<CategoryDtoPagedResultDto> {
     let url = '/api/cms/cmsCategory/getList';
@@ -944,11 +954,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -1471,6 +1481,22 @@ export class ProductOrderProxyService {
   /**
    *
    */
+  refund(
+    params: {
+      /** requestBody */
+      body?: RefundRequestDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/productOrder/refund';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
   getPublicList(
     params: {
       /**  */
@@ -1833,11 +1859,11 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
     let url = '/api/app/realNameInfo/getList';
@@ -1870,11 +1896,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -2687,11 +2713,11 @@ export class WechatUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
     let url = '/api/app/wechatUser/getList';
@@ -3447,6 +3473,28 @@ export interface AddressCreateOrUpdateDto {
   locationType?: LocationType;
 }
 
+export interface ILocalizableString {}
+
+export interface AppDefinition {
+  /**  */
+  name?: string;
+
+  /**  */
+  clientName?: string;
+
+  /**  */
+  defaultValues?: object;
+
+  /**  */
+  clientType?: string;
+
+  /**  */
+  providers?: string[];
+
+  /**  */
+  displayName?: ILocalizableString;
+}
+
 export interface AppDto {
   /**  */
   name?: string;
@@ -4020,6 +4068,9 @@ export interface QrDetail {
 
   /**  */
   eventName?: string;
+
+  /**  */
+  eventKey?: string;
 
   /**  */
   params?: object;
@@ -4922,6 +4973,17 @@ export interface OrderPayRequestDto {
 
   /**  */
   openid?: string;
+}
+
+export interface RefundRequestDto {
+  /**  */
+  orderId?: string;
+
+  /**  */
+  refundPrice?: number;
+
+  /**  */
+  reason?: string;
 }
 
 export interface ProductSkuDtoPagedResultDto {

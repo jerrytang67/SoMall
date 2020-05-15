@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TT.Abp.Mall.Domain.Orders;
+using TT.Abp.Mall.Events.Pays;
 using TT.Abp.Shops;
 using TT.Extensions;
+using Volo.Abp;
 using Volo.Abp.Auditing;
 using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -131,6 +133,18 @@ namespace TT.Abp.Mall.Domain.Pays
 
             this.SetProperty("TenPayNotifyId", notifyId);
             //domain event
+        }
+
+        public void Refund(in decimal refundPrice, string reason)
+        {
+            if (refundPrice * 100 > TotalPrice)
+            {
+                throw new UserFriendlyException("退款金额不能大于支付金额");
+            }
+
+            State = MallEnums.PayState.待退款;
+
+            AddLocalEvent(new PayOrderRefundEvent(this, refundPrice, reason));
         }
     }
 }

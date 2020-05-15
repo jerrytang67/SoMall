@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -7,7 +7,7 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 
 // #region Http拦截器
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
-import { DefaultInterceptor } from '@core';
+import { DefaultInterceptor, StartupService } from '@core';
 const INTERCEPTOR_PROVIDES = [
   { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
 ];
@@ -39,6 +39,15 @@ registerLocaleData(zh);
 import { NgChatModule } from 'ng-chat';
 
 
+export function startupServiceFactory(
+  startupService: StartupService
+): Function {
+  return () => {
+    startupService.load();
+  };
+}
+
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -63,7 +72,15 @@ import { NgChatModule } from 'ng-chat';
     ...INTERCEPTOR_PROVIDES,
     { provide: LOCALE_ID, useValue: "zh_CN" },
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: NZ_DATE_FNS_COMPATIBLE, useValue: true }
+    { provide: NZ_DATE_FNS_COMPATIBLE, useValue: true },
+    StartupService,
+    {
+      // Provider for APP_INITIALIZER
+      provide: APP_INITIALIZER,
+      useFactory: startupServiceFactory,
+      deps: [StartupService],
+      multi: true
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [

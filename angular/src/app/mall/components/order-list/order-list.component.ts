@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService, NzMessageService } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
-import { ProductOrderProxyService } from 'src/api/appService';
+import { ProductOrderProxyService, ProductOrderDto } from 'src/api/appService';
+import { AuthQuery } from 'src/store/auth/auth.query';
 
 @Component({
   selector: 'app-order-list',
@@ -21,7 +22,8 @@ export class OrderListComponent implements OnInit {
     private modalService: NzModalService,
     private message: NzMessageService,
     private route: ActivatedRoute,
-    private api: ProductOrderProxyService
+    private api: ProductOrderProxyService,
+    private authQuery: AuthQuery
   ) {
 
   }
@@ -58,5 +60,18 @@ export class OrderListComponent implements OnInit {
 
   view(item: any) {
 
+  }
+
+
+  refund(item: ProductOrderDto) {
+    this.api.refund({
+      body: {
+        orderId: item.id,
+        refundPrice: item.pricePaidIn,
+        reason: this.authQuery.user.name + " 操作退款"
+      }
+    }).subscribe(res => {
+      this.refresh();
+    })
   }
 }

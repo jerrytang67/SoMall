@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,15 +16,13 @@ using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Events.Products;
 using TT.Abp.Mall.Utils;
-using TT.Extensions;
 using TT.HttpClient.Weixin;
 using TT.RabbitMQ;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Guids;
 using Volo.Abp.Settings;
 
 namespace TT.Abp.Mall.Application.Orders
@@ -31,6 +30,7 @@ namespace TT.Abp.Mall.Application.Orders
     public interface IProductOrderAppService : ICrudAppService<ProductOrderDto, Guid, MallRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>
     {
         Task<PagedResultDto<ProductOrderDto>> GetPublicListAsync(MallRequestDto input);
+        Task RefundAsync(RefundRequestDto input);
     }
 
     public class ProductOrderAppService :
@@ -45,6 +45,7 @@ namespace TT.Abp.Mall.Application.Orders
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IAppProvider _appProvider;
         private readonly RabbitMqPublisher _rabbit;
+        private readonly IMediator _mediator;
 
 
         public ProductOrderAppService(
@@ -56,7 +57,9 @@ namespace TT.Abp.Mall.Application.Orders
             IHttpContextAccessor httpContext,
             IHttpContextAccessor httpContextAccessor,
             IAppProvider appProvider,
-            RabbitMqPublisher rabbit) : base(repository)
+            RabbitMqPublisher rabbit,
+            IMediator mediator
+        ) : base(repository)
         {
             _payApi = payApi;
             _payOrderRepository = payOrderRepository;
@@ -66,6 +69,7 @@ namespace TT.Abp.Mall.Application.Orders
             _httpContextAccessor = httpContextAccessor;
             _appProvider = appProvider;
             _rabbit = rabbit;
+            _mediator = mediator;
 
             base.GetListPolicyName = MallPermissions.ProductOrders.Default;
             base.GetPolicyName = MallPermissions.ProductOrders.Default;
@@ -135,6 +139,11 @@ namespace TT.Abp.Mall.Application.Orders
         {
             var productOrder = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
 
+            if (productOrder == null)
+            {
+                throw new UserFriendlyException("NotFind");
+            }
+
             var appName = _httpContextAccessor?.GetAppName();
             var app = await _appProvider.GetOrNullAsync(appName);
             var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
@@ -175,6 +184,20 @@ namespace TT.Abp.Mall.Application.Orders
 
             return unifiedResult;
         }
+
+        [HttpPost]
+        public async Task RefundAsync(RefundRequestDto input)
+        {
+            var productOrder = await Repository.Include(x => x.OrderItems).FirstOrDefaultAsync(x => x.Id == input.OrderId);
+
+            if (productOrder == null)
+            {
+                throw new UserFriendlyException("NotFind");
+            }
+
+            await _mediator.Publish(new ProductOrderRefundEvent(productOrder, input.RefundPrice, input.Reason));
+        }
+
 
         public class PayOrderLisenerData
         {

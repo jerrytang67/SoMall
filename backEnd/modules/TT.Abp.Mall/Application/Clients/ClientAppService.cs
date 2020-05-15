@@ -21,6 +21,7 @@ using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Mall.Domain.Shares;
 using TT.Abp.Mall.Domain.Shops;
+using TT.Abp.Mall.Handlers;
 using TT.Abp.Mall.Utils;
 using TT.Abp.Weixin.Application;
 using TT.Abp.Weixin.Application.Dtos;

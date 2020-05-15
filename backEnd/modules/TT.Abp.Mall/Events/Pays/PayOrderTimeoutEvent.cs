@@ -31,15 +31,10 @@ namespace TT.Abp.Mall.Events.Pays
             public virtual async Task Handle(PayOrderTimeoutEvent notification, CancellationToken cancellationToken)
             {
                 var entity = await _payOrderRepository.FirstOrDefaultAsync(x => x.Id == notification.Id, cancellationToken: cancellationToken);
-                throw new Exception("NotFind");
 
                 if (entity != null)
                 {
                     await _payOrderRepository.DeleteAsync(entity, true, cancellationToken);
-                }
-                else
-                {
-                    throw new Exception("NotFind");
                 }
             }
         }

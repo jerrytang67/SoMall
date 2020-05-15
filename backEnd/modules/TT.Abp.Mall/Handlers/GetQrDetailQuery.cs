@@ -8,7 +8,7 @@ using TT.Extensions;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Uow;
 
-namespace TT.Abp.Mall.Application.Clients
+namespace TT.Abp.Mall.Handlers
 {
     public class GetQrDetailQuery : IRequest<QrDetail>
     {

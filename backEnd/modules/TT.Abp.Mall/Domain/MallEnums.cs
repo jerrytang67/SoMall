@@ -44,7 +44,9 @@ namespace TT.Abp.Mall.Domain
             正在派送 = 2,
             派送完成 = 4,
             完成 = 9,
-            售后 = 11
+            售后 = 11,
+            退款中 = 12,
+            退款完成 = 13
         }
 
         public enum ProductOrderType : int
