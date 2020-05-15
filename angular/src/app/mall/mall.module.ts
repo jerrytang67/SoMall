@@ -18,6 +18,7 @@ import { PartnerListComponent } from './components/partner-list/partner-list.com
 import { PayOrderListComponent } from './components/payOrder-list/payOrder-list.component';
 import { SwiperListComponent } from './components/swiper-list/swiper-list.component';
 import { SwiperEditComponent } from './components/swiper-list/swiper-edit.component';
+import { RefundLogListComponent } from './components/refundLog-list/refundLog-list.component';
 
 
 const COMPONENTS = [
@@ -32,8 +33,8 @@ const COMPONENTS = [
   UserCouponListComponent,
   PartnerListComponent,
   PayOrderListComponent,
+  RefundLogListComponent,
   SwiperListComponent
-
 ]
 
 const ENTRYCOMPONENTS = [CategoryEditComponent, SwiperEditComponent]

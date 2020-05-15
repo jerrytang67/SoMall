@@ -15,6 +15,7 @@ import { PartnerListComponent } from './components/partner-list/partner-list.com
 import { RealNameInfoListComponent } from '../account-management/components/realNameInfo-list/realNameInfo-list.component';
 import { PayOrderListComponent } from './components/payOrder-list/payOrder-list.component';
 import { SwiperListComponent } from './components/swiper-list/swiper-list.component';
+import { RefundLogListComponent } from './components/refundLog-list/refundLog-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'shops', pathMatch: 'full' },
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'payOrders', component: PayOrderListComponent, data: { title: '支付请求列表', permission: 'Pages' } },
       { path: 'payOrders/:shopId', component: PayOrderListComponent, data: { title: '支付请求列表', permission: 'Pages' } },
       { path: 'swiper', component: SwiperListComponent, data: { title: '滚动广告', permission: 'Pages' } },
+      { path: 'refundLogs', component: RefundLogListComponent, data: { title: '退款列表', permission: 'Pages' } },
     ]
   }
 ]

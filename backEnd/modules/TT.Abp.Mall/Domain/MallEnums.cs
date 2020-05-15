@@ -9,7 +9,9 @@ namespace TT.Abp.Mall.Domain
             取消 = -1,
             未支付 = 0,
             已支付 = 1,
-            待退款 = 2
+            待退款 = 2,
+            已退款 = 3,
+            部分退款 = 4
         }
 
         public enum PartnerState

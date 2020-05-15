@@ -2,7 +2,9 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using Serilog;
 using TT.Extensions;
@@ -56,6 +58,13 @@ namespace TT.HttpClient.Weixin
             string timeStart = "", string timeExpire = "", string goodsTag = "",
             string productId = "",
             string limitPay = "", string subOpenId = "", string sceneInfo = "");
+
+
+        Task<bool> RefundAsync(string appId, string mchId, string mchKey, string subAppId, string subMchId,
+            string transactionId, string outTradeNo, string outRefundNo,
+            int totalFee, int refundFee, string refundFeeType = "CNY", string refundDesc = "",
+            string refundAccount = "REFUND_SOURCE_UNSETTLED_FUNDS",
+            string notifyUrl = "");
     }
 
     public class PayApi : IPayApi
@@ -161,8 +170,8 @@ namespace TT.HttpClient.Weixin
             var result = new UnifiedorderResult(xmlResult);
 
             var package = $"prepay_id={result.prepay_id}";
-            result.PaySign = _signatureGenerator.GetJsPaySign(appId, result.TimeStamp, result.nonce_str,package, mchKey);
-            
+            result.PaySign = _signatureGenerator.GetJsPaySign(appId, result.TimeStamp, result.nonce_str, package, mchKey);
+
             return result;
         }
 
@@ -196,10 +205,11 @@ namespace TT.HttpClient.Weixin
         /// <param name="refundDesc">若商户传入，会在下发给用户的退款消息中体现退款原因，当订单退款金额 ≤1 元并且属于部分退款，则不会在退款消息中体现退款原因。</param>
         /// <param name="refundAccount">仅针对老资金流商户使用，具体参考 <see cref="RefundAccountType"/> 的定义。</param>
         /// <param name="notifyUrl">异步接收微信支付退款结果通知的回调地址，通知 Url 必须为外网可访问的 Url，不允许带参数。如果传递了该参数，则商户平台上配置的回调地址将不会生效。</param>
-        public Task<XDocument> RefundAsync(string appId, string mchId, string subAppId, string subMchId,
+        public async Task<bool> RefundAsync(string appId, string mchId, string mchKey, string subAppId, string subMchId,
             string transactionId, string outTradeNo, string outRefundNo,
-            int totalFee, int refundFee, string refundFeeType, string refundDesc, string refundAccount,
-            string notifyUrl)
+            int totalFee, int refundFee, string refundFeeType = "CNY", string refundDesc = "",
+            string refundAccount = "REFUND_SOURCE_UNSETTLED_FUNDS",
+            string notifyUrl = "")
         {
             var request = new PayParameters();
             request.AddParameter("appid", appId);
@@ -217,10 +227,46 @@ namespace TT.HttpClient.Weixin
             request.AddParameter("refund_account", refundAccount);
             request.AddParameter("notify_url", notifyUrl);
 
-            var signStr = _signatureGenerator.Generate(request, MD5.Create());
+            var signStr = _signatureGenerator.Generate(request, MD5.Create(), mchKey);
             request.AddParameter("sign", signStr);
 
-            return RequestAndGetReturnValueAsync("secapi/pay/refund", request);
+            var xmlResult = await RequestAndGetReturnValueAsync("secapi/pay/refund", request);
+
+            var returnCode = GetXmlNodeString(xmlResult, "return_code");
+            var resultode = GetXmlNodeString(xmlResult, "result_code");
+
+            if (returnCode == "SUCCESS" && resultode == "SUCCESS")
+            {
+                return await Task.FromResult(true);
+            }
+
+            throw new Exception(GetXmlNodeString(xmlResult, "return_msg"));
+
+            // <xml>
+            // <return_code><![CDATA[SUCCESS]]></return_code>
+            // <return_msg><![CDATA[OK]]></return_msg>
+            // <appid><![CDATA[wx20963173630db476]]></appid>
+            // <mch_id><![CDATA[1486627732]]></mch_id>
+            // <nonce_str><![CDATA[OfZFrlSjl69xe2mI]]></nonce_str>
+            // <sign><![CDATA[D6483C34CEDD51219C85756B6EB7E5D2]]></sign>
+            // <result_code><![CDATA[SUCCESS]]></result_code>
+            // <transaction_id><![CDATA[4200000561202004275609032072]]></transaction_id>
+            // <out_trade_no><![CDATA[148662773220200427222405181738]]></out_trade_no>
+            // <out_refund_no><![CDATA[RZ1jDsdbg1xAbzn1KOf4zA]]></out_refund_no>
+            // <refund_id><![CDATA[50300003912020051500539875618]]></refund_id>
+            // <refund_channel><![CDATA[]]></refund_channel>
+            // <refund_fee>2</refund_fee>
+            // <coupon_refund_fee>0</coupon_refund_fee>
+            // <total_fee>2</total_fee>
+            // <cash_fee>2</cash_fee>
+            // <coupon_refund_count>0</coupon_refund_count>
+            // <cash_refund_fee>2</cash_refund_fee>
+            // </xml>
+        }
+
+        public static string GetXmlNodeString(XDocument xml, string nodeName)
+        {
+            return xml.Element("xml")?.Element(nodeName)?.Value;
         }
 
         /// <summary>
@@ -367,6 +413,15 @@ namespace TT.HttpClient.Weixin
 
             var newXmlDocument = XDocument.Parse(readAsString);
             return newXmlDocument;
+        }
+
+
+        internal X509Certificate2 GetMyX509Certificate(string certName)
+        {
+            var store = new X509Store("Wetrial", StoreLocation.CurrentUser);
+            store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+            var cert = store.Certificates.Find(X509FindType.FindBySubjectName, certName, false)[0];
+            return cert;
         }
     }
 }

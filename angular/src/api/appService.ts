@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -214,11 +214,11 @@ export class AppProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
     let url = '/api/app/app/getList';
@@ -423,11 +423,11 @@ export class CmsCategoryProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<CategoryDtoPagedResultDto> {
     let url = '/api/cms/cmsCategory/getList';
@@ -954,11 +954,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -1859,11 +1859,11 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
     let url = '/api/app/realNameInfo/getList';
@@ -1873,6 +1873,132 @@ export class RealNameInfoProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<RealNameInfoDtoPagedResultDto>;
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class RefundLogProxyService {
+  constructor(private http: HttpClient) {}
+
+  /**
+   *
+   */
+  agreeRefund(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/refundLog/agreeRefund';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  create(
+    params: {
+      /** requestBody */
+      body?: RefundLogDto;
+    } = {} as any
+  ): Observable<RefundLogDto> {
+    let url = '/api/mall/refundLog/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<RefundLogDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: RefundLogDto;
+    } = {} as any
+  ): Observable<RefundLogDto> {
+    let url = '/api/mall/refundLog/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<RefundLogDto>;
+  }
+  /**
+   *
+   */
+  delete(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/refundLog/delete';
+    let options: any = {
+      params: { id: params.id },
+      method: 'delete'
+    };
+    return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  get(
+    params: {
+      /**  */
+      id?: string;
+    } = {} as any
+  ): Observable<RefundLogDto> {
+    let url = '/api/mall/refundLog/get';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<RefundLogDto>;
+  }
+  /**
+   *
+   */
+  getList(
+    params: {
+      /**  */
+      state?: number;
+      /**  */
+      keywords?: string;
+      /**  */
+      shopId?: string;
+      /**  */
+      spuId?: string;
+      /**  */
+      skuId?: string;
+      /**  */
+      appName?: string;
+      /**  */
+      locationType?: LocationType;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<RefundLogDtoPagedResultDto> {
+    let url = '/api/mall/refundLog/getList';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<RefundLogDtoPagedResultDto>;
   }
 }
 
@@ -1896,11 +2022,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -2713,11 +2839,11 @@ export class WechatUserProxyService {
   getList(
     params: {
       /**  */
+      sorting?: string;
+      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
-      /**  */
-      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
     let url = '/api/app/wechatUser/getList';
@@ -5539,6 +5665,25 @@ export interface RealNameInfoDtoPagedResultDto {
   items?: RealNameInfoDto[];
 }
 
+export interface RefundLogDto {
+  /**  */
+  creationTime?: Date;
+
+  /**  */
+  creatorId?: string;
+
+  /**  */
+  id?: string;
+}
+
+export interface RefundLogDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: RefundLogDto[];
+}
+
 export interface IdentityRoleDto {
   /**  */
   name?: string;
@@ -6084,7 +6229,9 @@ export enum OrderState {
   '正在派送' = '正在派送',
   '派送完成' = '派送完成',
   '完成' = '完成',
-  '售后' = '售后'
+  '售后' = '售后',
+  '退款中' = '退款中',
+  '退款完成' = '退款完成'
 }
 
 export enum ProductOrderType {

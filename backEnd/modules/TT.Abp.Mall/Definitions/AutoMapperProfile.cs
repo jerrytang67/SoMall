@@ -123,6 +123,8 @@ namespace TT.Abp.Mall.Definitions
             CreateMap<Swiper, SwiperDto>();
             CreateMap<Swiper, SwiperCreateOrUpdateDto>()
                 .ReverseMap();
+
+            CreateMap<RefundLog, RefundLogDto>();
         }
     }
 }

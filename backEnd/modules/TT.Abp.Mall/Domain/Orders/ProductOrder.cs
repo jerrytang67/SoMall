@@ -99,5 +99,10 @@ namespace TT.Abp.Mall.Domain.Orders
         {
             State = MallEnums.OrderState.退款中;
         }
+
+        public void RefundComplate()
+        {
+            State = MallEnums.OrderState.退款完成;
+        }
     }
 }

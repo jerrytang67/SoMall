@@ -60,6 +60,8 @@ namespace TT.Abp.Mall.Domain.Pays
         {
             IsSuccess = true;
             SuccessTime = DateTime.Now;
+            
+            
         }
     }
 }

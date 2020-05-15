@@ -79,10 +79,6 @@ namespace TT.Abp.Mall.Domain.Pays
             BillNo = $"{mchId}{DateTime.Now:yyyyMMddHHmmss}{StringExt.BuildRandomStr(6)}";
         }
 
-        public void RefundComplate()
-        {
-            RefundComplateTime = DateTime.Now;
-        }
 
         private void SetBodyFromProduct(ProductOrder productOrder)
         {
@@ -137,14 +133,34 @@ namespace TT.Abp.Mall.Domain.Pays
 
         public void Refund(in decimal refundPrice, string reason)
         {
-            if (refundPrice * 100 > TotalPrice)
+            var canRefundPrice = TotalPrice - (RefundPrice ?? 0);
+            if (refundPrice * 100 > canRefundPrice)
             {
-                throw new UserFriendlyException("退款金额不能大于支付金额");
+                throw new UserFriendlyException($"退款金额不能大于可退款金额,当前可退金额:{canRefundPrice / 100m:0.00}");
             }
 
             State = MallEnums.PayState.待退款;
-
+            IsRefund = true;
+            RefundTime = DateTime.Now;
             AddLocalEvent(new PayOrderRefundEvent(this, refundPrice, reason));
+        }
+
+        public void RefundComplate(int refundPrice)
+        {
+            RefundPrice ??= 0;
+
+            RefundPrice += refundPrice;
+
+            if (RefundPrice == TotalPrice)
+            {
+                RefundComplateTime = DateTime.Now;
+                State = MallEnums.PayState.已退款;
+            }
+            else
+            {
+                IsRefund = false;
+                State = MallEnums.PayState.部分退款;
+            }
         }
     }
 }

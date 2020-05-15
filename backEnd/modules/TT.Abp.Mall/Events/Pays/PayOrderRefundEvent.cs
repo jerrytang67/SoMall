@@ -44,11 +44,11 @@ namespace TT.Abp.Mall.Events.Pays
                 throw new UserFriendlyException("payorder CreatorId is null");
             }
 
-            var dbEntity = await _refundLogRepository.FirstOrDefaultAsync(x => x.BillNo == payOrder.BillNo);
+            var dbEntity = await _refundLogRepository.FirstOrDefaultAsync(x => x.BillNo == payOrder.BillNo && x.IsSuccess == false);
 
             if (dbEntity != null)
             {
-                throw new UserFriendlyException("此订单已申请退款,请误重复操作");
+                throw new UserFriendlyException("此订单正在申请退款,请误重复操作");
             }
 
             var refundLog = new RefundLog(

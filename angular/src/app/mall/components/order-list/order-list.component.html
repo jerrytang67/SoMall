@@ -35,6 +35,7 @@
                     <button nz-button nzType="primary" nzShape="circle" (click)="view(item)">
                         <i nz-icon nzType="info"></i>
                     </button>
+                    <nz-divider nzType="vertical"></nz-divider>
                     <button nz-button nzType="default" nzShape="circle" (click)="refund(item)" *ngIf="item.pricePaidIn">
                         <i nz-icon nzIconfont="icon-tuikuanshouhou"></i>
                     </button>
