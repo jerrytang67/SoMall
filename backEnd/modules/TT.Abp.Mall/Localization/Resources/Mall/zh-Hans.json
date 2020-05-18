@@ -5,6 +5,8 @@
     "Permission:Addresses": "用户地址",
     "trip_mini": "旅游小程序",
     "mall_mini": "商城小程序",
-    "woju_mini": "莴聚小程序"
+    "woju_mini": "莴聚小程序",
+    "Audit_Product_Refund": "商品退款审核",
+    "Audit_Partner_Agree": "合伙人审核"
   }
 }

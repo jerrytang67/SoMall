@@ -16,16 +16,17 @@ namespace TT.Abp.AuditManagement
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AuditManagementAutoMapperProfile>(validate: false); });
+            
+            context.Services.AddAutoMapperObjectMapper<AuditManagementModule>();
+
 
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;
-                options.ConventionalControllers.Create(typeof(AuditManagementModule).Assembly);
+                options.ConventionalControllers.Create(typeof(AuditManagementModule).Assembly, opts => { opts.RootPath = "audit"; });
             });
 
-            context.Services.AddAutoMapperObjectMapper<AuditManagementModule>();
 
-            
             Configure<AuditOptions>(options =>
             {
                 options.ValueProviders.Add<GlobalAuditValueProvider>();
