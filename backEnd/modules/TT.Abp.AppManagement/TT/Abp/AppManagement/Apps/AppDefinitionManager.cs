@@ -24,20 +24,20 @@ namespace TT.Abp.AppManagement.Apps
             Options = options.Value;
             ServiceProvider = serviceProvider;
 
-            AppDefinitions = new Lazy<IDictionary<string, AppDefinition>>(CreateSettingDefinitions, true);
+            AppDefinitions = new Lazy<IDictionary<string, AppDefinition>>(CreateAppDefinitions, true);
         }
 
         public AppDefinition Get(string name)
         {
             Check.NotNull(name, nameof(name));
-            
+
             var app = GetOrNull(name);
-            
+
             if (app == null)
             {
                 throw new AbpException("Undefined setting: " + name);
             }
-            
+
             return app;
         }
 
@@ -51,7 +51,7 @@ namespace TT.Abp.AppManagement.Apps
             return AppDefinitions.Value.GetOrDefault(name);
         }
 
-        protected virtual IDictionary<string, AppDefinition> CreateSettingDefinitions()
+        protected virtual IDictionary<string, AppDefinition> CreateAppDefinitions()
         {
             var apps = new Dictionary<string, AppDefinition>();
 

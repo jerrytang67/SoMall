@@ -46,7 +46,9 @@ export class RefundLogListComponent implements OnInit {
   }
 
   view(item: RefundLogDto) {
-
+    this.api.get({ id: item.id }).subscribe(res => {
+      console.log(res);
+    })
   }
 
   agree(item: RefundLogDto) {

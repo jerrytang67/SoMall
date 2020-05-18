@@ -77,7 +77,7 @@ namespace TT.Abp.Modules.Tests.Mall
             {
                 await _shopAppService.ShopSync(new ShopSyncRequestDto()
                 {
-                    ShopIds = new List<Guid>() {TestConsts.Shop1Id, TestConsts.Shop2Id}
+                    ShopIds = new List<Guid>() { TestConsts.Shop1Id, TestConsts.Shop2Id }
                 });
             });
 
@@ -95,10 +95,13 @@ namespace TT.Abp.Modules.Tests.Mall
             var payDto = JsonConvert.DeserializeObject<PayOrderDto>(str);
             var pay = JsonConvert.DeserializeObject<PayOrder>(str);
             payDto.Id.ShouldBe(new Guid("e8689d8f-43e4-20f7-fc93-39f52104e06f")); // it True
-            //pay.Id.ShouldBe(new Guid("e8689d8f-43e4-20f7-fc93-39f52104e06f")); // wrong
-            
+
+
+            pay.Id.ShouldBe(new Guid("e8689d8f-43e4-20f7-fc93-39f52104e06f")); // wrong
+
             var spu = JsonConvert.DeserializeObject<ProductSpu>(str);
             spu.Id.ShouldBe(new Guid("e8689d8f-43e4-20f7-fc93-39f52104e06f")); // wrong
+            await Task.CompletedTask;
         }
 
 
@@ -106,7 +109,7 @@ namespace TT.Abp.Modules.Tests.Mall
         public async Task GetSpuQr()
         {
             //act
-            var result = await _spuAppService.GetQr(new MallRequestDto() {Keywords = "!@3", AppName = "mall_mini"});
+            var result = await _spuAppService.GetQr(new MallRequestDto() { Keywords = "!@3", AppName = "mall_mini" });
             result.Params["Keywords"].ShouldBe("!@3");
             result.Id.ShouldNotBeNull();
             result.CreatorId.ShouldBe(_currentUser.Id);

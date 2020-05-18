@@ -55,7 +55,7 @@
                </view>
             </view>
          </view>
-         <view class="loading-text">{{loadingText}}</view>
+         <!-- <view class="loading-text">{{loadingText}}</view> -->
       </view>
 
       <!-- <view class="cu-card" v-for="(x,idx) in shops" :key="idx">

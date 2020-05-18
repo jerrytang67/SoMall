@@ -11,8 +11,10 @@ using TT.Abp.Mall.Domain.Shares;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
+using Volo.Abp;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace TT.Abp.Mall.EntityFrameworkCore
 {
@@ -30,7 +32,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         public virtual DbSet<ProductCategory> ProductCategory { get; set; }
 
         public virtual DbSet<PayOrder> PayOrders { get; set; }
-        
+
         public virtual DbSet<RefundLog> RefundLogs { get; set; }
 
         public virtual DbSet<ProductOrder> ProductOrders { get; set; }
@@ -48,19 +50,19 @@ namespace TT.Abp.Mall.EntityFrameworkCore
 
         public virtual DbSet<UserCoupon> UserCoupons { get; set; }
 
-        public DbSet<TenPayNotify> TenPayNotify { get; set; }
+        public virtual DbSet<TenPayNotify> TenPayNotify { get; set; }
 
-        public DbSet<AppProductCategory> AppProductCategory { get; set; }
-        
-        public DbSet<AppProductSpu> AppProductSpus { get; set; }
+        public virtual DbSet<AppProductCategory> AppProductCategory { get; set; }
 
-        public DbSet<Swiper> Swipers { get; set; }
+        public virtual DbSet<AppProductSpu> AppProductSpus { get; set; }
 
-        public DbSet<NewsCategory> NewsCategories { get; set; }
+        public virtual DbSet<Swiper> Swipers { get; set; }
 
-        public DbSet<NewsContent> NewsContents { get; set; }
-        
-        public DbSet<QrDetail> QrDetails { get; set; }
+        public virtual DbSet<NewsCategory> NewsCategories { get; set; }
+
+        public virtual DbSet<NewsContent> NewsContents { get; set; }
+
+        public virtual DbSet<QrDetail> QrDetails { get; set; }
 
         public MallDbContext(DbContextOptions<MallDbContext> options)
             : base(options)
