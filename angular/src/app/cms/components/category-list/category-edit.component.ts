@@ -31,14 +31,12 @@ export class CategoryEditComponent implements OnInit {
     }
 
     ngOnInit() {
-
     }
 
     onSubmit(f: NgForm) { }
 
     ngOnDestroy(): void {
     };
-
 
     updateSingleChecked(event) {
         console.log(event)

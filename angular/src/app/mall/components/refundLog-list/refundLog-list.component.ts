@@ -51,7 +51,8 @@ export class RefundLogListComponent implements OnInit {
 
   agree(item: RefundLogDto) {
     this.api.agreeRefund({ id: item.id }).subscribe(() => {
-      
+      this.message.success("退款成功")
+      this.refresh();
     })
   }
 

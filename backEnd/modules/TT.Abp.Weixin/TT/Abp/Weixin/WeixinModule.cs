@@ -1,9 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.DependencyInjection;
-using TT.Abp.Weixin.Domain;
+using TT.Abp.Core.Certificates;
 using TT.Abp.Weixin.EntityFrameworkCore;
 using TT.HttpClient.Weixin;
 using TT.HttpClient.Weixin.Signature;
@@ -38,15 +36,15 @@ namespace TT.Abp.Weixin
             context.Services.AddHttpClient<IWeixinApi, WeixinApi>(
                 cfg => { cfg.BaseAddress = new Uri("https://api.weixin.qq.com/"); });
 
-            var clientCertificate = new X509Certificate2(@"C:\apiclient_cert.p12", "1486627732");
-            // Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
-
-            var handler = new HttpClientHandler();
-            handler.ClientCertificates.Add(clientCertificate);
-
             context.Services.AddHttpClient<IPayApi, PayApi>(
                     cfg => { cfg.BaseAddress = new Uri("https://api.mch.weixin.qq.com/"); })
-                .ConfigurePrimaryHttpMessageHandler(() => handler);
+                .ConfigurePrimaryHttpMessageHandler(serviceProvider =>
+                {
+                    var certificateProvider = serviceProvider.GetService<CertificateProvider>();
+                    var handler = new HttpClientHandler();
+                    handler.ClientCertificates.Add(certificateProvider.GetCertificate());
+                    return handler;
+                });
             ;
 
             context.Services.AddSingleton<ISignatureGenerator, SignatureGenerator>();
