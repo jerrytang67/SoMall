@@ -4,7 +4,9 @@ using Volo.Abp.EntityFrameworkCore;
 
 namespace TT.Abp.AppManagement.EntityFrameworkCore
 {
-    public class AppManagementDbContext : AbpDbContext<AppManagementDbContext>, IAppManagementDbContext
+    public class AppManagementDbContext :
+        AbpDbContext<AppManagementDbContext>,
+        IAppManagementDbContext
     {
         public virtual DbSet<App> Apps { get; set; }
 

@@ -52,7 +52,7 @@ namespace TT.Abp.AuditManagement.Audits
 
         protected virtual IDictionary<string, AuditDefinition> CreateAuditDefinitions()
         {
-            var apps = new Dictionary<string, AuditDefinition>();
+            var audits = new Dictionary<string, AuditDefinition>();
 
             using var scope = ServiceProvider.CreateScope();
             var providers = Options
@@ -62,10 +62,10 @@ namespace TT.Abp.AuditManagement.Audits
 
             foreach (var provider in providers)
             {
-                provider.Define(new AuditDefinitionContext(apps));
+                provider.Define(new AuditDefinitionContext(audits));
             }
 
-            return apps;
+            return audits;
         }
     }
 }

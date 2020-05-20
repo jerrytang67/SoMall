@@ -20,6 +20,14 @@ namespace TT.Abp.AuditManagement.EntityFrameworkCore
                 b.Property(x => x.ProviderName).IsRequired().HasMaxLength(AuditConsts.ProviderNameLength);
                 b.Property(x => x.AuditName).HasMaxLength(AuditConsts.ProviderKeyLength);
             });
+
+            builder.Entity<AuditNode>(b =>
+            {
+                b.ToTable(AuditConsts.DbTablePrefix + "AuditNodes", AuditConsts.DbSchema);
+                b.ConfigureCreationAudited();
+
+                b.Property(x => x.Desc).HasMaxLength(AuditConsts.ShortDescLenght);
+            });
         }
     }
 }

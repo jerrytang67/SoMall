@@ -6,16 +6,16 @@ using Volo.Abp.DependencyInjection;
 
 namespace TT.Abp.AuditManagement.Audits
 {
-    public interface IShopIdProvider : ITransientDependency
+    public interface IShopIdProvider
     {
         Task<Guid?> GetCurrentShopId();
     }
 
-    public class ShopIdHeaderProvider
+    public class ShopIdProvider : IShopIdProvider, ITransientDependency
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ShopIdHeaderProvider(IHttpContextAccessor httpContextAccessor)
+        public ShopIdProvider(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }

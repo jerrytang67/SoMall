@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TT.Abp.AuditManagement.Domain;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.Uow;
 
 namespace TT.Abp.AuditManagement.Audits
 {
@@ -22,13 +23,14 @@ namespace TT.Abp.AuditManagement.Audits
             _currentTenant = currentTenant;
         }
 
+        [UnitOfWork]
         public override async Task<Guid?> GetOrNullAsync(AuditDefinition audit)
         {
             var tenantId = _currentTenant.Id?.ToString();
 
             var dbEntity = await AuditFlowRepository
                 .FirstOrDefaultAsync(
-                    x => x.ProviderKey == ProviderName
+                    x => x.ProviderName == ProviderName
                          && x.AuditName == audit.Name
                          && x.Enable
                          && x.ProviderKey == tenantId

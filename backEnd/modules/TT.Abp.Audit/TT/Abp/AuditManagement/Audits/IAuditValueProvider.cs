@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using TT.Abp.AuditManagement.Domain;
+using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 
 namespace TT.Abp.AuditManagement.Audits
@@ -14,7 +15,7 @@ namespace TT.Abp.AuditManagement.Audits
         Task<Guid?> GetOrNullAsync([NotNull] AuditDefinition audit);
     }
 
-    public abstract class AuditValueProvider : IAuditValueProvider
+    public abstract class AuditValueProvider : IAuditValueProvider, ITransientDependency
     {
         protected IRepository<AuditFlow, Guid> AuditFlowRepository { get; }
         public abstract string Name { get; }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.AuditManagement.Domain;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Uow;
 
 namespace TT.Abp.AuditManagement.Audits
 {
@@ -21,9 +22,10 @@ namespace TT.Abp.AuditManagement.Audits
             _shopIdProvider = shopIdProvider;
         }
 
+        [UnitOfWork]
         public override async Task<Guid?> GetOrNullAsync(AuditDefinition audit)
         {
-            var shopId = _shopIdProvider.GetCurrentShopId();
+            var shopId = await _shopIdProvider.GetCurrentShopId();
 
             if (shopId == null)
             {
@@ -32,7 +34,7 @@ namespace TT.Abp.AuditManagement.Audits
 
             var dbEntity = await AuditFlowRepository
                 .FirstOrDefaultAsync(
-                    x => x.ProviderKey == ProviderName
+                    x => x.ProviderName == ProviderName
                          && x.AuditName == audit.Name
                          && x.Enable
                          && x.ProviderKey == shopId.ToString()

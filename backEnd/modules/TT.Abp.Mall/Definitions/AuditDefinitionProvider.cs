@@ -10,11 +10,11 @@ namespace TT.Abp.Mall.Definitions
         public override void Define(IAuditDefinitionContext context)
         {
             context.Add(
-                new AuditDefinition("Product_Refund", L("Audit_Product_Refund"))
+                new AuditDefinition(MallManagementAudit.ProductRefund, L("Audit_Product_Refund")).WithProviders("G", "S", "T")
             );
 
             context.Add(
-                new AuditDefinition("Partner_Agree", L("Audit_Partner_Agree"))
+                new AuditDefinition(MallManagementAudit.ProductRefund, L("Audit_Partner_Agree")).WithProviders("G", "S", "T")
             );
         }
 
@@ -22,5 +22,12 @@ namespace TT.Abp.Mall.Definitions
         {
             return LocalizableString.Create<MallResource>(name);
         }
+    }
+
+    public static class MallManagementAudit
+    {
+        private const string GroupName = "Mall_";
+        public const string ProductRefund = GroupName + "Product_Refund";
+        public const string PartnerAgree = GroupName + "Product_Agree";
     }
 }

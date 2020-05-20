@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.AuditManagement.Domain;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Uow;
 
 namespace TT.Abp.AuditManagement.Audits
 {
@@ -17,11 +18,13 @@ namespace TT.Abp.AuditManagement.Audits
         {
         }
 
+
+        [UnitOfWork]
         public override async Task<Guid?> GetOrNullAsync(AuditDefinition audit)
         {
             var dbEntity = await AuditFlowRepository
                 .FirstOrDefaultAsync(x =>
-                    x.ProviderKey == ProviderName
+                    x.ProviderName == ProviderName
                     && x.AuditName == audit.Name
                     && x.Enable);
 

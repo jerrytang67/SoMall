@@ -38,8 +38,6 @@ namespace TT.Abp.AuditManagement.Audits
                 providers = providers.Where(p => audit.Providers.Contains(p.Name));
             }
 
-            //TODO: How to implement setting.IsInherited?
-
             var value = await GetOrNullValueFromProvidersAsync(providers, audit);
             return value;
         }
@@ -51,13 +49,13 @@ namespace TT.Abp.AuditManagement.Audits
             foreach (var provider in providers)
             {
                 var value = await provider.GetOrNullAsync(audit);
-                return value;
+                if (value != null)
+                {
+                    return value;
+                }
             }
 
             return null;
         }
     }
-    
-    
-    
 }

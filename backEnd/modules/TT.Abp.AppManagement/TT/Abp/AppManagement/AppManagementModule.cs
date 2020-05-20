@@ -31,7 +31,10 @@ namespace TT.Abp.AppManagement
             });
 
             context.Services.AddAutoMapperObjectMapper<AppManagementModule>();
+            
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AppManagementModuleAutoMapperProfile>(validate: false); });
+            
+            
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;
