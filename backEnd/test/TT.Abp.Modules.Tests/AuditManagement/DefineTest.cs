@@ -58,19 +58,23 @@ namespace TT.Abp.Modules.Tests.AuditManagement
             await WithUnitOfWorkAsync(async () =>
             {
                 //Arrange
-                await _auditFlowRepository.InsertAsync(new AuditFlow(MallManagementAudit.ProductRefund, true, "G", null
-                ), true);
+                var dbEntity = await _auditFlowRepository.InsertAsync(
+                    new AuditFlow(
+                        MallManagementAudit.ProductRefund,
+                        true, "G",
+                        null),
+                    true);
+
                 //Act
                 var result = await _auditProvider.GetOrNullAsync(MallManagementAudit.ProductRefund);
 
-                var dbEntity = await _auditFlowRepository.FirstOrDefaultAsync();
+                //Assert
                 dbEntity.Enable.ShouldBe(true);
                 dbEntity.ProviderName.ShouldBe("G");
-
                 dbEntity.AuditName.ShouldBe(MallManagementAudit.ProductRefund);
 
-                //Assert
                 result.ShouldNotBeNull();
+                result.ShouldBe(dbEntity.Id);
             });
 
             await Task.CompletedTask;

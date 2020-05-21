@@ -36,7 +36,6 @@ export const menu = [
     { text: "微信用户管理", link: "/account-management/wechatUserInfos", icon: 'fa fa-address-book' },
     { text: "实名认证", link: "/account-management/realNameInfos", icon: "far fa-address-book" },
 
-
     { text: '访客管理', heading: true },
     {
         text: "管理工具", icon: "fa fa-brain",

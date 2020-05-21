@@ -29,6 +29,9 @@ const request = (
 };
 
 export default {
+
+    h5: (data: any) => request('POST', `/api/mall/client/init2`, data),
+
     // default
     init: (data: any) => request('POST', `/api/mall/client/init`, data),
     getQrDetail: (id: string) => request("GET", `/api/mall/client/getQrDetail?id=${id}`), //this id is shortGuid
