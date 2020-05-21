@@ -10,6 +10,7 @@ using TT.Extensions;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Guids;
 
 namespace TT.Abp.AuditManagement.Application
 {
@@ -32,13 +33,16 @@ namespace TT.Abp.AuditManagement.Application
             AuditFlowCreateOrEditDto>, IAuditFlowAppService
     {
         private readonly IAuditDefinitionManager _auditDefinitionManager;
+        private readonly IGuidGenerator _guidGenerator;
 
         public AuditFlowAppService(
-            IRepository<AuditFlow, Guid> repository
-            , IAuditDefinitionManager auditDefinitionManager
+            IRepository<AuditFlow, Guid> repository,
+            IAuditDefinitionManager auditDefinitionManager,
+            IGuidGenerator guidGenerator
         ) : base(repository)
         {
             _auditDefinitionManager = auditDefinitionManager;
+            _guidGenerator = guidGenerator;
         }
 
         // [Authorize]
@@ -55,6 +59,27 @@ namespace TT.Abp.AuditManagement.Application
 
             return new GetForEditOutput<AuditFlowCreateOrEditDto>(
                 ObjectMapper.Map<AuditFlow, AuditFlowCreateOrEditDto>(find), schema);
+        }
+
+        public override async Task<AuditFlowDto> UpdateAsync(Guid id, AuditFlowCreateOrEditDto input)
+        {
+            await CheckUpdatePolicyAsync();
+
+            var entity = await Repository.Include(x => x.AuditNodes).FirstOrDefaultAsync(x => x.Id == id);
+
+            foreach (var node in input.AuditNodes)
+            {
+                if (node.Id == new Guid())
+                {
+                    node.Id = _guidGenerator.Create();
+                }
+            }
+
+            MapToEntity(input, entity);
+            
+            await Repository.UpdateAsync(entity, autoSave: true);
+
+            return MapToGetOutputDto(entity);
         }
     }
 

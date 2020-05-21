@@ -19,6 +19,8 @@ namespace TT.Abp.AuditManagement.EntityFrameworkCore
                 b.Property(x => x.AuditName).IsRequired().HasMaxLength(AuditConsts.MaxNameLength);
                 b.Property(x => x.ProviderName).IsRequired().HasMaxLength(AuditConsts.ProviderNameLength);
                 b.Property(x => x.AuditName).HasMaxLength(AuditConsts.ProviderKeyLength);
+
+                b.HasMany(x => x.AuditNodes).WithOne(x => x.AuditFlow);
             });
 
             builder.Entity<AuditNode>(b =>
@@ -27,8 +29,11 @@ namespace TT.Abp.AuditManagement.EntityFrameworkCore
                 b.ConfigureCreationAudited();
 
                 b.Property(x => x.Desc).HasMaxLength(AuditConsts.ShortDescLenght);
-                
+
                 b.Property(x => x.UserName).IsRequired().HasMaxLength(AuditConsts.MaxNameLength);
+
+                // Many-To-One
+                b.HasOne(x => x.AuditFlow).WithMany(x => x.AuditNodes).HasForeignKey(qt => qt.AuditFlowId);
             });
         }
     }

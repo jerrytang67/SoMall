@@ -40,8 +40,10 @@ const routes: Routes = [
   { path: 'account-management', loadChildren: () => import(/* webpackChunkName: "AccountManagementModule" */ '../account-management/account-management.module').then(m => m.AccountManagementModule), data: { breadcrumb: "微信用户管理" } },
 
   { path: 'auditLog', loadChildren: () => import(/* webpackChunkName: "AuditLogModule" */ '../auditLog/auditLog.module').then(m => m.AuditLogModule), data: { breadcrumb: "审计日志" } },
-  
+
   { path: 'cms', loadChildren: () => import(/* webpackChunkName: "CmsModule" */ '../cms/cms.module').then(m => m.CmsModule), data: { breadcrumb: "CMS" } },
+
+  { path: 'audit', loadChildren: () => import(/* webpackChunkName: "AuditModule" */ '../audit-management/audit-management.module').then(m => m.AuditManagementModule), data: { breadcrumb: "Audit" } },
   {
     path: 'exception',
     component: LayoutComponent,

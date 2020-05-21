@@ -80,6 +80,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
+
 import { ExceptionComponent } from './components/exception/exception.component';
 import { SEModule } from './components/edit/edit.module';
 import { ShopSelectComponent } from '../visitor/components/shop-select/shop-select.component';
@@ -173,6 +176,7 @@ const THIRDMODULES = [
   CKEditorModule,
   SEModule,
   UtilsModule,
+  DragDropModule,
   BaiduMapModule.forRoot({ ak: 'hLA0PXEzz7VxhiwpUtAWZknyzOqh1zGf' })
 ];
 // #endregion
