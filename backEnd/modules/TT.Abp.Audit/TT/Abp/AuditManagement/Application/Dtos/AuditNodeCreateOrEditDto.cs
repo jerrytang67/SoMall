@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TT.Abp.AuditManagement.Application
+namespace TT.Abp.AuditManagement.Application.Dtos
 {
     public class AuditNodeCreateOrEditDto
     {

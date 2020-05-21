@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TT.Abp.AuditManagement.Application
+namespace TT.Abp.AuditManagement.Application.Dtos
 {
     public class AuditFlowCreateOrEditDto
     {

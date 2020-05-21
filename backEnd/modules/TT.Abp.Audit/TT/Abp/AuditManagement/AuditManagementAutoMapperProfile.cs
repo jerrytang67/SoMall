@@ -9,8 +9,14 @@ namespace TT.Abp.AuditManagement
         public AuditManagementAutoMapperProfile()
         {
             CreateMap<AuditFlow, AuditFlowDto>();
-            
-            CreateMap<AuditFlowCreateOrEditDto, AuditFlow>();
+
+            CreateMap<AuditFlowCreateOrEditDto, AuditFlow>()
+                .ReverseMap();
+
+            CreateMap<AuditNode, AuditNodeDto>();
+
+            CreateMap<AuditNodeCreateOrEditDto, AuditNode>()
+                .ReverseMap();
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AuditManagement.Application;
 using TT.Abp.AuditManagement.Audits;
-using TT.Abp.AuditManagement.Domain;
 using TT.Abp.AuditManagement.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
@@ -24,11 +23,9 @@ namespace TT.Abp.AuditManagement
 
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.AddAbpDbContext<AuditManagementDbContext>(options =>
-            {
-                options.AddDefaultRepositories(true);
-            });
+            context.Services.AddAbpDbContext<AuditManagementDbContext>(options => { options.AddDefaultRepositories(true); });
 
+            
             Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AuditManagementAutoMapperProfile>(validate: false); });
 
 
@@ -62,9 +59,5 @@ namespace TT.Abp.AuditManagement
 
             services.Configure<AuditOptions>(options => { options.DefinitionProviders.AddIfNotContains(definitionProviders); });
         }
-    }
-
-    public class AuditManagementAutoMapperProfile : Profile
-    {
     }
 }

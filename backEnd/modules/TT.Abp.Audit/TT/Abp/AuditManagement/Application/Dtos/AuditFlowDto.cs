@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TT.Abp.AuditManagement.Domain;
 using Volo.Abp.Application.Dtos;
 
-namespace TT.Abp.AuditManagement.Application
+namespace TT.Abp.AuditManagement.Application.Dtos
 {
     /// <summary>
     /// <see cref="AuditFlow"/>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AuditManagement;
 using TT.Abp.Cms.EntityFrameworkCore;
 using TT.Abp.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ namespace TT.Abp.Cms
         typeof(AbpHttpClientModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule),
+        typeof(AuditManagementModule),
         typeof(AbpHttpClientModule)
     )]
     public class CmsModule : AbpModule

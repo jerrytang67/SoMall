@@ -22,7 +22,7 @@ namespace TT.Abp.AuditManagement.Domain
             Enable = enable;
             ProviderName = providerName;
             ProviderKey = providerKey;
-            // AuditNodes = auditNodes ?? new List<AuditNode>();
+            AuditNodes = auditNodes ?? new List<AuditNode>();
         }
 
         [NotNull] public virtual string AuditName { get; protected set; }
@@ -34,6 +34,8 @@ namespace TT.Abp.AuditManagement.Domain
         [NotNull] public virtual string ProviderName { get; protected set; }
         [CanBeNull] public virtual string ProviderKey { get; protected set; }
 
-        // public virtual ICollection<AuditNode> AuditNodes { get; protected set; }
+
+        // one to many entities
+        public virtual ICollection<AuditNode> AuditNodes { get; protected set; }
     }
 }

@@ -27,6 +27,8 @@ namespace TT.Abp.AuditManagement.EntityFrameworkCore
                 b.ConfigureCreationAudited();
 
                 b.Property(x => x.Desc).HasMaxLength(AuditConsts.ShortDescLenght);
+                
+                b.Property(x => x.UserName).IsRequired().HasMaxLength(AuditConsts.MaxNameLength);
             });
         }
     }

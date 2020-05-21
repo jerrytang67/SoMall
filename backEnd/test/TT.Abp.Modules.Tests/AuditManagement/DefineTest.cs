@@ -27,8 +27,7 @@ namespace TT.Abp.Modules.Tests.AuditManagement
             _auditProvider = GetRequiredService<IAuditProvider>();
             _appService = GetRequiredService<IAuditManagementAppService>();
         }
-
-
+        
         [Fact]
         public async Task DefinitionTest()
         {
@@ -61,7 +60,8 @@ namespace TT.Abp.Modules.Tests.AuditManagement
                 var dbEntity = await _auditFlowRepository.InsertAsync(
                     new AuditFlow(
                         MallManagementAudit.ProductRefund,
-                        true, "G",
+                        true, 
+                        "G",
                         null),
                     true);
 

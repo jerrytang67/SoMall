@@ -11,6 +11,7 @@ namespace TT.Abp.AuditManagement.EntityFrameworkCore
         IAuditManagementDbContext
     {
         public virtual DbSet<AuditFlow> AuditFlows { get; set; }
+        
         public virtual DbSet<AuditNode> AuditNodes { get; set; }
 
         public AuditManagementDbContext(
