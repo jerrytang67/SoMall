@@ -63,7 +63,7 @@
                     </table>
                 </td>
                 <td>
-                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductSpus" (click)="getQR(item,app.appName)">
+                    <nz-tag [nzColor]="getRndColor(app.appName)" *ngFor="let app of item.appProductSpus" cdkOverlayOrigin (click)="getQR(item,app.appName)">
                         {{app.appName | translate}}</nz-tag>
                 </td>
                 <td>
@@ -78,3 +78,12 @@
         </tbody>
     </nz-table>
 </nz-card>
+
+<!--弹出动态内容模板-->
+<ng-template #overlay>
+    <div class="demo-overlay">
+        <div style="overflow: auto;">
+            <img [src]="qrSrc" />
+        </div>
+    </div>
+</ng-template>

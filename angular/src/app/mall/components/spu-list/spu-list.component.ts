@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ProductSpuProxyService, ProductSpuDto } from 'src/api/appService';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
+import { Overlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-spu-list',
-  templateUrl: './spu-list.component.html'
+  templateUrl: './spu-list.component.html',
+  styleUrls: ['./spu-list.component.scss']
 })
 export class SpuListComponent implements OnInit {
 
@@ -20,7 +23,9 @@ export class SpuListComponent implements OnInit {
   constructor(
     private api: ProductSpuProxyService,
     private message: NzMessageService,
-    private router: Router
+    private router: Router,
+    public overlay: Overlay,
+    private viewContainerRef: ViewContainerRef
   ) {
 
   }
@@ -28,6 +33,7 @@ export class SpuListComponent implements OnInit {
   ngOnInit() {
     this.refresh();
   }
+
 
   refresh() {
     this.pageingInfo.isTableLoading = true;
@@ -71,6 +77,21 @@ export class SpuListComponent implements OnInit {
       }
     }).subscribe(res => {
       console.log(res);
+      this.qrSrc = res.qrImageUrl;
+      this.showOverlay();
     })
+  }
+
+
+  @ViewChild('overlay') overlayTemplate: TemplateRef<any>;
+
+  qrSrc = "";
+
+  showOverlay() {
+    const overlayRef = this.overlay.create({
+      positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
+      hasBackdrop: true
+    });
+    overlayRef.attach(new TemplatePortal(this.overlayTemplate, this.viewContainerRef));
   }
 }

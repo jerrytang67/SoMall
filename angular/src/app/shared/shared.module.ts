@@ -93,6 +93,7 @@ import { UtilsModule } from './utils/utils.module';
 
 import { BaiduMapModule } from 'angular2-baidu-map'
 import { TtMapComponent } from './components/tt-map/tt-map.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 const BSMODULES = [
   TooltipModule.forRoot(),
@@ -177,6 +178,7 @@ const THIRDMODULES = [
   SEModule,
   UtilsModule,
   DragDropModule,
+  OverlayModule,
   BaiduMapModule.forRoot({ ak: 'hLA0PXEzz7VxhiwpUtAWZknyzOqh1zGf' })
 ];
 // #endregion

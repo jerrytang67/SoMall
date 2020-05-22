@@ -80,6 +80,13 @@ export class AuditFlowListComponent implements OnInit {
 
   edit(item: any) {
     this.api.getForEdit({ id: item.id }).subscribe(res => {
+
+      let _list = [];
+      res.data!.auditNodes.forEach(r => {
+        if (!_list[r.index]) { _list[r.index] = []; }
+        _list[r.index].push(r);
+      })
+
       const modal = this.modalService.create({
         nzTitle: '编辑',
         nzContent: AuditFlowEditComponent,
@@ -87,7 +94,8 @@ export class AuditFlowListComponent implements OnInit {
         nzComponentParams: {
           id: item.id,
           form: { ...res.data },
-          audits: res.schema.audits
+          audits: res.schema.audits,
+          lists: _list
         },
         nzFooter: [
           {

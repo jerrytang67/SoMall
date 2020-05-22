@@ -103,12 +103,10 @@ namespace TT.RabbitMQ
                 }
             ));
 
-            var properties = new BasicProperties()
-            {
-                Expiration = (ttl * 1000).ToString(), //设置TTL为20000毫秒
-                Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.UtcTicks),
-                MessageId = Guid.NewGuid().ToString("N")
-            };
+            var properties = _channel.CreateBasicProperties();
+            properties.Expiration = (ttl * 1000).ToString(); //设置TTL为20000毫秒
+            properties.Timestamp = new AmqpTimestamp(DateTimeOffset.UtcNow.UtcTicks);
+            properties.MessageId = Guid.NewGuid().ToString("N");
 
             _channel.BasicPublish(delayexchange, string.Empty, properties, sendBytes);
         }

@@ -76,7 +76,7 @@ namespace TT.Abp.AuditManagement.Application
             }
 
             MapToEntity(input, entity);
-            
+
             await Repository.UpdateAsync(entity, autoSave: true);
 
             return MapToGetOutputDto(entity);
