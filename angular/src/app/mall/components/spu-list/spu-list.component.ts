@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren, ViewChild, TemplateRef, ViewContainerR
 import { ProductSpuProxyService, ProductSpuDto } from 'src/api/appService';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
-import { Overlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { Overlay, CdkOverlayOrigin, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 
 @Component({
@@ -87,11 +87,17 @@ export class SpuListComponent implements OnInit {
 
   qrSrc = "";
 
+  overlayRef: OverlayRef;
   showOverlay() {
-    const overlayRef = this.overlay.create({
+    this.overlayRef = this.overlay.create({
       positionStrategy: this.overlay.position().global().centerHorizontally().centerVertically(),
       hasBackdrop: true
     });
-    overlayRef.attach(new TemplatePortal(this.overlayTemplate, this.viewContainerRef));
+    this.overlayRef.attach(new TemplatePortal(this.overlayTemplate, this.viewContainerRef));
+    this.overlayRef.backdropClick().subscribe(() => { this.close() }, () => console.log("ERROR"), () => console.log("COMPLETE"));
+  }
+
+  close() {
+    this.overlayRef.dispose();
   }
 }
