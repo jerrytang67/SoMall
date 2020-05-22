@@ -27,14 +27,14 @@ namespace TT.Abp.Modules.Tests.AuditManagement
             _auditProvider = GetRequiredService<IAuditProvider>();
             _appService = GetRequiredService<IAuditManagementAppService>();
         }
-        
+
         [Fact]
         public async Task DefinitionTest()
         {
             var audits = _auditDefinitionManager.GetAll();
 
             // define in mall Module
-            audits.Count.ShouldBe(2);
+            audits.Count.ShouldBe(3);
 
             await Task.CompletedTask;
         }
@@ -60,7 +60,7 @@ namespace TT.Abp.Modules.Tests.AuditManagement
                 var dbEntity = await _auditFlowRepository.InsertAsync(
                     new AuditFlow(
                         MallManagementAudit.ProductRefund,
-                        true, 
+                        true,
                         "G",
                         null),
                     true);

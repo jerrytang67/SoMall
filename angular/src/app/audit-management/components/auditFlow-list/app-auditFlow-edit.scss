@@ -1,37 +1,42 @@
 .example-container {
   display: inline-block;
-  width: 400px;
-  max-width: 100%;
-  margin: 0 25px 25px 0;
+  width: 100%;
   vertical-align: top;
+  border: 2px dashed #b4e7b4;
 }
 
 .example-list {
+  position: relative;
   display: flex;
   flex-direction: row;
+  justify-content: center;
   max-width: 100%;
   min-height: 60px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  background: white;
-  border: solid 1px #ccc;
-  border-radius: 4px;
+  margin: 20px;
+  border: 2px dashed gray;
+  border-radius: 5px;
+  &_index {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    color: #2ba8fc;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 20px;
+    text-align: center;
+  }
+  .tip {
+    color: red;
+    font-size: 10px;
+  }
 }
 
 .example-box {
-  display: flex;
-  flex-basis: 0;
-  flex-direction: row;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  padding: 20px 10px;
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 14px;
-  background: white;
-  border-right: solid 1px #ccc;
-  cursor: move;
+  min-width: 150px;
+  margin: 10px;
+  border: 1px #2ba8fc solid;
 }
 
 .cdk-drag-preview {
@@ -46,10 +51,6 @@
 
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.example-box:last-child {
-  border: none;
 }
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {

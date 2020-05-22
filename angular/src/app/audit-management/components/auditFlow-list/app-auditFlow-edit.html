@@ -5,7 +5,9 @@
         </nz-select>
     </se>
     <se label="providerName" error="请填写">
-        <input type="text" nz-input [(ngModel)]="form.providerName" name="providerName" required>
+        <nz-select [(ngModel)]="form.providerName" nzPlaceHolder="请选择Audit" name="providerName">
+            <nz-option *ngFor="let option of providers" [nzValue]="option" [nzLabel]="option"></nz-option>
+        </nz-select>
     </se>
     <se label="providerKey">
         <input type="text" nz-input [(ngModel)]="form.providerKey" name="providerKey">
@@ -15,8 +17,11 @@
 <div style="display: flex; flex-direction:row;">
     <div style="min-width: 70%;">
         <div cdkDropListGroup class="example-container">
-            <div class="example-list " cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="list" *ngFor="let list of lists"
+            <div class="example-list " cdkDropList cdkDropListOrientation="horizontal" [cdkDropListData]="list" *ngFor="let list of lists;let i = index"
                 (cdkDropListDropped)="drop($event)">
+                <div class="example-list_index">
+                    {{i}}
+                </div>
                 <div class="example-box" *ngFor="let item of list" cdkDrag>
                     <div *ngIf="item.auditFlowId;else elseT;">
                         {{item.userName}}

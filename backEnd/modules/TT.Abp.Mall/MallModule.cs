@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AppManagement;
 using TT.Abp.AuditManagement;
-using TT.Abp.Mall.Application.Clients;
 using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Abp.Mall.Localization;
@@ -15,7 +14,6 @@ using Volo.Abp.Http.Client;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
-using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 
 namespace TT.Abp.Mall

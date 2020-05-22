@@ -23,6 +23,8 @@ export class AuditFlowEditComponent implements OnInit {
 
     i: any = {};
 
+    providers = ["G", "T", "S"];
+
     testNode: AuditNodeDto = { auditFlowId: "123", desc: "Desc", userName: "TT" }
 
     lists = [

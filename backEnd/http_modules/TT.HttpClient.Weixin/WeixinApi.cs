@@ -4,7 +4,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
 using Serilog;
+using TT.Extensions;
 
 namespace TT.HttpClient.Weixin
 {
@@ -29,11 +31,11 @@ namespace TT.HttpClient.Weixin
                 await _client.GetAsync($"cgi-bin/token?grant_type=client_credential&appid={appid}&secret={appSecret}");
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            
+
             // ip error: {"errcode":40164,"errmsg":"invalid ip 114.220.209.25 ipv6 ::ffff:114.220.209.25, not in whitelist hint: [eS4JRA00075263]"}
             // secret error :{"errcode":40013,"errmsg":"invalid appid"}
             // success return {"access_token":"ACCESS_TOKEN","expires_in":7200}
-            
+
             var result = JsonConvert.DeserializeObject<WeixinTokenResult>(jsonResponse);
             return result;
         }
@@ -100,22 +102,49 @@ namespace TT.HttpClient.Weixin
         /// <param name="width">二维码的宽度，单位 px，最小 280px，最大 1280px</param>
         /// <param name="is_hyaline">是否需要透明底色，为 true 时，生成透明底色的小程序</param>
         /// <returns></returns>
-        public async Task<Byte[]> WxacodeGetUnlimit(string token, string scene, string page = "pages/index/index",
+        public async Task<Byte[]> WxacodeGetUnlimit(string token, string scene, string page = null,
             int width = 430, bool is_hyaline = false)
         {
-            var postData = JsonConvert.SerializeObject(new {scene, page, width, is_hyaline});
+            var postData = "";
+            if (page.IsNullOrEmptyOrWhiteSpace() || page == "pages/index/index")
+            {
+                postData = JsonConvert.SerializeObject(new {scene, width, is_hyaline});
+            }
+            else
+            {
+                postData = JsonConvert.SerializeObject(new {scene, page, width, is_hyaline});
+            }
 
             HttpContent hc = new StreamContent(new MemoryStream(Encoding.UTF8.GetBytes(postData)));
 
-            var response =
-                await _client.PostAsync($"wxa/getwxacodeunlimit?access_token={token}", hc);
+            var response = await _client.PostAsync($"wxa/getwxacodeunlimit?access_token={token}", hc);
+            var result = TryConvert(await response.Content.ReadAsStringAsync());
+            if (result != null)
+            {
+                throw new Exception(result.errmsg);
+            }
 
-            var jsonResponse = await response.Content.ReadAsByteArrayAsync();
-
-            return jsonResponse;
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+            return bytes;
         }
-        
-        
-        
+
+        public ErrorResult TryConvert(string input)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<ErrorResult>(input);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+    }
+
+
+    public class ErrorResult
+    {
+        public int errcode { get; set; }
+        public string errmsg { get; set; }
     }
 }

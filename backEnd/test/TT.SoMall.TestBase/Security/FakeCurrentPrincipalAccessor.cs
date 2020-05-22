@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Security.Claims;
@@ -8,6 +9,11 @@ namespace TT.SoMall.Security
     [Dependency(ReplaceServices = true)]
     public class FakeCurrentPrincipalAccessor : ICurrentPrincipalAccessor, ISingletonDependency
     {
+        public IDisposable Change(ClaimsPrincipal principal)
+        {
+            throw new NotImplementedException();
+        }
+
         public ClaimsPrincipal Principal => GetPrincipal();
         private ClaimsPrincipal _principal;
 
@@ -23,9 +29,9 @@ namespace TT.SoMall.Security
                             new ClaimsIdentity(
                                 new List<Claim>
                                 {
-                                    new Claim(AbpClaimTypes.UserId,"2e701e62-0953-4dd3-910b-dc6cc93ccb0d"),
-                                    new Claim(AbpClaimTypes.UserName,"admin"),
-                                    new Claim(AbpClaimTypes.Email,"admin@abp.io")
+                                    new Claim(AbpClaimTypes.UserId, "2e701e62-0953-4dd3-910b-dc6cc93ccb0d"),
+                                    new Claim(AbpClaimTypes.UserName, "admin"),
+                                    new Claim(AbpClaimTypes.Email, "admin@abp.io")
                                 }
                             )
                         );
