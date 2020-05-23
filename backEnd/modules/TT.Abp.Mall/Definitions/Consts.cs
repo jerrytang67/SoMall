@@ -22,6 +22,6 @@
 
         public const int MaxComentLength = 1024;
 
-        public const int PayAutoCancelTime = 10; // 半小时关闭订单
+        public const int PayAutoCancelTime = 30 * 60; // 半小时关闭订单(单位:秒)
     }
 }

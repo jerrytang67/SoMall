@@ -61,7 +61,7 @@ namespace TT.RabbitMQ
 
             consumer.Received += async (model, ea) =>
             {
-                var body = ea.Body.ToArray();
+                var body = ea.Body;
                 var message = Encoding.UTF8.GetString(body);
                 var result = await ProcessAsync(message);
                 _logger.LogInformation($"收到消息： {message} routerKey: {ea.RoutingKey}");

@@ -13,7 +13,7 @@ namespace TT.Abp.Cms
         typeof(AbpHttpClientModule),
         typeof(AbpAspNetCoreMvcModule),
         typeof(AbpAutoMapperModule),
-        typeof(AuditManagementModule),
+        // typeof(AuditManagementModule),
         typeof(AbpHttpClientModule)
     )]
     public class CmsModule : AbpModule

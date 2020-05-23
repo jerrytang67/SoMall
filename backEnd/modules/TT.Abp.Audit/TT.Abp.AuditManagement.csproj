@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\TT.Abp.Shops\TT.Abp.Shops.csproj" />
       <ProjectReference Include="..\TT.Core\TT.Core.csproj" />
     </ItemGroup>
 </Project>

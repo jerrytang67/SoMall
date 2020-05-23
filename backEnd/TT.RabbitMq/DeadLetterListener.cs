@@ -66,7 +66,7 @@ namespace TT.RabbitMQ
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += async (model, ea) =>
             {
-                var body = ea.Body.ToArray();
+                var body = ea.Body;
                 var message = Encoding.UTF8.GetString(body);
                 Logger.LogWarning($"收到死信消息： {message}");
                 var result = await ProcessAsync(message);

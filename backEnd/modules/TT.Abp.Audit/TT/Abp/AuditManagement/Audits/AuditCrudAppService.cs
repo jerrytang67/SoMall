@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.Shops;
 using TT.Extensions;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -18,6 +19,7 @@ namespace TT.Abp.AuditManagement.Audits
         where TUpdateInput : IEntityDto<TPrimaryKey>, INeedAuditBase
         where TCreateInput : INeedAuditBase
     {
+        private readonly ICurrentShop _currentShop;
         private readonly IAuditProvider _auditProvider;
         private readonly AuditManager _auditManager;
 
@@ -28,6 +30,7 @@ namespace TT.Abp.AuditManagement.Audits
             IServiceProvider serviceProvider
         ) : base(repository)
         {
+            _currentShop = serviceProvider.GetRequiredService<ICurrentShop>();
             _auditProvider = serviceProvider.GetRequiredService<IAuditProvider>();
             _auditManager = serviceProvider.GetRequiredService<AuditManager>();
         }
@@ -46,6 +49,19 @@ namespace TT.Abp.AuditManagement.Audits
                 throw new UserFriendlyException("NotFind");
             }
 
+            if (dbEntity is IMultiShop && HasTenantIdProperty(dbEntity))
+            {
+                var propertyInfo = dbEntity.GetType().GetProperty(nameof(IMultiShop.ShopId));
+
+                if (propertyInfo != null)
+                {
+                    if (propertyInfo.GetValue(dbEntity) is Guid shopId)
+                    {
+                        _currentShop.Change(shopId);
+                    }
+                }
+            }
+
             dbEntity.AuditFlowId = await _auditProvider.GetOrNullAsync(CurrentAuditName);
             await _auditManager.StartAudit<TEntity, TPrimaryKey>(dbEntity);
         }
@@ -53,6 +69,12 @@ namespace TT.Abp.AuditManagement.Audits
         public virtual async Task Agree()
         {
             await Task.CompletedTask;
+        }
+
+
+        protected virtual bool HasShopIdProperty(TEntity entity)
+        {
+            return entity.GetType().GetProperty(nameof(IMultiShop.ShopId)) != null;
         }
     }
 }

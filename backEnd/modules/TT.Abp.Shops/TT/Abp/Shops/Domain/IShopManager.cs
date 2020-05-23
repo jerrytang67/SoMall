@@ -9,5 +9,5 @@ namespace TT.Abp.Shops.Domain
         Task<Shop> CreateAsync([NotNull] string name);
 
         Task ChangeNameAsync([NotNull] Shop tenant, [NotNull] string name);
-         }
+    }
 }
