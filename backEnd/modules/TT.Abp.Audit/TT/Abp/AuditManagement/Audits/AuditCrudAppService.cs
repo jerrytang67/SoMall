@@ -9,6 +9,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Features;
 
 namespace TT.Abp.AuditManagement.Audits
 {
@@ -35,6 +36,8 @@ namespace TT.Abp.AuditManagement.Audits
             _auditManager = serviceProvider.GetRequiredService<AuditManager>();
         }
 
+        
+        [RequiresFeature()]
         public virtual async Task StartAudit(TEntityDto input)
         {
             if (CurrentAuditName.IsNullOrEmptyOrWhiteSpace())
