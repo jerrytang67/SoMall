@@ -25,11 +25,14 @@ export class AuditFlowEditComponent implements OnInit {
 
     providers = ["G", "T", "S"];
 
-    testNode: AuditNodeDto = { auditFlowId: "123", desc: "Desc", userName: "TT" }
+    testNode: AuditNodeDto = { desc: "Desc", userName: "TT"  }
 
     lists = [
-        [this.testNode]
+        []
     ]
+
+
+    lists2 = [];
 
     constructor(private http: HttpClient) {
     }
@@ -59,6 +62,20 @@ export class AuditFlowEditComponent implements OnInit {
 
         console.log(this.lists);
     }
+
+    drop2(event: CdkDragDrop<string[]>) {
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+            transferArrayItem(event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex);
+        }
+
+        console.log(this.lists2);
+    }
+
 
 
     addNewNode() {

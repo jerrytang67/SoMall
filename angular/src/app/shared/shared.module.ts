@@ -103,7 +103,6 @@ const BSMODULES = [
   ToastrModule.forRoot()
 ]
 
-
 const NZMODULES = [
   NzAffixModule,
   NzAlertModule,

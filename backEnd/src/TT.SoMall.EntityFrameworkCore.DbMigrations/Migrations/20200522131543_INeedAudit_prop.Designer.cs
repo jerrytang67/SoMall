@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TT.SoMall.EntityFrameworkCore;
 
 namespace TT.SoMall.Migrations
 {
     [DbContext(typeof(SoMallMigrationsDbContext))]
-    partial class SoMallMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200522131543_INeedAudit_prop")]
+    partial class INeedAudit_prop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,9 +223,6 @@ namespace TT.SoMall.Migrations
                     b.Property<Guid?>("LastModifierId")
                         .HasColumnName("LastModifierId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("NodesMaxIndex")
-                        .HasColumnType("int");
 
                     b.Property<string>("ProviderKey")
                         .HasColumnType("nvarchar(max)");

@@ -82,24 +82,21 @@ export class SpuListComponent implements OnInit {
     })
   }
 
-
   @ViewChild('overlay') overlayTemplate: TemplateRef<any>;
-
-  @ViewChildren('row') rows: QueryList<ElementRef>;
-
+  // @ViewChildren('row') rows: QueryList<ElementRef>;
   qrSrc = "";
 
   overlayRef: OverlayRef;
-  showOverlay(row) {
+
+  showOverlay(nzTag) {
     if (!this.overlayRef) {
       this.overlayRef = this.overlay.create({
         positionStrategy: this.overlay.position()
-          .connectedTo(row.elementRef,
+          .connectedTo(nzTag.elementRef,
             { originX: 'end', originY: 'bottom' },
             { overlayX: 'end', overlayY: 'top' }
           ),
-        // .global().centerHorizontally().centerVertically(),
-
+        //.global().centerHorizontally().centerVertically(),
         scrollStrategy: this.overlay.scrollStrategies.reposition(),
         hasBackdrop: true
       });

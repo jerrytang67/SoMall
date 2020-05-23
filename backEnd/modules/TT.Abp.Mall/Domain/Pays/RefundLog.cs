@@ -1,12 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using JetBrains.Annotations;
+using TT.Abp.AuditManagement.Audits;
 using TT.Abp.Shops;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.Mall.Domain.Pays
 {
-    public class RefundLog : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMultiShop
+    public class RefundLog : FullAuditedAggregateRoot<Guid>, IMultiTenant, IMultiShop, INeedAudit
     {
         /// <summary>
         /// RefundLog
@@ -60,8 +62,29 @@ namespace TT.Abp.Mall.Domain.Pays
         {
             IsSuccess = true;
             SuccessTime = DateTime.Now;
-            
-            
+        }
+
+        public Guid? AuditFlowId { get; set; }
+        public int? Audit { get; set; }
+        public int? AuditStatus { get; set; }
+
+        [NotMapped]
+        bool IsAudited
+        {
+            get
+            {
+                if (!Audit.HasValue) //未初始化
+                {
+                    return false;
+                }
+
+                if (Audit == -1)
+                {
+                    return false;
+                }
+
+                return Audit == AuditStatus;
+            }
         }
     }
 }

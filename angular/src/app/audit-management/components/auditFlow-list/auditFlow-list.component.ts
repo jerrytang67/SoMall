@@ -63,6 +63,17 @@ export class AuditFlowListComponent implements OnInit {
             onClick: instance => {
               console.log("componentInstance", instance);
               if (instance.f.valid) {
+
+                instance.lists = [...instance.lists.filter(x => x.length > 0)];
+                var _temp = [];
+                for (let i = 0; i < instance.lists.length; i++) {
+                  const element = instance.lists[i];
+                  element.forEach(_item => {
+                    _temp.push(Object.assign({}, _item, { index: i }))
+                  })
+                }
+                instance.form.auditNodes = _temp;
+
                 this.api.create({
                   body: instance.form
                 }).subscribe(res => {
@@ -106,23 +117,15 @@ export class AuditFlowListComponent implements OnInit {
               if (instance.f.valid) {
 
                 console.log(instance)
-
                 instance.lists = [...instance.lists.filter(x => x.length > 0)];
-
                 var _temp = [];
-
                 for (let i = 0; i < instance.lists.length; i++) {
                   const element = instance.lists[i];
                   element.forEach(_item => {
                     _temp.push(Object.assign({}, _item, { index: i, auditFlowId: item.id }))
                   })
                 }
-
-                console.log("_temp", _temp);
-
-
                 instance.form.auditNodes = _temp;
-
 
                 this.api.update({
                   id: instance.id,

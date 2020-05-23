@@ -28,6 +28,6 @@ namespace TT.Abp.Mall.Definitions
     {
         private const string GroupName = "Mall_";
         public const string ProductRefund = GroupName + "Product_Refund";
-        public const string PartnerAgree = GroupName + "Product_Agree";
+        public const string PartnerAgree = GroupName + "Partner_Agree";
     }
 }

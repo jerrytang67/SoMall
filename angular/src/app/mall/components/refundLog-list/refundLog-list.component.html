@@ -14,7 +14,7 @@
         <button nz-button nzSize="large" (click)="refresh()">{{'refresh' | translate}}</button>
     </ng-template>
     <nz-table #dataTable nzShowSizeChanger nzShowPagination [nzFrontPagination]="false" [nzData]="dataItems" [nzTotal]="pageingInfo.totalItems"
-        [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()"
+        [(nzPageSize)]="pageingInfo.pageSize" [(nzPageIndex)]="pageingInfo.pageNumber" [nzLoading]="pageingInfo.isTableLoading" (nzPageIndexChange)="refresh()" 
         (nzPageSizeChange)="refresh()">
         <thead>
             <tr>
@@ -34,7 +34,10 @@
                 <td>
                     <button nz-button nzType="primary" nzSize="small" (click)="view(item)">{{'view' | translate}}</button>
                     <nz-divider nzType="vertical"></nz-divider>
-                    <button nz-button nzType="primary" nzSize="small" (click)="agree(item)" *ngIf="!item.isSuccess">{{'agree' | translate}}</button>
+
+                    <button nz-button nzType="primary" nzSize="small" (click)="startAudit(item)"
+                        *ngIf="!item.isSuccess && item.audit<=0">{{'提交审核' | translate}}</button>
+                    <nz-tag *ngIf="!item.isSuccess && item.audit>0"> 审核中 </nz-tag>
                 </td>
             </tr>
         </tbody>

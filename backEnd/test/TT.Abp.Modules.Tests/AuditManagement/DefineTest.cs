@@ -65,6 +65,15 @@ namespace TT.Abp.Modules.Tests.AuditManagement
                         null),
                     true);
 
+
+                var T_Entity = await _auditFlowRepository.InsertAsync(
+                    new AuditFlow(
+                        MallManagementAudit.ProductRefund,
+                        true,
+                        "T",
+                        null),
+                    true);
+
                 //Act
                 var result = await _auditProvider.GetOrNullAsync(MallManagementAudit.ProductRefund);
 
@@ -74,7 +83,7 @@ namespace TT.Abp.Modules.Tests.AuditManagement
                 dbEntity.AuditName.ShouldBe(MallManagementAudit.ProductRefund);
 
                 result.ShouldNotBeNull();
-                result.ShouldBe(dbEntity.Id);
+                result.ShouldBe(T_Entity.Id);
             });
 
             await Task.CompletedTask;

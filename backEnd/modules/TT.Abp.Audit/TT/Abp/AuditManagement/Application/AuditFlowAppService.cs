@@ -44,8 +44,7 @@ namespace TT.Abp.AuditManagement.Application
             _auditDefinitionManager = auditDefinitionManager;
             _guidGenerator = guidGenerator;
         }
-
-        // [Authorize]
+        [Authorize]
         public async Task<GetForEditOutput<AuditFlowCreateOrEditDto>> GetForEdit(Guid id)
         {
             var find = await Repository
@@ -55,11 +54,34 @@ namespace TT.Abp.AuditManagement.Application
             var schema = JToken.FromObject(new { });
 
             var audits = _auditDefinitionManager.GetAll();
-            schema["audits"] = audits.GetSelection("string", "name", @"{0}", new[] {"Name"}, "Name");
+            schema["audits"] = audits.GetSelection("string", "name", @"{0}", new[] { "Name" }, "Name");
 
             return new GetForEditOutput<AuditFlowCreateOrEditDto>(
                 ObjectMapper.Map<AuditFlow, AuditFlowCreateOrEditDto>(find), schema);
         }
+        
+        public override async Task<AuditFlowDto> CreateAsync(AuditFlowCreateOrEditDto input)
+        {
+            await CheckCreatePolicyAsync();
+
+
+            foreach (var node in input.AuditNodes)
+            {
+                if (node.Id == new Guid())
+                {
+                    node.Id = _guidGenerator.Create();
+                }
+            }
+
+            var entity = MapToEntity(input);
+
+            //TryToSetTenantId(entity);
+
+            await Repository.InsertAsync(entity, autoSave: true);
+
+            return MapToGetOutputDto(entity);
+        }
+
 
         public override async Task<AuditFlowDto> UpdateAsync(Guid id, AuditFlowCreateOrEditDto input)
         {

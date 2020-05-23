@@ -23,7 +23,7 @@
                     {{i}}
                 </div>
                 <div class="example-box" *ngFor="let item of list" cdkDrag>
-                    <div *ngIf="item.auditFlowId;else elseT;">
+                    <div *ngIf="item.userName;else elseT;">
                         {{item.userName}}
                     </div>
                     <ng-template #elseT>
@@ -31,6 +31,11 @@
                     </ng-template>
 
                 </div>
+            </div>
+
+            <div cdkDropList (cdkDropListDropped)="drop2($event)" [cdkDropListData]="lists2" class="huishou"
+                style="min-width: 100px;min-height: 100px; border:solid 2px red;">
+                回收站
             </div>
         </div>
     </div>

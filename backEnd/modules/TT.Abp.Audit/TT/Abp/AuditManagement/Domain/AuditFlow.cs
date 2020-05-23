@@ -34,7 +34,8 @@ namespace TT.Abp.AuditManagement.Domain
         [NotNull] public virtual string ProviderName { get; protected set; }
         [CanBeNull] public virtual string ProviderKey { get; protected set; }
 
-
+        public int NodesMaxIndex { get; set; }
+        
         // one to many entities
         public virtual ICollection<AuditNode> AuditNodes { get; protected set; }
     }

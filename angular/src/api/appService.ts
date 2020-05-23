@@ -77,11 +77,11 @@ export class AddressProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AddressDtoPagedResultDto> {
     let url = '/api/mall/address/getList';
@@ -214,11 +214,11 @@ export class AppProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<AppDtoPagedResultDto> {
     let url = '/api/app/app/getList';
@@ -306,6 +306,41 @@ export class AuditFlowProxyService {
   /**
    *
    */
+  create(
+    params: {
+      /** requestBody */
+      body?: AuditFlowCreateOrEditDto;
+    } = {} as any
+  ): Observable<AuditFlowDto> {
+    let url = '/api/audit/auditFlow/create';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<AuditFlowDto>;
+  }
+  /**
+   *
+   */
+  update(
+    params: {
+      /**  */
+      id?: string;
+      /** requestBody */
+      body?: AuditFlowCreateOrEditDto;
+    } = {} as any
+  ): Observable<AuditFlowDto> {
+    let url = '/api/audit/auditFlow/update';
+    let options: any = {
+      params: { id: params.id },
+      body: params.body,
+      method: 'put'
+    };
+    return (this.http.request('put', url, options) as any) as Observable<AuditFlowDto>;
+  }
+  /**
+   *
+   */
   get(
     params: {
       /**  */
@@ -338,41 +373,6 @@ export class AuditFlowProxyService {
       method: 'get'
     };
     return (this.http.request('get', url, options) as any) as Observable<AuditFlowDtoPagedResultDto>;
-  }
-  /**
-   *
-   */
-  create(
-    params: {
-      /** requestBody */
-      body?: AuditFlowCreateOrEditDto;
-    } = {} as any
-  ): Observable<AuditFlowDto> {
-    let url = '/api/audit/auditFlow/create';
-    let options: any = {
-      body: params.body,
-      method: 'post'
-    };
-    return (this.http.request('post', url, options) as any) as Observable<AuditFlowDto>;
-  }
-  /**
-   *
-   */
-  update(
-    params: {
-      /**  */
-      id?: string;
-      /** requestBody */
-      body?: AuditFlowCreateOrEditDto;
-    } = {} as any
-  ): Observable<AuditFlowDto> {
-    let url = '/api/audit/auditFlow/update';
-    let options: any = {
-      params: { id: params.id },
-      body: params.body,
-      method: 'put'
-    };
-    return (this.http.request('put', url, options) as any) as Observable<AuditFlowDto>;
   }
   /**
    *
@@ -568,11 +568,11 @@ export class CmsCategoryProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<CategoryDtoPagedResultDto> {
     let url = '/api/cms/cmsCategory/getList';
@@ -1099,11 +1099,11 @@ export class MallUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<MallUserDtoPagedResultDto> {
     let url = '/api/mall/mallUser/getList';
@@ -2004,11 +2004,11 @@ export class RealNameInfoProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<RealNameInfoDtoPagedResultDto> {
     let url = '/api/app/realNameInfo/getList';
@@ -2025,23 +2025,6 @@ export class RealNameInfoProxyService {
 export class RefundLogProxyService {
   constructor(private http: HttpClient) {}
 
-  /**
-   *
-   */
-  agreeRefund(
-    params: {
-      /**  */
-      id?: string;
-    } = {} as any
-  ): Observable<any> {
-    let url = '/api/mall/refundLog/agreeRefund';
-    const _copy: any = { ...params };
-    let options: any = {
-      params: new HttpParams({ fromObject: _copy }),
-      method: 'get'
-    };
-    return (this.http.request('get', url, options) as any) as Observable<any>;
-  }
   /**
    *
    */
@@ -2092,6 +2075,22 @@ export class RefundLogProxyService {
       method: 'delete'
     };
     return (this.http.request('delete', url, options) as any) as Observable<any>;
+  }
+  /**
+   *
+   */
+  startAudit(
+    params: {
+      /** requestBody */
+      body?: RefundLogDto;
+    } = {} as any
+  ): Observable<any> {
+    let url = '/api/mall/refundLog/startAudit';
+    let options: any = {
+      body: params.body,
+      method: 'post'
+    };
+    return (this.http.request('post', url, options) as any) as Observable<any>;
   }
   /**
    *
@@ -2167,11 +2166,11 @@ export class RoleProxyService {
   roles(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<IdentityRoleDtoPagedResultDto> {
     let url = '/api/identity/roles';
@@ -2876,6 +2875,46 @@ export class UserLookupProxyService {
     };
     return (this.http.request('get', url, options) as any) as Observable<UserData>;
   }
+  /**
+   *
+   */
+  search(
+    params: {
+      /**  */
+      filter?: string;
+      /**  */
+      sorting?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any
+  ): Observable<UserDataListResultDto> {
+    let url = '/api/identity/users/lookup/search';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<UserDataListResultDto>;
+  }
+  /**
+   *
+   */
+  count(
+    params: {
+      /**  */
+      filter?: string;
+    } = {} as any
+  ): Observable<number> {
+    let url = '/api/identity/users/lookup/count';
+    const _copy: any = { ...params };
+    let options: any = {
+      params: new HttpParams({ fromObject: _copy }),
+      method: 'get'
+    };
+    return (this.http.request('get', url, options) as any) as Observable<number>;
+  }
 }
 
 @Injectable({ providedIn: 'root' })
@@ -2984,11 +3023,11 @@ export class WechatUserProxyService {
   getList(
     params: {
       /**  */
-      sorting?: string;
-      /**  */
       skipCount?: number;
       /**  */
       maxResultCount?: number;
+      /**  */
+      sorting?: string;
     } = {} as any
   ): Observable<WechatUserinfoPagedResultDto> {
     let url = '/api/app/wechatUser/getList';
@@ -3391,6 +3430,9 @@ export interface CurrentUserDto {
 
   /**  */
   userName?: string;
+
+  /**  */
+  email?: string;
 }
 
 export interface ApplicationFeatureConfigurationDto {
@@ -3471,13 +3513,10 @@ export interface ExtensionPropertyUiDto {
 
 export interface ExtensionPropertyAttributeDto {
   /**  */
-  type?: string;
-
-  /**  */
   typeSimple?: string;
 
   /**  */
-  configuration?: object;
+  config?: object;
 }
 
 export interface ExtensionPropertyDto {
@@ -3501,6 +3540,9 @@ export interface ExtensionPropertyDto {
 
   /**  */
   configuration?: object;
+
+  /**  */
+  defaultValue?: object;
 }
 
 export interface EntityExtensionDto {
@@ -3519,9 +3561,28 @@ export interface ModuleExtensionDto {
   configuration?: object;
 }
 
+export interface ExtensionEnumFieldDto {
+  /**  */
+  name?: string;
+
+  /**  */
+  value?: object;
+}
+
+export interface ExtensionEnumDto {
+  /**  */
+  fields?: ExtensionEnumFieldDto[];
+
+  /**  */
+  localizationResource?: string;
+}
+
 export interface ObjectExtensionsDto {
   /**  */
   modules?: object;
+
+  /**  */
+  enums?: object;
 }
 
 export interface ApplicationConfigurationDto {
@@ -6341,6 +6402,11 @@ export interface UserData {
 
   /**  */
   phoneNumberConfirmed?: boolean;
+}
+
+export interface UserDataListResultDto {
+  /**  */
+  items?: UserData[];
 }
 
 export interface CredentialDto {
