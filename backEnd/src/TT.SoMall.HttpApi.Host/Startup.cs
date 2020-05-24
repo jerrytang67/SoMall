@@ -62,7 +62,7 @@ namespace TT.SoMall
                 app2 =>
                 {
                     app2.UseRouting();
-                    app2.UseMvcWithDefaultRouteAndArea();
+                    app2.UseConfiguredEndpoints();
                 }
             );
         }

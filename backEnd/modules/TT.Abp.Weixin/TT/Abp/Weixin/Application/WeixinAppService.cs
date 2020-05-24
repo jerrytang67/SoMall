@@ -212,5 +212,15 @@ namespace TT.Abp.Weixin.Application
             var json = Encryption.AES_decrypt(data.encryptedData, data.session_key, data.iv);
             return await Task.FromResult(json);
         }
+
+        [HttpGet]
+        public async Task<object> Jssdk(string url, string appName)
+        {
+            var app = await _appProvider.GetOrNullAsync(appName);
+            var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
+            var appSec = app["appsec"] ?? throw new AbpException($"App:{appName} appsec未设置");
+
+            return null;
+        }
     }
 }
