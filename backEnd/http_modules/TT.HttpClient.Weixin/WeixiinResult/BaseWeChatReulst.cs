@@ -1,5 +1,8 @@
-﻿namespace TT.HttpClient.Weixin
+﻿using System;
+
+namespace TT.HttpClient.Weixin.WeixiinResult
 {
+    [Serializable]
     public class BaseWeChatReulst
     {
         public int errcode { get; set; }

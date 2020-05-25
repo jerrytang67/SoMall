@@ -7,6 +7,8 @@ new App().$mount()
 import wechat from './utils/wechat'
 if (wechat.isWechat()) {
     Vue.prototype.$wechat = wechat;
-    wechat.initJssdk(() => { });
+    wechat.initJssdk(() => { 
+
+    });
 }
 // #endif

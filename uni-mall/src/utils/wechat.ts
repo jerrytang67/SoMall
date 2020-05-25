@@ -9,11 +9,15 @@ export default {
     },
     //初始化sdk配置  
     initJssdk: function (callback: any) {
-        api.h5({}).then((res: any) => {
+        api.h5({
+            // url: encodeURIComponent(location.href.split('#')[0])
+            url: location.href.split('#')[0]
+        }).then((res: any) => {
+            // console.log(res);
             jweixin.config({
-                debug: false,
+                debug: true,
                 appId: res.appId,
-                timestamp: res.imestamp,
+                timestamp: res.timestamp,
                 nonceStr: res.nonceStr,
                 signature: res.signature,
                 jsApiList: [

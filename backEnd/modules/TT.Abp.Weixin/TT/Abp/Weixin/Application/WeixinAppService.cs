@@ -15,6 +15,7 @@ using TT.Abp.AppManagement.Apps;
 using TT.Abp.Weixin.Application.Dtos;
 using TT.Abp.Weixin.Domain;
 using TT.Extensions;
+using TT.HttpClient.Weixin;
 using TT.HttpClient.Weixin.Helpers;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -38,12 +39,9 @@ namespace TT.Abp.Weixin.Application
         private readonly WeixinManager _weixinManager;
         private readonly IdentityUserStore _identityUserStore;
         private readonly ICapPublisher _capBus;
-        private readonly IUserClaimsPrincipalFactory<IdentityUser> _principalFactory;
-        private readonly IdentityServerOptions _options;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ITokenService _ts;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IAppProvider _appProvider;
+        private readonly IWeixinApi _weixinApi;
 
 
         public WeixinAppService(
@@ -56,13 +54,8 @@ namespace TT.Abp.Weixin.Application
             WeixinManager weixinManager,
             IdentityUserStore identityUserStore,
             ICapPublisher capBus,
-            IUserClaimsPrincipalFactory<IdentityUser> principalFactory,
-            IdentityServerOptions options,
-            IHttpContextAccessor httpContextAccessor,
-            ITokenService TS,
             IUnitOfWorkManager unitOfWorkManager,
-            IAppProvider appProvider
-        )
+            IAppProvider appProvider, IWeixinApi weixinApi)
         {
             ObjectMapperContext = typeof(WeixinModule);
             _guidGenerator = guidGenerator;
@@ -74,12 +67,9 @@ namespace TT.Abp.Weixin.Application
             _weixinManager = weixinManager;
             _identityUserStore = identityUserStore;
             _capBus = capBus;
-            _principalFactory = principalFactory;
-            _options = options;
-            _httpContextAccessor = httpContextAccessor;
-            _ts = TS;
             _unitOfWorkManager = unitOfWorkManager;
             _appProvider = appProvider;
+            _weixinApi = weixinApi;
         }
 
         public async Task<object> Code2Session(WeChatMiniProgramAuthenticateModel loginModel)
@@ -213,14 +203,27 @@ namespace TT.Abp.Weixin.Application
             return await Task.FromResult(json);
         }
 
-        [HttpGet]
-        public async Task<object> Jssdk(string url, string appName)
+        public async Task<object> GetJssdk(string url, string appName)
         {
             var app = await _appProvider.GetOrNullAsync(appName);
-            var appid = app["appid"] ?? throw new AbpException($"App:{appName} appid未设置");
-            var appSec = app["appsec"] ?? throw new AbpException($"App:{appName} appsec未设置");
+            var appid = app["appid"] ?? throw new UserFriendlyException($"App:{appName} appid未设置");
+            var appSec = app["appsec"] ?? throw new UserFriendlyException($"App:{appName} appsec未设置");
 
-            return null;
+            var token = await _weixinManager.GetAccessTokenAsync(appid, appSec);
+            var ticket = await _weixinApi.GetTicket(token, url);
+
+
+            if (ticket == null || ticket.errcode != 0)
+            {
+                throw new UserFriendlyException($"GetJssdk Error:{ticket?.errmsg}");
+            }
+
+            var nonceStr = _guidGenerator.Create().ToShortString();
+            var timestamp = Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalSeconds).ToString();
+
+            var signature = $"jsapi_ticket={ticket.ticket}&noncestr={nonceStr}&timestamp={timestamp}&url={url}".GetSha1();
+
+            return new {appId = appid, timestamp, nonceStr, signature};
         }
     }
 }

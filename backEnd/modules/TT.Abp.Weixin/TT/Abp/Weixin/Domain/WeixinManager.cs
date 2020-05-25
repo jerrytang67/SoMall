@@ -185,6 +185,9 @@ namespace TT.Abp.Weixin.Domain
 
             throw new UserFriendlyException("生成小程序二维码失败");
         }
+        
+        
+        
 
         private async Task<UpYun> GetUploader()
         {

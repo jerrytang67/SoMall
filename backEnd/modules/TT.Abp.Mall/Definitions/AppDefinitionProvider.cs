@@ -13,6 +13,10 @@ namespace TT.Abp.Mall.Definitions
             );
 
             context.Add(
+                new AppDefinition("mall_h5", "SoMall_App", displayName: L("mall_h5"))
+            );
+
+            context.Add(
                 new AppDefinition("woju_mini", "SoMall_App", displayName: L("woju_mini"))
             );
 

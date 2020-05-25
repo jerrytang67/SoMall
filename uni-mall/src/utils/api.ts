@@ -23,14 +23,20 @@ const request = (
             //"__tenant":"4DF058F8-FB18-6524-A154-39F49F58A925",
             "content-type": "application/json",
             "Authorization": `Bearer ${uni.getStorageSync("token") || ''}`,
+            // #ifdef MP
             "AppName": "mall_mini"
+            // #endif
+
+            // #ifdef H5
+            "AppName": "mall_h5"
+            // #endif
         }
     });
 };
 
 export default {
 
-    h5: (data: any) => request('POST', `/api/mall/client/init2`, data),
+    h5: (data: any) => request('GET', `/api/app/weixin/getJssdk/mall_h5`, data),
 
     // default
     init: (data: any) => request('POST', `/api/mall/client/init`, data),

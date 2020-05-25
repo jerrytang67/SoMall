@@ -63,5 +63,17 @@ namespace TT.Extensions
 
             return str;
         }
+
+        public static string GetSha1(this string encypStr)
+        {
+            var hash = SHA1.Create().ComputeHash(Encoding.UTF8.GetBytes(encypStr));
+            var stringBuilder = new StringBuilder();
+            foreach (var num in hash)
+            {
+                stringBuilder.Append($"{num:x2}");
+            }
+
+            return $"{stringBuilder}";
+        }
     }
 }

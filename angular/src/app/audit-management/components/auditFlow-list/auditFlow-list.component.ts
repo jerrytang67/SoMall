@@ -142,6 +142,7 @@ export class AuditFlowListComponent implements OnInit {
       });
     })
   }
+
   delete(item: any) {
     this.api.delete({ id: item.id }).subscribe(() => {
       this.message.success("删除成功");

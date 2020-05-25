@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Schema;
 using Serilog;
 using TT.Extensions;
+using TT.HttpClient.Weixin.WeixiinResult;
 
 namespace TT.HttpClient.Weixin
 {
@@ -118,7 +119,8 @@ namespace TT.HttpClient.Weixin
             HttpContent hc = new StreamContent(new MemoryStream(Encoding.UTF8.GetBytes(postData)));
 
             var response = await _client.PostAsync($"wxa/getwxacodeunlimit?access_token={token}", hc);
-            var result = TryConvert(await response.Content.ReadAsStringAsync());
+            var strResult = await response.Content.ReadAsStringAsync();
+            var result = strResult.TryConvert<BaseWeChatReulst>();
             if (result != null)
             {
                 throw new Exception(result.errmsg);
@@ -128,23 +130,11 @@ namespace TT.HttpClient.Weixin
             return bytes;
         }
 
-        public ErrorResult TryConvert(string input)
+        public async Task<TicketResult> GetTicket(string token, string url)
         {
-            try
-            {
-                return JsonConvert.DeserializeObject<ErrorResult>(input);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            var strResponse = await _client.GetStringAsync($"cgi-bin/ticket/getticket?access_token={token}&type=jsapi");
+            var jsonReuslt = strResponse.TryConvert<TicketResult>();
+            return await Task.FromResult(jsonReuslt);
         }
-    }
-
-
-    public class ErrorResult
-    {
-        public int errcode { get; set; }
-        public string errmsg { get; set; }
     }
 }
