@@ -37,6 +37,7 @@ const request = (
 export default {
 
     h5: (data: any) => request('GET', `/api/app/weixin/getJssdk/mall_h5`, data),
+    oAuth: (data: any) => request('GET', `/api/app/weixin/getOAuth/mall_h5`, data),
 
     // default
     init: (data: any) => request('POST', `/api/mall/client/init`, data),

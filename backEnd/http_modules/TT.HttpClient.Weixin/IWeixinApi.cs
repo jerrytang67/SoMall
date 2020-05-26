@@ -14,6 +14,8 @@ namespace TT.HttpClient.Weixin
 
         Task<Byte[]> WxacodeGetUnlimit(string token, string scene, string page = "pages/index/index", int width = 430, bool is_hyaline = false);
 
-        Task<TicketResult> GetTicket(string token, string url);
+        Task<TicketResult> GetTicket(string token);
+
+        Task<OAuth2Result> GetToken(string appid, string appsec, string code);
     }
 }

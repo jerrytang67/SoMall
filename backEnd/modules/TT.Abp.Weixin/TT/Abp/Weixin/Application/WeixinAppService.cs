@@ -203,27 +203,32 @@ namespace TT.Abp.Weixin.Application
             return await Task.FromResult(json);
         }
 
-        public async Task<object> GetJssdk(string url, string appName)
+        public async Task<JssdkResultDto> GetJssdk(string url, string appName)
         {
             var app = await _appProvider.GetOrNullAsync(appName);
             var appid = app["appid"] ?? throw new UserFriendlyException($"App:{appName} appid未设置");
             var appSec = app["appsec"] ?? throw new UserFriendlyException($"App:{appName} appsec未设置");
 
-            var token = await _weixinManager.GetAccessTokenAsync(appid, appSec);
-            var ticket = await _weixinApi.GetTicket(token, url);
 
-
-            if (ticket == null || ticket.errcode != 0)
-            {
-                throw new UserFriendlyException($"GetJssdk Error:{ticket?.errmsg}");
-            }
+            var ticket = await _weixinManager.GetJsSdkAsync(appid, appSec);
 
             var nonceStr = _guidGenerator.Create().ToShortString();
-            var timestamp = Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalSeconds).ToString();
+            var timestamp = StringExt.GetTimestamp();
 
-            var signature = $"jsapi_ticket={ticket.ticket}&noncestr={nonceStr}&timestamp={timestamp}&url={url}".GetSha1();
+            var signature = $"jsapi_ticket={ticket}&noncestr={nonceStr}&timestamp={timestamp}&url={url}".GetSha1();
 
-            return new {appId = appid, timestamp, nonceStr, signature};
+            return new JssdkResultDto(appid, timestamp, nonceStr, signature);
+        }
+
+
+        public async Task<object> GetOAuth(string code, string appName)
+        {
+            var app = await _appProvider.GetOrNullAsync(appName);
+            var appid = app["appid"] ?? throw new UserFriendlyException($"App:{appName} appid未设置");
+            var appSec = app["appsec"] ?? throw new UserFriendlyException($"App:{appName} appsec未设置");
+
+            var result = await _weixinApi.GetToken(appid, appSec, code);
+            return result;
         }
     }
 }

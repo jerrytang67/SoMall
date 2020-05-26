@@ -15,7 +15,7 @@ export default {
         }).then((res: any) => {
             // console.log(res);
             jweixin.config({
-                debug: true,
+                debug: false,
                 appId: res.appId,
                 timestamp: res.timestamp,
                 nonceStr: res.nonceStr,

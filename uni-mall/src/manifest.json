@@ -74,7 +74,7 @@
     "h5": {
         "router": {
             "base": "/h5/",
-            "mode": "hash"
+            "mode": "history"
         },
         "title": "SoMall商城",
         "optimization": {

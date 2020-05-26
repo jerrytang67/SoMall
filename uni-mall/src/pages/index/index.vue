@@ -94,6 +94,7 @@ import api from "@/utils/api";
 @Component
 export default class About extends BaseView {
    async onLoad(options: any) {
+      console.log("options:", options);
       const scene = decodeURIComponent(options.scene);
       if (scene !== "undefined") {
          console.log("scene:", scene);

@@ -53,14 +53,57 @@
 
 <script lang="ts">
 // pageBase
+
+export const GetRequestParameters = (locationsearch: string) => {
+   let url = locationsearch;
+   let theRequest: { [key: string]: string } = {};
+   if (url.indexOf("?") != -1) {
+      let str = url.substr(1);
+      let strs = str.split("&");
+      for (let i = 0; i < strs.length; i++) {
+         theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+      }
+   }
+   return theRequest;
+};
+
 import { BaseView } from "@/pages/baseView.ts";
 
 import { Component, Vue, Inject, Watch, Ref } from "vue-property-decorator";
 import { ShopModule } from "@/store/modules/shop";
 import api from "@/utils/api";
 import { Tips } from "@/utils/tips";
+// if H5
+import wechat from "../../utils/wechat";
+// endif
 @Component
 export default class LoginPage extends BaseView {
+   onShow() {
+      // if H5
+      console.log("h5");
+      if (wechat.isWechat()) {
+         console.log("wechat.isWechat");
+         let tmpUrlSearch = window.location.search; // 得到：?sceneid=h5&wxcode=xxx&puid=fff
+         let params = GetRequestParameters(tmpUrlSearch);
+         let code = params["code"]; //提取参数
+         console.log("code:", code);
+         if (!code) {
+            const host = encodeURIComponent(location.href.split("?")[0]);
+            let _state = "";
+            // const appid = storeState.appid;
+            const appid = "wx18b9e815c0ed9a8c";
+            const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${host}&response_type=code&scope=snsapi_userinfo&state=${_state}#wechat_redirect`;
+            location.href = url;
+         } else {
+            api.oAuth({ code }).then(res => {
+               console.log(res);
+            });
+         }
+      }
+
+      // endif
+   }
+
    theme = "black";
    mobile = "";
    password = "";

@@ -13,5 +13,7 @@ namespace TT.Abp.Weixin.Application
         Task<object> MiniAuth(WeChatMiniProgramAuthenticateModel loginModel, string appName);
 
         Task<object> CheckLogin(bool? dbCheck = false);
+        Task<JssdkResultDto> GetJssdk(string url, string appName);
+        Task<object> GetOAuth(string code, string appName);
     }
 }

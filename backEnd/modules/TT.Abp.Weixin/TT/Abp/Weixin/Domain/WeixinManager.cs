@@ -26,6 +26,7 @@ namespace TT.Abp.Weixin.Domain
     public class WeixinManager : ITransientDependency
     {
         private readonly IDistributedCache<AccessTokeCacheItem> _tokenCache;
+        private readonly IDistributedCache<JsSdkCacheItem> _jsSdkCache;
         private readonly IRedisClient _redisClient;
         private readonly IRepository<WechatUserinfo> _wechatUserRepository;
         private readonly Volo.Abp.ObjectMapping.IObjectMapper _mapper;
@@ -35,6 +36,7 @@ namespace TT.Abp.Weixin.Domain
 
         public WeixinManager(
             IDistributedCache<AccessTokeCacheItem> tokenCache,
+            IDistributedCache<JsSdkCacheItem> jsSdkCache,
             IRedisClient redisClient,
             IRepository<WechatUserinfo> wechatUserRepository,
             Volo.Abp.ObjectMapping.IObjectMapper mapper,
@@ -49,8 +51,8 @@ namespace TT.Abp.Weixin.Domain
             _currentTenant = currentTenant;
             _setting = setting;
             _weixinApi = weixinApi;
+            _jsSdkCache = jsSdkCache;
         }
-
 
         [UnitOfWork]
         public virtual async Task CreateOrUpdate(MiniUserInfoResult userinfo)
@@ -94,7 +96,7 @@ namespace TT.Abp.Weixin.Domain
                 async () => await GetAccessToken(appid, appSeret),
                 () => new DistributedCacheEntryOptions
                 {
-                    AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+                    AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(7200)
                 }
             );
             if (cache != null)
@@ -107,7 +109,7 @@ namespace TT.Abp.Weixin.Domain
                         async () => await GetAccessToken(appid, appSeret),
                         () => new DistributedCacheEntryOptions
                         {
-                            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+                            AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(7200)
                         }
                     );
                 }
@@ -117,6 +119,60 @@ namespace TT.Abp.Weixin.Domain
 
             throw new UserFriendlyException("token 获取失败");
         }
+
+        public async Task<string> GetJsSdkAsync(string appid, string appSeret)
+        {
+            var cache = await _jsSdkCache.GetOrAddAsync(
+                appid, //Cache key
+                async () => await GetJsSdk(appid, appSeret),
+                () => new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(7200)
+                }
+            );
+            if (cache != null)
+            {
+                if (cache.TimeExpired <= DateTimeOffset.Now)
+                {
+                    await _tokenCache.RemoveAsync(appid);
+                    cache = await _jsSdkCache.GetOrAddAsync(
+                        appid, //Cache key
+                        async () => await GetJsSdk(appid, appSeret),
+                        () => new DistributedCacheEntryOptions
+                        {
+                            AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(7200)
+                        }
+                    );
+                }
+
+                return cache.Ticket;
+            }
+
+            throw new UserFriendlyException("JsSdk 获取失败");
+        }
+
+        private async Task<JsSdkCacheItem> GetJsSdk(string appid, string appSeret)
+        {
+            var token = await GetAccessTokenAsync(appid, appSeret);
+
+            var ticket = await _weixinApi.GetTicket(token);
+            if (ticket.errcode == 0)
+            {
+                Log.Logger.Information(JsonConvert.SerializeObject(token));
+                return new JsSdkCacheItem()
+                {
+                    Appid = appid,
+                    AppSecret = appSeret,
+                    Ticket = ticket.ticket,
+                    TimeCreated = DateTimeOffset.Now,
+                    TimeExpired = DateTimeOffset.Now.AddSeconds(ticket.expires_in)
+                };
+            }
+
+            Log.Logger.Error($"ticket 获取失败: {ticket.errmsg}");
+            return null;
+        }
+
 
         public async Task<MiniUserInfoResult> Mini_GetUserInfo(string appid, string encryptedDataStr, string sessionKey, string iv)
         {
@@ -185,9 +241,7 @@ namespace TT.Abp.Weixin.Domain
 
             throw new UserFriendlyException("生成小程序二维码失败");
         }
-        
-        
-        
+
 
         private async Task<UpYun> GetUploader()
         {

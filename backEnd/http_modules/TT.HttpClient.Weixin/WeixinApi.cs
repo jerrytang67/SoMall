@@ -130,11 +130,45 @@ namespace TT.HttpClient.Weixin
             return bytes;
         }
 
-        public async Task<TicketResult> GetTicket(string token, string url)
+
+        /// <summary>
+        /// 公众号获取JS-SDK
+        /// <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html"/>
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public async Task<TicketResult> GetTicket(string token)
         {
             var strResponse = await _client.GetStringAsync($"cgi-bin/ticket/getticket?access_token={token}&type=jsapi");
             var jsonReuslt = strResponse.TryConvert<TicketResult>();
             return await Task.FromResult(jsonReuslt);
         }
+
+        /// <summary>
+        /// <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html"/>
+        /// </summary>
+        /// <param name="appid"></param>
+        /// <param name="appsec"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<OAuth2Result> GetToken(string appid, string appsec, string code)
+        {
+            var strResponse = await _client.GetStringAsync($"sns/oauth2/access_token?appid={appid}&secret={appsec}&code={code}&grant_type=authorization_code");
+            var jsonReuslt = strResponse.TryConvert<OAuth2Result>();
+            return await Task.FromResult(jsonReuslt);
+        }
+    }
+
+    public class OAuth2Result
+    {
+        public string access_token { get; set; }
+
+        public int expires_in { get; set; }
+
+        public string refresh_token { get; set; }
+
+        public string openid { get; set; }
+
+        public string scope { get; set; }
     }
 }

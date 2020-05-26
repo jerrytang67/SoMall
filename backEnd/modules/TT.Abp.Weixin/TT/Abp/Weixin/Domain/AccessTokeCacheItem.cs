@@ -14,4 +14,17 @@ namespace TT.Abp.Weixin.Domain
 
         public DateTimeOffset TimeExpired { get; set; }
     }
+
+    public class JsSdkCacheItem
+    {
+        public string Appid { get; set; }
+
+        public string AppSecret { get; set; }
+
+        public string Ticket { get; set; }
+
+        public DateTimeOffset TimeCreated { get; set; }
+
+        public DateTimeOffset TimeExpired { get; set; }
+    }
 }
