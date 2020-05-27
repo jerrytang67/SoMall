@@ -72,12 +72,7 @@ namespace TT.Abp.Weixin.Application
             _weixinApi = weixinApi;
         }
 
-        public async Task<object> Code2Session(WeChatMiniProgramAuthenticateModel loginModel)
-        {
-            return await Task.FromResult<object>(null);
-        }
-
-
+        [Obsolete]
         public async Task<string> GetAccessToken(string appid)
         {
             var appId = await _setting.GetOrNullAsync(WeixinManagementSetting.MiniAppId);
