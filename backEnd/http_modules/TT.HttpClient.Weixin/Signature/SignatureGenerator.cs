@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using Serilog;
 using TT.HttpClient.Weixin.Models;
 
 namespace TT.HttpClient.Weixin.Signature
@@ -20,6 +16,7 @@ namespace TT.HttpClient.Weixin.Signature
             {
                 sb.Append($"{@byte:x2}");
             }
+
             return sb.ToString().ToUpper();
         }
 

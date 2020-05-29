@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>TT.HttpClient</AssemblyName>
         <VersionPrefix>1.0.0</VersionPrefix>
         <Authors>tt-tjw@qq.com</Authors>
     </PropertyGroup>
