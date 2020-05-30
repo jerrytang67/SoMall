@@ -170,7 +170,11 @@ namespace TT.HttpClient.Weixin
             var result = new UnifiedorderResult(xmlResult);
 
             var package = $"prepay_id={result.prepay_id}";
-            result.PaySign = _signatureGenerator.GetJsPaySign(appId, result.TimeStamp, result.nonce_str, package, mchKey);
+            result.PaySign = _signatureGenerator.GetJsPaySign(
+                subAppId.IsNullOrEmptyOrWhiteSpace() ? appId : subAppId, //如果是服务商模式,这里是SubAppId
+                result.TimeStamp,
+                result.nonce_str,
+                package, mchKey);
 
             return result;
         }
