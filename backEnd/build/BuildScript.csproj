@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="version.props"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FlubuCore" Version="5.1.1"/>
+  </ItemGroup>
+</Project>

@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\http_modules\TT.HttpClient.Weixin\TT.HttpClient.Weixin.csproj" />
+      <ProjectReference Include="..\..\modules\TT.HttpClient.Weixin\TT.HttpClient.Weixin.csproj" />
       <ProjectReference Include="..\TT.Abp.AppManagement\TT.Abp.AppManagement.csproj" />
       <ProjectReference Include="..\TT.Abp.Core\TT.Abp.Core.csproj" />
       <ProjectReference Include="..\TT.Abp.OssManagement\TT.Abp.OssManagement.csproj" />

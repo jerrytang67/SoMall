@@ -1,0 +1,24 @@
+<Project>
+    <Import Project="build\version.props" />
+    <PropertyGroup Label="Package">
+        <Product>SoMall</Product>
+        <LangVersion>8</LangVersion>
+        <Authors>TT</Authors>
+        <RepositoryUrl>https://github.com/jerrytang67/SoMall</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+        <PackageProjectUrl>https://github.com/jerrytang67/SoMall</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/jerrytang67/SoMall/blob/master/LICENSE.txt</PackageLicenseUrl>
+        <PackageTags>SoMall;ABP;MicroService</PackageTags>
+        <Description>社交电商商城开源项目.socail+mall即取名SoMall</Description>
+        <!-- 打包的文件夹 -->
+        <OutputPath>$(MSBuildThisFileDirectory)bin\$(Configuration)</OutputPath>
+        <PackageOutputPath>$(OutputPath)</PackageOutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!--指定自己的在安装 nuget 时修改编译-->
+        <!-- 添加的 README 文件 -->
+        <None Include="$(MSBuildThisFileDirectory)README.md" Pack="True" PackagePath="" Visible="false"/>
+    </ItemGroup>
+</Project>
