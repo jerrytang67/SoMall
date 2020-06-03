@@ -6,7 +6,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace TT.Oss
+namespace TT.Extensions.Oss
 {
 //目录条目类
     public class FolderItem

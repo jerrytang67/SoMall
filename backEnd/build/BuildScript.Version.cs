@@ -25,7 +25,7 @@ namespace BuildScript
             var suffix = versionQuality;
 
             bool isCi = false;
-            bool isTagged = false;
+            bool isTagged = true;
             if (!context.BuildSystems().IsLocalBuild)
             {
                 isCi = true;

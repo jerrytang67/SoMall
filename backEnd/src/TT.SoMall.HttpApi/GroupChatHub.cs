@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using TT.Redis;
+using TT.Extensions.Redis;
 using Volo.Abp.Users;
 
 namespace TT.SoMall

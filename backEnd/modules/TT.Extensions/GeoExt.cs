@@ -2,7 +2,7 @@
 
 namespace TT.Extensions
 {
-    public static class MapEx
+    public static class GeoEx
     {
         //地球半径，单位米
         private const double EARTH_RADIUS = 6378137;

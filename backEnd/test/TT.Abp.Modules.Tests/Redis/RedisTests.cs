@@ -2,7 +2,7 @@
 using Shouldly;
 using StackExchange.Redis;
 using TT.Abp.Weixin.Domain;
-using TT.Redis;
+using TT.Extensions.Redis;
 using Xunit;
 
 namespace TT.Abp.Modules.Tests.Redis

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
-namespace TT.Redis
+namespace TT.Extensions.Redis
 {
     public interface IRedisClient
     {

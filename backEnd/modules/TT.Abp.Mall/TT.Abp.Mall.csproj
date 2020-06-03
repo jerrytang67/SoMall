@@ -25,7 +25,7 @@
       <ProjectReference Include="..\TT.Abp.Core\TT.Abp.Core.csproj" />
       <ProjectReference Include="..\TT.Abp.Shops\TT.Abp.Shops.csproj" />
       <ProjectReference Include="..\TT.Abp.Weixin\TT.Abp.Weixin.csproj" />
-      <ProjectReference Include="..\TT.Core\TT.Core.csproj" />
+      <ProjectReference Include="..\TT.Extensions\TT.Extensions.csproj" />
     </ItemGroup>
 
     <ItemGroup>
