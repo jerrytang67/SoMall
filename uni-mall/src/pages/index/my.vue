@@ -1,7 +1,6 @@
 
 <template>
    <view class="container">
-
       <view class="user-section">
          <image class="bg" src="/static/user-bg.jpg"></image>
          <view class="user-info-box">

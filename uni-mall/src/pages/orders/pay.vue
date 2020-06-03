@@ -138,7 +138,6 @@ export default class Pay extends BaseView {
    margin-top: 20upx;
    background-color: #fff;
    padding-left: 60upx;
-
    .type-item {
       height: 120upx;
       padding: 20upx 0;
