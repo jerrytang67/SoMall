@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <AssemblyName>TT.HttpClient</AssemblyName>
+        <PackageId>TT.HttpClient.Weixin</PackageId>
     </PropertyGroup>
 
     <ItemGroup>

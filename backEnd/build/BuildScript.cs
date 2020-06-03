@@ -50,7 +50,7 @@ namespace BuildScript
                     .InformationalVersion(BuildVersion.VersionWithSuffix()));
 
             var tests = context.CreateTarget("Tests")
-                .SetDescription("Runs all Cap tests.")
+                .SetDescription("Runs all SoMall tests.")
                 .ForEach(TestProjectFiles,
                     (projectFile, target) =>
                     {
@@ -61,24 +61,25 @@ namespace BuildScript
 
             var pack = context.CreateTarget("Pack")
                 .SetDescription("Creates nuget packages for SoMall.")
-                  .ForEach(ProjectFiles, (projectFile, target) =>
-                  {
-                      target.AddCoreTask(x => x.Pack()
-                          .NoBuild()
-                          .Project(projectFile)
-                          .IncludeSymbols()
-                          .VersionSuffix(BuildVersion.Suffix)
-                          .OutputDirectory(ArtifactsDir));
-                  });
+                .ForEach(ProjectFiles, (projectFile, target) =>
+                {
+                    target.AddCoreTask(x => x.Pack()
+                        .NoBuild()
+                        .Project(projectFile)
+                        //.IncludeSymbols()
+                        .VersionSuffix(BuildVersion.Suffix)
+                        .OutputDirectory(ArtifactsDir));
+                });
 
             context.CreateTarget("Default")
                 .SetDescription("Runs all targets.")
                 .SetAsDefault()
-                .DependsOn(clean,
-                restore,
-                 build,
-                //   tests, 
-                pack);
+                .DependsOn(
+                    clean,
+                    restore,
+                    build,
+                    //   tests, 
+                    pack);
         }
     }
 }
