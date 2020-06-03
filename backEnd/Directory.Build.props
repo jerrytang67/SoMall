@@ -1,9 +1,10 @@
 <Project>
-    <Import Project="build\version.props" />
+    <Import Project="build\version.props"/>
     <PropertyGroup Label="Package">
         <Product>SoMall</Product>
         <LangVersion>8</LangVersion>
         <Authors>TT</Authors>
+        <IncludeSymbols>false</IncludeSymbols>
         <RepositoryUrl>https://github.com/jerrytang67/SoMall</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>

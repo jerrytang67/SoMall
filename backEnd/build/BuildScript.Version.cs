@@ -30,7 +30,7 @@ namespace BuildScript
             {
                 isCi = true;
                 bool isTagAppveyor = context.BuildSystems().AppVeyor().IsTag;
-             
+
                 if (context.BuildSystems().RunningOn == BuildSystemType.AppVeyor && isTagAppveyor ||
                     context.BuildSystems().RunningOn == BuildSystemType.TravisCI && string.IsNullOrWhiteSpace(context.BuildSystems().Travis().TagName))
                 {
