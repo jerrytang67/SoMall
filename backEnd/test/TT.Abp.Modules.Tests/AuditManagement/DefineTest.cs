@@ -45,7 +45,7 @@ namespace TT.Abp.Modules.Tests.AuditManagement
             var providers = _auditValueProvider.Providers;
 
             // define in mall Module
-            providers.Count.ShouldBe(3);
+            providers.Count.ShouldBe(4);
 
             await Task.CompletedTask;
         }

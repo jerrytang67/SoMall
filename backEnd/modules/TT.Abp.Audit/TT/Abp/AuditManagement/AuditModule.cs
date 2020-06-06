@@ -41,6 +41,7 @@ namespace TT.Abp.AuditManagement
             {
                 options.ValueProviders.Add<GlobalAuditValueProvider>();
                 options.ValueProviders.Add<TenantAuditValueProvider>();
+                options.ValueProviders.Add<OrganizationUnitAuditValueProvider>();
                 options.ValueProviders.Add<ShopAuditValueProvider>();
             });
         }
