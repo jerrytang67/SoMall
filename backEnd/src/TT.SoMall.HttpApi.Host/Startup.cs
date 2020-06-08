@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using DotNetCore.CAP;
+using Elastic.Apm.AspNetCore;
+using Elastic.Apm.DiagnosticSource;
+using Elastic.Apm.EntityFrameworkCore;
+using Elastic.Apm.NetCoreAll;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
@@ -11,6 +15,14 @@ namespace TT.SoMall
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
+
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+        
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = services.GetConfiguration();
@@ -43,6 +55,11 @@ namespace TT.SoMall
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseElasticApm(Configuration,
+                new HttpDiagnosticsSubscriber(), /* Enable tracing of outgoing HTTP requests */
+                new EfCoreDiagnosticsSubscriber()); /* Enable tracing of database calls through EF Core*/
+
+
             IdentityModelEventSource.ShowPII = true;
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions

@@ -1,4 +1,5 @@
 ﻿using System;
+using Elastic.CommonSchema.Serilog;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
@@ -27,8 +28,9 @@ namespace TT.SoMall
                 .WriteTo.Console()
                 .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearch))
                 {
-                    AutoRegisterTemplate = true,
-                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
+                    // AutoRegisterTemplate = true,
+                    // AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
+                    CustomFormatter = new EcsTextFormatter()
                 })
                 .CreateLogger();
 
