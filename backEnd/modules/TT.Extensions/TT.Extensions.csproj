@@ -5,9 +5,9 @@
         <RootNamespace>TT.Extensions</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.4" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.5" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="StackExchange.Redis" Version="2.1.30" />
+        <PackageReference Include="StackExchange.Redis" Version="2.1.55" />
     </ItemGroup>
 </Project>
 
