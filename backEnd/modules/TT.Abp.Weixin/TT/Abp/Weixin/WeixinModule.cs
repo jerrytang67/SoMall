@@ -32,14 +32,15 @@ namespace TT.Abp.Weixin
 
             // HTTPClient
             context.Services.AddHttpClient<IWeixinApi, WeixinApi>(
-                cfg => { cfg.BaseAddress = new Uri("https://api.weixin.qq.com/"); });
+                    cfg => { cfg.BaseAddress = new Uri("https://api.weixin.qq.com/"); })
+                .ConfigurePrimaryHttpMessageHandler(serviceProvider => new HttpClientHandler {Proxy = null, UseProxy = false});
 
             context.Services.AddHttpClient<IPayApi, PayApi>(
                     cfg => { cfg.BaseAddress = new Uri("https://api.mch.weixin.qq.com/"); })
                 .ConfigurePrimaryHttpMessageHandler(serviceProvider =>
                 {
                     var certificateProvider = serviceProvider.GetService<CertificateProvider>();
-                    var handler = new HttpClientHandler();
+                    var handler = new HttpClientHandler {Proxy = null, UseProxy = false};
                     handler.ClientCertificates.Add(certificateProvider.GetCertificate());
                     return handler;
                 });
