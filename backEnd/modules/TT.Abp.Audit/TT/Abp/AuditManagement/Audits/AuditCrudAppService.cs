@@ -37,7 +37,6 @@ namespace TT.Abp.AuditManagement.Audits
         }
 
         
-        [RequiresFeature()]
         public virtual async Task StartAudit(TEntityDto input)
         {
             if (CurrentAuditName.IsNullOrEmptyOrWhiteSpace())
@@ -52,7 +51,7 @@ namespace TT.Abp.AuditManagement.Audits
                 throw new UserFriendlyException("NotFind");
             }
 
-            if (dbEntity is IMultiShop && HasTenantIdProperty(dbEntity))
+            if (dbEntity is IMultiShop && HasShopIdProperty(dbEntity))
             {
                 var propertyInfo = dbEntity.GetType().GetProperty(nameof(IMultiShop.ShopId));
 
@@ -61,7 +60,7 @@ namespace TT.Abp.AuditManagement.Audits
                     if (propertyInfo.GetValue(dbEntity) is Guid shopId)
                     {
                         _currentShop.Change(shopId);
-                    }
+                    }    
                 }
             }
 

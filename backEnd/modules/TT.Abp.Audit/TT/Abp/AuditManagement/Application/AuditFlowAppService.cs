@@ -44,6 +44,7 @@ namespace TT.Abp.AuditManagement.Application
             _auditDefinitionManager = auditDefinitionManager;
             _guidGenerator = guidGenerator;
         }
+        
         [Authorize]
         public async Task<GetForEditOutput<AuditFlowCreateOrEditDto>> GetForEdit(Guid id)
         {

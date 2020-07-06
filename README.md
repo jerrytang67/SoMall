@@ -40,9 +40,13 @@ Consul (Service Discovery)
 Quartz (background Job Schedule)
 
 
-## 生鲜电商版小程序截图
-
-![image](_temp/fresh/1.png)
+想运行项目首选要熟悉
+ids4
+abp.vnext
+文档:
+https://docs.abp.io/en/abp/latest/
+somall相关视频
+https://space.bilibili.com/486919427/
 
 #### 交流QQ群353211
 ![image](_temp/qq_qun_353211.png)
