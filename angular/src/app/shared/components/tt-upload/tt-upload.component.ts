@@ -17,7 +17,7 @@ import { OssService } from 'src/store/oss/oss.service';
 <div class="clearfix">
     <nz-upload #host nzListType="picture-card" [(nzFileList)]="imgList" [customSuffix]="'!'"
     [nzAction]="ossQuery.uploadUrl$ | async" [nzCustomRequest]="customReq" (nzChange)="handleChange($event)" [nzRemove]="handleRemove"
-        [nzShowButton]="imgList.length < length" [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview" >
+        [nzShowButton]="imgList.length < length" [nzShowUploadList]="showUploadList" [nzPreview]="handlePreview" [nzPreviewIsImage]="previewIsImage" >
         <i nz-icon nzType="plus"></i>
         <div class="ant-upload-text">{{ "upload" | translate}}</div>
     </nz-upload>
@@ -129,6 +129,10 @@ export class TtUploadComponent implements OnChanges {
         this.previewVisible = true;
         console.log(this.imgList)
     };
+
+    previewIsImage = (file: UploadFile) => {
+        return true;
+    }
 
 
     customReq = (item: UploadXHRArgs) => {
