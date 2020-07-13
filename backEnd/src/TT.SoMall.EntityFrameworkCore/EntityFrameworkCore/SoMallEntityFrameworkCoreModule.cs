@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IdentityServer4.Stores;
+using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AccountManagement;
 using TT.Abp.AppManagement;
 using TT.Abp.AuditManagement;
@@ -16,6 +17,7 @@ using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.IdentityServer.EntityFrameworkCore;
+using Volo.Abp.IdentityServer.Grants;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
@@ -34,7 +36,6 @@ namespace TT.SoMall.EntityFrameworkCore
         typeof(AbpAuditLoggingEntityFrameworkCoreModule),
         typeof(AbpTenantManagementEntityFrameworkCoreModule),
         typeof(AbpFeatureManagementEntityFrameworkCoreModule),
-        typeof(AbpFeatureManagementEntityFrameworkCoreModule),
         typeof(TtCoreModule),
         typeof(AccountManagementModule),
         typeof(AppManagementModule),
@@ -48,8 +49,16 @@ namespace TT.SoMall.EntityFrameworkCore
     )]
     public class SoMallEntityFrameworkCoreModule : AbpModule
     {
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            SoMallEfCoreEntityExtensionMappings.Configure();
+        }
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
+            context.Services.AddTransient<IPersistedGrantStore, PersistedGrantStore>();
+            
+            
             context.Services.AddAbpDbContext<SoMallDbContext>(options =>
             {
                 /* Remove "includeAllEntities: true" to create

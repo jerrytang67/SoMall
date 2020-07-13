@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -15,6 +16,7 @@ using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.MultiTenancy;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
+using StackExchange.Redis;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
@@ -49,7 +51,7 @@ namespace TT.SoMall
             ConfigureLocalization();
             ConfigureCache(configuration);
             ConfigureVirtualFileSystem(context);
-            ConfigureRedis(context, configuration);
+            ConfigureRedis(context, configuration,hostingEnvironment);
             ConfigureCors(context, configuration);
             ConfigureSwaggerServices(context);
         }
@@ -68,12 +70,9 @@ namespace TT.SoMall
                 Configure<AbpVirtualFileSystemOptions>(options =>
                 {
                     options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain.Shared"));
-
                     options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain"));
-
                     options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath,
                         $"..{Path.DirectorySeparatorChar}TT.SoMall.Application.Contracts"));
-
                     options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Application"));
                 });
             }
@@ -116,7 +115,7 @@ namespace TT.SoMall
             context.Services.AddSwaggerGen(
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "SoMall API", Version = "v1" });
+                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "SoMall API", Version = "v1"});
                     options.DocInclusionPredicate((docName, description) => true);
                     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 });
@@ -136,9 +135,17 @@ namespace TT.SoMall
 
         private void ConfigureRedis(
             ServiceConfigurationContext context,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IWebHostEnvironment hostingEnvironment)
         {
-            context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:ConnectionString"]; });
+            // context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:ConnectionString"]; });
+            if (!hostingEnvironment.IsDevelopment())
+            {
+                var redis = ConnectionMultiplexer.Connect(configuration["Redis:ConnectionString"]);
+                context.Services
+                    .AddDataProtection()
+                    .PersistKeysToStackExchangeRedis(redis, "SoMall-Protection-Keys");
+            }
         }
 
         private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
@@ -166,12 +173,10 @@ namespace TT.SoMall
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
-
-
             var app = context.GetApplicationBuilder();
 
             app.UseCorrelationId();
-            //app.UseVirtualFiles();
+            app.UseVirtualFiles();
             app.UseRouting();
             app.UseCors(DefaultCorsPolicyName);
             app.UseAuthentication();
@@ -182,10 +187,7 @@ namespace TT.SoMall
                 app.UseMultiTenancy();
             }
 
-            app.UseAbpRequestLocalization(option =>
-            {
-                option.DefaultRequestCulture = new RequestCulture("zh-Hans");
-            });
+            app.UseAbpRequestLocalization(option => { option.DefaultRequestCulture = new RequestCulture("zh-Hans"); });
 
             app.UseSwagger();
             app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "SoMall API"); });
@@ -203,7 +205,7 @@ namespace TT.SoMall
         {
             var parameters = descriptions
                 .SelectMany(desc => desc.ParameterDescriptions)
-                .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
+                .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
                     ApiParameterDescriptionEqualityComparer.Instance)
                 .ToList();
             var description = descriptions.First();

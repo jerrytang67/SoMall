@@ -22,7 +22,7 @@ namespace TT.SoMall
         {
             Configuration = configuration;
         }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             var configuration = services.GetConfiguration();
@@ -55,10 +55,12 @@ namespace TT.SoMall
 
         public void Configure(IApplicationBuilder app)
         {
-            app.UseElasticApm(Configuration,
-                new HttpDiagnosticsSubscriber(), /* Enable tracing of outgoing HTTP requests */
-                new EfCoreDiagnosticsSubscriber()); /* Enable tracing of database calls through EF Core*/
-
+            if (false)
+            {
+                app.UseElasticApm(Configuration,
+                    new HttpDiagnosticsSubscriber(), /* Enable tracing of outgoing HTTP requests */
+                    new EfCoreDiagnosticsSubscriber()); /* Enable tracing of database calls through EF Core*/
+            }
 
             IdentityModelEventSource.ShowPII = true;
 
