@@ -9,6 +9,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using TT.Abp.Mall.Domain.Comments;
+using Volo.Abp.Linq;
 
 
 namespace TT.Abp.Mall.Application.Comments
@@ -22,8 +23,10 @@ namespace TT.Abp.Mall.Application.Comments
         CrudAppService<Comment, CommentDto, Guid, MallRequestDto, CommentCreateOrUpdateDto, CommentCreateOrUpdateDto>,
         ICommentAppService
     {
-        public CommentAppService(IRepository<Comment, Guid> repository) : base(repository)
+        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
+        public CommentAppService(IRepository<Comment, Guid> repository, IAsyncQueryableExecuter asyncQueryableExecuter) : base(repository)
         {
+            _asyncQueryableExecuter = asyncQueryableExecuter;
         }
 
         [Authorize]
@@ -83,7 +86,7 @@ namespace TT.Abp.Mall.Application.Comments
 
             query = query.PageBy(input);
 
-            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+            var entities = await _asyncQueryableExecuter.ToListAsync(query);
 
             return new PagedResultDto<CommentDto>(
                 totalCount,

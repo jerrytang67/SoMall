@@ -7,6 +7,7 @@ using TT.Abp.Mall.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Linq;
 
 namespace TT.Abp.Mall.Application.Coupons
 {
@@ -18,13 +19,13 @@ namespace TT.Abp.Mall.Application.Coupons
     public class CouponAppService : CrudAppService<Coupon, CouponDto, Guid, MallRequestDto, CouponCreateOrUpdateDto, CouponCreateOrUpdateDto>, ICouponAppService
     {
         private readonly IRepository<UserCoupon, Guid> _userCouponRepository;
-
+        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         public CouponAppService(
             IRepository<Coupon, Guid> repository,
-            IRepository<UserCoupon, Guid> userCouponRepository
-        ) : base(repository)
+            IRepository<UserCoupon, Guid> userCouponRepository, IAsyncQueryableExecuter asyncQueryableExecuter) : base(repository)
         {
             _userCouponRepository = userCouponRepository;
+            _asyncQueryableExecuter = asyncQueryableExecuter;
             base.GetListPolicyName = MallPermissions.Coupons.Default;
             base.CreatePolicyName = MallPermissions.Coupons.Create;
             base.UpdatePolicyName = MallPermissions.Coupons.Update;
@@ -36,11 +37,11 @@ namespace TT.Abp.Mall.Application.Coupons
         {
             var query = base.CreateFilteredQuery(input);
 
-            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+            var totalCount = await _asyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
 
-            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+            var entities = await _asyncQueryableExecuter.ToListAsync(query);
 
             var result = new ListResultDto<CouponDto>(
                 entities.Select(MapToGetListOutputDto).ToList()

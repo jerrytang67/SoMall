@@ -1,0 +1,18 @@
+2020-07-15 15:23:47.109 +08:00 [INF] Started database migrations...
+2020-07-15 15:23:47.128 +08:00 [INF] Migrating host database schema...
+2020-07-15 15:23:47.967 +08:00 [WRN] The property 'Value' on entity type 'App' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2020-07-15 15:23:47.970 +08:00 [WRN] The property 'CoverImageUrls' on entity type 'ProductSku' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2020-07-15 15:23:47.971 +08:00 [WRN] The property 'Params' on entity type 'QrDetail' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2020-07-15 15:23:47.995 +08:00 [WRN] The 'bool' property 'IsRequired' on entity type 'FormItem' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'.
+2020-07-15 15:23:47.999 +08:00 [WRN] No type was specified for the decimal column 'AvblBalance' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-07-15 15:23:48.000 +08:00 [WRN] No type was specified for the decimal column 'TotalWithdrawals' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-07-15 15:23:48.001 +08:00 [WRN] No type was specified for the decimal column 'UnavblBalance' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-07-15 15:23:48.001 +08:00 [WRN] No type was specified for the decimal column 'Price' on entity type 'PartnerProduct'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-07-15 15:23:48.002 +08:00 [WRN] No type was specified for the decimal column 'CommissionPrice' on entity type 'ProductSku'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.
+2020-07-15 15:23:48.660 +08:00 [INF] Executing host database seed...
+2020-07-15 15:23:53.589 +08:00 [INF] Successfully completed host database migrations.
+2020-07-15 15:23:53.796 +08:00 [INF] Migrating somall database schema... (1 of 1)
+2020-07-15 15:23:53.797 +08:00 [INF] Migrating schema for somall database...
+2020-07-15 15:23:54.056 +08:00 [INF] Executing somall tenant database seed...
+2020-07-15 15:23:59.978 +08:00 [INF] Successfully completed somall database migrations.
+2020-07-15 15:23:59.978 +08:00 [INF] Successfully completed database migrations.
