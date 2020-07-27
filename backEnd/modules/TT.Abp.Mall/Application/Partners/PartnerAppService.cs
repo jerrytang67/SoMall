@@ -12,7 +12,6 @@ using TT.Abp.Mall.Application.Partners.Dtos;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Partners;
 using TT.Extensions;
-using TT.SoMall.Users;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
@@ -33,15 +32,12 @@ namespace TT.Abp.Mall.Application.Partners
     public class PartnerAppService : ApplicationService, IPartnerAppService
     {
         private readonly IRepository<Partner> _repository;
-        private readonly IRepository<AppUser, Guid> _userRepository;
 
         public PartnerAppService(
             IRepository<Partner> repository
-            , IRepository<AppUser, Guid> userRepository
         )
         {
             _repository = repository;
-            _userRepository = userRepository;
         }
 
         public async Task<PartnerDto> GetAsync(Guid userId)

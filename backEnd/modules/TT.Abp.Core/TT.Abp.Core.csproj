@@ -1,27 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <OutputType>Library</OutputType>
     </PropertyGroup>
-
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="8.0.1" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.5" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.9.0" />
-        <PackageReference Include="Volo.Abp.AuditLogging.Domain" Version="2.9.0" />
-        <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="2.9.0" />
-        <PackageReference Include="Volo.Abp.Core" Version="2.9.0" />
-        <PackageReference Include="Volo.Abp.Ddd.Application" Version="2.9.0" />
-        <PackageReference Include="Volo.Abp.Guids" Version="2.9.0" />
-        <PackageReference Include="Volo.Abp.Users.Domain" Version="2.9.0" />
+        <PackageReference Include="AutoMapper" Version="9.0.0"/>
+        <PackageReference Include="MediatR" Version="8.0.1"/>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.5"/>
+        <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="2.9.0"/>
+        <PackageReference Include="Volo.Abp.AuditLogging.Domain" Version="2.9.0"/>
+        <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="2.9.0"/>
+        <PackageReference Include="Volo.Abp.AutoMapper" Version="2.9.0"/>
+        <PackageReference Include="Volo.Abp.Core" Version="2.9.0"/>
+        <PackageReference Include="Volo.Abp.Ddd.Application" Version="2.9.0"/>
+        <PackageReference Include="Volo.Abp.Guids" Version="2.9.0"/>
+        <PackageReference Include="Volo.Abp.Users.Domain" Version="2.9.0"/>
     </ItemGroup>
-
     <ItemGroup>
-      <ProjectReference Include="..\..\src\TT.SoMall.Domain\TT.SoMall.Domain.csproj" />
-      <ProjectReference Include="..\TT.Extensions\TT.Extensions.csproj" />
+        <ProjectReference Include="..\TT.Extensions\TT.Extensions.csproj"/>
     </ItemGroup>
-
 </Project>

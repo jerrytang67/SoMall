@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TT.SoMall.Users;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.AuditLogging;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Users;
 
 namespace TT.Abp.Core.Application
@@ -17,15 +14,12 @@ namespace TT.Abp.Core.Application
     public class AuditLogAppService : ApplicationService
     {
         private readonly IAuditLogRepository _auditlogRepository;
-        private readonly IRepository<AppUser, Guid> _userRepository;
 
         public AuditLogAppService(
-            IAuditLogRepository auditlogRepository,
-            IRepository<AppUser, Guid> userRepository
+            IAuditLogRepository auditlogRepository
         )
         {
             _auditlogRepository = auditlogRepository;
-            _userRepository = userRepository;
         }
 
         public async Task<PagedResultDto<AuditLogListDto>> GetAuditLogs(GetAuditLogsInput input)

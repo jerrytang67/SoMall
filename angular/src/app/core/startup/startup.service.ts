@@ -1,10 +1,7 @@
 
 //startup.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
 import { NzIconService } from 'ng-zorro-antd';
-import { Observable } from 'rxjs';
 
 export interface Configuration {
   api: string;
@@ -13,7 +10,6 @@ export interface Configuration {
 @Injectable()
 export class StartupService {
   constructor(
-    private httpClient: HttpClient,
     private iconSrv: NzIconService
   ) { }
 
