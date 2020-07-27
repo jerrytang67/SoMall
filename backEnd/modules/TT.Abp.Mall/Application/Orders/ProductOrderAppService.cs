@@ -23,6 +23,7 @@ using TT.HttpClient.Weixin;
 using TT.RabbitMQ;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Linq;
 using Volo.Abp.Settings;
 
 namespace TT.Abp.Mall.Application.Orders
@@ -43,6 +44,7 @@ namespace TT.Abp.Mall.Application.Orders
         private readonly ISettingProvider _setting;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         private readonly IAppProvider _appProvider;
         private readonly RabbitMqPublisher _rabbit;
         private readonly IMediator _mediator;
@@ -56,6 +58,7 @@ namespace TT.Abp.Mall.Application.Orders
             ISettingProvider setting,
             IHttpContextAccessor httpContext,
             IHttpContextAccessor httpContextAccessor,
+            IAsyncQueryableExecuter asyncQueryableExecuter,
             IAppProvider appProvider,
             RabbitMqPublisher rabbit,
             IMediator mediator
@@ -67,6 +70,7 @@ namespace TT.Abp.Mall.Application.Orders
             _setting = setting;
             _httpContext = httpContext;
             _httpContextAccessor = httpContextAccessor;
+            _asyncQueryableExecuter = asyncQueryableExecuter;
             _appProvider = appProvider;
             _rabbit = rabbit;
             _mediator = mediator;
@@ -222,13 +226,13 @@ namespace TT.Abp.Mall.Application.Orders
                     .WhereIf(input.State.HasValue && input.State == 4, x => x.PayType != MallEnums.PayType.未支付 && x.State == MallEnums.OrderState.售后)
                 ;
 
-            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+            var totalCount = await _asyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
 
             query = ApplyPaging(query, input);
 
-            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+            var entities = await _asyncQueryableExecuter.ToListAsync(query);
 
             var result = new PagedResultDto<ProductOrderDto>(
                 totalCount,

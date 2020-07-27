@@ -14,7 +14,7 @@ export class PermissionsService {
     }
 
     getPermissions(params = {}): Observable<PermissionResponse> {
-        return this.http.request<PermissionResponse>('get', "/api/abp/permissions/get", { params })
+        return this.http.request<PermissionResponse>('get', "/api/permission-management/permissions", { params })
             .pipe(
                 tap(res => {
                     console.log(res.groups)
@@ -29,6 +29,6 @@ export class PermissionsService {
             params: { providerKey: params.providerKey, providerName: params.providerName },
             body: params.body
         };
-        return this.http.request<any>('put', "/api/abp/permissions/update", options);
+        return this.http.request<any>('put', "/api/permission-management/permissions", options);
     }
 }

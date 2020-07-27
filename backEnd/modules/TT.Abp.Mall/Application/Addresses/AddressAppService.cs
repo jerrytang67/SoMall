@@ -13,6 +13,7 @@ using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Users;
 using Volo.Abp.EventBus.Local;
+using Volo.Abp.Linq;
 
 namespace TT.Abp.Mall.Application.Addresses
 {
@@ -29,14 +30,17 @@ namespace TT.Abp.Mall.Application.Addresses
     public class AddressAppService
         : CrudAppService<Address, AddressDto, Guid, PagedAndSortedResultRequestDto, AddressCreateOrUpdateDto, AddressCreateOrUpdateDto>, IAddressAppService
     {
+        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         protected IMallUserLookupService UserLookupService { get; }
 
         public AddressAppService(
             IRepository<Address, Guid> repository,
-            IMallUserLookupService userLookupService
+            IMallUserLookupService userLookupService,
+            IAsyncQueryableExecuter asyncQueryableExecuter
         )
             : base(repository)
         {
+            _asyncQueryableExecuter = asyncQueryableExecuter;
             UserLookupService = userLookupService;
 
             base.CreatePolicyName = MallPermissions.Addresses.Create;
@@ -50,12 +54,12 @@ namespace TT.Abp.Mall.Application.Addresses
 
             var query = CreateFilteredQuery(input);
 
-            var totalCount = await AsyncQueryableExecuter.CountAsync(query);
+            var totalCount = await _asyncQueryableExecuter.CountAsync(query);
 
             query = ApplySorting(query, input);
             query = ApplyPaging(query, input);
 
-            var entities = await AsyncQueryableExecuter.ToListAsync(query);
+            var entities = await _asyncQueryableExecuter.ToListAsync(query);
 
             var addresslist = new PagedResultDto<AddressDto>(
                 totalCount,

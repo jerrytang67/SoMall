@@ -21,7 +21,7 @@ namespace TT.SoMall
 
             services.PostConfigure<IdentityServerOptions>(options =>
             {
-                options.PublicOrigin = config["AuthServer:Authority"];
+                // options.PublicOrigin = config["AuthServer:Authority"];
                 options.IssuerUri = config["AuthServer:Authority"];
             });
             
