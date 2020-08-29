@@ -157,6 +157,16 @@ namespace TT.HttpClient.Weixin
             var jsonReuslt = strResponse.TryConvert<OAuth2Result>();
             return await Task.FromResult(jsonReuslt);
         }
+
+        /// <summary>
+        /// <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html"/>
+        /// </summary>
+        public async Task<WeixinUserInfoResult> SnsUserInfo(string access_token, string openid)
+        {
+            var strResponse = await _client.GetStringAsync($"sns/userinfo?access_token={access_token}&openid={openid}&lang=zh_CN");
+            var jsonReuslt = strResponse.TryConvert<WeixinUserInfoResult>();
+            return await Task.FromResult(jsonReuslt);
+        }
     }
 
     public class OAuth2Result

@@ -255,7 +255,7 @@ namespace TT.Abp.Mall.Application.Products
                 .Include(x => x.AppProductSpus)
                 .Include(x => x.Skus)
                 .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
-                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId);
+                ;
         }
 
 

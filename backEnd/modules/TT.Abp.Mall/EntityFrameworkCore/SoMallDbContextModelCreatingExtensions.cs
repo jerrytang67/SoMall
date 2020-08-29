@@ -336,8 +336,6 @@ namespace TT.Abp.Mall.EntityFrameworkCore
 
                 b.Property(x => x.BillNo).IsRequired().HasMaxLength(48);
                 b.Property(x => x.Reason).HasMaxLength(MallConsts.MaxShortDescLength);
-                
-                
             });
         }
     }

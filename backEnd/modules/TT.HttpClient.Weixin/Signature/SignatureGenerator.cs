@@ -23,7 +23,7 @@ namespace TT.HttpClient.Weixin.Signature
         public string GetJsPaySign(string appId, string timeStamp, string nonceStr, string package, string key,
             string signType = "MD5")
         {
-            PayParameters pay = new PayParameters();
+            var pay = new PayParameters();
             pay.AddParameter("appId", appId);
             pay.AddParameter("timeStamp", timeStamp);
             pay.AddParameter("nonceStr", nonceStr);

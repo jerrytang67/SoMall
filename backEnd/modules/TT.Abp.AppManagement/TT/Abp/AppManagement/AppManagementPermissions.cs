@@ -1,4 +1,4 @@
-﻿using TT.Abp.AppManagement.AppManagement.Localization;
+﻿using TT.Abp.AppManagement.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 using Volo.Abp.Reflection;
@@ -9,7 +9,7 @@ namespace TT.Abp.AppManagement
     {
         public const string GroupName = "AppManagement";
 
-        public static class Apps
+        public class Apps
         {
             public const string Default = GroupName + ".Apps";
             public const string Create = Default + ".Create";

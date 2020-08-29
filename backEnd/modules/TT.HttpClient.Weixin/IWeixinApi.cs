@@ -17,5 +17,7 @@ namespace TT.HttpClient.Weixin
         Task<TicketResult> GetTicket(string token);
 
         Task<OAuth2Result> GetToken(string appid, string appsec, string code);
+
+        Task<WeixinUserInfoResult> SnsUserInfo(string access_token, string openid);
     }
 }

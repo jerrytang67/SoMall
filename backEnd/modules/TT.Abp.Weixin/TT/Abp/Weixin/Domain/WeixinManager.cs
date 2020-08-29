@@ -172,8 +172,7 @@ namespace TT.Abp.Weixin.Domain
             Log.Logger.Error($"ticket 获取失败: {ticket.errmsg}");
             return null;
         }
-
-
+        
         public async Task<MiniUserInfoResult> Mini_GetUserInfo(string appid, string encryptedDataStr, string sessionKey, string iv)
         {
             var json = Encryption.AES_decrypt(encryptedDataStr, sessionKey, iv);

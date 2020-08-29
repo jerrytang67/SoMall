@@ -1,6 +1,4 @@
-﻿using TT.HttpClient.Weixin.WeixiinResult;
-
-namespace TT.HttpClient.Weixin
+﻿namespace TT.HttpClient.Weixin.WeixiinResult
 {
     public class WeixinTokenResult : BaseWeChatReulst
     {
