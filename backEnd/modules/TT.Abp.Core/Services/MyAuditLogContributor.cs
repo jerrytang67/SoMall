@@ -9,7 +9,9 @@ namespace TT.Abp.Core.Services
 {
     public class MyAuditLogContributor : AspNetCoreAuditLogContributor, ITransientDependency
     {
-        protected override string GetClientIpAddress(HttpContext httpContext)
+        
+        
+        protected string GetClientIpAddress(HttpContext httpContext)
         {
             try
             {
