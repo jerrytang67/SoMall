@@ -11,11 +11,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="3.0.4" />
-      <PackageReference Include="Volo.Abp.AutoMapper" Version="3.0.4" />
-      <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="3.0.4" />
-      <PackageReference Include="Volo.Abp.Http.Client" Version="3.0.4" />
-      <PackageReference Include="Volo.Abp.Users.EntityFrameworkCore" Version="3.0.4" />
+      <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="3.1.0" />
+      <PackageReference Include="Volo.Abp.AutoMapper" Version="3.1.0" />
+      <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="3.1.0" />
+      <PackageReference Include="Volo.Abp.Http.Client" Version="3.1.0" />
+      <PackageReference Include="Volo.Abp.Users.EntityFrameworkCore" Version="3.1.0" />
     </ItemGroup>
 
     <ItemGroup>
