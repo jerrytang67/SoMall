@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
 using Serilog;
 using TT.Extensions;
 using TT.HttpClient.Weixin.WeixiinResult;
@@ -21,7 +20,7 @@ namespace TT.HttpClient.Weixin
         }
 
         /// <summary>
-        /// <see cref="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html"/>
+        ///     <see cref="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html" />
         /// </summary>
         /// <param name="appid"></param>
         /// <param name="appSecret"></param>
@@ -70,15 +69,15 @@ namespace TT.HttpClient.Weixin
 
 
         /// <summary>
-        /// 获取小程序码，适用于需要的码数量较少的业务场景。通过该接口生成的小程序码，永久有效，有数量限制，详见获取二维码。
-        /// <see cref="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.get.html"/>
+        ///     获取小程序码，适用于需要的码数量较少的业务场景。通过该接口生成的小程序码，永久有效，有数量限制，详见获取二维码。
+        ///     <see cref="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.get.html" />
         /// </summary>
         /// <param name="token">接口调用凭证</param>
         /// <param name="path">扫码进入的小程序页面路径，最大长度 128 字节，不能为空；对于小游戏，可以只传入 query 部分，来实现传参效果，如：传入 "?foo=bar"，即可在 wx.getLaunchOptionsSync 接口中的 query 参数获取到 {foo:"bar"}。</param>
         /// <param name="width">二维码的宽度，单位 px。最小 280px，最大 1280px</param>
         /// <param name="is_hyaline">是否需要透明底色，为 true 时，生成透明底色的小程序码</param>
         /// <returns></returns>
-        public async Task<Byte[]> WxacodeGet(string token, string path,
+        public async Task<byte[]> WxacodeGet(string token, string path,
             int width = 430, bool is_hyaline = false)
         {
             var postData = JsonConvert.SerializeObject(new {path, width, is_hyaline});
@@ -94,8 +93,8 @@ namespace TT.HttpClient.Weixin
         }
 
         /// <summary>
-        /// 获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。 更多用法详见 获取二维码。
-        /// <see cref="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html#HTTPS%20%E8%B0%83%E7%94%A8"/>
+        ///     获取小程序码，适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。 更多用法详见 获取二维码。
+        ///     <see cref="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/qr-code/wxacode.getUnlimited.html#HTTPS%20%E8%B0%83%E7%94%A8" />
         /// </summary>
         /// <param name="token">接口调用凭证</param>
         /// <param name="scene">最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~，其它字符请自行编码为合法字符（因不支持%，中文无法使用 urlencode 处理，请使用其他编码方式）</param>
@@ -103,28 +102,21 @@ namespace TT.HttpClient.Weixin
         /// <param name="width">二维码的宽度，单位 px，最小 280px，最大 1280px</param>
         /// <param name="is_hyaline">是否需要透明底色，为 true 时，生成透明底色的小程序</param>
         /// <returns></returns>
-        public async Task<Byte[]> WxacodeGetUnlimit(string token, string scene, string page = null,
+        public async Task<byte[]> WxacodeGetUnlimit(string token, string scene, string page = null,
             int width = 430, bool is_hyaline = false)
         {
             var postData = "";
             if (page.IsNullOrEmptyOrWhiteSpace() || page == "pages/index/index")
-            {
                 postData = JsonConvert.SerializeObject(new {scene, width, is_hyaline});
-            }
             else
-            {
                 postData = JsonConvert.SerializeObject(new {scene, page, width, is_hyaline});
-            }
 
             HttpContent hc = new StreamContent(new MemoryStream(Encoding.UTF8.GetBytes(postData)));
 
             var response = await _client.PostAsync($"wxa/getwxacodeunlimit?access_token={token}", hc);
             var strResult = await response.Content.ReadAsStringAsync();
             var result = strResult.TryConvert<BaseWeChatReulst>();
-            if (result != null)
-            {
-                throw new Exception(result.errmsg);
-            }
+            if (result != null) throw new Exception(result.errmsg);
 
             var bytes = await response.Content.ReadAsByteArrayAsync();
             return bytes;
@@ -132,8 +124,8 @@ namespace TT.HttpClient.Weixin
 
 
         /// <summary>
-        /// 公众号获取JS-SDK
-        /// <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html"/>
+        ///     公众号获取JS-SDK
+        ///     <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html" />
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
@@ -145,7 +137,7 @@ namespace TT.HttpClient.Weixin
         }
 
         /// <summary>
-        /// <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html"/>
+        ///     <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html" />
         /// </summary>
         /// <param name="appid"></param>
         /// <param name="appsec"></param>
@@ -159,7 +151,7 @@ namespace TT.HttpClient.Weixin
         }
 
         /// <summary>
-        /// <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html"/>
+        ///     <see cref="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html" />
         /// </summary>
         public async Task<WeixinUserInfoResult> SnsUserInfo(string access_token, string openid)
         {

@@ -1,21 +1,13 @@
 ﻿{
-  "ReRoutes": [
+  "Routes": [
     {
       "UpstreamPathTemplate": "/swagger/{all}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Delete",
-        "Put",
-        "Options",
-        "Fetch"
-      ],
       "DownstreamPathTemplate": "/swagger/{all}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "host": "localhost",
-          "port": 44340
+          "host": "127.0.0.1",
+          "port": 5010
         }
       ],
       "LoadBalancerOptions": {
@@ -24,21 +16,12 @@
     },
     {
       "UpstreamPathTemplate": "/api/{all}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Delete",
-        "Put",
-        "Options",
-        "Fetch"
-
-      ],
       "DownstreamPathTemplate": "/api/{all}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "host": "localhost",
-          "port": 44340
+          "host": "127.0.0.1",
+          "port": 5010
         }
       ],
       "LoadBalancerOptions": {
@@ -47,20 +30,12 @@
     },
     {
       "UpstreamPathTemplate": "/{all}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Delete",
-        "Put",
-        "Options",
-        "Fetch"
-      ],
       "DownstreamPathTemplate": "/{all}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "host": "localhost",
-          "port": 44380
+          "host": "127.0.0.1",
+          "port": 5010
         }
       ],
       "LoadBalancerOptions": {
@@ -69,6 +44,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5000"
+    "BaseUrl": "https://ht.hnzhiqiao.com"
   }
 }

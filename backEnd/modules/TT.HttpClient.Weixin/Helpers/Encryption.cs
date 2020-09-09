@@ -8,7 +8,7 @@ namespace TT.HttpClient.Weixin.Helpers
     public static class Encryption
     {
         /// <summary>
-        /// Aes解密
+        ///     Aes解密
         /// </summary>
         /// <param name="encryptedDataStr">需要解密的字符串</param>
         /// <param name="key">密钥,长度不够时空格补齐,超过时从左截取</param>
@@ -22,9 +22,7 @@ namespace TT.HttpClient.Weixin.Helpers
         {
             if (!new List<int> {16, 24, 32}.Contains(keyLenth))
                 //密钥的长度，16位密钥 = 128位，24位密钥 = 192位，32位密钥 = 256位。
-            {
                 return null;
-            }
 
             var oldBytes = Convert.FromBase64String(encryptedDataStr);
             var bKey = new byte[keyLenth];
@@ -37,7 +35,7 @@ namespace TT.HttpClient.Weixin.Helpers
                 Mode = aesMode,
                 Padding = aesPadding,
                 Key = bKey,
-                IV = bIv,
+                IV = bIv
             };
             var decryptor = rijalg.CreateDecryptor(rijalg.Key, rijalg.IV);
             var rtByte = decryptor.TransformFinalBlock(oldBytes, 0, oldBytes.Length);

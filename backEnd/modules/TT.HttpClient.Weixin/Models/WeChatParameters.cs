@@ -9,25 +9,19 @@ namespace TT.HttpClient.Weixin.Models
 {
     public class PayParameters
     {
-        private SortedDictionary<string, string> SortedDictionary { get; }
-
         public PayParameters()
         {
             SortedDictionary = new SortedDictionary<string, string>(StringComparer.Ordinal);
         }
 
+        private SortedDictionary<string, string> SortedDictionary { get; }
+
 
         public virtual void AddParameter(string key, string value)
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                return;
-            }
+            if (string.IsNullOrEmpty(value)) return;
 
-            if (SortedDictionary.ContainsKey(key))
-            {
-                return;
-            }
+            if (SortedDictionary.ContainsKey(key)) return;
 
             SortedDictionary.Add(key, value);
         }
@@ -40,16 +34,13 @@ namespace TT.HttpClient.Weixin.Models
         public virtual string GetWaitForSignatureStr()
         {
             var sb = new StringBuilder();
-            foreach (var kv in SortedDictionary)
-            {
-                sb.Append(kv.Key).Append('=').Append(kv.Value).Append('&');
-            }
+            foreach (var kv in SortedDictionary) sb.Append(kv.Key).Append('=').Append(kv.Value).Append('&');
 
             return sb.ToString().TrimEnd('&');
         }
 
         /// <summary>
-        /// 将存储的所有参数和值以 XML 格式输出。
+        ///     将存储的所有参数和值以 XML 格式输出。
         /// </summary>
         public virtual string ToXmlStr()
         {
@@ -62,7 +53,7 @@ namespace TT.HttpClient.Weixin.Models
             xElement.Save(memoryStream);
             memoryStream.Position = 0;
 
-            using StreamReader reader = new StreamReader(memoryStream);
+            using var reader = new StreamReader(memoryStream);
 
             return reader.ReadToEnd();
         }

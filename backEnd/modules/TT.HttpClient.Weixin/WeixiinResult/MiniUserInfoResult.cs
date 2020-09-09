@@ -11,10 +11,10 @@
         public string province { get; set; }
         public string openid { get; set; }
         public string unionid { get; set; }
-        
+
         public string appid { get; set; }
 
-        
+
         public string AppName { get; set; }
     }
 }

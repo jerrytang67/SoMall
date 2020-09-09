@@ -6,12 +6,12 @@ namespace TT.HttpClient.Weixin
     public abstract class BaseJsonResult : IJsonResult
     {
         /// <summary>
-        /// 返回结果信息
+        ///     返回结果信息
         /// </summary>
         public virtual string errmsg { get; set; }
 
         /// <summary>
-        /// errcode的
+        ///     errcode的
         /// </summary>
         public abstract int ErrorCodeValue { get; }
 
