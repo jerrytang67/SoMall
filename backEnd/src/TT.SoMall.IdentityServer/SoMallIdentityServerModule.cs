@@ -57,6 +57,8 @@ namespace TT.SoMall
             var hostingEnvironment = context.Services.GetHostingEnvironment();
             var configuration = context.Services.GetConfiguration();
 
+            context.Services.ConfigureNonBreakingSameSiteCookies();
+            
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
@@ -115,12 +117,15 @@ namespace TT.SoMall
             Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MultiTenancyConsts.IsEnabled; });
 
             ConfigureNavigationServices(configuration);
+            
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
 
+            app.UseCookiePolicy();
+            
             app.UseCorrelationId();
             app.UseVirtualFiles();
             app.UseRouting();
@@ -139,6 +144,7 @@ namespace TT.SoMall
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+            
         }
 
 
