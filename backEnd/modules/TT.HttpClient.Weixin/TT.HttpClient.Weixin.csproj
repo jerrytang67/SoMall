@@ -7,14 +7,12 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="10.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.7" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.8" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="Serilog" Version="2.9.0" />
-        <PackageReference Include="StackExchange.Redis" Version="2.1.58" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\TT.Extensions\TT.Extensions.csproj" />
     </ItemGroup>
-
 </Project>

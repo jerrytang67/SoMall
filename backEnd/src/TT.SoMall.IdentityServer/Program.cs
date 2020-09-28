@@ -1,7 +1,5 @@
 ﻿using System;
-using Elastic.CommonSchema.Serilog;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -30,7 +28,7 @@ namespace TT.SoMall
                 {
                     // AutoRegisterTemplate = true,
                     // AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
-                    CustomFormatter = new EcsTextFormatter()
+                    // CustomFormatter = new EcsTextFormatter()
                 })
                 .CreateLogger();
 

@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Serilog" Version="2.9.0" />
-    <PackageReference Include="Volo.Abp.Account.HttpApi" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.Identity.HttpApi" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="3.1.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Volo.Abp.Account.HttpApi" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.Identity.HttpApi" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.HttpApi" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi" Version="3.1.2" />
   </ItemGroup>
 
 </Project>

@@ -19,15 +19,15 @@
     <ProjectReference Include="..\..\modules\TT.Abp.VisitorManagement\TT.Abp.VisitorManagement.csproj" />
     <ProjectReference Include="..\..\modules\TT.Abp.Weixin\TT.Abp.Weixin.csproj" />
     <ProjectReference Include="..\TT.SoMall.Domain\TT.SoMall.Domain.csproj" />
-    <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.Identity.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.IdentityServer.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.BackgroundJobs.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="3.1.0" />
-    <PackageReference Include="Volo.Abp.FeatureManagement.EntityFrameworkCore" Version="3.1.0" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.Identity.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.IdentityServer.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.EntityFrameworkCore" Version="3.1.2" />
   </ItemGroup>
 
 </Project>

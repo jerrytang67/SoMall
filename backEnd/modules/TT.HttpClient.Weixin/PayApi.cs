@@ -64,6 +64,9 @@ namespace TT.HttpClient.Weixin
             int totalFee, int refundFee, string refundFeeType = "CNY", string refundDesc = "",
             string refundAccount = "REFUND_SOURCE_UNSETTLED_FUNDS",
             string notifyUrl = "");
+
+        Task<bool> Transfers(string mch_appid, string mchid, string mchKey, string partner_trade_no,
+            string openid, string re_user_name, int amount, string desc);
     }
 
     public class PayApi : IPayApi
@@ -373,8 +376,30 @@ namespace TT.HttpClient.Weixin
         {
             var result = await RequestAsync(targetUrl, requestParameters.ToXmlStr());
 
-            if (result.Element("xml").Element("return_code").Value != "SUCCESS" ||
-                result.Element("xml").Element("return_msg").Value != "OK")
+            if (result.Element("xml").Element("return_code").Value != "SUCCESS"){
+                var errMsg =
+                        "微信支付接口调用失败，具体失败原因：" +
+                        result.Element("xml").Element("return_msg").Value
+                    ;
+
+                var exception = new Exception(errMsg);
+                exception.Data.Add(nameof(targetUrl), targetUrl);
+                exception.Data.Add(nameof(result), result.ToString());
+
+                throw exception;
+            }
+
+            Log.Information(result.ToString(), "TenPay_XmlResult");
+            return result;
+        }
+        
+        
+        protected virtual async Task<XDocument> RequestAndGetReturnValueAsync2(string targetUrl,
+            PayParameters requestParameters)
+        {
+            var result = await RequestAsync(targetUrl, requestParameters.ToXmlStr());
+
+            if (result.Element("xml").Element("return_code").Value != "SUCCESS")
             {
                 var errMsg =
                         "微信支付接口调用失败，具体失败原因：" +
@@ -388,10 +413,53 @@ namespace TT.HttpClient.Weixin
                 throw exception;
             }
 
-            Log.Information(result.ToString(),
-                "TenPay_XmlResult");
+            Log.Information(result.ToString(), "TenPay_XmlResult");
             return result;
         }
+
+
+        #region 企业付款
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mch_appid"></param>
+        /// <param name="mchid"></param>
+        /// <param name="nonce_str"></param>
+        /// <param name="partner_trade_no"></param>
+        /// <param name="openid"></param>
+        /// <param name="re_user_name"></param>
+        /// <param name="amount"></param>
+        /// <param name="desc"></param>
+        /// <returns></returns>
+        public async Task<bool> Transfers(string mch_appid, string mchid, string mchKey, string partner_trade_no,
+            string openid, string re_user_name, int amount, string desc)
+        {
+            var request = new PayParameters();
+            request.AddParameter("mch_appid", mch_appid);
+            request.AddParameter("mchid", mchid);
+            request.AddParameter("nonce_str", RandomExt.GetRandom());
+            request.AddParameter("partner_trade_no", partner_trade_no);
+            request.AddParameter("openid", openid);
+            request.AddParameter("check_name", "FORCE_CHECK");
+            request.AddParameter("re_user_name", re_user_name);
+            request.AddParameter("amount", amount);
+            request.AddParameter("desc", desc);
+
+            var signStr = _signatureGenerator.Generate(request, MD5.Create(), mchKey);
+            request.AddParameter("sign", signStr);
+            var xmlResult = await RequestAndGetReturnValueAsync2("mmpaymkttransfers/promotion/transfers", request);
+
+            var returnCode = GetXmlNodeString(xmlResult, "return_code");
+            var resultode = GetXmlNodeString(xmlResult, "result_code");
+
+            if (returnCode == "SUCCESS" && resultode == "SUCCESS") return await Task.FromResult(true);
+
+            throw new Exception(GetXmlNodeString(xmlResult, "err_code"));
+        }
+
+        #endregion
+
 
         public async Task<XDocument> RequestAsync(string url, string body)
         {
