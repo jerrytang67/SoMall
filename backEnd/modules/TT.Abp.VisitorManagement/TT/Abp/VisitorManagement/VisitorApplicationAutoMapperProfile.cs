@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
 

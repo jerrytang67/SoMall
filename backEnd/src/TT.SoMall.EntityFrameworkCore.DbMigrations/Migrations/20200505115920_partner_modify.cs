@@ -8,32 +8,32 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "HeadImageUrl",
-                "Mall_Partners");
+                name: "HeadImageUrl",
+                table: "Mall_Partners");
 
             migrationBuilder.DropColumn(
-                "Nickname",
-                "Mall_Partners");
+                name: "Nickname",
+                table: "Mall_Partners");
 
             migrationBuilder.DropColumn(
-                "UpdateDate",
-                "Mall_Partners");
+                name: "UpdateDate",
+                table: "Mall_Partners");
 
             migrationBuilder.DropColumn(
-                "openid",
-                "Mall_PartnerDetails");
+                name: "openid",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.DropColumn(
-                "unionid",
-                "Mall_PartnerDetails");
+                name: "unionid",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.DropColumn(
-                "PhoneBackup",
-                "Account_RealNameInfos");
+                name: "PhoneBackup",
+                table: "Account_RealNameInfos");
 
             migrationBuilder.AlterColumn<string>(
-                "Phone",
-                "Mall_Partners",
+                name: "Phone",
+                table: "Mall_Partners",
                 maxLength: 16,
                 nullable: false,
                 oldClrType: typeof(string),
@@ -41,8 +41,8 @@ namespace TT.SoMall.Migrations
                 oldMaxLength: 64);
 
             migrationBuilder.AlterColumn<string>(
-                "LocationLabel",
-                "Mall_Partners",
+                name: "LocationLabel",
+                table: "Mall_Partners",
                 maxLength: 64,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -51,8 +51,8 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "LocationAddress",
-                "Mall_Partners",
+                name: "LocationAddress",
+                table: "Mall_Partners",
                 maxLength: 64,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -61,20 +61,20 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "HeadImgUrl",
-                "Mall_Partners",
+                name: "HeadImgUrl",
+                table: "Mall_Partners",
                 maxLength: 255,
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                "LocationType",
-                "Mall_Partners",
+                name: "LocationType",
+                table: "Mall_Partners",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<string>(
-                "PhoneBackup",
-                "Mall_Partners",
+                name: "PhoneBackup",
+                table: "Mall_Partners",
                 maxLength: 16,
                 nullable: false,
                 defaultValue: "");
@@ -83,30 +83,30 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "HeadImgUrl",
-                "Mall_Partners");
+                name: "HeadImgUrl",
+                table: "Mall_Partners");
 
             migrationBuilder.DropColumn(
-                "LocationType",
-                "Mall_Partners");
+                name: "LocationType",
+                table: "Mall_Partners");
 
             migrationBuilder.DropColumn(
-                "PhoneBackup",
-                "Mall_Partners");
+                name: "PhoneBackup",
+                table: "Mall_Partners");
 
             migrationBuilder.AlterColumn<string>(
-                "Phone",
-                "Mall_Partners",
-                "nvarchar(64)",
+                name: "Phone",
+                table: "Mall_Partners",
+                type: "nvarchar(64)",
                 maxLength: 64,
                 nullable: false,
                 oldClrType: typeof(string),
                 oldMaxLength: 16);
 
             migrationBuilder.AlterColumn<string>(
-                "LocationLabel",
-                "Mall_Partners",
-                "nvarchar(255)",
+                name: "LocationLabel",
+                table: "Mall_Partners",
+                type: "nvarchar(255)",
                 maxLength: 255,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -114,9 +114,9 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "LocationAddress",
-                "Mall_Partners",
-                "nvarchar(255)",
+                name: "LocationAddress",
+                table: "Mall_Partners",
+                type: "nvarchar(255)",
                 maxLength: 255,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -124,42 +124,42 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "HeadImageUrl",
-                "Mall_Partners",
-                "nvarchar(255)",
+                name: "HeadImageUrl",
+                table: "Mall_Partners",
+                type: "nvarchar(255)",
                 maxLength: 255,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "Nickname",
-                "Mall_Partners",
-                "nvarchar(64)",
+                name: "Nickname",
+                table: "Mall_Partners",
+                type: "nvarchar(64)",
                 maxLength: 64,
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
-                "UpdateDate",
-                "Mall_Partners",
-                "datetime2",
+                name: "UpdateDate",
+                table: "Mall_Partners",
+                type: "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<string>(
-                "openid",
-                "Mall_PartnerDetails",
-                "nvarchar(max)",
+                name: "openid",
+                table: "Mall_PartnerDetails",
+                type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "unionid",
-                "Mall_PartnerDetails",
-                "nvarchar(max)",
+                name: "unionid",
+                table: "Mall_PartnerDetails",
+                type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "PhoneBackup",
-                "Account_RealNameInfos",
-                "nvarchar(64)",
+                name: "PhoneBackup",
+                table: "Account_RealNameInfos",
+                type: "nvarchar(64)",
                 maxLength: 64,
                 nullable: true);
         }

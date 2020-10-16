@@ -32,7 +32,7 @@ namespace TT.Abp.Mall.Application.Clients
         [CapSubscribe("mall.tenpay.notify")]
         public async Task TenPayNotifySubscriber(TenPayNotify tenPayNotify)
         {
-            using (var uow = _unitOfWorkManager.Begin(true))
+            using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
             {
                 var payOrder = await _payOrderRepository.FindAsync(tenPayNotify.out_trade_no);
                 if (payOrder != null)

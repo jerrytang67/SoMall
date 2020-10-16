@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                "Mall_Coupons",
-                table => new
+                name: "Mall_Coupons",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -36,11 +36,14 @@ namespace TT.SoMall.Migrations
                     TenantId = table.Column<Guid>(nullable: true),
                     ShopId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_Coupons", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_Coupons", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
-                "Mall_UserCoupons",
-                table => new
+                name: "Mall_UserCoupons",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -63,16 +66,19 @@ namespace TT.SoMall.Migrations
                     ShopId = table.Column<Guid>(nullable: true),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_UserCoupons", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_UserCoupons", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Mall_Coupons");
+                name: "Mall_Coupons");
 
             migrationBuilder.DropTable(
-                "Mall_UserCoupons");
+                name: "Mall_UserCoupons");
         }
     }
 }

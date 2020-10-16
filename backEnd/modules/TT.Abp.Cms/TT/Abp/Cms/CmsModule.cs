@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AuditManagement;
 using TT.Abp.Cms.EntityFrameworkCore;
 using TT.Abp.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace TT.Abp.Cms
 
             context.Services.AddAutoMapperObjectMapper<CmsModule>();
 
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<CmsApplicationAutoMapperProfile>(false); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<CmsApplicationAutoMapperProfile>(validate: false); });
 
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {

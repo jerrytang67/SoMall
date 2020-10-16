@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Serilog;
+using TT.Extensions;
 using TT.HttpClient.Weixin.WeixiinResult;
 
 namespace TT.HttpClient.Weixin
@@ -106,23 +107,16 @@ namespace TT.HttpClient.Weixin
         {
             var postData = "";
             if (page.IsNullOrEmptyOrWhiteSpace() || page == "pages/index/index")
-            {
                 postData = JsonConvert.SerializeObject(new {scene, width, is_hyaline});
-            }
             else
-            {
                 postData = JsonConvert.SerializeObject(new {scene, page, width, is_hyaline});
-            }
 
             HttpContent hc = new StreamContent(new MemoryStream(Encoding.UTF8.GetBytes(postData)));
 
             var response = await _client.PostAsync($"wxa/getwxacodeunlimit?access_token={token}", hc);
             var strResult = await response.Content.ReadAsStringAsync();
             var result = strResult.TryConvert<BaseWeChatReulst>();
-            if (result != null)
-            {
-                throw new Exception(result.errmsg);
-            }
+            if (result != null) throw new Exception(result.errmsg);
 
             var bytes = await response.Content.ReadAsByteArrayAsync();
             return bytes;

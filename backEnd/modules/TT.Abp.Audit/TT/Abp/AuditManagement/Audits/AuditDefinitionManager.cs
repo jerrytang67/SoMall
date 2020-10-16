@@ -11,6 +11,13 @@ namespace TT.Abp.AuditManagement.Audits
 {
     public class AuditDefinitionManager : IAuditDefinitionManager, ISingletonDependency
     {
+        protected Lazy<IDictionary<string, AuditDefinition>> AuditDefinitions { get; }
+
+        protected AuditOptions Options { get; }
+
+        protected IServiceProvider ServiceProvider { get; }
+
+
         public AuditDefinitionManager(IOptions<AuditOptions> options, IServiceProvider serviceProvider)
         {
             Options = options.Value;
@@ -18,12 +25,6 @@ namespace TT.Abp.AuditManagement.Audits
 
             AuditDefinitions = new Lazy<IDictionary<string, AuditDefinition>>(CreateAuditDefinitions, true);
         }
-
-        protected Lazy<IDictionary<string, AuditDefinition>> AuditDefinitions { get; }
-
-        protected AuditOptions Options { get; }
-
-        protected IServiceProvider ServiceProvider { get; }
 
         public AuditDefinition Get(string name)
         {

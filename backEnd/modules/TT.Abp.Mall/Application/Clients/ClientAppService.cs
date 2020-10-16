@@ -39,24 +39,24 @@ namespace TT.Abp.Mall.Application.Clients
 {
     public class ClientAppService : ApplicationService, IClientAppService
     {
-        private readonly IReadOnlyRepository<Address, Guid> _addressRepository;
-        private readonly IAppDefinitionManager _appDefinitionManager;
-        private readonly IAppProvider _appProvider;
-        private readonly ICapPublisher _capBus;
-        private readonly IProductCategoryRepository _categoryRepository;
-        private readonly ILocalEventBus _eventBus;
         private readonly IGuidGenerator _guidGenerator;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IMediator _mediator;
-        private readonly IRepository<ProductOrder, Guid> _orderRepository;
-        private readonly IPayOrderRepository _payOrderRepository;
-        private readonly ISettingProvider _setting;
+        private readonly IWeixinAppService _weixinAppService;
         private readonly IMallShopLookupService _shopLookupService;
         private readonly IMallShopRepository _shopRepository;
-        private readonly ISignatureGenerator _signatureGenerator;
-        private readonly IRepository<ProductSpu, Guid> _spuRepository;
+        private readonly IReadOnlyRepository<Address, Guid> _addressRepository;
+        private readonly IRepository<ProductOrder, Guid> _orderRepository;
         private readonly IRepository<TenPayNotify, Guid> _tenpayRepository;
-        private readonly IWeixinAppService _weixinAppService;
+        private readonly IProductCategoryRepository _categoryRepository;
+        private readonly IRepository<ProductSpu, Guid> _spuRepository;
+        private readonly IPayOrderRepository _payOrderRepository;
+        private readonly ISettingProvider _setting;
+        private readonly IAppProvider _appProvider;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILocalEventBus _eventBus;
+        private readonly IMediator _mediator;
+        private readonly ICapPublisher _capBus;
+        private readonly IAppDefinitionManager _appDefinitionManager;
+        private readonly ISignatureGenerator _signatureGenerator;
 
         public ClientAppService(
             //其它模块
@@ -112,7 +112,7 @@ namespace TT.Abp.Mall.Application.Clients
 
             var apps = _appDefinitionManager.GetAll();
             var shops = await _shopRepository.GetListAsync();
-            var categories = await _categoryRepository.GetPublicListAsync(new MallRequestDto {ShopId = input.ShopId, AppName = appName});
+            var categories = await _categoryRepository.GetPublicListAsync(new MallRequestDto() {ShopId = input.ShopId, AppName = appName});
 
             var spus = await _spuRepository
                 .Include(x => x.AppProductSpus)
@@ -126,7 +126,7 @@ namespace TT.Abp.Mall.Application.Clients
                 apps,
                 appName,
                 categories,
-                spus = ObjectMapper.Map<List<ProductSpu>, List<ProductSpuDtoBase>>(spus)
+                spus = ObjectMapper.Map<List<ProductSpu>, List<ProductSpuDtoBase>>(spus),
             };
         }
 
@@ -163,7 +163,7 @@ namespace TT.Abp.Mall.Application.Clients
                 AddressNickName = input.Address.NickName,
                 AddressPhone = input.Address.Phone,
                 AddressLocationLabel = input.Address.LocationLabel,
-                AddressLocationAddress = input.Address.LocationAddress
+                AddressLocationAddress = input.Address.LocationAddress,
             };
 
             var orderItemList = new List<ProductOrderItem>();
@@ -187,7 +187,7 @@ namespace TT.Abp.Mall.Application.Clients
                     //Comment = sku.Comment
                 });
 
-                order.PriceOriginal += sku.Price * (decimal) sku.Num;
+                order.PriceOriginal += (sku.Price * (decimal) sku.Num);
             }
 
             order.OrderItems = orderItemList;
@@ -208,7 +208,7 @@ namespace TT.Abp.Mall.Application.Clients
 
 
         /// <summary>
-        ///     JS-SDK支付回调地址（在统一下单接口中设置notify_url）
+        /// JS-SDK支付回调地址（在统一下单接口中设置notify_url）
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -251,7 +251,7 @@ namespace TT.Abp.Mall.Application.Clients
             if (notify == null)
             {
                 notify = tenPayNotify;
-                var insertEntity = await _tenpayRepository.InsertAsync(notify, true);
+                var insertEntity = await _tenpayRepository.InsertAsync(notify, autoSave: true);
                 await _capBus.PublishAsync("mall.tenpay.notify", insertEntity);
             }
 

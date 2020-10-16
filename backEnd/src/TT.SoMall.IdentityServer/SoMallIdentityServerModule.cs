@@ -2,21 +2,28 @@
 using System.IO;
 using System.Linq;
 using Localization.Resources.AbpUi;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TT.Abp.Core;
+using Newtonsoft.Json;
 using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.Localization;
-using TT.SoMall.Menus;
 using TT.SoMall.MultiTenancy;
+using StackExchange.Redis;
+using TT.Abp.Core;
+using TT.SoMall.Menus;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
+using Volo.Abp.AspNetCore.Mvc.UI;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
@@ -25,8 +32,9 @@ using Volo.Abp.Caching;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
-using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
+using Volo.Abp.UI;
+using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 
 namespace TT.SoMall
@@ -50,7 +58,7 @@ namespace TT.SoMall
             var configuration = context.Services.GetConfiguration();
 
             context.Services.ConfigureNonBreakingSameSiteCookies();
-
+            
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
@@ -109,6 +117,7 @@ namespace TT.SoMall
             Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MultiTenancyConsts.IsEnabled; });
 
             ConfigureNavigationServices(configuration);
+            
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -116,7 +125,7 @@ namespace TT.SoMall
             var app = context.GetApplicationBuilder();
 
             app.UseCookiePolicy();
-
+            
             app.UseCorrelationId();
             app.UseVirtualFiles();
             app.UseRouting();
@@ -135,6 +144,7 @@ namespace TT.SoMall
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
+            
         }
 
 

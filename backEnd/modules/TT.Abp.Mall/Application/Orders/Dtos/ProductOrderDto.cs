@@ -8,7 +8,7 @@ using Volo.Abp.Application.Dtos;
 namespace TT.Abp.Mall.Application.Orders.Dtos
 {
     /// <summary>
-    ///     <see cref="ProductOrder" />
+    /// <see cref="ProductOrder"/>
     /// </summary>
     public class ProductOrderDto : EntityDto<Guid>
     {
@@ -20,7 +20,7 @@ namespace TT.Abp.Mall.Application.Orders.Dtos
 
         public decimal PriceOriginal { get; set; }
 
-        private DateTime? DatetimeComplate { get; set; }
+        DateTime? DatetimeComplate { get; set; }
 
         public MallEnums.OrderState State { get; set; }
 

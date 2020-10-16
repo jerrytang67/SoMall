@@ -8,6 +8,8 @@ namespace TT.Abp.AppManagement.Apps
     [IgnoreMultiTenancy]
     public class AppCacheItem
     {
+        public Dictionary<string, string> Value { get; set; }
+
         public AppCacheItem()
         {
         }
@@ -16,8 +18,6 @@ namespace TT.Abp.AppManagement.Apps
         {
             Value = value;
         }
-
-        public Dictionary<string, string> Value { get; set; }
 
         public static string CalculateCacheKey(string name, string providerName, string providerKey)
         {

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using TT.Abp.Mall.Domain.Pays;
+using TT.Abp.Mall.Domain.Products;
 using TT.Abp.Shops;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -26,7 +28,7 @@ namespace TT.Abp.Mall.Domain.Orders
         public decimal? PricePaidIn { get; protected set; } //实收
         public decimal PriceOriginal { get; set; } //原价，应收
 
-        private DateTime? DatetimeComplate { get; set; }
+        DateTime? DatetimeComplate { get; set; }
 
         public MallEnums.OrderState State { get; protected set; } = MallEnums.OrderState.未完成;
 
@@ -54,11 +56,11 @@ namespace TT.Abp.Mall.Domain.Orders
 
         public int PrintCount { get; set; } = 0; //打印次数统计
 
-        public virtual ICollection<ProductOrderItem> OrderItems { get; set; }
+        public Guid? TenantId { get; protected set; }
 
         public Guid? ShopId { get; protected set; }
 
-        public Guid? TenantId { get; protected set; }
+        public virtual ICollection<ProductOrderItem> OrderItems { get; set; }
 
         public void SetBillNo(Guid payOrderId, string billno)
         {

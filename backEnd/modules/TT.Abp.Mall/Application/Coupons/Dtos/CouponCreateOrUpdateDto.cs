@@ -5,7 +5,7 @@ using TT.Abp.Mall.Domain;
 namespace TT.Abp.Mall.Application.Coupons.Dtos
 {
     /// <summary>
-    ///     <see cref="Coupon" />
+    /// <see cref="Coupon"/>
     /// </summary>
     public class CouponCreateOrUpdateDto
     {

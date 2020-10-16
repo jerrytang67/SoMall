@@ -9,17 +9,17 @@ namespace TT.Abp.Cms
     {
         public const string GroupName = "Cms";
 
-        public static string[] GetAll()
-        {
-            return ReflectionHelper.GetPublicConstantsRecursively(typeof(CmsPermissions));
-        }
-
         public static class Categories
         {
             public const string Default = GroupName + ".Categories";
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
             public const string Update = Default + ".Update";
+        }
+
+        public static string[] GetAll()
+        {
+            return ReflectionHelper.GetPublicConstantsRecursively(typeof(CmsPermissions));
         }
     }
 

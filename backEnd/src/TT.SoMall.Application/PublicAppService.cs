@@ -15,8 +15,8 @@ namespace TT.SoMall
 {
     public class PublicAppService : ApplicationService
     {
-        private readonly IdentityUserManager _identityUserManager;
         private readonly IRepository<AppUser, Guid> _userRepository;
+        private readonly IdentityUserManager _identityUserManager;
 
         public PublicAppService(
             IRepository<AppUser, Guid> userRepository,

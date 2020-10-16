@@ -8,23 +8,23 @@ namespace TT.Abp.VisitorManagement.Domain
     // 用户凭证
     public class Credential : CreationAuditedAggregateRoot<Guid>, ISoftDelete, IMultiTenant
     {
-        public Credential(Guid? tenantId)
-        {
-            TenantId = tenantId;
-        }
-
         public VisitorEnums.CredentialType Type { get; set; }
 
         public string Data { get; set; }
 
         public int UseTimes { get; internal set; }
-        public Guid? TenantId { get; protected set; }
+
+        public Credential(Guid? tenantId)
+        {
+            TenantId = tenantId;
+        }
 
         public bool IsDeleted { get; set; }
+        public Guid? TenantId { get; protected set; }
 
         internal void Use()
         {
-            UseTimes += 1;
+            this.UseTimes += 1;
         }
     }
 }

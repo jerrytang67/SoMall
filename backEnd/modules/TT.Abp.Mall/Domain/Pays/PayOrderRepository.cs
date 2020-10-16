@@ -33,7 +33,7 @@ namespace TT.Abp.Mall.Domain.Pays
 
         public async Task<PayOrder> FindAsync(string billNo)
         {
-            var result = await DbSet
+            var result  = await DbSet
                 .FirstOrDefaultAsync(
                     s => s.BillNo == billNo
                 );

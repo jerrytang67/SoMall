@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using TT.Abp.Shops.Application;
 using TT.Extensions;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -13,8 +14,8 @@ namespace TT.Abp.OssManagement.Application
 {
     public class OssAppService : ApplicationService, IOssAppService
     {
-        private readonly IConfiguration _configuration;
         private readonly ISettingProvider _setting;
+        private readonly IConfiguration _configuration;
 
         public OssAppService(ISettingProvider setting, IConfiguration configuration)
         {

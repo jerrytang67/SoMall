@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using Volo.Abp;
@@ -9,6 +10,11 @@ namespace TT.Abp.VisitorManagement.Domain
 {
     public class Form : FullAuditedAggregateRoot<Guid>, IMultiTenant
     {
+        [NotNull] public string Title { get; internal set; }
+        [NotNull] public string Description { get; internal set; }
+
+        public VisitorEnums.FormTheme Theme { get; set; }
+
         public Form(Guid id, string title, string description, Guid? tenantId = null)
         {
             Id = id;
@@ -20,16 +26,8 @@ namespace TT.Abp.VisitorManagement.Domain
             ShopForms = new Collection<ShopForm>();
         }
 
-        [NotNull] public string Title { get; internal set; }
-        [NotNull] public string Description { get; internal set; }
-
-        public VisitorEnums.FormTheme Theme { get; set; }
-
         public virtual Collection<FormItem> FormItems { get; set; }
         public virtual Collection<VisitorLog> VisitorLogs { get; set; }
-
-
-        public virtual Collection<ShopForm> ShopForms { get; set; }
         public Guid? TenantId { get; protected set; }
 
         internal void SetTitle([NotNull] string title)
@@ -51,5 +49,8 @@ namespace TT.Abp.VisitorManagement.Domain
         {
             VisitorLogs.Add(new VisitorLog(visitorLogId, Id, shopId, TenantId));
         }
+
+
+        public virtual Collection<ShopForm> ShopForms { get; set; }
     }
 }

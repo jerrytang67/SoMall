@@ -11,17 +11,15 @@ namespace TT.Demo.Host
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-        {
-            return WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((context, builder) =>
                 {
                     builder.SetBasePath(context.HostingEnvironment.ContentRootPath)
                         .AddJsonFile("appsettings.json", true, true)
                         .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true)
-                        .AddJsonFile("Ocelot.json", false, true);
+                        .AddJsonFile("Ocelot.json", optional: false, reloadOnChange: true);
                 })
                 .UseStartup<Startup>();
-        }
     }
 }

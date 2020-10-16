@@ -28,8 +28,8 @@ namespace TT.Abp.Mall.Application.Swipers
 
     public class SwiperAppService : CrudAppService<Swiper, SwiperDto, Guid, MallRequestDto, SwiperCreateOrUpdateDto, SwiperCreateOrUpdateDto>
     {
-        private readonly IAppDefinitionManager _appDefinitionManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAppDefinitionManager _appDefinitionManager;
 
         public SwiperAppService(
             IRepository<Swiper, Guid> repository,

@@ -23,7 +23,7 @@ namespace TT.Abp.Weixin
             context.Services.AddAbpDbContext<WeixinManagementDbContext>(options => { options.AddDefaultRepositories(true); });
 
             context.Services.AddAutoMapperObjectMapper<WeixinModule>();
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<WeixinApplicationAutoMapperProfile>(true); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<WeixinApplicationAutoMapperProfile>(validate: true); });
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;

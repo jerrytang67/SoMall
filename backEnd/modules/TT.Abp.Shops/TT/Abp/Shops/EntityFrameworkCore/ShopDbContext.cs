@@ -8,12 +8,12 @@ namespace TT.Abp.Shops.EntityFrameworkCore
     [ConnectionStringName("Shop")]
     public class ShopDbContext : AbpDbContext<ShopDbContext>, IShopDbContext
     {
+        public DbSet<Shop> Shops { get; set; }
+
         public ShopDbContext(DbContextOptions<ShopDbContext> options)
             : base(options)
         {
         }
-
-        public DbSet<Shop> Shops { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

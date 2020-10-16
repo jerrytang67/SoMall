@@ -26,7 +26,7 @@ namespace TT.Abp.Mall.Domain.Comments
         public int Status { get; set; }
         public Guid SpuId { get; protected set; }
         public Guid? SkuId { get; protected set; }
-        public Guid? ShopId { get; protected set; }
         public Guid? TenantId { get; protected set; }
+        public Guid? ShopId { get; protected set; }
     }
 }

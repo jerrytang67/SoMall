@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Volo.Abp.Data;
@@ -10,11 +12,12 @@ namespace TT.SoMall.Data
 {
     public class SoMallDbMigrationService : ITransientDependency
     {
-        private readonly ICurrentTenant _currentTenant;
+        public ILogger<SoMallDbMigrationService> Logger { get; set; }
 
         private readonly IDataSeeder _dataSeeder;
         private readonly ISoMallDbSchemaMigrator _dbSchemaMigrator;
         private readonly ITenantRepository _tenantRepository;
+        private readonly ICurrentTenant _currentTenant;
 
         public SoMallDbMigrationService(
             IDataSeeder dataSeeder,
@@ -29,8 +32,6 @@ namespace TT.SoMall.Data
 
             Logger = NullLogger<SoMallDbMigrationService>.Instance;
         }
-
-        public ILogger<SoMallDbMigrationService> Logger { get; set; }
 
         public async Task MigrateAsync()
         {

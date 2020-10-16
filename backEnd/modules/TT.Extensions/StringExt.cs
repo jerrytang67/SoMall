@@ -6,18 +6,16 @@ namespace TT.Extensions
 {
     public static class StringExt
     {
-        public static Random random = new Random();
-
         public static string GetMd5(this string str)
         {
             //创建MD5哈稀算法的默认实现的实例
-            var md5 = MD5.Create();
+            MD5 md5 = MD5.Create();
             //将指定字符串的所有字符编码为一个字节序列
-            var buffer = Encoding.Default.GetBytes(str);
+            byte[] buffer = Encoding.Default.GetBytes(str);
             //计算指定字节数组的哈稀值
-            var bufferMd5 = md5.ComputeHash(buffer);
-            var sb = new StringBuilder();
-            for (var i = 0; i < bufferMd5.Length; i++)
+            byte[] bufferMd5 = md5.ComputeHash(buffer);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < bufferMd5.Length; i++)
             {
                 //x:表示将十进制转换成十六进制
                 sb.Append(bufferMd5[i].ToString("x2"));
@@ -31,8 +29,10 @@ namespace TT.Extensions
             return string.IsNullOrWhiteSpace(str) || string.IsNullOrEmpty(str);
         }
 
+        public static Random random = new Random();
+
         /// <summary>
-        ///     取随机数
+        /// 取随机数
         /// </summary>
         /// <param name="length"></param>
         /// <returns></returns>
@@ -45,7 +45,7 @@ namespace TT.Extensions
                 num = random.Next();
             }
 
-            var str = num.ToString();
+            string str = num.ToString();
 
             if (str.Length > length)
             {
@@ -53,7 +53,7 @@ namespace TT.Extensions
             }
             else if (str.Length < length)
             {
-                var n = length - str.Length;
+                int n = length - str.Length;
                 while (n > 0)
                 {
                     str = str.Insert(0, "0");

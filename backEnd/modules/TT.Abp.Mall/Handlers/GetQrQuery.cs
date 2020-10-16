@@ -18,22 +18,22 @@ namespace TT.Abp.Mall.Handlers
 {
     public class GetQrQuery : IRequest<QrDetail>
     {
+        public MallRequestDto Input { get; }
+        public string EventName { get; }
+
         public GetQrQuery(MallRequestDto input, string eventName)
         {
             Input = input;
             EventName = eventName;
         }
 
-        public MallRequestDto Input { get; }
-        public string EventName { get; }
-
         public class GetOuQueryHandler : IRequestHandler<GetQrQuery, QrDetail>
         {
-            private readonly IAppProvider _appProvider;
-            private readonly ICurrentTenant _currentTenant;
-            private readonly IHttpContextAccessor _httpContextAccessor;
             private readonly IRepository<QrDetail, Guid> _repository;
+            private readonly IHttpContextAccessor _httpContextAccessor;
+            private readonly ICurrentTenant _currentTenant;
             private readonly WeixinManager _weixinManager;
+            private readonly IAppProvider _appProvider;
 
             public GetOuQueryHandler(
                 IRepository<QrDetail, Guid> repository,
@@ -56,9 +56,7 @@ namespace TT.Abp.Mall.Handlers
                 var dbEntity = await _repository.FirstOrDefaultAsync(x => x.AppName == request.Input.AppName && x.EventName == request.EventName && x.EventKey == request.Input.SpuId.ToString());
 
                 if (dbEntity != null)
-                {
                     return dbEntity;
-                }
 
                 var detail = new QrDetail(request.Input.AppName, request.EventName, request.Input.SpuId?.ToString(), _currentTenant.Id);
                 detail.Params.Add("spuId", request.Input.SpuId.ToString());
@@ -70,7 +68,7 @@ namespace TT.Abp.Mall.Handlers
                     throw new UserFriendlyException("没有定义的APP");
                 }
 
-                var entity = await _repository.InsertAsync(detail, true, cancellationToken);
+                var entity = await _repository.InsertAsync(detail, autoSave: true, cancellationToken: cancellationToken);
                 var qr = await _weixinManager.Getwxacodeunlimit(app["appid"], app["appsec"], entity.Id.ToShortString(), detail.Path);
 
                 entity.SetQrUrl(qr);

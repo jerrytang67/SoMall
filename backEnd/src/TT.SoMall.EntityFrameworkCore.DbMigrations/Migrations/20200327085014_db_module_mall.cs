@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                "Mall_MallShops",
-                table => new
+                name: "Mall_MallShops",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -21,13 +21,16 @@ namespace TT.SoMall.Migrations
                     Description = table.Column<string>(nullable: true),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_MallShops", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_MallShops", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Mall_MallShops");
+                name: "Mall_MallShops");
         }
     }
 }

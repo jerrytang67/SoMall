@@ -18,8 +18,8 @@ namespace TT.Abp.Mall.Application.Coupons
 
     public class CouponAppService : CrudAppService<Coupon, CouponDto, Guid, MallRequestDto, CouponCreateOrUpdateDto, CouponCreateOrUpdateDto>, ICouponAppService
     {
-        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         private readonly IRepository<UserCoupon, Guid> _userCouponRepository;
+        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
 
         public CouponAppService(
             IRepository<Coupon, Guid> repository,

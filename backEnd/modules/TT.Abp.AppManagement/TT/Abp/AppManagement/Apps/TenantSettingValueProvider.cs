@@ -7,6 +7,8 @@ namespace TT.Abp.AppManagement.Apps
     public class TenantAppValueProvider : AppValueProvider
     {
         public const string ProviderName = "T";
+        public override string Name => ProviderName;
+        protected ICurrentTenant CurrentTenant { get; }
 
 
         public TenantAppValueProvider(IAppStore appStore, ICurrentTenant currentTenant)
@@ -14,9 +16,6 @@ namespace TT.Abp.AppManagement.Apps
         {
             CurrentTenant = currentTenant;
         }
-
-        public override string Name => ProviderName;
-        protected ICurrentTenant CurrentTenant { get; }
 
         public override async Task<Dictionary<string, string>> GetOrNullAsync(AppDefinition setting)
         {

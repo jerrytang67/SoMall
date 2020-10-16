@@ -1510,7 +1510,7 @@ and dependencies (minified).
 		
 		
 		/* checks if iframe can be accessed */
-		_canAccessIFrameCache={},
+		_canAccessIFrameCache=new Object(),
 		_canAccessIFrame=function(iframe){
 		    var result=false,cacheKey=false,html=null;
 		    if(iframe===undefined){

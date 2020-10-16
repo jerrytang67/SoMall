@@ -7,12 +7,12 @@ namespace TT.Abp.AppManagement.Apps
     {
         public const string ProviderName = "G";
 
+        public override string Name => ProviderName;
+
         public GlobalAppValueProvider(IAppStore settingStore)
             : base(settingStore)
         {
         }
-
-        public override string Name => ProviderName;
 
         public override Task<Dictionary<string, string>> GetOrNullAsync(AppDefinition setting)
         {

@@ -23,7 +23,7 @@ namespace TT.SoMall.EntityFrameworkCore
         {
             var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json", false)
+                    .AddJsonFile("appsettings.json", optional: false)
                     .AddJsonFile("appsettings.Development.json", true, true)
                 ;
 

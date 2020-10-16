@@ -1,6 +1,7 @@
 ﻿namespace TT.SoMall
 {
-    public abstract class SoMallApplicationTestBase : SoMallTestBase<SoMallApplicationTestModule>
+    public abstract class SoMallApplicationTestBase : SoMallTestBase<SoMallApplicationTestModule> 
     {
+
     }
 }

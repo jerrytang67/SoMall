@@ -17,5 +17,6 @@ namespace TT.SoMall
     )]
     public class SoMallApplicationContractsModule : AbpModule
     {
+
     }
 }

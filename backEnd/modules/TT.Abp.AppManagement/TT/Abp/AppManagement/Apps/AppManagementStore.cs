@@ -10,6 +10,10 @@ namespace TT.Abp.AppManagement.Apps
 {
     public class AppManagementStore : IAppManagementStore, ITransientDependency
     {
+        protected IDistributedCache<AppCacheItem> Cache { get; }
+        protected IAppRepository AppRepository { get; }
+        protected IGuidGenerator GuidGenerator { get; }
+
         public AppManagementStore(
             IAppRepository appRepository,
             IGuidGenerator guidGenerator,
@@ -19,10 +23,6 @@ namespace TT.Abp.AppManagement.Apps
             GuidGenerator = guidGenerator;
             Cache = cache;
         }
-
-        protected IDistributedCache<AppCacheItem> Cache { get; }
-        protected IAppRepository AppRepository { get; }
-        protected IGuidGenerator GuidGenerator { get; }
 
         public virtual async Task<Dictionary<string, string>> GetOrNullAsync(string name, string providerName, string providerKey)
         {

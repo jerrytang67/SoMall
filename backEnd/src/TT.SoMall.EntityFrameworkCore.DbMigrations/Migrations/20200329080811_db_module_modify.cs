@@ -8,16 +8,16 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
-                "Mall_ProductSpu");
+                name: "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "Desc",
-                "Mall_ProductSpu");
+                name: "Desc",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.AlterColumn<string>(
-                "Code",
-                "Mall_ProductSpu",
+                name: "Code",
+                table: "Mall_ProductSpu",
                 maxLength: 32,
                 nullable: false,
                 oldClrType: typeof(string),
@@ -26,124 +26,124 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<DateTimeOffset>(
-                "DateTimeEnd",
-                "Mall_ProductSpu",
+                name: "DateTimeEnd",
+                table: "Mall_ProductSpu",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTimeOffset>(
-                "DateTimeStart",
-                "Mall_ProductSpu",
+                name: "DateTimeStart",
+                table: "Mall_ProductSpu",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "DescCommon",
-                "Mall_ProductSpu",
+                name: "DescCommon",
+                table: "Mall_ProductSpu",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                "LimitBuyCount",
-                "Mall_ProductSpu",
+                name: "LimitBuyCount",
+                table: "Mall_ProductSpu",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "PurchaseNotesCommon",
-                "Mall_ProductSpu",
+                name: "PurchaseNotesCommon",
+                table: "Mall_ProductSpu",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                "SoldCount",
-                "Mall_ProductSpu",
+                name: "SoldCount",
+                table: "Mall_ProductSpu",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<string>(
-                "CoverImageUrls",
-                "Mall_ProductSku",
+                name: "CoverImageUrls",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTimeOffset>(
-                "DateTimeEnd",
-                "Mall_ProductSku",
+                name: "DateTimeEnd",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTimeOffset>(
-                "DateTimeStart",
-                "Mall_ProductSku",
+                name: "DateTimeStart",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "Desc",
-                "Mall_ProductSku",
+                name: "Desc",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                "LimitBuyCount",
-                "Mall_ProductSku",
+                name: "LimitBuyCount",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<decimal>(
-                "OriginPrice",
-                "Mall_ProductSku",
+                name: "OriginPrice",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "PurchaseNotes",
-                "Mall_ProductSku",
+                name: "PurchaseNotes",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                "SoldCount",
-                "Mall_ProductSku",
+                name: "SoldCount",
+                table: "Mall_ProductSku",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
-                "StockCount",
-                "Mall_ProductSku",
+                name: "StockCount",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<decimal>(
-                "VipPrice",
-                "Mall_ProductSku",
+                name: "VipPrice",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "LogoImageUrl",
-                "Mall_ProductCategory",
+                name: "LogoImageUrl",
+                table: "Mall_ProductCategory",
                 maxLength: 255,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "Address",
-                "Mall_MallShops",
+                name: "Address",
+                table: "Mall_MallShops",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "BussinessHours",
-                "Mall_MallShops",
+                name: "BussinessHours",
+                table: "Mall_MallShops",
                 nullable: true);
 
             migrationBuilder.AddColumn<double>(
-                "Lat",
-                "Mall_MallShops",
+                name: "Lat",
+                table: "Mall_MallShops",
                 nullable: true);
 
             migrationBuilder.AddColumn<double>(
-                "Lng",
-                "Mall_MallShops",
+                name: "Lng",
+                table: "Mall_MallShops",
                 nullable: true);
 
             migrationBuilder.AddForeignKey(
-                "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
-                "Mall_ProductSpu",
-                "CategoryId",
-                "Mall_ProductCategory",
+                name: "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
+                table: "Mall_ProductSpu",
+                column: "CategoryId",
+                principalTable: "Mall_ProductCategory",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Restrict);
-
+            
             migrationBuilder.AddColumn<string>(
-                "Unit",
-                "Mall_ProductSku",
+                name: "Unit",
+                table: "Mall_ProductSku",
                 maxLength: 16,
                 nullable: true);
         }
@@ -151,119 +151,119 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
-                "Mall_ProductSpu");
+                name: "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "DateTimeEnd",
-                "Mall_ProductSpu");
+                name: "DateTimeEnd",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "DateTimeStart",
-                "Mall_ProductSpu");
+                name: "DateTimeStart",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "DescCommon",
-                "Mall_ProductSpu");
+                name: "DescCommon",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "LimitBuyCount",
-                "Mall_ProductSpu");
+                name: "LimitBuyCount",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "PurchaseNotesCommon",
-                "Mall_ProductSpu");
+                name: "PurchaseNotesCommon",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "SoldCount",
-                "Mall_ProductSpu");
+                name: "SoldCount",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "CoverImageUrls",
-                "Mall_ProductSku");
+                name: "CoverImageUrls",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "DateTimeEnd",
-                "Mall_ProductSku");
+                name: "DateTimeEnd",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "DateTimeStart",
-                "Mall_ProductSku");
+                name: "DateTimeStart",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "Desc",
-                "Mall_ProductSku");
+                name: "Desc",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "LimitBuyCount",
-                "Mall_ProductSku");
+                name: "LimitBuyCount",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "OriginPrice",
-                "Mall_ProductSku");
+                name: "OriginPrice",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "PurchaseNotes",
-                "Mall_ProductSku");
+                name: "PurchaseNotes",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "SoldCount",
-                "Mall_ProductSku");
+                name: "SoldCount",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "StockCount",
-                "Mall_ProductSku");
+                name: "StockCount",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "VipPrice",
-                "Mall_ProductSku");
+                name: "VipPrice",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "LogoImageUrl",
-                "Mall_ProductCategory");
+                name: "LogoImageUrl",
+                table: "Mall_ProductCategory");
 
             migrationBuilder.DropColumn(
-                "Address",
-                "Mall_MallShops");
+                name: "Address",
+                table: "Mall_MallShops");
 
             migrationBuilder.DropColumn(
-                "BussinessHours",
-                "Mall_MallShops");
+                name: "BussinessHours",
+                table: "Mall_MallShops");
 
             migrationBuilder.DropColumn(
-                "Lat",
-                "Mall_MallShops");
+                name: "Lat",
+                table: "Mall_MallShops");
 
             migrationBuilder.DropColumn(
-                "Lng",
-                "Mall_MallShops");
+                name: "Lng",
+                table: "Mall_MallShops");
 
             migrationBuilder.AlterColumn<string>(
-                "Code",
-                "Mall_ProductSpu",
-                "nvarchar(32)",
+                name: "Code",
+                table: "Mall_ProductSpu",
+                type: "nvarchar(32)",
                 maxLength: 32,
                 nullable: true,
                 oldClrType: typeof(string),
                 oldMaxLength: 32);
 
             migrationBuilder.AddColumn<string>(
-                "Desc",
-                "Mall_ProductSpu",
-                "nvarchar(max)",
+                name: "Desc",
+                table: "Mall_ProductSpu",
+                type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddForeignKey(
-                "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
-                "Mall_ProductSpu",
-                "CategoryId",
-                "Mall_ProductCategory",
+                name: "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
+                table: "Mall_ProductSpu",
+                column: "CategoryId",
+                principalTable: "Mall_ProductCategory",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-
+            
             migrationBuilder.DropColumn(
-                "Unit",
-                "Mall_ProductSku");
+                name: "Unit",
+                table: "Mall_ProductSku");
         }
     }
 }

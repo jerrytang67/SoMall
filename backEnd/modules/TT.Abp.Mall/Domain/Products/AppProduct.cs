@@ -22,13 +22,13 @@ namespace TT.Abp.Mall.Domain.Products
 
         public virtual Guid ProductSpuId { get; set; }
 
-        public virtual ProductSpu ProductSpu { get; set; }
-
-        public virtual Guid? TenantId { get; protected set; }
-
         public override object[] GetKeys()
         {
             return new object[] {AppName, ProductSpuId};
         }
+
+        public virtual Guid? TenantId { get; protected set; }
+
+        public virtual ProductSpu ProductSpu { get; set; }
     }
 }

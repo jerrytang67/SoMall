@@ -228,7 +228,7 @@
                 r[k] = a[j];
         return r;
     }
-    
+    ;
     function __await(v) {
         return this instanceof __await ? (this.v = v, this) : new __await(v);
     }
@@ -273,7 +273,7 @@
         }
         return cooked;
     }
-    
+    ;
     var __setModuleDefault = Object.create ? (function (o, v) {
         Object.defineProperty(o, "default", { enumerable: true, value: v });
     }) : function (o, v) {

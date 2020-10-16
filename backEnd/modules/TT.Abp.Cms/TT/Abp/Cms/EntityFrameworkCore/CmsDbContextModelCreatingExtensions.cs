@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TT.Abp.Cms.Domain;
+using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace TT.Abp.Cms.EntityFrameworkCore

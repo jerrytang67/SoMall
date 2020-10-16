@@ -5,6 +5,7 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
 using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain;
@@ -37,8 +38,10 @@ namespace TT.Abp.Mall.Application.Pays
             {
                 return ObjectMapper.Map<PayOrder, PayOrderDto>(await _repository.FindAsync(input.BillNo));
             }
-
-            return ObjectMapper.Map<PayOrder, PayOrderDto>(await _repository.GetQuery().FirstOrDefaultAsync(x => x.Id == input.Id));
+            else
+            {
+                return ObjectMapper.Map<PayOrder, PayOrderDto>(await _repository.GetQuery().FirstOrDefaultAsync(x => x.Id == input.Id));
+            }
         }
 
         public async Task<PagedResultDto<PayOrderDto>> GetListAsync(MallRequestDto input)
@@ -118,7 +121,7 @@ namespace TT.Abp.Mall.Application.Pays
 
 
     /// <summary>
-    ///     <see cref="PayOrder" />
+    /// <see cref="PayOrder"/>
     /// </summary>
     public class PayOrderDtoBase : IPayOrderBase
     {
@@ -148,15 +151,10 @@ namespace TT.Abp.Mall.Application.Pays
 
 
     /// <summary>
-    ///     <see cref="PayOrder" />
+    /// <see cref="PayOrder"/>
     /// </summary>
     public class PayOrderDto : IPayOrderBase
     {
-        public MallEnums.PayType PayType { get; protected set; }
-
-        public Guid? ShareFromUserId { get; protected set; }
-
-        public Guid? PartnerId { get; protected set; }
         public Guid Id { get; set; }
         public int TotalPrice { get; set; }
         public string Body { get; set; }
@@ -168,6 +166,8 @@ namespace TT.Abp.Mall.Application.Pays
         public MallEnums.OrderType Type { get; set; }
         public Guid? ShopId { get; set; }
         public DateTime CreationTime { get; set; }
+
+        public MallEnums.PayType PayType { get; protected set; }
 
         #region 支付成功
 
@@ -183,10 +183,14 @@ namespace TT.Abp.Mall.Application.Pays
         public DateTime? RefundComplateTime { get; protected set; }
 
         /// <summary>
-        ///     单位:分
+        /// 单位:分
         /// </summary>
         public int? RefundPrice { get; protected set; }
 
         #endregion
+
+        public Guid? ShareFromUserId { get; protected set; }
+
+        public Guid? PartnerId { get; protected set; }
     }
 }

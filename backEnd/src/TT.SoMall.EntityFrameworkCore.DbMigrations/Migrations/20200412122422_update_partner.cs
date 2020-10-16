@@ -8,64 +8,64 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                "FK_Mall_PartnerDetails_Mall_Partners_PartnerId",
-                "Mall_PartnerDetails");
+                name: "FK_Mall_PartnerDetails_Mall_Partners_PartnerId",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.DropForeignKey(
-                "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
-                "Mall_PartnerProducts");
+                name: "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
+                table: "Mall_PartnerProducts");
 
             migrationBuilder.DropPrimaryKey(
-                "PK_Mall_Partners",
-                "Mall_Partners");
+                name: "PK_Mall_Partners",
+                table: "Mall_Partners");
 
             migrationBuilder.DropPrimaryKey(
-                "PK_Mall_PartnerDetails",
-                "Mall_PartnerDetails");
+                name: "PK_Mall_PartnerDetails",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.DropColumn(
-                "Id",
-                "Mall_Partners");
+                name: "Id",
+                table: "Mall_Partners");
 
             migrationBuilder.DropColumn(
-                "PartnerId",
-                "Mall_PartnerDetails");
+                name: "PartnerId",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.AddColumn<Guid>(
-                "UserId",
-                "Mall_Partners",
+                name: "UserId",
+                table: "Mall_Partners",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AddColumn<Guid>(
-                "PartnerUserId",
-                "Mall_PartnerDetails",
+                name: "PartnerUserId",
+                table: "Mall_PartnerDetails",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AddPrimaryKey(
-                "PK_Mall_Partners",
-                "Mall_Partners",
-                "UserId");
+                name: "PK_Mall_Partners",
+                table: "Mall_Partners",
+                column: "UserId");
 
             migrationBuilder.AddPrimaryKey(
-                "PK_Mall_PartnerDetails",
-                "Mall_PartnerDetails",
-                "PartnerUserId");
+                name: "PK_Mall_PartnerDetails",
+                table: "Mall_PartnerDetails",
+                column: "PartnerUserId");
 
             migrationBuilder.AddForeignKey(
-                "FK_Mall_PartnerDetails_Mall_Partners_PartnerUserId",
-                "Mall_PartnerDetails",
-                "PartnerUserId",
-                "Mall_Partners",
+                name: "FK_Mall_PartnerDetails_Mall_Partners_PartnerUserId",
+                table: "Mall_PartnerDetails",
+                column: "PartnerUserId",
+                principalTable: "Mall_Partners",
                 principalColumn: "UserId",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
-                "Mall_PartnerProducts",
-                "PartnerId",
-                "Mall_Partners",
+                name: "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
+                table: "Mall_PartnerProducts",
+                column: "PartnerId",
+                principalTable: "Mall_Partners",
                 principalColumn: "UserId",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -73,66 +73,66 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                "FK_Mall_PartnerDetails_Mall_Partners_PartnerUserId",
-                "Mall_PartnerDetails");
+                name: "FK_Mall_PartnerDetails_Mall_Partners_PartnerUserId",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.DropForeignKey(
-                "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
-                "Mall_PartnerProducts");
+                name: "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
+                table: "Mall_PartnerProducts");
 
             migrationBuilder.DropPrimaryKey(
-                "PK_Mall_Partners",
-                "Mall_Partners");
+                name: "PK_Mall_Partners",
+                table: "Mall_Partners");
 
             migrationBuilder.DropPrimaryKey(
-                "PK_Mall_PartnerDetails",
-                "Mall_PartnerDetails");
+                name: "PK_Mall_PartnerDetails",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.DropColumn(
-                "UserId",
-                "Mall_Partners");
+                name: "UserId",
+                table: "Mall_Partners");
 
             migrationBuilder.DropColumn(
-                "PartnerUserId",
-                "Mall_PartnerDetails");
+                name: "PartnerUserId",
+                table: "Mall_PartnerDetails");
 
             migrationBuilder.AddColumn<Guid>(
-                "Id",
-                "Mall_Partners",
-                "uniqueidentifier",
+                name: "Id",
+                table: "Mall_Partners",
+                type: "uniqueidentifier",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AddColumn<Guid>(
-                "PartnerId",
-                "Mall_PartnerDetails",
-                "uniqueidentifier",
+                name: "PartnerId",
+                table: "Mall_PartnerDetails",
+                type: "uniqueidentifier",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AddPrimaryKey(
-                "PK_Mall_Partners",
-                "Mall_Partners",
-                "Id");
+                name: "PK_Mall_Partners",
+                table: "Mall_Partners",
+                column: "Id");
 
             migrationBuilder.AddPrimaryKey(
-                "PK_Mall_PartnerDetails",
-                "Mall_PartnerDetails",
-                "PartnerId");
+                name: "PK_Mall_PartnerDetails",
+                table: "Mall_PartnerDetails",
+                column: "PartnerId");
 
             migrationBuilder.AddForeignKey(
-                "FK_Mall_PartnerDetails_Mall_Partners_PartnerId",
-                "Mall_PartnerDetails",
-                "PartnerId",
-                "Mall_Partners",
+                name: "FK_Mall_PartnerDetails_Mall_Partners_PartnerId",
+                table: "Mall_PartnerDetails",
+                column: "PartnerId",
+                principalTable: "Mall_Partners",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
-                "Mall_PartnerProducts",
-                "PartnerId",
-                "Mall_Partners",
+                name: "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
+                table: "Mall_PartnerProducts",
+                column: "PartnerId",
+                principalTable: "Mall_Partners",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }

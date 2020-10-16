@@ -10,16 +10,16 @@ namespace TT.Abp.AuditManagement.EntityFrameworkCore
         AbpDbContext<AuditManagementDbContext>,
         IAuditManagementDbContext
     {
+        public virtual DbSet<AuditFlow> AuditFlows { get; set; }
+        
+        public virtual DbSet<AuditNode> AuditNodes { get; set; }
+
         public AuditManagementDbContext(
             DbContextOptions<AuditManagementDbContext> options
         )
             : base(options)
         {
         }
-
-        public virtual DbSet<AuditFlow> AuditFlows { get; set; }
-
-        public virtual DbSet<AuditNode> AuditNodes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

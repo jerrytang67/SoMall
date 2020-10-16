@@ -6,11 +6,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Volo.Abp;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Settings;
 
 namespace TT.Abp.AppManagement.Apps
 {
     public class AppDefinitionManager : IAppDefinitionManager, ISingletonDependency
     {
+        protected Lazy<IDictionary<string, AppDefinition>> AppDefinitions { get; }
+
+        protected AppOptions Options { get; }
+
+        protected IServiceProvider ServiceProvider { get; }
+
         public AppDefinitionManager(
             IOptions<AppOptions> options, IServiceProvider serviceProvider)
         {
@@ -19,12 +26,6 @@ namespace TT.Abp.AppManagement.Apps
 
             AppDefinitions = new Lazy<IDictionary<string, AppDefinition>>(CreateAppDefinitions, true);
         }
-
-        protected Lazy<IDictionary<string, AppDefinition>> AppDefinitions { get; }
-
-        protected AppOptions Options { get; }
-
-        protected IServiceProvider ServiceProvider { get; }
 
         public AppDefinition Get(string name)
         {

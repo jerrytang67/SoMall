@@ -7,8 +7,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                "EventKey",
-                "Mall_QrDetails",
+                name: "EventKey",
+                table: "Mall_QrDetails",
                 maxLength: 255,
                 nullable: true);
         }
@@ -16,8 +16,8 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "EventKey",
-                "Mall_QrDetails");
+                name: "EventKey",
+                table: "Mall_QrDetails");
         }
     }
 }

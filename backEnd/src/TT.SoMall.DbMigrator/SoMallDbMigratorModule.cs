@@ -9,7 +9,7 @@ namespace TT.SoMall.DbMigrator
         typeof(AbpAutofacModule),
         typeof(SoMallEntityFrameworkCoreDbMigrationsModule),
         typeof(SoMallApplicationContractsModule)
-    )]
+        )]
     public class SoMallDbMigratorModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

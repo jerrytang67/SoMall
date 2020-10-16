@@ -38,12 +38,12 @@ namespace TT.Abp.VisitorManagement.Domain
 
         public string SelectionJson { get; set; }
 
-
-        [ForeignKey("FormId")] public virtual Form Form { get; set; }
-
         public override object[] GetKeys()
         {
-            return new object[] {FormId, ItemId};
+            return new object[] { FormId, ItemId };
         }
+
+
+        [ForeignKey("FormId")] public virtual Form Form { get; set; }
     }
 }

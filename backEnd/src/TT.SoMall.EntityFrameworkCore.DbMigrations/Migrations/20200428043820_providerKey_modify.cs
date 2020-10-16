@@ -7,8 +7,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                "ProviderName",
-                "App_Apps",
+                name: "ProviderName",
+                table: "App_Apps",
                 maxLength: 2,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -17,8 +17,8 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "ProviderKey",
-                "App_Apps",
+                name: "ProviderKey",
+                table: "App_Apps",
                 maxLength: 64,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -30,9 +30,9 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                "ProviderName",
-                "App_Apps",
-                "nvarchar(64)",
+                name: "ProviderName",
+                table: "App_Apps",
+                type: "nvarchar(64)",
                 maxLength: 64,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -40,9 +40,9 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                "ProviderKey",
-                "App_Apps",
-                "nvarchar(2)",
+                name: "ProviderKey",
+                table: "App_Apps",
+                type: "nvarchar(2)",
                 maxLength: 2,
                 nullable: true,
                 oldClrType: typeof(string),

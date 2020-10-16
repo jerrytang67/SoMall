@@ -16,20 +16,14 @@ namespace TT.HttpClient.Weixin.WeixiinResult.TenPay
         {
             _resultXml = XDocument.Parse(resultXml);
             return_code = GetXmlValue("return_code"); // res.Element("xml").Element
-            if (!IsReturnCodeSuccess())
-            {
-                return_msg = GetXmlValue("return_msg"); // res.Element("xml").Element
-            }
+            if (!IsReturnCodeSuccess()) return_msg = GetXmlValue("return_msg"); // res.Element("xml").Element
         }
 
         public TenPayV3Result(XDocument xml)
         {
             _resultXml = xml;
             return_code = GetXmlValue("return_code"); // res.Element("xml").Element
-            if (!IsReturnCodeSuccess())
-            {
-                return_msg = GetXmlValue("return_msg"); // res.Element("xml").Element
-            }
+            if (!IsReturnCodeSuccess()) return_msg = GetXmlValue("return_msg"); // res.Element("xml").Element
         }
 
         public string return_code { get; set; }
@@ -53,9 +47,7 @@ namespace TT.HttpClient.Weixin.WeixiinResult.TenPay
         {
             if (_resultXml == null || _resultXml.Element("xml") == null
                                    || _resultXml.Element("xml").Element(nodeName) == null)
-            {
                 return "";
-            }
 
             return _resultXml.Element("xml").Element(nodeName).Value;
         }

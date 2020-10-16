@@ -8,18 +8,18 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                "DeleterId",
-                "Visitor_VisitorLogs",
+                name: "DeleterId",
+                table: "Visitor_VisitorLogs",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
-                "DeletionTime",
-                "Visitor_VisitorLogs",
+                name: "DeletionTime",
+                table: "Visitor_VisitorLogs",
                 nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                "SaveToLocal",
-                "Visitor_FormItems",
+                name: "SaveToLocal",
+                table: "Visitor_FormItems",
                 nullable: false,
                 defaultValue: false);
         }
@@ -27,16 +27,16 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "DeleterId",
-                "Visitor_VisitorLogs");
+                name: "DeleterId",
+                table: "Visitor_VisitorLogs");
 
             migrationBuilder.DropColumn(
-                "DeletionTime",
-                "Visitor_VisitorLogs");
+                name: "DeletionTime",
+                table: "Visitor_VisitorLogs");
 
             migrationBuilder.DropColumn(
-                "SaveToLocal",
-                "Visitor_FormItems");
+                name: "SaveToLocal",
+                table: "Visitor_FormItems");
         }
     }
 }

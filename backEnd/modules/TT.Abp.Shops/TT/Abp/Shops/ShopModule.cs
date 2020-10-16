@@ -19,7 +19,7 @@ namespace TT.Abp.Shops
 
             context.Services.AddAutoMapperObjectMapper<ShopModule>();
 
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<ShopApplicationAutoMapperProfile>(true); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<ShopApplicationAutoMapperProfile>(validate: true); });
 
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {

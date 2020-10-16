@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TT.Abp.Weixin.Domain;
+using Volo.Abp;
 
 namespace TT.Abp.Weixin.EntityFrameworkCore
 {

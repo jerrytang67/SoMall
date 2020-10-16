@@ -4,17 +4,17 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.MultiTenancy;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Converters;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
@@ -95,7 +95,7 @@ namespace TT.SoMall
 
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
 
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
         }
 
@@ -116,7 +116,7 @@ namespace TT.SoMall
             context.Services.AddSwaggerGen(
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "SoMall API", Version = "v1"});
+                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "SoMall API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
                     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 });
@@ -166,6 +166,8 @@ namespace TT.SoMall
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
+
+
             var app = context.GetApplicationBuilder();
 
             app.UseCorrelationId();
@@ -180,7 +182,10 @@ namespace TT.SoMall
                 app.UseMultiTenancy();
             }
 
-            app.UseAbpRequestLocalization(option => { option.DefaultRequestCulture = new RequestCulture("zh-Hans"); });
+            app.UseAbpRequestLocalization(option =>
+            {
+                option.DefaultRequestCulture = new RequestCulture("zh-Hans");
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "SoMall API"); });
@@ -198,7 +203,7 @@ namespace TT.SoMall
         {
             var parameters = descriptions
                 .SelectMany(desc => desc.ParameterDescriptions)
-                .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
+                .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
                     ApiParameterDescriptionEqualityComparer.Instance)
                 .ToList();
             var description = descriptions.First();
@@ -206,10 +211,7 @@ namespace TT.SoMall
             parameters.ForEach(x =>
             {
                 if (x.Parameter.RouteInfo != null)
-                {
                     x.Parameter.RouteInfo.IsOptional = x.IsOptional;
-                }
-
                 description.ParameterDescriptions.Add(x.Parameter);
             });
             return description;
@@ -222,12 +224,12 @@ namespace TT.SoMall
             = new Lazy<ApiParameterDescriptionEqualityComparer>(() =>
                 new ApiParameterDescriptionEqualityComparer());
 
+        public static ApiParameterDescriptionEqualityComparer Instance
+            => _instance.Value;
+
         private ApiParameterDescriptionEqualityComparer()
         {
         }
-
-        public static ApiParameterDescriptionEqualityComparer Instance
-            => _instance.Value;
 
         public int GetHashCode(ApiParameterDescription obj)
         {
@@ -244,26 +246,10 @@ namespace TT.SoMall
 
         public bool Equals(ApiParameterDescription x, ApiParameterDescription y)
         {
-            if (!x.ModelMetadata.Equals(y.ModelMetadata))
-            {
-                return false;
-            }
-
-            if (!x.Name.Equals(y.Name))
-            {
-                return false;
-            }
-
-            if (!x.Source.Equals(y.Source))
-            {
-                return false;
-            }
-
-            if (!x.Type.Equals(y.Type))
-            {
-                return false;
-            }
-
+            if (!x.ModelMetadata.Equals(y.ModelMetadata)) return false;
+            if (!x.Name.Equals(y.Name)) return false;
+            if (!x.Source.Equals(y.Source)) return false;
+            if (!x.Type.Equals(y.Type)) return false;
             return true;
         }
     }

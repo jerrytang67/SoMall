@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
 using Volo.Abp;
@@ -13,8 +14,12 @@ namespace TT.Abp.Mall.Events.Products
 {
     public class ProductOrderRefundEvent : INotification
     {
+        public ProductOrder ProductOrder { get; }
+        public decimal Price { get; }
+        public string Reason { get; }
+
         /// <summary>
-        ///     ProductOrderRefundEvent
+        /// ProductOrderRefundEvent
         /// </summary>
         /// <param name="productOrder"></param>
         /// <param name="price">单位:元</param>
@@ -28,10 +33,6 @@ namespace TT.Abp.Mall.Events.Products
             Price = price;
             Reason = reason;
         }
-
-        public ProductOrder ProductOrder { get; }
-        public decimal Price { get; }
-        public string Reason { get; }
 
         public class ProductOrderRefundEventHandle : INotificationHandler<ProductOrderRefundEvent>
         {
@@ -47,7 +48,7 @@ namespace TT.Abp.Mall.Events.Products
             {
                 if (request.ProductOrder.CanIRefund())
                 {
-                    var order = await _payOrderRepository.FirstOrDefaultAsync(x => x.BillNo == request.ProductOrder.BillNo, cancellationToken);
+                    var order = await _payOrderRepository.FirstOrDefaultAsync(x => x.BillNo == request.ProductOrder.BillNo, cancellationToken: cancellationToken);
 
                     if (order == null)
                     {
@@ -55,10 +56,10 @@ namespace TT.Abp.Mall.Events.Products
                     }
 
                     order.Refund(request.Price, request.Reason);
-
+                    
                     request.ProductOrder.Refund();
                 }
-            }
+           }
         }
     }
 }

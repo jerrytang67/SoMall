@@ -5,16 +5,21 @@ namespace TT.Abp.AppManagement.Apps
 {
     public class AppDefinitionContext : IAppDefinitionContext
     {
+        protected Dictionary<string, AppDefinition> Apps { get; }
+
         public AppDefinitionContext(Dictionary<string, AppDefinition> apps)
         {
             Apps = apps;
         }
 
-        protected Dictionary<string, AppDefinition> Apps { get; }
-
         public virtual AppDefinition GetOrNull(string name)
         {
             return Apps.GetOrDefault(name);
+        }
+
+        public virtual IReadOnlyList<AppDefinition> GetAll()
+        {
+            return Apps.Values.ToImmutableList();
         }
 
         public virtual void Add(params AppDefinition[] definitions)
@@ -28,11 +33,6 @@ namespace TT.Abp.AppManagement.Apps
             {
                 Apps[definition.Name] = definition;
             }
-        }
-
-        public virtual IReadOnlyList<AppDefinition> GetAll()
-        {
-            return Apps.Values.ToImmutableList();
         }
     }
 }

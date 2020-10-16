@@ -71,6 +71,21 @@ namespace TT.Abp.Mall.Application.Partners
             );
         }
 
+        private static (double? lat, double? lng) ConvertGeo(double? inputLat, double? inputLng, MallEnums.LocationType inputType, MallEnums.LocationType outType)
+        {
+            if (inputLat.HasValue && inputLng.HasValue)
+            {
+                return (inputType, outType) switch
+                {
+                    (MallEnums.LocationType.gcj02, MallEnums.LocationType.bd09) => (inputLat.Value, inputLng.Value).GCJ02ToBD09(),
+                    (MallEnums.LocationType.bd09, MallEnums.LocationType.gcj02) => (inputLat.Value, inputLng.Value).BD09ToGCJ02(),
+                    _ => (inputLat, inputLng),
+                };
+            }
+
+            return (null, null);
+        }
+
 
         [Authorize]
         public async Task<PartnerCreateOrUpdateDto> GetCurrent()
@@ -105,25 +120,10 @@ namespace TT.Abp.Mall.Application.Partners
 
             await Task.CompletedTask;
         }
-
-        private static (double? lat, double? lng) ConvertGeo(double? inputLat, double? inputLng, MallEnums.LocationType inputType, MallEnums.LocationType outType)
-        {
-            if (inputLat.HasValue && inputLng.HasValue)
-            {
-                return (inputType, outType) switch
-                {
-                    (MallEnums.LocationType.gcj02, MallEnums.LocationType.bd09) => (inputLat.Value, inputLng.Value).GCJ02ToBD09(),
-                    (MallEnums.LocationType.bd09, MallEnums.LocationType.gcj02) => (inputLat.Value, inputLng.Value).BD09ToGCJ02(),
-                    _ => (inputLat, inputLng)
-                };
-            }
-
-            return (null, null);
-        }
     }
 
     /// <summary>
-    ///     <see cref="Partner" />
+    /// <see cref="Partner"/>
     /// </summary>
     public class PartnerCreateOrUpdateDto
     {

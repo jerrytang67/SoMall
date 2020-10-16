@@ -8,12 +8,12 @@ namespace TT.Abp.Weixin.EntityFrameworkCore
     [ConnectionStringName("Weixin")]
     public class WeixinManagementDbContext : AbpDbContext<WeixinManagementDbContext>, IWeixinManagementDbContext
     {
+        public DbSet<WechatUserinfo> WechatUserinfos { get; set; }
+
         public WeixinManagementDbContext(DbContextOptions<WeixinManagementDbContext> options)
             : base(options)
         {
         }
-
-        public DbSet<WechatUserinfo> WechatUserinfos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

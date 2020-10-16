@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -20,22 +21,22 @@ namespace TT.Abp.Mall.Events.Pays
 {
     public class RefundAgreeEvent : INotification
     {
+        public Guid RefundLogId { get; }
+
         public RefundAgreeEvent(Guid refundLogId)
         {
             RefundLogId = refundLogId;
         }
 
-        public Guid RefundLogId { get; }
-
         public class RefundAgreeEventHandle : INotificationHandler<RefundAgreeEvent>
         {
-            private readonly AppProvider _appProvider;
-            private readonly IMediator _mediator;
-            private readonly IPayApi _payApi;
+            private readonly IRepository<RefundLog, Guid> _refundLogRepository;
             private readonly IRepository<PayOrder, Guid> _payOrderRepository;
             private readonly IRepository<ProductOrder, Guid> _productOrderRepository;
-            private readonly IRepository<RefundLog, Guid> _refundLogRepository;
+            private readonly IMediator _mediator;
+            private readonly AppProvider _appProvider;
             private readonly ISettingProvider _settingProvider;
+            private readonly IPayApi _payApi;
 
             public RefundAgreeEventHandle(
                 IRepository<RefundLog, Guid> refundLogRepository,
@@ -59,10 +60,10 @@ namespace TT.Abp.Mall.Events.Pays
             [UnitOfWork]
             public virtual async Task Handle(RefundAgreeEvent request, CancellationToken cancellationToken)
             {
-                var refundLog = await _refundLogRepository.FirstOrDefaultAsync(x => x.Id == request.RefundLogId, cancellationToken);
+                var refundLog = await _refundLogRepository.FirstOrDefaultAsync(x => x.Id == request.RefundLogId, cancellationToken: cancellationToken);
                 Check.NotNull(refundLog, nameof(refundLog));
 
-                var payOrder = await _payOrderRepository.FirstOrDefaultAsync(x => x.BillNo == refundLog.BillNo, cancellationToken);
+                var payOrder = await _payOrderRepository.FirstOrDefaultAsync(x => x.BillNo == refundLog.BillNo, cancellationToken: cancellationToken);
                 Check.NotNull(payOrder, nameof(payOrder));
 
                 var app = await _appProvider.GetOrNullAsync(payOrder.AppName);
@@ -75,14 +76,14 @@ namespace TT.Abp.Mall.Events.Pays
                 var result = await _payApi.RefundAsync(
                     appid,
                     mchId,
-                    mchKey,
+                    mchKey: mchKey,
                     "",
                     "",
-                    null,
-                    payOrder.BillNo,
-                    refundLog.Id.ToShortString(),
-                    payOrder.TotalPrice,
-                    refundLog.Price,
+                    transactionId: null,
+                    outTradeNo: payOrder.BillNo,
+                    outRefundNo: refundLog.Id.ToShortString(),
+                    totalFee: payOrder.TotalPrice,
+                    refundFee: refundLog.Price,
                     refundDesc: refundLog.Reason,
                     refundAccount: "REFUND_SOURCE_RECHARGE_FUNDS"
                 );

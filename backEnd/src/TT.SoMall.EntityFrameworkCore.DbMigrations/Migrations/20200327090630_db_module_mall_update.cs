@@ -8,61 +8,61 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                "ShopId",
-                "Mall_ProductSpu",
+                name: "ShopId",
+                table: "Mall_ProductSpu",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                "TenantId",
-                "Mall_ProductSpu",
+                name: "TenantId",
+                table: "Mall_ProductSpu",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                "ShopId",
-                "Mall_ProductSku",
+                name: "ShopId",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                "TenantId",
-                "Mall_ProductSku",
+                name: "TenantId",
+                table: "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                "ShopId",
-                "Mall_ProductCategory",
+                name: "ShopId",
+                table: "Mall_ProductCategory",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                "TenantId",
-                "Mall_ProductCategory",
+                name: "TenantId",
+                table: "Mall_ProductCategory",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "ShopId",
-                "Mall_ProductSpu");
+                name: "ShopId",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "TenantId",
-                "Mall_ProductSpu");
+                name: "TenantId",
+                table: "Mall_ProductSpu");
 
             migrationBuilder.DropColumn(
-                "ShopId",
-                "Mall_ProductSku");
+                name: "ShopId",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "TenantId",
-                "Mall_ProductSku");
+                name: "TenantId",
+                table: "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                "ShopId",
-                "Mall_ProductCategory");
+                name: "ShopId",
+                table: "Mall_ProductCategory");
 
             migrationBuilder.DropColumn(
-                "TenantId",
-                "Mall_ProductCategory");
+                name: "TenantId",
+                table: "Mall_ProductCategory");
         }
     }
 }

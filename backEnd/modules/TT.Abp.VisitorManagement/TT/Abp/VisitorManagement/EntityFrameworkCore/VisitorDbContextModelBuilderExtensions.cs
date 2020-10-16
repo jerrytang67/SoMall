@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using TT.Abp.Shops;
+using TT.Abp.Shops.Domain;
 using TT.Abp.VisitorManagement.Domain;
 using Volo.Abp;
 using Volo.Abp.EntityFrameworkCore.Modeling;

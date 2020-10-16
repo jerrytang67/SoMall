@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TT.Abp.Weixin.Domain;
+using TT.HttpClient.Weixin;
 using TT.HttpClient.Weixin.WeixiinResult;
 
 namespace TT.Abp.Weixin

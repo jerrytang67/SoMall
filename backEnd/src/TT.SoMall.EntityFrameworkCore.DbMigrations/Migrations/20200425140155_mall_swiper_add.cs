@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                "Mall_NewsCategories",
-                table => new
+                name: "Mall_NewsCategories",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -25,11 +25,14 @@ namespace TT.SoMall.Migrations
                     ShopId = table.Column<Guid>(nullable: true),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_NewsCategories", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_NewsCategories", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
-                "Mall_Swipers",
-                table => new
+                name: "Mall_Swipers",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -51,11 +54,14 @@ namespace TT.SoMall.Migrations
                     ShopId = table.Column<Guid>(nullable: true),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_Swipers", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_Swipers", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
-                "Mall_NewsContents",
-                table => new
+                name: "Mall_NewsContents",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -80,29 +86,29 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_Mall_NewsContents", x => x.Id);
                     table.ForeignKey(
-                        "FK_Mall_NewsContents_Mall_NewsCategories_CategoryId",
-                        x => x.CategoryId,
-                        "Mall_NewsCategories",
-                        "Id",
+                        name: "FK_Mall_NewsContents_Mall_NewsCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Mall_NewsCategories",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                "IX_Mall_NewsContents_CategoryId",
-                "Mall_NewsContents",
-                "CategoryId");
+                name: "IX_Mall_NewsContents_CategoryId",
+                table: "Mall_NewsContents",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Mall_NewsContents");
+                name: "Mall_NewsContents");
 
             migrationBuilder.DropTable(
-                "Mall_Swipers");
+                name: "Mall_Swipers");
 
             migrationBuilder.DropTable(
-                "Mall_NewsCategories");
+                name: "Mall_NewsCategories");
         }
     }
 }

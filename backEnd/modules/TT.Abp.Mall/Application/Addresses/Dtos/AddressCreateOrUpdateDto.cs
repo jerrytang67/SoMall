@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using TT.Abp.Mall.Domain;
+using TT.Abp.Mall.Domain.Products;
 
 namespace TT.Abp.Mall.Application.Addresses.Dtos
 {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using TT.SoMall.Users;
+using Shouldly;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Shouldly;
-using TT.SoMall.Users;
 using Volo.Abp.Domain.Repositories;
 using Xunit;
 

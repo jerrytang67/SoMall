@@ -24,7 +24,12 @@ namespace TT.SoMall
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearch)))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticsearch))
+                {
+                    // AutoRegisterTemplate = true,
+                    // AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6
+                    // CustomFormatter = new EcsTextFormatter()
+                })
                 .CreateLogger();
 
             try
@@ -45,15 +50,14 @@ namespace TT.SoMall
             }
         }
 
-        internal static IHostBuilder CreateHostBuilder(string[] args)
-        {
-            return Host.CreateDefaultBuilder(args)
+        internal static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     var env = hostingContext.HostingEnvironment;
                     hostingContext.Configuration = config.Build();
-                    var consul_url = hostingContext.Configuration["Consul_Url"] ?? "http://127.0.0.1:8500";
+                    string consul_url = hostingContext.Configuration["Consul_Url"] ?? "http://127.0.0.1:8500";
                     Console.WriteLine($"Consul Url:{consul_url}");
                     Console.WriteLine($"ApplicationName:{env.ApplicationName}");
                     Console.WriteLine($"EnvironmentName:{env.EnvironmentName}");
@@ -70,6 +74,5 @@ namespace TT.SoMall
                 })
                 .UseAutofac()
                 .UseSerilog();
-        }
     }
 }

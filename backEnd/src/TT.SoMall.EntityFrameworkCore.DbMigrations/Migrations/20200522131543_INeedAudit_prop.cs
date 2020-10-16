@@ -8,23 +8,23 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                "Audit",
-                "Mall_RefundLogs",
+                name: "Audit",
+                table: "Mall_RefundLogs",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                "AuditFlowId",
-                "Mall_RefundLogs",
+                name: "AuditFlowId",
+                table: "Mall_RefundLogs",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                "AuditStatus",
-                "Mall_RefundLogs",
+                name: "AuditStatus",
+                table: "Mall_RefundLogs",
                 nullable: true);
-
+            
             migrationBuilder.AddColumn<int>(
-                "NodesMaxIndex",
-                "Audit_AuditFlows",
+                name: "NodesMaxIndex",
+                table: "Audit_AuditFlows",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -32,20 +32,20 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "Audit",
-                "Mall_RefundLogs");
+                name: "Audit",
+                table: "Mall_RefundLogs");
 
             migrationBuilder.DropColumn(
-                "AuditFlowId",
-                "Mall_RefundLogs");
+                name: "AuditFlowId",
+                table: "Mall_RefundLogs");
 
             migrationBuilder.DropColumn(
-                "AuditStatus",
-                "Mall_RefundLogs");
-
+                name: "AuditStatus",
+                table: "Mall_RefundLogs");
+            
             migrationBuilder.DropColumn(
-                "NodesMaxIndex",
-                "Audit_AuditFlows");
+                name: "NodesMaxIndex",
+                table: "Audit_AuditFlows");
         }
     }
 }

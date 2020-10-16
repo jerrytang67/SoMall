@@ -4,12 +4,13 @@ using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using TT.Abp.Mall.Domain.Comments;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using TT.Abp.Mall.Domain.Comments;
 using Volo.Abp.Linq;
+
 
 namespace TT.Abp.Mall.Application.Comments
 {
@@ -27,7 +28,7 @@ namespace TT.Abp.Mall.Application.Comments
         public CommentAppService(
             IRepository<Comment, Guid> repository,
             IAsyncQueryableExecuter asyncQueryableExecuter
-        ) : base(repository)
+            ) : base(repository)
         {
             _asyncQueryableExecuter = asyncQueryableExecuter;
         }
@@ -39,7 +40,7 @@ namespace TT.Abp.Mall.Application.Comments
 
             TryToSetTenantId(entity);
 
-            await Repository.InsertAsync(entity, true);
+            await Repository.InsertAsync(entity, autoSave: true);
 
             return MapToGetOutputDto(entity);
         }
@@ -58,9 +59,20 @@ namespace TT.Abp.Mall.Application.Comments
 
             //TODO: Check if input has id different than given id and normalize if it's default value, throw ex otherwise
             MapToEntity(input, entity);
-            await Repository.UpdateAsync(entity, true);
+            await Repository.UpdateAsync(entity, autoSave: true);
 
             return MapToGetOutputDto(entity);
+        }
+
+
+        protected override IQueryable<Comment> CreateFilteredQuery(MallRequestDto input)
+        {
+            return base.CreateFilteredQuery(input)
+                    .WhereIf(input.State.HasValue, x => x.Status == input.State)
+                    .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
+                    .WhereIf(input.SpuId.HasValue, x => x.ShopId == input.SpuId)
+                    .WhereIf(input.SkuId.HasValue, x => x.ShopId == input.SkuId)
+                ;
         }
 
         public override Task<PagedResultDto<CommentDto>> GetListAsync(MallRequestDto input)
@@ -85,21 +97,10 @@ namespace TT.Abp.Mall.Application.Comments
                 entities.Select(MapToGetListOutputDto).ToList()
             );
         }
-
-
-        protected override IQueryable<Comment> CreateFilteredQuery(MallRequestDto input)
-        {
-            return base.CreateFilteredQuery(input)
-                    .WhereIf(input.State.HasValue, x => x.Status == input.State)
-                    .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
-                    .WhereIf(input.SpuId.HasValue, x => x.ShopId == input.SpuId)
-                    .WhereIf(input.SkuId.HasValue, x => x.ShopId == input.SkuId)
-                ;
-        }
     }
 
     /// <summary>
-    ///     <see cref="Comment" />
+    /// <see cref="Comment"/>
     /// </summary>
     public class CommentDto : CreationAuditedEntityDto<Guid>
     {

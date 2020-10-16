@@ -9,14 +9,13 @@ namespace TT.SoMall.Security
     [Dependency(ReplaceServices = true)]
     public class FakeCurrentPrincipalAccessor : ICurrentPrincipalAccessor, ISingletonDependency
     {
-        private ClaimsPrincipal _principal;
-
         public IDisposable Change(ClaimsPrincipal principal)
         {
             throw new NotImplementedException();
         }
 
         public ClaimsPrincipal Principal => GetPrincipal();
+        private ClaimsPrincipal _principal;
 
         private ClaimsPrincipal GetPrincipal()
         {

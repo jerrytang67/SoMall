@@ -13,6 +13,9 @@ namespace TT.Abp.AuditManagement.Audits
 
     public class AuditProvider : IAuditProvider, ITransientDependency
     {
+        protected IAuditDefinitionManager AuditDefinitionManager { get; }
+        protected IAuditValueProviderManager AuditValueProviderManager { get; }
+
         public AuditProvider(
             IAuditDefinitionManager auditDefinitionManager,
             IAuditValueProviderManager auditValueProviderManager
@@ -21,9 +24,6 @@ namespace TT.Abp.AuditManagement.Audits
             AuditDefinitionManager = auditDefinitionManager;
             AuditValueProviderManager = auditValueProviderManager;
         }
-
-        protected IAuditDefinitionManager AuditDefinitionManager { get; }
-        protected IAuditValueProviderManager AuditValueProviderManager { get; }
 
 
         public virtual async Task<Guid?> GetOrNullAsync(string name)

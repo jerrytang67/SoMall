@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                "Mall_Users",
-                table => new
+                name: "Mall_Users",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -23,13 +23,16 @@ namespace TT.SoMall.Migrations
                     PhoneNumber = table.Column<string>(maxLength: 16, nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false, defaultValue: false)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_Users", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_Users", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Mall_Users");
+                name: "Mall_Users");
         }
     }
 }

@@ -5,15 +5,16 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Framing;
 
 namespace TT.RabbitMQ
 {
     public class RabbitMqPublisher : IDisposable
     {
-        private readonly IModel _channel;
-        private readonly IConnection _connection;
         private readonly ILogger<RabbitMqPublisher> _logger;
         private readonly RabbitMqOptions _options;
+        private readonly IModel _channel;
+        private readonly IConnection _connection;
 
         public RabbitMqPublisher(IOptions<RabbitMqOptions> optionsAccessor,
             ILogger<RabbitMqPublisher> logger)
@@ -22,7 +23,7 @@ namespace TT.RabbitMQ
             _options = optionsAccessor.Value;
             try
             {
-                var factory = new ConnectionFactory
+                var factory = new ConnectionFactory()
                 {
                     UserName = _options.UserName,
                     Password = _options.Password,
@@ -31,20 +32,12 @@ namespace TT.RabbitMQ
                 };
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
-                _logger.LogWarning("RabbitMQ Publisher 连接成功");
+                _logger.LogWarning($"RabbitMQ Publisher 连接成功");
             }
             catch (Exception ex)
             {
                 _logger.LogError($"RabbitListener init error,ex:{ex.Message}");
             }
-        }
-
-
-        public void Dispose()
-        {
-            _channel?.Dispose();
-            _connection?.Dispose();
-            _logger?.LogWarning("RabbitMQ Publisher Dispose");
         }
 
         public virtual void PushMessage(object message, string queryName = null, string routerKey = "Test.*")
@@ -73,6 +66,7 @@ namespace TT.RabbitMQ
         }
 
         /// <summary>
+        /// 
         /// </summary>
         /// <param name="message"></param>
         /// <param name="ttl">过期时间(秒)</param>
@@ -100,8 +94,8 @@ namespace TT.RabbitMQ
             //     queueArgs.Add("x-dead-letter-routing-key", routerKey);
 
             _channel.ExchangeDeclare(delayexchange, "direct");
-            _channel.QueueDeclare(queryName, true, false, false, queueArgs);
-            _channel.QueueBind(queryName, delayexchange, string.Empty, null);
+            _channel.QueueDeclare(queryName, durable: true, exclusive: false, autoDelete: false, arguments: queueArgs);
+            _channel.QueueBind(queryName, delayexchange, routingKey: string.Empty, arguments: null);
 
             var sendBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message, new JsonSerializerSettings
                 {
@@ -115,6 +109,14 @@ namespace TT.RabbitMQ
             properties.MessageId = Guid.NewGuid().ToString("N");
 
             _channel.BasicPublish(delayexchange, string.Empty, properties, sendBytes);
+        }
+
+
+        public void Dispose()
+        {
+            _channel?.Dispose();
+            _connection?.Dispose();
+            _logger?.LogWarning($"RabbitMQ Publisher Dispose");
         }
     }
 }

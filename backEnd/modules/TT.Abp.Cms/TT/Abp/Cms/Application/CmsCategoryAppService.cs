@@ -13,6 +13,7 @@ using TT.Abp.Mall.Application.Products;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.EventBus.Local;
 
 namespace TT.Abp.Cms.Application
 {
@@ -24,10 +25,10 @@ namespace TT.Abp.Cms.Application
     }
 
     public class CmsCategoryAppService : CrudAppService<Category, CategoryDto, Guid, PagedAndSortedResultRequestDto,
-        CategoryCreateOrUpdate, CategoryCreateOrUpdate>, ICmsCategoryAppService
+        CategoryCreateOrUpdate, CategoryCreateOrUpdate>,ICmsCategoryAppService
     {
-        private readonly ICapPublisher _capBus;
         private readonly IRepository<CategoryEvent, Guid> _eventRepository;
+        private readonly ICapPublisher _capBus;
 
         public CmsCategoryAppService(
             IRepository<Category, Guid> repository,
@@ -51,7 +52,7 @@ namespace TT.Abp.Cms.Application
 
             TryToSetTenantId(entity);
 
-            await Repository.InsertAsync(entity, true);
+            await Repository.InsertAsync(entity, autoSave: true);
 
             return MapToGetOutputDto(entity);
         }
@@ -74,16 +75,16 @@ namespace TT.Abp.Cms.Application
         {
             var find = await Repository
                 .FirstOrDefaultAsync(z => z.Id == id);
-
+            
             find.AddZan();
-
+            
             Log.Warning(JsonConvert.SerializeObject(find));
 
             // await _capBus.PublishAsync("cms.category.zan",  find);
             await _capBus.PublishAsync("cms.category.zan", ObjectMapper.Map<Category, CategoryDto>(find));
         }
 
-
+        
         [HttpPut]
         public override async Task<CategoryDto> UpdateAsync(Guid id, CategoryCreateOrUpdate input)
         {
@@ -100,7 +101,7 @@ namespace TT.Abp.Cms.Application
 
 
     /// <summary>
-    ///     <see cref="Category" />
+    /// <see cref="Category"/>
     /// </summary>
     public class CategoryDto : EntityDto<Guid>
     {

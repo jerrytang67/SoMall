@@ -12,9 +12,9 @@ namespace TT.Abp.AccountManagement.EntityFrameworkCore
             builder.Entity<RealNameInfo>(b =>
             {
                 b.ToTable(AccountManagementConsts.DbTablePrefix + "RealNameInfos", AccountManagementConsts.DbSchema);
-
+                
                 b.HasKey(x => x.UserId);
-
+                
                 b.ConfigureFullAudited();
 
                 b.Property(x => x.RealName).IsRequired().HasMaxLength(AccountManagementConsts.MaxNameLength);

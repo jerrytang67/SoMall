@@ -10,7 +10,7 @@ namespace TT.Abp.Mall.Application.Clients.Dtos
         public JObject SystemInfo { get; set; }
 
         [CanBeNull] public ICurrentUser CurrentUser { get; set; }
-
+        
         public Guid? ShopId { get; set; }
     }
 }

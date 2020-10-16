@@ -14,7 +14,7 @@ namespace TT.Abp.Mall.Application.Partners.Dtos
         public MallEnums.PartnerState State { get; set; }
 
         /// <summary>
-        ///     已提现总数
+        /// 已提现总数
         /// </summary>
         public decimal TotalWithdrawals { get; set; }
 

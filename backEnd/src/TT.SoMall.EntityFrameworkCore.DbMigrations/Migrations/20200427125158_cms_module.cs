@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                "Cms.Categories",
-                table => new
+                name: "Cms.Categories",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -21,18 +21,22 @@ namespace TT.SoMall.Migrations
                     IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
-
-
+                    
+                    
+                    
                     Name = table.Column<string>(maxLength: 32, nullable: false),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table => { table.PrimaryKey("PK_Cms.Categories", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cms.Categories", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Cms.Categories");
+                name: "Cms.Categories");
         }
     }
 }

@@ -11,12 +11,12 @@ namespace TT.Abp.Mall.Events.Pays
 {
     public class PayOrderTimeoutEvent : INotification
     {
+        public Guid Id { get; }
+
         public PayOrderTimeoutEvent(Guid id)
         {
             Id = id;
         }
-
-        public Guid Id { get; }
 
         public class PayOrderTimeoutEventHandler : INotificationHandler<PayOrderTimeoutEvent>
         {
@@ -30,7 +30,7 @@ namespace TT.Abp.Mall.Events.Pays
             [UnitOfWork]
             public virtual async Task Handle(PayOrderTimeoutEvent notification, CancellationToken cancellationToken)
             {
-                var entity = await _payOrderRepository.FirstOrDefaultAsync(x => x.Id == notification.Id, cancellationToken);
+                var entity = await _payOrderRepository.FirstOrDefaultAsync(x => x.Id == notification.Id, cancellationToken: cancellationToken);
 
                 if (entity != null)
                 {

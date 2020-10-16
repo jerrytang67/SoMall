@@ -7,7 +7,7 @@ namespace TT.Abp.Cms
         public override void Define(IAppDefinitionContext context)
         {
             context.Add(
-                new AppDefinition("cms_h5", "SoMall_App")
+                new AppDefinition("cms_h5", "SoMall_App", null)
             );
         }
     }

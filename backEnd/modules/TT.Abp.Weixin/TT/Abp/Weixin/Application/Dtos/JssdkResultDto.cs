@@ -9,7 +9,6 @@
             this.nonceStr = nonceStr;
             this.signature = signature;
         }
-
         public string appId { get; protected set; }
         public string timestamp { get; protected set; }
         public string nonceStr { get; protected set; }

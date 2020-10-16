@@ -18,21 +18,13 @@ namespace TT.HttpClient.Weixin.Signature
                 var num2 = bytes1[index];
                 var num3 = bytes2[index];
                 if (num2 > num3)
-                {
                     return 1;
-                }
-
                 if (num2 < num3)
-                {
                     return -1;
-                }
             }
 
             if (length1 == length2)
-            {
                 return 0;
-            }
-
             return length1 > length2 ? 1 : -1;
         }
 

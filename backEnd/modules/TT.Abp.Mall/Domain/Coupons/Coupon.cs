@@ -56,8 +56,8 @@ namespace TT.Abp.Mall.Domain
 
         public int UseCount { get; set; }
 
-        public Guid? ShopId { get; protected set; }
-
         public Guid? TenantId { get; protected set; }
+
+        public Guid? ShopId { get; protected set; }
     }
 }

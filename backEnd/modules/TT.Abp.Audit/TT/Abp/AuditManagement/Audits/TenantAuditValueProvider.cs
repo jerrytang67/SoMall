@@ -10,8 +10,10 @@ namespace TT.Abp.AuditManagement.Audits
 {
     public class TenantAuditValueProvider : AuditValueProvider
     {
-        public const string ProviderName = "T";
         private readonly ICurrentTenant _currentTenant;
+        public const string ProviderName = "T";
+
+        public override string Name => ProviderName;
 
         public TenantAuditValueProvider(
             IRepository<AuditFlow, Guid> auditFlowRepository,
@@ -20,8 +22,6 @@ namespace TT.Abp.AuditManagement.Audits
         {
             _currentTenant = currentTenant;
         }
-
-        public override string Name => ProviderName;
 
         [UnitOfWork]
         public override async Task<Guid?> GetOrNullAsync(AuditDefinition audit)

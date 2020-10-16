@@ -88,21 +88,15 @@ namespace TT.HttpClient.Weixin
         {
             var url = headimgurl;
             if (url == null)
-            {
                 return null;
-            }
 
             var tail = "/" + size.ToString("d");
             if (url.EndsWith(tail))
-            {
                 return url;
-            }
 
             var slashIndex = url.LastIndexOf('/');
             if (slashIndex < 0)
-            {
                 return url;
-            }
 
             return url.Substring(0, slashIndex) + tail;
         }

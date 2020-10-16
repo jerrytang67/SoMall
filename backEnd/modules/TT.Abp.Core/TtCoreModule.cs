@@ -33,7 +33,7 @@ namespace TT.Abp.Core
 
             context.Services.Replace(ServiceDescriptor.Transient<IGuidGenerator, SequentialGuid>());
 
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<TtCoreAutoMapperProfile>(false); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<TtCoreAutoMapperProfile>(validate: false); });
 
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {

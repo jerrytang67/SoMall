@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                "Mall_QrDetails",
-                table => new
+                name: "Mall_QrDetails",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -22,13 +22,16 @@ namespace TT.SoMall.Migrations
                     Path = table.Column<string>(maxLength: 255, nullable: true),
                     QrImageUrl = table.Column<string>(maxLength: 255, nullable: true)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_QrDetails", x => x.Id); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_QrDetails", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Mall_QrDetails");
+                name: "Mall_QrDetails");
         }
     }
 }

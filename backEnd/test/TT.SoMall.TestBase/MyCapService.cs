@@ -13,7 +13,7 @@ namespace TT.SoMall
         public AsyncLocal<ICapTransaction> Transaction { get; }
 
         public async Task PublishAsync<T>(string name, T contentObj, string callbackName = null,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken = default(CancellationToken))
         {
 //            throw new NotImplementedException();
             await Task.CompletedTask;

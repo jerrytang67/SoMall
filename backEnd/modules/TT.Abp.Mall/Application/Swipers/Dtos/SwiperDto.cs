@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 namespace TT.Abp.Mall.Application.Swipers
 {
     /// <summary>
-    ///     <see cref="Swiper" />
+    /// <see cref="Swiper"/>
     /// </summary>
     public class SwiperDto : EntityDto<Guid>
     {

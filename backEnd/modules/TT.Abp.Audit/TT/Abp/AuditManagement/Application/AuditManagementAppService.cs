@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TT.Abp.AuditManagement.Audits;
+using TT.Abp.AuditManagement.Domain;
 using Volo.Abp.Application.Services;
 
 namespace TT.Abp.AuditManagement.Application

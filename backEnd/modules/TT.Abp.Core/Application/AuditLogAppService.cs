@@ -34,7 +34,7 @@ namespace TT.Abp.Core.Application
 
             var resultCount = await query.CountAsync();
             var results = await query
-                .OrderBy(input.Sorting ?? "executionTime desc")
+                .OrderBy(input.Sorting??"executionTime desc")
                 .PageBy(input)
                 .ToListAsync();
 
@@ -97,7 +97,7 @@ namespace TT.Abp.Core.Application
         public Guid? UserId { get; set; }
 
         public string UserName { get; set; }
-
+        
         public Guid? TenantId { get; set; }
 
         public string TenantName { get; set; }

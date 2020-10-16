@@ -12,7 +12,7 @@ namespace TT.SoMall.EntityFrameworkCore
     [DependsOn(
         typeof(SoMallEntityFrameworkCoreDbMigrationsModule),
         typeof(SoMallTestBaseModule)
-    )]
+        )]
     public class SoMallEntityFrameworkCoreTestModule : AbpModule
     {
         private SqliteConnection _sqliteConnection;
@@ -26,7 +26,10 @@ namespace TT.SoMall.EntityFrameworkCore
         {
             _sqliteConnection = CreateDatabaseAndGetConnection();
 
-            services.Configure<AbpDbContextOptions>(options => { options.Configure(context => { context.DbContextOptions.UseSqlite(_sqliteConnection); }); });
+            services.Configure<AbpDbContextOptions>(options =>
+            {
+                options.Configure(context => { context.DbContextOptions.UseSqlite(_sqliteConnection); });
+            });
         }
 
         public override void OnApplicationShutdown(ApplicationShutdownContext context)

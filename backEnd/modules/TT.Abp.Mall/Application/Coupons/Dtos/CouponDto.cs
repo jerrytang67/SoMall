@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 namespace TT.Abp.Mall.Application.Coupons.Dtos
 {
     /// <summary>
-    ///     <see cref="Coupon" />
+    /// <see cref="Coupon"/>
     /// </summary>
     public class CouponDto : EntityDto<Guid>
     {

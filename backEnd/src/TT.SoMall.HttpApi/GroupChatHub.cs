@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 using TT.Extensions.Redis;
+using Volo.Abp.Users;
 
 namespace TT.SoMall
 {
@@ -15,30 +17,21 @@ namespace TT.SoMall
 
     public class GroupChatHub : Hub
     {
-        private static readonly ConnectionMapping<string> _connections =
-            new ConnectionMapping<string>();
-
         private readonly IRedisClient _redisClient;
 
-
-        private readonly object ParticipantsConnectionLock = new object();
+        private static readonly ConnectionMapping<string> _connections =
+            new ConnectionMapping<string>();
 
         public GroupChatHub(IRedisClient redisClient)
         {
             _redisClient = redisClient;
 
             var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
-            AllConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+            _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
 
             var allDis = _redisClient.Database.HashGetAll("DisconnectedParticipants");
-            DisconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+            _disconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
         }
-
-        public List<ParticipantResponseViewModel> AllConnectedParticipants { get; private set; }
-
-        private List<ParticipantResponseViewModel> DisconnectedParticipants { get; set; }
-
-        private static List<GroupChatParticipantViewModel> AllGroupParticipants { get; } = new List<GroupChatParticipantViewModel>();
 
         private void AddConnect(ParticipantResponseViewModel item)
         {
@@ -46,7 +39,7 @@ namespace TT.SoMall
             {
                 _redisClient.Database.HashSet("AllConnectedParticipants", item.Participant.Id, JsonConvert.SerializeObject(item));
                 var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
-                AllConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+                _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
             }
         }
 
@@ -56,7 +49,7 @@ namespace TT.SoMall
             {
                 _redisClient.Database.HashDelete("AllConnectedParticipants", connectId);
                 var all = _redisClient.Database.HashGetAll("AllConnectedParticipants");
-                AllConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+                _allConnectedParticipants = all.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
             }
         }
 
@@ -66,7 +59,7 @@ namespace TT.SoMall
             {
                 _redisClient.Database.HashSet("DisconnectedParticipants", item.Participant.Id, JsonConvert.SerializeObject(item));
                 var allDis = _redisClient.Database.HashGetAll("DisconnectedParticipants");
-                DisconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+                _disconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
             }
         }
 
@@ -76,9 +69,21 @@ namespace TT.SoMall
             {
                 _redisClient.Database.HashDelete("DisconnectedParticipants", connectId);
                 var allDis = _redisClient.Database.HashGetAll("DisconnectedParticipants");
-                DisconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
+                _disconnectedParticipants = allDis.Select(v => JsonConvert.DeserializeObject<ParticipantResponseViewModel>(v.Value.ToString())).ToList();
             }
         }
+
+
+        private List<ParticipantResponseViewModel> _allConnectedParticipants;
+        public List<ParticipantResponseViewModel> AllConnectedParticipants => _allConnectedParticipants;
+
+
+        private List<ParticipantResponseViewModel> _disconnectedParticipants;
+
+        private List<ParticipantResponseViewModel> DisconnectedParticipants => _disconnectedParticipants;
+        private static List<GroupChatParticipantViewModel> AllGroupParticipants { get; set; } = new List<GroupChatParticipantViewModel>();
+
+        private object ParticipantsConnectionLock = new object();
 
         private IEnumerable<ParticipantResponseViewModel> FilteredGroupParticipants(string currentUserId)
         {
@@ -97,13 +102,13 @@ namespace TT.SoMall
         {
             lock (ParticipantsConnectionLock)
             {
-                AddConnect(new ParticipantResponseViewModel
+                AddConnect(new ParticipantResponseViewModel()
                 {
-                    Metadata = new ParticipantMetadataViewModel
+                    Metadata = new ParticipantMetadataViewModel()
                     {
                         TotalUnreadMessages = 0
                     },
-                    Participant = new ChatParticipantViewModel
+                    Participant = new ChatParticipantViewModel()
                     {
                         DisplayName = userName,
                         ConnectionId = Context.ConnectionId,
@@ -126,14 +131,14 @@ namespace TT.SoMall
 
             // Pushing the current user to the "chatting to" list to keep track of who's created the group as well.
             // In your application you'll probably want a more sofisticated group persistency and management
-            group.ChattingTo.Add(new ChatParticipantViewModel
+            group.ChattingTo.Add(new ChatParticipantViewModel()
             {
                 Id = Context.ConnectionId
             });
 
-            AllConnectedParticipants.Add(new ParticipantResponseViewModel
+            AllConnectedParticipants.Add(new ParticipantResponseViewModel()
             {
-                Metadata = new ParticipantMetadataViewModel
+                Metadata = new ParticipantMetadataViewModel()
                 {
                     TotalUnreadMessages = 0
                 },

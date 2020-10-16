@@ -30,7 +30,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
 
         DbSet<PayOrder> PayOrders { get; set; }
         DbSet<RefundLog> RefundLogs { get; set; }
-
+        
         DbSet<ProductOrder> ProductOrders { get; set; }
 
         DbSet<ProductOrderItem> ProductOrderItems { get; set; }

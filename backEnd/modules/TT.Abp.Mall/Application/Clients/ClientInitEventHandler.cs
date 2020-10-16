@@ -10,12 +10,12 @@ namespace TT.Abp.Mall.Application.Clients
 {
     public class ClientInitEvent
     {
+        public ClientInitRequestDto InputData { get; set; }
+
         public ClientInitEvent(ClientInitRequestDto inputData)
         {
             InputData = inputData;
         }
-
-        public ClientInitRequestDto InputData { get; set; }
     }
 
     public class ClientInitEventHandler : ILocalEventHandler<ClientInitEvent>, ITransientDependency

@@ -7,6 +7,7 @@ namespace TT.SoMall.Pages
 {
     public abstract class SoMallPage : AbpPage
     {
-        [RazorInject] public IHtmlLocalizer<SoMallResource> L { get; set; }
+        [RazorInject]
+        public IHtmlLocalizer<SoMallResource> L { get; set; }
     }
 }

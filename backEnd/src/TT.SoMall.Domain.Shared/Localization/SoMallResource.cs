@@ -5,5 +5,6 @@ namespace TT.SoMall.Localization
     [LocalizationResourceName("SoMall")]
     public class SoMallResource
     {
+
     }
 }

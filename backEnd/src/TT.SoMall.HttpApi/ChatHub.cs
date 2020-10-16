@@ -25,9 +25,9 @@ namespace TT.SoMall
         public ChatParticipantTypeEnum ParticipantType { get; set; }
         public string Id { get; set; }
         public string ConnectionId { get; set; }
-
+        
         public int Status { get; set; }
-
+        
         public string Avatar { get; set; }
         public string DisplayName { get; set; }
     }
@@ -46,15 +46,15 @@ namespace TT.SoMall
     public class ChatHub : Hub
     {
         private readonly ICurrentUser _currentUser;
-        private readonly object ParticipantsConnectionLock = new object();
 
         public ChatHub(ICurrentUser currentUser)
         {
             _currentUser = currentUser;
         }
 
-        private static List<ParticipantResponseViewModel> AllConnectedParticipants { get; } = new List<ParticipantResponseViewModel>();
-        private static List<ParticipantResponseViewModel> DisconnectedParticipants { get; } = new List<ParticipantResponseViewModel>();
+        private static List<ParticipantResponseViewModel> AllConnectedParticipants { get; set; } = new List<ParticipantResponseViewModel>();
+        private static List<ParticipantResponseViewModel> DisconnectedParticipants { get; set; } = new List<ParticipantResponseViewModel>();
+        private object ParticipantsConnectionLock = new object();
 
         public static IEnumerable<ParticipantResponseViewModel> ConnectedParticipants(string currentUserId)
         {
@@ -66,13 +66,13 @@ namespace TT.SoMall
         {
             lock (ParticipantsConnectionLock)
             {
-                AllConnectedParticipants.Add(new ParticipantResponseViewModel
+                AllConnectedParticipants.Add(new ParticipantResponseViewModel()
                 {
-                    Metadata = new ParticipantMetadataViewModel
+                    Metadata = new ParticipantMetadataViewModel()
                     {
                         TotalUnreadMessages = 0
                     },
-                    Participant = new ChatParticipantViewModel
+                    Participant = new ChatParticipantViewModel()
                     {
                         DisplayName = userName ?? "UnSet",
                         Id = Context.ConnectionId
@@ -129,7 +129,7 @@ namespace TT.SoMall
                     var participant = DisconnectedParticipants.ElementAt(connectionIndex);
 
                     DisconnectedParticipants.Remove(participant);
-
+                    
                     AllConnectedParticipants.Add(participant);
 
                     Clients.All.SendAsync("friendsListChanged", AllConnectedParticipants);

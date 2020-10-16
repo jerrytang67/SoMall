@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
-using IdentityServer4.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
 using Volo.Abp.Identity;
+using Volo.Abp.IdentityServer.ApiResources;
+using Volo.Abp.IdentityServer.Clients;
 using Volo.Abp.IdentityServer.IdentityResources;
-using IdentityResource = IdentityServer4.Models.IdentityResource;
+using Volo.Abp.PermissionManagement;
 
 namespace TT.SoMall.IdentityServer
 {
@@ -21,13 +23,13 @@ namespace TT.SoMall.IdentityServer
         {
             var resources = new[]
             {
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-                new IdentityResources.Email(),
-                new IdentityResources.Address(),
-                new IdentityResources.Phone(),
-                new IdentityResource("role", "Roles of the user", new[] {"role"}),
-                new IdentityResource("picture", "User's HeadImgUrl", new[] {"picture"})
+                new IdentityServer4.Models.IdentityResources.OpenId(),
+                new IdentityServer4.Models.IdentityResources.Profile(),
+                new IdentityServer4.Models.IdentityResources.Email(),
+                new IdentityServer4.Models.IdentityResources.Address(),
+                new IdentityServer4.Models.IdentityResources.Phone(),
+                new IdentityServer4.Models.IdentityResource("role", "Roles of the user", new[] {"role"}),
+                new IdentityServer4.Models.IdentityResource("picture", "User's HeadImgUrl", new[] {"picture"})
             };
 
             foreach (var resource in resources)

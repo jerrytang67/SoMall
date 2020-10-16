@@ -8,27 +8,27 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                "DeleterId",
-                "Mall_AppProductCategory");
+                name: "DeleterId",
+                table: "Mall_AppProductCategory");
 
             migrationBuilder.DropColumn(
-                "DeletionTime",
-                "Mall_AppProductCategory");
+                name: "DeletionTime",
+                table: "Mall_AppProductCategory");
 
             migrationBuilder.DropColumn(
-                "IsDeleted",
-                "Mall_AppProductCategory");
+                name: "IsDeleted",
+                table: "Mall_AppProductCategory");
 
             migrationBuilder.DropColumn(
-                "LastModificationTime",
-                "Mall_AppProductCategory");
+                name: "LastModificationTime",
+                table: "Mall_AppProductCategory");
 
             migrationBuilder.DropColumn(
-                "LastModifierId",
-                "Mall_AppProductCategory");
+                name: "LastModifierId",
+                table: "Mall_AppProductCategory");
             migrationBuilder.AddColumn<string>(
-                "AppName",
-                "Weixin_WechatUserinfos",
+                name: "AppName",
+                table: "Weixin_WechatUserinfos",
                 maxLength: 32,
                 nullable: true);
         }
@@ -36,39 +36,39 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                "DeleterId",
-                "Mall_AppProductCategory",
-                "uniqueidentifier",
+                name: "DeleterId",
+                table: "Mall_AppProductCategory",
+                type: "uniqueidentifier",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
-                "DeletionTime",
-                "Mall_AppProductCategory",
-                "datetime2",
+                name: "DeletionTime",
+                table: "Mall_AppProductCategory",
+                type: "datetime2",
                 nullable: true);
 
             migrationBuilder.AddColumn<bool>(
-                "IsDeleted",
-                "Mall_AppProductCategory",
-                "bit",
+                name: "IsDeleted",
+                table: "Mall_AppProductCategory",
+                type: "bit",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.AddColumn<DateTime>(
-                "LastModificationTime",
-                "Mall_AppProductCategory",
-                "datetime2",
+                name: "LastModificationTime",
+                table: "Mall_AppProductCategory",
+                type: "datetime2",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                "LastModifierId",
-                "Mall_AppProductCategory",
-                "uniqueidentifier",
+                name: "LastModifierId",
+                table: "Mall_AppProductCategory",
+                type: "uniqueidentifier",
                 nullable: true);
-
+            
             migrationBuilder.DropColumn(
-                "AppName",
-                "Weixin_WechatUserinfos");
+                name: "AppName",
+                table: "Weixin_WechatUserinfos");
         }
     }
 }

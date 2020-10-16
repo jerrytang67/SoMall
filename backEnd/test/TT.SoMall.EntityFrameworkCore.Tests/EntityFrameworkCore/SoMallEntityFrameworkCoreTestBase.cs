@@ -1,6 +1,9 @@
-﻿namespace TT.SoMall.EntityFrameworkCore
+﻿using Volo.Abp;
+
+namespace TT.SoMall.EntityFrameworkCore
 {
-    public abstract class SoMallEntityFrameworkCoreTestBase : SoMallTestBase<SoMallEntityFrameworkCoreTestModule>
+    public abstract class SoMallEntityFrameworkCoreTestBase : SoMallTestBase<SoMallEntityFrameworkCoreTestModule> 
     {
+
     }
 }

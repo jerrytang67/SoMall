@@ -15,16 +15,21 @@ namespace TT.Abp.AuditManagement.Audits
 
     public class AuditDefinitionContext : IAuditDefinitionContext
     {
+        protected Dictionary<string, AuditDefinition> Audits { get; }
+
         public AuditDefinitionContext(Dictionary<string, AuditDefinition> audits)
         {
             Audits = audits;
         }
 
-        protected Dictionary<string, AuditDefinition> Audits { get; }
-
         public virtual AuditDefinition GetOrNull(string name)
         {
             return Audits.GetOrDefault(name);
+        }
+
+        public virtual IReadOnlyList<AuditDefinition> GetAll()
+        {
+            return Audits.Values.ToImmutableList();
         }
 
         public virtual void Add(params AuditDefinition[] definitions)
@@ -38,11 +43,6 @@ namespace TT.Abp.AuditManagement.Audits
             {
                 Audits[definition.Name] = definition;
             }
-        }
-
-        public virtual IReadOnlyList<AuditDefinition> GetAll()
-        {
-            return Audits.Values.ToImmutableList();
         }
     }
 }

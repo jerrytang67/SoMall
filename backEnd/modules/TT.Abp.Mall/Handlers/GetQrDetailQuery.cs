@@ -12,12 +12,12 @@ namespace TT.Abp.Mall.Handlers
 {
     public class GetQrDetailQuery : IRequest<QrDetail>
     {
+        public string Id { get; }
+
         public GetQrDetailQuery(string id)
         {
             Id = id;
         }
-
-        public string Id { get; }
 
 
         public class GetQrDetailQueryHandle : IRequestHandler<GetQrDetailQuery, QrDetail>
@@ -32,8 +32,8 @@ namespace TT.Abp.Mall.Handlers
             [UnitOfWork]
             public virtual async Task<QrDetail> Handle(GetQrDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await _repository.FirstOrDefaultAsync(x => x.Id == request.Id.FromShortString(), cancellationToken);
-
+                var entity = await _repository.FirstOrDefaultAsync(x => x.Id == request.Id.FromShortString(), cancellationToken: cancellationToken);
+            
                 return entity;
             }
         }

@@ -1,13 +1,13 @@
 ﻿using System;
-using Elastic.CommonSchema.Serilog;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using Serilog.Exceptions;
 using Serilog.Sinks.Elasticsearch;
+using Serilog.Exceptions;
 using Winton.Extensions.Configuration.Consul;
+using Elastic.CommonSchema.Serilog;
 
 namespace TT.SoMall
 {
@@ -53,9 +53,8 @@ namespace TT.SoMall
             }
         }
 
-        internal static IHostBuilder CreateHostBuilder(string[] args)
-        {
-            return Host.CreateDefaultBuilder(args)
+        internal static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     var env = hostingContext.HostingEnvironment;
@@ -78,6 +77,5 @@ namespace TT.SoMall
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
                 .UseAutofac()
                 .UseSerilog();
-        }
     }
 }

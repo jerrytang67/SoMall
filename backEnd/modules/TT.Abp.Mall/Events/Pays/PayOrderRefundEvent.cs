@@ -13,16 +13,16 @@ namespace TT.Abp.Mall.Events.Pays
 {
     public class PayOrderRefundEvent
     {
+        public PayOrder PayOrder { get; }
+        public decimal RefundPrice { get; }
+        public string Reason { get; }
+
         public PayOrderRefundEvent(PayOrder payOrder, in decimal refundPrice, string reason = null)
         {
             PayOrder = payOrder;
             RefundPrice = refundPrice;
             Reason = reason;
         }
-
-        public PayOrder PayOrder { get; }
-        public decimal RefundPrice { get; }
-        public string Reason { get; }
     }
 
     public class PayOrderRefundEventHandle : ILocalEventHandler<PayOrderRefundEvent>, ITransientDependency

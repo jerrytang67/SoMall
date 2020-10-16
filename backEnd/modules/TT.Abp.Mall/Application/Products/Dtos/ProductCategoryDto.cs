@@ -7,7 +7,7 @@ using Volo.Abp.Application.Dtos;
 namespace TT.Abp.Mall.Application.Products.Dtos
 {
     /// <summary>
-    ///     <see cref="ProductCategory" />
+    /// <see cref="ProductCategory"/>
     /// </summary>
     public class ProductCategoryDto : AuditedEntityDto<Guid>
     {
@@ -28,7 +28,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public List<ProductSpuDtoBase> Spus { get; set; }
 
         public int TotalCount { get; set; }
-
+        
         public List<AppProductCategoryDto> AppProductCategories { get; set; }
     }
 }

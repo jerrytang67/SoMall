@@ -10,9 +10,11 @@ namespace TT.Abp.AuditManagement.Audits
 {
     public class ShopAuditValueProvider : AuditValueProvider
     {
-        public const string ProviderName = "S";
         private readonly ICurrentShop _currentShop;
         private readonly IShopIdProvider _shopIdProvider;
+        public const string ProviderName = "S";
+
+        public override string Name => ProviderName;
 
         public ShopAuditValueProvider(
             IRepository<AuditFlow, Guid> auditFlowRepository,
@@ -21,8 +23,6 @@ namespace TT.Abp.AuditManagement.Audits
         {
             _currentShop = currentShop;
         }
-
-        public override string Name => ProviderName;
 
         [UnitOfWork]
         public override async Task<Guid?> GetOrNullAsync(AuditDefinition audit)

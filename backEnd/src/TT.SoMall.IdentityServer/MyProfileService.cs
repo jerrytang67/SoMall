@@ -46,7 +46,7 @@ namespace TT.SoMall
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim("picture", user.HeadImgUrl ?? "")
+                        new Claim("picture", user.HeadImgUrl ?? ""),
                     };
 
                     context.IssuedClaims.AddRange(claims);

@@ -6,12 +6,12 @@ namespace TT.Abp.AppManagement.Apps
 {
     public class AppStore : IAppStore, ITransientDependency
     {
+        protected IAppManagementStore ManagementStore { get; }
+
         public AppStore(IAppManagementStore managementStore)
         {
             ManagementStore = managementStore;
         }
-
-        protected IAppManagementStore ManagementStore { get; }
 
         public Task<Dictionary<string, string>> GetOrNullAsync(string name, string providerName, string providerKey)
         {

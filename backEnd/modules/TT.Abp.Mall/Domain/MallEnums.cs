@@ -4,39 +4,6 @@ namespace TT.Abp.Mall.Domain
 {
     public class MallEnums
     {
-        public enum LocationType
-        {
-            bd09 = 0,
-            gcj02 = 1,
-            wgs84 = 2
-        }
-
-
-        public enum OrderState
-        {
-            已取消 = -1,
-            未完成 = 0,
-            正在派送 = 2,
-            派送完成 = 4,
-            完成 = 9,
-            售后 = 11,
-            退款中 = 12,
-            退款完成 = 13
-        }
-
-        public enum OrderType
-        {
-            Default = 0,
-            Product = 1
-        }
-
-        public enum PartnerState
-        {
-            待审核 = 0,
-            驳回 = -1,
-            成功 = 10
-        }
-
         public enum PayState
         {
             取消 = -1,
@@ -45,6 +12,13 @@ namespace TT.Abp.Mall.Domain
             待退款 = 2,
             已退款 = 3,
             部分退款 = 4
+        }
+
+        public enum PartnerState
+        {
+            待审核 = 0,
+            驳回 = -1,
+            成功 = 10
         }
 
 
@@ -58,7 +32,26 @@ namespace TT.Abp.Mall.Domain
             [Display(Name = "用户余额")] 用户余额 = 10
         }
 
-        public enum ProductOrderType
+        public enum OrderType
+        {
+            Default = 0,
+            Product = 1
+        }
+
+
+        public enum OrderState : int
+        {
+            已取消 = -1,
+            未完成 = 0,
+            正在派送 = 2,
+            派送完成 = 4,
+            完成 = 9,
+            售后 = 11,
+            退款中 = 12,
+            退款完成 = 13
+        }
+
+        public enum ProductOrderType : int
         {
             未标记 = 0,
             零售 = 1,
@@ -67,6 +60,13 @@ namespace TT.Abp.Mall.Domain
             跑腿 = 4,
             美团 = 5,
             快递 = 6
+        }
+
+        public enum LocationType
+        {
+            bd09 = 0,
+            gcj02 = 1,
+            wgs84 = 2
         }
 
         public enum UseType

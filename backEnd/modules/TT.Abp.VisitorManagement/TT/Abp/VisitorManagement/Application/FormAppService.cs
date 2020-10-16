@@ -20,11 +20,12 @@ namespace TT.Abp.VisitorManagement.Application
 {
     public class FormAppService : ApplicationService, IFormAppService
     {
-        private readonly ICurrentTenant _currentTenant;
+        private readonly IVisitorShopLookupService _vShopLookupService;
         private readonly IRepository<Form, Guid> _repository;
         private readonly IRepository<VisitorShop, Guid> _shopRepository;
         private readonly IRepository<VisitorLog, Guid> _visitorLogRepository;
-        private readonly IVisitorShopLookupService _vShopLookupService;
+
+        private readonly ICurrentTenant _currentTenant;
 
         public FormAppService(
             IVisitorShopLookupService vShopLookupService,
@@ -89,15 +90,12 @@ namespace TT.Abp.VisitorManagement.Application
         public async Task DeleteAsync(Guid id)
         {
             if (await _repository.Include(x => x.ShopForms).Where(x => x.Id == id).Select(x => x.ShopForms).CountAsync() > 0)
-            {
                 throw new UserFriendlyException("已有商户应用了这个表单,不能删除");
-            }
-
             await _repository.DeleteAsync(id);
         }
 
         /// <summary>
-        ///     取得使用这个表单的商家
+        /// 取得使用这个表单的商家
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -123,23 +121,19 @@ namespace TT.Abp.VisitorManagement.Application
                 .Where(x => x.ShopForms.Any(y => y.ShopId == shop_id) && x.ShopForms.Any(y => y.FormId == new Guid("4de02c90-c97c-5c7e-d3e4-39f3f28f2e90"))).FirstOrDefaultAsync();
 
             if (form == null)
-            {
                 throw new UserFriendlyException("NotFind");
-            }
 
             var shop = await _shopRepository.FirstOrDefaultAsync(x => x.Id == shop_id);
 
             if (shop == null)
-            {
                 throw new UserFriendlyException("NotFind");
-            }
 
-            if (CurrentUser.IsAuthenticated)
+            if (this.CurrentUser.IsAuthenticated)
             {
                 var visitorLog = await _visitorLogRepository.OrderByDescending(x => x.CreationTime).FirstOrDefaultAsync(x => x.LeaveTime == null &&
                                                                                                                              x.ShopId == shop_id &&
                                                                                                                              x.FormId == form.Id &&
-                                                                                                                             x.CreatorId == CurrentUser.Id);
+                                                                                                                             x.CreatorId == this.CurrentUser.Id);
                 if (visitorLog != null)
                 {
                     var v = ObjectMapper.Map<VisitorLog, VisitorLogDto>(visitorLog);

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.Shops;
+using TT.Abp.VisitorManagement.Domain;
 using TT.Abp.VisitorManagement.EntityFrameworkCore;
+using TT.HttpClient.Weixin;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Modularity;
@@ -22,7 +24,7 @@ namespace TT.Abp.VisitorManagement
 
             context.Services.AddAutoMapperObjectMapper<VisitorManagementModule>();
 
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<VisitorApplicationAutoMapperProfile>(true); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<VisitorApplicationAutoMapperProfile>(validate: true); });
 
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {

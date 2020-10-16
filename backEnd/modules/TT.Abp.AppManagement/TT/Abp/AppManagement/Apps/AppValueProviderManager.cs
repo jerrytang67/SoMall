@@ -9,6 +9,8 @@ namespace TT.Abp.AppManagement.Apps
 {
     public class AppValueProviderManager : IAppValueProviderManager, ISingletonDependency
     {
+        public List<IAppValueProvider> Providers => _lazyProviders.Value;
+        protected AppOptions Options { get; }
         private readonly Lazy<List<IAppValueProvider>> _lazyProviders;
 
         public AppValueProviderManager(
@@ -25,8 +27,5 @@ namespace TT.Abp.AppManagement.Apps
                 true
             );
         }
-
-        protected AppOptions Options { get; }
-        public List<IAppValueProvider> Providers => _lazyProviders.Value;
     }
 }

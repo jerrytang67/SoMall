@@ -65,7 +65,7 @@ namespace TT.Abp.Mall.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(MallConsts.MaxNameLength);
                 b.Property(x => x.Code).IsRequired().HasMaxLength(MallConsts.MaxCodeLength);
                 b.Property(x => x.SoldCount).HasDefaultValue(0);
-                b.Property(x => x.LimitBuyCount).HasDefaultValue();
+                b.Property(x => x.LimitBuyCount).HasDefaultValue(null);
 
 
                 // One-To-Many

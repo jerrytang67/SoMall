@@ -28,6 +28,11 @@ namespace TT.Abp.Mall.Application.Coupons
             _asyncQueryableExecuter = asyncQueryableExecuter;
         }
 
+        public override Task<PagedResultDto<UserCouponDto>> GetListAsync(CouponResultRequestDto input)
+        {
+            return base.GetListAsync(input);
+        }
+
 
         [Authorize]
         public async Task<ListResultDto<UserCouponDto>> GetPublicListAsync(CouponResultRequestDto input)
@@ -44,11 +49,6 @@ namespace TT.Abp.Mall.Application.Coupons
             return new ListResultDto<UserCouponDto>(
                 entities.Select(MapToGetListOutputDto).ToList()
             );
-        }
-
-        public override Task<PagedResultDto<UserCouponDto>> GetListAsync(CouponResultRequestDto input)
-        {
-            return base.GetListAsync(input);
         }
 
         protected override IQueryable<UserCoupon> CreateFilteredQuery(CouponResultRequestDto input)

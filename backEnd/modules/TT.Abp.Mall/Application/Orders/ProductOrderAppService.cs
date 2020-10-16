@@ -14,14 +14,14 @@ using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain;
 using TT.Abp.Mall.Domain.Orders;
 using TT.Abp.Mall.Domain.Pays;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Events.Products;
 using TT.Abp.Mall.Utils;
 using TT.HttpClient.Weixin;
 using TT.RabbitMQ;
 using Volo.Abp;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Linq;
 using Volo.Abp.Settings;
@@ -38,16 +38,16 @@ namespace TT.Abp.Mall.Application.Orders
         CrudAppService<ProductOrder, ProductOrderDto, Guid, MallRequestDto, ProductOrderCreateOrUpdateDto, ProductOrderCreateOrUpdateDto>,
         IProductOrderAppService
     {
-        private readonly IAppProvider _appProvider;
-        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
-        private readonly IHttpContextAccessor _httpContext;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IMallShopLookupService _mallShopLookupService;
-        private readonly IMediator _mediator;
         private readonly IPayApi _payApi;
         private readonly IPayOrderRepository _payOrderRepository;
-        private readonly RabbitMqPublisher _rabbit;
+        private readonly IMallShopLookupService _mallShopLookupService;
         private readonly ISettingProvider _setting;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
+        private readonly IAppProvider _appProvider;
+        private readonly RabbitMqPublisher _rabbit;
+        private readonly IMediator _mediator;
 
 
         public ProductOrderAppService(
@@ -158,16 +158,16 @@ namespace TT.Abp.Mall.Application.Orders
 
 
             var payorder = new PayOrder();
-            payorder.CreatWxPayFromProductOrder(GuidGenerator.Create(),
-                productOrder,
-                mchId,
-                input.openid,
-                appName,
-                null,
-                null
+            payorder.CreatWxPayFromProductOrder(id: GuidGenerator.Create(),
+                productOrder: productOrder,
+                mchId: mchId,
+                openid: input.openid,
+                appName: appName,
+                shareFromUserId: null,
+                partnerId: null
             );
 
-            var insertPayOrder = await _payOrderRepository.InsertAsync(payorder, true);
+            var insertPayOrder = await _payOrderRepository.InsertAsync(payorder, autoSave: true);
 
             productOrder.SetBillNo(insertPayOrder.Id, insertPayOrder.BillNo);
 
@@ -175,13 +175,13 @@ namespace TT.Abp.Mall.Application.Orders
                 appid,
                 mchId,
                 mchKey,
-                productOrder.OrderItems.First().SpuName,
-                insertPayOrder.BillNo,
-                Convert.ToInt32(productOrder.PriceOriginal * 100),
-                notifyUrl.EnsureEndsWith('/') + appName,
-                Consts.TradeType.JsApi,
-                input.openid,
-                _httpContext.HttpContext.Connection.RemoteIpAddress.ToString()
+                body: productOrder.OrderItems.First().SpuName,
+                outTradeNo: insertPayOrder.BillNo,
+                totalFee: Convert.ToInt32(productOrder.PriceOriginal * 100),
+                notifyUrl: notifyUrl.EnsureEndsWith('/') + appName,
+                tradeType: Consts.TradeType.JsApi,
+                openId: input.openid,
+                billCreateIp: _httpContext.HttpContext.Connection.RemoteIpAddress.ToString()
             );
 
             _rabbit.PushDelyMessage(new PayOrderLisenerData {Type = "PayOrder", Data = insertPayOrder}, MallConsts.PayAutoCancelTime, "SoMall_DelayQueue"); // 半小时内未支付删除
@@ -211,7 +211,7 @@ namespace TT.Abp.Mall.Application.Orders
 
 
         /// <summary>
-        ///     客户端获取当前登录用户的订单
+        /// 客户端获取当前登录用户的订单
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

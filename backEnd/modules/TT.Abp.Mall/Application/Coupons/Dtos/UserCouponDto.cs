@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 namespace TT.Abp.Mall.Application.Coupons.Dtos
 {
     /// <summary>
-    ///     <see cref="UserCoupon" />
+    /// <see cref="UserCoupon"/>
     /// </summary>
     public class UserCouponDto : EntityDto<Guid>
     {
@@ -13,8 +13,6 @@ namespace TT.Abp.Mall.Application.Coupons.Dtos
         public Guid OwnerUserId { get; set; }
         public string CouponName { get; set; }
         public int CouponAmount { get; set; }
-
-        public CouponDto Coupon { get; set; }
 
         #region 使用记录
 
@@ -27,5 +25,7 @@ namespace TT.Abp.Mall.Application.Coupons.Dtos
         public MallEnums.OrderType? UsedOrderType { get; set; }
 
         #endregion
+
+        public CouponDto Coupon { get; set; }
     }
 }

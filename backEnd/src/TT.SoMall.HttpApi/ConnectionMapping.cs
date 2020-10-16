@@ -8,7 +8,10 @@ namespace TT.SoMall
         private readonly Dictionary<T, HashSet<string>> _connections =
             new Dictionary<T, HashSet<string>>();
 
-        public int Count => _connections.Count;
+        public int Count
+        {
+            get { return _connections.Count; }
+        }
 
         public void Add(T key, string connectionId)
         {

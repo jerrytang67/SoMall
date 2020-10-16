@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                "Mall_TenPayNotify",
-                table => new
+                name: "Mall_TenPayNotify",
+                columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -32,31 +32,34 @@ namespace TT.SoMall.Migrations
                     is_subscribe = table.Column<string>(maxLength: 64, nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false)
                 },
-                constraints: table => { table.PrimaryKey("PK_Mall_TenPayNotify", x => x.Id); });
-
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mall_TenPayNotify", x => x.Id);
+                });
+            
             migrationBuilder.AddColumn<string>(
-                "ConcurrencyStamp",
-                "Mall_PayOrders",
+                name: "ConcurrencyStamp",
+                table: "Mall_PayOrders",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                "ExtraProperties",
-                "Mall_PayOrders",
+                name: "ExtraProperties",
+                table: "Mall_PayOrders",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                "Mall_TenPayNotify");
+                name: "Mall_TenPayNotify");
+            
+            migrationBuilder.DropColumn(
+                name: "ConcurrencyStamp",
+                table: "Mall_PayOrders");
 
             migrationBuilder.DropColumn(
-                "ConcurrencyStamp",
-                "Mall_PayOrders");
-
-            migrationBuilder.DropColumn(
-                "ExtraProperties",
-                "Mall_PayOrders");
+                name: "ExtraProperties",
+                table: "Mall_PayOrders");
         }
     }
 }

@@ -15,14 +15,14 @@ namespace TT.Abp.VisitorManagement.Domain
         public Guid FormId { get; protected set; }
         public Guid ShopId { get; protected set; }
 
-
-        [ForeignKey("ShopId")] public virtual VisitorShop VisitorShop { get; set; }
-
-        [ForeignKey("FormId")] public virtual Form Form { get; set; }
-
         public override object[] GetKeys()
         {
             return new object[] {FormId, ShopId};
         }
+
+
+        [ForeignKey("ShopId")] public virtual VisitorShop VisitorShop { get; set; }
+
+        [ForeignKey("FormId")] public virtual Form Form { get; set; }
     }
 }

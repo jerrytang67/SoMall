@@ -10,12 +10,12 @@ namespace TT.Extensions.Redis
 
     public class RedisClient : IRedisClient
     {
+        public IDatabase Database { get; }
+
         public RedisClient(IOptionsSnapshot<RedisOptions> optionsAccessor)
         {
             Database = ConnectionMultiplexer.Connect(optionsAccessor.Value.ConnectionString).GetDatabase(optionsAccessor.Value.DatabaseId);
         }
-
-        public IDatabase Database { get; }
     }
 
     public class RedisOptions

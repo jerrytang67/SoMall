@@ -44,7 +44,7 @@ namespace TT.Abp.AuditManagement.Application
             _auditDefinitionManager = auditDefinitionManager;
             _guidGenerator = guidGenerator;
         }
-
+        
         [Authorize]
         public async Task<GetForEditOutput<AuditFlowCreateOrEditDto>> GetForEdit(Guid id)
         {
@@ -55,12 +55,12 @@ namespace TT.Abp.AuditManagement.Application
             var schema = JToken.FromObject(new { });
 
             var audits = _auditDefinitionManager.GetAll();
-            schema["audits"] = audits.GetSelection("string", "name", @"{0}", new[] {"Name"}, "Name");
+            schema["audits"] = audits.GetSelection("string", "name", @"{0}", new[] { "Name" }, "Name");
 
             return new GetForEditOutput<AuditFlowCreateOrEditDto>(
                 ObjectMapper.Map<AuditFlow, AuditFlowCreateOrEditDto>(find), schema);
         }
-
+        
         public override async Task<AuditFlowDto> CreateAsync(AuditFlowCreateOrEditDto input)
         {
             await CheckCreatePolicyAsync();
@@ -78,7 +78,7 @@ namespace TT.Abp.AuditManagement.Application
 
             //TryToSetTenantId(entity);
 
-            await Repository.InsertAsync(entity, true);
+            await Repository.InsertAsync(entity, autoSave: true);
 
             return MapToGetOutputDto(entity);
         }
@@ -100,7 +100,7 @@ namespace TT.Abp.AuditManagement.Application
 
             MapToEntity(input, entity);
 
-            await Repository.UpdateAsync(entity, true);
+            await Repository.UpdateAsync(entity, autoSave: true);
 
             return MapToGetOutputDto(entity);
         }

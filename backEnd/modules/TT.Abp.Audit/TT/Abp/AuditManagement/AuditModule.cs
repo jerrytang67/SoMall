@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
+using TT.Abp.AuditManagement.Application;
 using TT.Abp.AuditManagement.Audits;
 using TT.Abp.AuditManagement.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
@@ -24,8 +25,8 @@ namespace TT.Abp.AuditManagement
         {
             context.Services.AddAbpDbContext<AuditManagementDbContext>(options => { options.AddDefaultRepositories(true); });
 
-
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AuditManagementAutoMapperProfile>(false); });
+            
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AuditManagementAutoMapperProfile>(validate: false); });
 
 
             context.Services.AddAutoMapperObjectMapper<AuditManagementModule>();

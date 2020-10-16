@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
 using Volo.Abp.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace TT.Abp.AppManagement.Apps
 {
@@ -12,14 +12,14 @@ namespace TT.Abp.AppManagement.Apps
 
         public const string ProviderName = "C";
 
+        public string Name => ProviderName;
+
+        protected IConfiguration Configuration { get; }
+
         public ConfigurationAppValueProvider(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        protected IConfiguration Configuration { get; }
-
-        public string Name => ProviderName;
 
         public virtual Task<Dictionary<string, string>> GetOrNullAsync(AppDefinition setting)
         {

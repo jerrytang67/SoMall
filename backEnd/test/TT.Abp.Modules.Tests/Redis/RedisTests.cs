@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Shouldly;
 using StackExchange.Redis;
+using TT.Abp.Weixin.Domain;
 using TT.Extensions.Redis;
 using Xunit;
 
