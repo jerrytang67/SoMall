@@ -28,7 +28,7 @@ namespace TT.SoMall
                 var rabbitOptions = configuration.GetSection("RabbitMQ");
                 //配置数据库连接
                 x.UseSqlServer(configuration.GetConnectionString("Default"));
-                // x.UseDashboard();
+                x.UseDashboard();
 
                 //配置消息队列RabbitMQ
                 x.UseRabbitMQ(option =>
@@ -64,7 +64,7 @@ namespace TT.SoMall
 
             app.InitializeApplication();
 
-            // app.UseCapDashboard();
+            app.UseCapDashboard();
 
             app.UseEndpoints(endpoints => { endpoints.MapHub<GroupChatHub>("/groupchat"); });
 
