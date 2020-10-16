@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TT.Abp.Shops.EntityFrameworkCore;
-using TT.Abp.VisitorManagement.Domain;
 using TT.Abp.Weixin.Domain;
 using TT.Abp.Weixin.EntityFrameworkCore;
 using TT.SoMall.Users;
@@ -23,6 +21,11 @@ namespace TT.SoMall.EntityFrameworkCore
     [ConnectionStringName("Default")]
     public class SoMallDbContext : AbpDbContext<SoMallDbContext>
     {
+        public SoMallDbContext(DbContextOptions<SoMallDbContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<AppUser> Users { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.
@@ -30,11 +33,6 @@ namespace TT.SoMall.EntityFrameworkCore
          */
 
         public DbSet<WechatUserinfo> WechatUserinfos { get; set; }
-
-        public SoMallDbContext(DbContextOptions<SoMallDbContext> options)
-            : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -52,11 +50,10 @@ namespace TT.SoMall.EntityFrameworkCore
             });
 
             /* Configure your own tables/entities inside the ConfigureSoMall method */
-            
+
             builder.ConfigureSoMall();
-            
+
             builder.ConfigureWeixinManagement();
-            
         }
     }
 }

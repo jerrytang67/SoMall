@@ -14,31 +14,9 @@ namespace TT.SoMall.Users
      */
     public class AppUser : FullAuditedAggregateRoot<Guid>, IUser
     {
-        #region Base properties
-
-        /* These properties are shared with the IdentityUser entity of the Identity module.
-         * Do not change these properties through this class. Instead, use Identity module
-         * services (like IdentityUserManager) to change them.
-         * So, this properties are designed as read only!
-         */
-
-        public virtual Guid? TenantId { get; private set; }
-
-        public virtual string UserName { get; private set; }
-
-        public virtual string Name { get; private set; }
-
-        public virtual string Surname { get; private set; }
-
-        public virtual string Email { get; private set; }
-
-        public virtual bool EmailConfirmed { get; private set; }
-
-        public virtual string PhoneNumber { get; private set; }
-
-        public virtual bool PhoneNumberConfirmed { get; private set; }
-
-        #endregion
+        private AppUser()
+        {
+        }
 
         /* Add your own properties here. Example:
          *
@@ -47,10 +25,6 @@ namespace TT.SoMall.Users
 
         public virtual string Nickname { get; set; }
         public virtual string HeadImgUrl { get; set; }
-
-        private AppUser()
-        {
-        }
 
         public void SetPhone(string phone)
         {
@@ -93,5 +67,31 @@ namespace TT.SoMall.Users
                 Surname = surname;
             }
         }
+
+        #region Base properties
+
+        /* These properties are shared with the IdentityUser entity of the Identity module.
+         * Do not change these properties through this class. Instead, use Identity module
+         * services (like IdentityUserManager) to change them.
+         * So, this properties are designed as read only!
+         */
+
+        public virtual Guid? TenantId { get; private set; }
+
+        public virtual string UserName { get; private set; }
+
+        public virtual string Name { get; private set; }
+
+        public virtual string Surname { get; private set; }
+
+        public virtual string Email { get; private set; }
+
+        public virtual bool EmailConfirmed { get; private set; }
+
+        public virtual string PhoneNumber { get; private set; }
+
+        public virtual bool PhoneNumberConfirmed { get; private set; }
+
+        #endregion
     }
 }

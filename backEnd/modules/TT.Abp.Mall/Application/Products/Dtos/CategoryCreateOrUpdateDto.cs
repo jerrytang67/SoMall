@@ -25,7 +25,7 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public int Sort { get; set; }
 
         public bool IsGlobal { get; set; }
-        
+
         public List<AppProductCategoryDto> AppProductCategories { get; set; }
         public List<JObject> Apps { get; set; }
     }

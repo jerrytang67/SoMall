@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.Shops;
 using TT.Extensions;
@@ -9,7 +8,6 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.Features;
 
 namespace TT.Abp.AuditManagement.Audits
 {
@@ -20,11 +18,9 @@ namespace TT.Abp.AuditManagement.Audits
         where TUpdateInput : IEntityDto<TPrimaryKey>, INeedAuditBase
         where TCreateInput : INeedAuditBase
     {
-        private readonly ICurrentShop _currentShop;
-        private readonly IAuditProvider _auditProvider;
         private readonly AuditManager _auditManager;
-
-        public string CurrentAuditName { get; set; }
+        private readonly IAuditProvider _auditProvider;
+        private readonly ICurrentShop _currentShop;
 
         public AuditCrudAppService(
             IRepository<TEntity, TPrimaryKey> repository,
@@ -36,7 +32,9 @@ namespace TT.Abp.AuditManagement.Audits
             _auditManager = serviceProvider.GetRequiredService<AuditManager>();
         }
 
-        
+        public string CurrentAuditName { get; set; }
+
+
         public virtual async Task StartAudit(TEntityDto input)
         {
             if (CurrentAuditName.IsNullOrEmptyOrWhiteSpace())
@@ -60,7 +58,7 @@ namespace TT.Abp.AuditManagement.Audits
                     if (propertyInfo.GetValue(dbEntity) is Guid shopId)
                     {
                         _currentShop.Change(shopId);
-                    }    
+                    }
                 }
             }
 

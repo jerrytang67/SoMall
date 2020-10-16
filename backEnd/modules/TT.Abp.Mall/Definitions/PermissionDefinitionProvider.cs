@@ -9,6 +9,11 @@ namespace TT.Abp.Mall.Definitions
     {
         public const string GroupName = "Mall";
 
+        public static string[] GetAll()
+        {
+            return ReflectionHelper.GetPublicConstantsRecursively(typeof(MallPermissions));
+        }
+
         public static class Addresses
         {
             public const string Default = GroupName + ".Address";
@@ -67,11 +72,6 @@ namespace TT.Abp.Mall.Definitions
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
             public const string Update = Default + ".Update";
-        }
-
-        public static string[] GetAll()
-        {
-            return ReflectionHelper.GetPublicConstantsRecursively(typeof(MallPermissions));
         }
     }
 

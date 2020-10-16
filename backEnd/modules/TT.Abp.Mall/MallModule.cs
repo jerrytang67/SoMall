@@ -35,7 +35,7 @@ namespace TT.Abp.Mall
 
             context.Services.AddAutoMapperObjectMapper<MallModule>();
 
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<MallApplicationAutoMapperProfile>(validate: false); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<MallApplicationAutoMapperProfile>(false); });
 
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {

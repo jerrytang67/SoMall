@@ -75,7 +75,7 @@ namespace TT.Abp.Mall.Application.Products
                     if ((entity.AppProductCategories ?? new List<AppProductCategory>()).All(x => x.AppName != appName))
                     {
                         await _appCategoriesRepository.InsertAsync(new AppProductCategory(
-                            appName, id, entity.TenantId), autoSave: true);
+                            appName, id, entity.TenantId), true);
                     }
                 }
                 else
@@ -84,13 +84,15 @@ namespace TT.Abp.Mall.Application.Products
                     {
                         var existCate = entity.AppProductCategories.FirstOrDefault(x => x.AppName == appName);
                         if (existCate != null)
-                            await _appCategoriesRepository.DeleteAsync(existCate, autoSave: true);
+                        {
+                            await _appCategoriesRepository.DeleteAsync(existCate, true);
+                        }
                     }
                 }
             }
 
             MapToEntity(input, entity);
-            await Repository.UpdateAsync(entity, autoSave: true);
+            await Repository.UpdateAsync(entity, true);
 
             return MapToGetOutputDto(entity);
         }

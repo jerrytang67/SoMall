@@ -22,9 +22,9 @@ namespace TT.SoMall.Dtos
 
         public string Nickname { get; set; }
         public string HeadImgUrl { get; set; }
-        
+
         public Guid? TenantId { get; set; }
-        
+
         public Guid Id { get; set; }
     }
 }

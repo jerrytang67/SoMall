@@ -10,9 +10,6 @@ namespace TT.Abp.Mall.Domain.Users
         IDistributedEventHandler<EntityUpdatedEto<UserEto>>,
         ITransientDependency
     {
-        protected IMallUserRepository UserRepository { get; }
-        protected IMallUserLookupService UserLookupService { get; }
-
         public MallUserSynchronizer(
             IMallUserRepository userRepository,
             IMallUserLookupService userLookupService)
@@ -20,6 +17,9 @@ namespace TT.Abp.Mall.Domain.Users
             UserRepository = userRepository;
             UserLookupService = userLookupService;
         }
+
+        protected IMallUserRepository UserRepository { get; }
+        protected IMallUserLookupService UserLookupService { get; }
 
         public async Task HandleEventAsync(EntityUpdatedEto<UserEto> eventData)
         {

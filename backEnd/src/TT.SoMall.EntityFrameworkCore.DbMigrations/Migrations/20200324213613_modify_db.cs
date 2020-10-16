@@ -8,36 +8,36 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                name: "TenantId",
-                table: "Visitor_VisitorShops",
+                "TenantId",
+                "Visitor_VisitorShops",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                name: "TenantId",
-                table: "SoMall_Shops",
+                "TenantId",
+                "SoMall_Shops",
                 nullable: true);
-            
-            
+
+
             migrationBuilder.DropForeignKey(
-                name: "FK_Visitor_ShopForms_SoMall_Shops_ShopId",
-                table: "Visitor_ShopForms");
+                "FK_Visitor_ShopForms_SoMall_Shops_ShopId",
+                "Visitor_ShopForms");
 
             migrationBuilder.DropTable(
-                name: "SoMall_ProductSku");
+                "SoMall_ProductSku");
 
             migrationBuilder.DropTable(
-                name: "SoMall_ProductSpu");
+                "SoMall_ProductSpu");
 
             migrationBuilder.DropTable(
-                name: "SoMall_ProductCategory");
+                "SoMall_ProductCategory");
 
             migrationBuilder.DropColumn(
-                name: "TenantId",
-                table: "SoMall_Shops");
+                "TenantId",
+                "SoMall_Shops");
 
             migrationBuilder.AlterColumn<string>(
-                name: "CoverImage",
-                table: "SoMall_Shops",
+                "CoverImage",
+                "SoMall_Shops",
                 maxLength: 255,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -45,20 +45,20 @@ namespace TT.SoMall.Migrations
                 oldMaxLength: 255);
 
             migrationBuilder.AddColumn<string>(
-                name: "HeadImgUrl",
-                table: "AbpUsers",
+                "HeadImgUrl",
+                "AbpUsers",
                 maxLength: 255,
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Nickname",
-                table: "AbpUsers",
+                "Nickname",
+                "AbpUsers",
                 maxLength: 64,
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "Mall_ProductCategory",
-                columns: table => new
+                "Mall_ProductCategory",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -73,14 +73,11 @@ namespace TT.SoMall.Migrations
                     Name = table.Column<string>(maxLength: 64, nullable: false),
                     Code = table.Column<string>(maxLength: 32, nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_ProductCategory", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Mall_ProductCategory", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Visitor_VisitorShops",
-                columns: table => new
+                "Visitor_VisitorShops",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -91,14 +88,11 @@ namespace TT.SoMall.Migrations
                     CoverImage = table.Column<string>(maxLength: 255, nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Visitor_VisitorShops", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Visitor_VisitorShops", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Mall_ProductSpu",
-                columns: table => new
+                "Mall_ProductSpu",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -119,16 +113,16 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_Mall_ProductSpu", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Mall_ProductCategory",
-                        principalColumn: "Id",
+                        "FK_Mall_ProductSpu_Mall_ProductCategory_CategoryId",
+                        x => x.CategoryId,
+                        "Mall_ProductCategory",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Mall_ProductSku",
-                columns: table => new
+                "Mall_ProductSku",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -149,28 +143,28 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_Mall_ProductSku", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Mall_ProductSku_Mall_ProductSpu_SpuId",
-                        column: x => x.SpuId,
-                        principalTable: "Mall_ProductSpu",
-                        principalColumn: "Id",
+                        "FK_Mall_ProductSku_Mall_ProductSpu_SpuId",
+                        x => x.SpuId,
+                        "Mall_ProductSpu",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mall_ProductSku_SpuId",
-                table: "Mall_ProductSku",
-                column: "SpuId");
+                "IX_Mall_ProductSku_SpuId",
+                "Mall_ProductSku",
+                "SpuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mall_ProductSpu_CategoryId",
-                table: "Mall_ProductSpu",
-                column: "CategoryId");
+                "IX_Mall_ProductSpu_CategoryId",
+                "Mall_ProductSpu",
+                "CategoryId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Visitor_ShopForms_Visitor_VisitorShops_ShopId",
-                table: "Visitor_ShopForms",
-                column: "ShopId",
-                principalTable: "Visitor_VisitorShops",
+                "FK_Visitor_ShopForms_Visitor_VisitorShops_ShopId",
+                "Visitor_ShopForms",
+                "ShopId",
+                "Visitor_VisitorShops",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }
@@ -178,41 +172,41 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "TenantId",
-                table: "Visitor_VisitorShops");
+                "TenantId",
+                "Visitor_VisitorShops");
 
             migrationBuilder.DropColumn(
-                name: "TenantId",
-                table: "SoMall_Shops");
-            
+                "TenantId",
+                "SoMall_Shops");
+
             migrationBuilder.DropForeignKey(
-                name: "FK_Visitor_ShopForms_Visitor_VisitorShops_ShopId",
-                table: "Visitor_ShopForms");
+                "FK_Visitor_ShopForms_Visitor_VisitorShops_ShopId",
+                "Visitor_ShopForms");
 
             migrationBuilder.DropTable(
-                name: "Mall_ProductSku");
+                "Mall_ProductSku");
 
             migrationBuilder.DropTable(
-                name: "Visitor_VisitorShops");
+                "Visitor_VisitorShops");
 
             migrationBuilder.DropTable(
-                name: "Mall_ProductSpu");
+                "Mall_ProductSpu");
 
             migrationBuilder.DropTable(
-                name: "Mall_ProductCategory");
+                "Mall_ProductCategory");
 
             migrationBuilder.DropColumn(
-                name: "HeadImgUrl",
-                table: "AbpUsers");
+                "HeadImgUrl",
+                "AbpUsers");
 
             migrationBuilder.DropColumn(
-                name: "Nickname",
-                table: "AbpUsers");
+                "Nickname",
+                "AbpUsers");
 
             migrationBuilder.AlterColumn<string>(
-                name: "CoverImage",
-                table: "SoMall_Shops",
-                type: "nvarchar(255)",
+                "CoverImage",
+                "SoMall_Shops",
+                "nvarchar(255)",
                 maxLength: 255,
                 nullable: false,
                 oldClrType: typeof(string),
@@ -220,105 +214,102 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                name: "TenantId",
-                table: "SoMall_Shops",
-                type: "uniqueidentifier",
+                "TenantId",
+                "SoMall_Shops",
+                "uniqueidentifier",
                 nullable: true);
 
             migrationBuilder.CreateTable(
-                name: "SoMall_ProductCategory",
-                columns: table => new
+                "SoMall_ProductCategory",
+                table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Id = table.Column<Guid>("uniqueidentifier", nullable: false),
+                    Code = table.Column<string>("nvarchar(32)", maxLength: 32, nullable: true),
+                    ConcurrencyStamp = table.Column<string>("nvarchar(max)", nullable: true),
+                    CreationTime = table.Column<DateTime>("datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>("uniqueidentifier", nullable: true),
+                    ExtraProperties = table.Column<string>("nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>("bit", nullable: false, defaultValue: false),
+                    LastModificationTime = table.Column<DateTime>("datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>("uniqueidentifier", nullable: true),
+                    Name = table.Column<string>("nvarchar(64)", maxLength: 64, nullable: false),
+                    TenantId = table.Column<Guid>("uniqueidentifier", nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SoMall_ProductCategory", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_SoMall_ProductCategory", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "SoMall_ProductSpu",
-                columns: table => new
+                "SoMall_ProductSpu",
+                table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Desc = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Id = table.Column<Guid>("uniqueidentifier", nullable: false),
+                    CategoryId = table.Column<Guid>("uniqueidentifier", nullable: false),
+                    Code = table.Column<string>("nvarchar(32)", maxLength: 32, nullable: true),
+                    ConcurrencyStamp = table.Column<string>("nvarchar(max)", nullable: true),
+                    CreationTime = table.Column<DateTime>("datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>("uniqueidentifier", nullable: true),
+                    Desc = table.Column<string>("nvarchar(max)", nullable: true),
+                    ExtraProperties = table.Column<string>("nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>("bit", nullable: false, defaultValue: false),
+                    LastModificationTime = table.Column<DateTime>("datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>("uniqueidentifier", nullable: true),
+                    Name = table.Column<string>("nvarchar(64)", maxLength: 64, nullable: false),
+                    TenantId = table.Column<Guid>("uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SoMall_ProductSpu", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SoMall_ProductSpu_SoMall_ProductCategory_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "SoMall_ProductCategory",
-                        principalColumn: "Id",
+                        "FK_SoMall_ProductSpu_SoMall_ProductCategory_CategoryId",
+                        x => x.CategoryId,
+                        "SoMall_ProductCategory",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SoMall_ProductSku",
-                columns: table => new
+                "SoMall_ProductSku",
+                table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ExtraProperties = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    LastModificationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    SpuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Id = table.Column<Guid>("uniqueidentifier", nullable: false),
+                    Code = table.Column<string>("nvarchar(32)", maxLength: 32, nullable: true),
+                    ConcurrencyStamp = table.Column<string>("nvarchar(max)", nullable: true),
+                    CreationTime = table.Column<DateTime>("datetime2", nullable: false),
+                    CreatorId = table.Column<Guid>("uniqueidentifier", nullable: true),
+                    ExtraProperties = table.Column<string>("nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>("bit", nullable: false, defaultValue: false),
+                    LastModificationTime = table.Column<DateTime>("datetime2", nullable: true),
+                    LastModifierId = table.Column<Guid>("uniqueidentifier", nullable: true),
+                    Name = table.Column<string>("nvarchar(64)", maxLength: 64, nullable: false),
+                    Price = table.Column<decimal>("decimal(18,2)", nullable: false),
+                    SpuId = table.Column<Guid>("uniqueidentifier", nullable: false),
+                    TenantId = table.Column<Guid>("uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SoMall_ProductSku", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SoMall_ProductSku_SoMall_ProductSpu_SpuId",
-                        column: x => x.SpuId,
-                        principalTable: "SoMall_ProductSpu",
-                        principalColumn: "Id",
+                        "FK_SoMall_ProductSku_SoMall_ProductSpu_SpuId",
+                        x => x.SpuId,
+                        "SoMall_ProductSpu",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_SoMall_ProductSku_SpuId",
-                table: "SoMall_ProductSku",
-                column: "SpuId");
+                "IX_SoMall_ProductSku_SpuId",
+                "SoMall_ProductSku",
+                "SpuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SoMall_ProductSpu_CategoryId",
-                table: "SoMall_ProductSpu",
-                column: "CategoryId");
+                "IX_SoMall_ProductSpu_CategoryId",
+                "SoMall_ProductSpu",
+                "CategoryId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Visitor_ShopForms_SoMall_Shops_ShopId",
-                table: "Visitor_ShopForms",
-                column: "ShopId",
-                principalTable: "SoMall_Shops",
+                "FK_Visitor_ShopForms_SoMall_Shops_ShopId",
+                "Visitor_ShopForms",
+                "ShopId",
+                "SoMall_Shops",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }

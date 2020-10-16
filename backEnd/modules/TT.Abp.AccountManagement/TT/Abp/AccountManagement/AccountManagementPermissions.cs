@@ -9,17 +9,17 @@ namespace TT.Abp.AccountManagement
     {
         public const string GroupName = "AccountManagement";
 
+        public static string[] GetAll()
+        {
+            return ReflectionHelper.GetPublicConstantsRecursively(typeof(AccountManagementPermissions));
+        }
+
         public static class RealNameInfos
         {
             public const string Default = GroupName + ".RealNameInfos";
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
             public const string Update = Default + ".Update";
-        }
-
-        public static string[] GetAll()
-        {
-            return ReflectionHelper.GetPublicConstantsRecursively(typeof(AccountManagementPermissions));
         }
     }
 

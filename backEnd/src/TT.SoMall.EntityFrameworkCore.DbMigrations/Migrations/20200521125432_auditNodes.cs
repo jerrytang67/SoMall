@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Audit_AuditFlows",
-                columns: table => new
+                "Audit_AuditFlows",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -26,14 +26,11 @@ namespace TT.SoMall.Migrations
                     ProviderName = table.Column<string>(maxLength: 2, nullable: false),
                     ProviderKey = table.Column<string>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Audit_AuditFlows", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Audit_AuditFlows", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Audit_AuditNodes",
-                columns: table => new
+                "Audit_AuditNodes",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -48,26 +45,26 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_Audit_AuditNodes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Audit_AuditNodes_Audit_AuditFlows_AuditFlowId",
-                        column: x => x.AuditFlowId,
-                        principalTable: "Audit_AuditFlows",
-                        principalColumn: "Id",
+                        "FK_Audit_AuditNodes_Audit_AuditFlows_AuditFlowId",
+                        x => x.AuditFlowId,
+                        "Audit_AuditFlows",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Audit_AuditNodes_AuditFlowId",
-                table: "Audit_AuditNodes",
-                column: "AuditFlowId");
+                "IX_Audit_AuditNodes_AuditFlowId",
+                "Audit_AuditNodes",
+                "AuditFlowId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Audit_AuditNodes");
+                "Audit_AuditNodes");
 
             migrationBuilder.DropTable(
-                name: "Audit_AuditFlows");
+                "Audit_AuditFlows");
         }
     }
 }

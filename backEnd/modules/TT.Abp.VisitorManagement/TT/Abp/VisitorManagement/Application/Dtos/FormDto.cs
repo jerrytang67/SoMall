@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Volo.Abp.Application.Dtos;
 
 namespace TT.Abp.VisitorManagement.Application.Dtos
 {
@@ -55,8 +54,8 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public bool IsDisable { get; set; }
         public bool IsMulti { get; set; }
         public bool SaveToLocal { get; set; }
-        
-        
+
+
         //only in dto
         public string Value { get; set; }
         public List<SelectionItem> Selections { get; set; }
@@ -81,8 +80,7 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public bool IsDisable { get; set; }
         public bool IsMulti { get; set; }
         public bool SaveToLocal { get; set; }
-        
-        
+
 
         public List<SelectionItem> Selections { get; set; }
     }

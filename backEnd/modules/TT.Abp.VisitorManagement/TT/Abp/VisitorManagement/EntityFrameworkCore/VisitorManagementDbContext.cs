@@ -8,17 +8,17 @@ namespace TT.Abp.VisitorManagement.EntityFrameworkCore
     [ConnectionStringName("VisitorManagement")]
     public class VisitorManagementDbContext : AbpDbContext<VisitorManagementDbContext>, IVisitorManagementDbContext
     {
+        public VisitorManagementDbContext(DbContextOptions<VisitorManagementDbContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<VisitorShop> VisitorShops { get; set; }
         public DbSet<VisitorLog> VisitorLogs { get; set; }
         public DbSet<Credential> Credentials { get; set; }
         public DbSet<Form> Forms { get; set; }
         public DbSet<FormItem> FormItems { get; set; }
         public DbSet<ShopForm> ShopForms { get; set; }
-
-        public VisitorManagementDbContext(DbContextOptions<VisitorManagementDbContext> options)
-            : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

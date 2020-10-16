@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 namespace TT.Abp.AccountManagement.Domain.Dtos
 {
     /// <summary>
-    /// <see cref="RealNameInfo"/>
+    ///     <see cref="RealNameInfo" />
     /// </summary>
     public class RealNameInfoDto : EntityDto<Guid>
     {

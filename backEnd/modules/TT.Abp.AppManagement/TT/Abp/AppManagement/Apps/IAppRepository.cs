@@ -12,6 +12,4 @@ namespace TT.Abp.AppManagement.Apps
 
         Task<List<App>> GetListAsync(string providerName, string providerKey);
     }
-    
-    
 }

@@ -9,12 +9,12 @@ namespace TT.Abp.Cms.Events.Locals
 {
     public class CategoryEventData
     {
-        public Category Category { get; }
-
         public CategoryEventData(Category category)
         {
             Category = category;
         }
+
+        public Category Category { get; }
     }
 
     public class CategoryZanEventDataHandle : ILocalEventHandler<CategoryEventData>, ITransientDependency

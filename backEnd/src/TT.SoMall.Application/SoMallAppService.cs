@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TT.SoMall.Localization;
+﻿using TT.SoMall.Localization;
 using Volo.Abp.Application.Services;
 
 namespace TT.SoMall

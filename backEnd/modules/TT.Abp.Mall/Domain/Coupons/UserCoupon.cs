@@ -26,6 +26,26 @@ namespace TT.Abp.Mall.Domain
         public string CouponName { get; protected set; }
         public int CouponAmount { get; protected set; }
 
+        public Guid? ShopId { get; protected set; }
+        public Guid? TenantId { get; protected set; }
+
+
+        public void Use(MallEnums.OrderType type, Guid paymentId, Guid orderId)
+        {
+            UsedTime = DateTimeOffset.Now;
+            PaymentId = paymentId;
+            UsedOrderId = orderId;
+            UsedOrderType = type;
+        }
+
+        public void Return()
+        {
+            UsedTime = null;
+            PaymentId = null;
+            UsedOrderId = null;
+            UsedOrderType = null;
+        }
+
 
         #region 使用记录
 
@@ -38,25 +58,5 @@ namespace TT.Abp.Mall.Domain
         public MallEnums.OrderType? UsedOrderType { get; private set; }
 
         #endregion
-        
-        public Guid? ShopId { get; protected set; }
-        public Guid? TenantId { get; protected set; }
-
-
-        public void Use(MallEnums.OrderType type, Guid paymentId, Guid orderId)
-        {
-            UsedTime = DateTimeOffset.Now;
-            PaymentId = paymentId;
-            UsedOrderId = orderId;
-            UsedOrderType = type;
-        }
-        
-        public void Return()
-        {
-            UsedTime = null;
-            PaymentId = null;
-            UsedOrderId = null;
-            UsedOrderType = null;
-        }
     }
 }

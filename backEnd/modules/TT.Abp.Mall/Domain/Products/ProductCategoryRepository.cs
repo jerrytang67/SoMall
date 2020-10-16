@@ -8,7 +8,6 @@ using TT.Abp.Mall.Application;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.EntityFrameworkCore;
 using TT.Extensions;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;

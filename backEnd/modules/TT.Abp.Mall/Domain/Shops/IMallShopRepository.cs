@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using TT.Abp.Shops;
-using Volo.Abp.Domain.Repositories;
 
 namespace TT.Abp.Mall.Domain.Shops
 {

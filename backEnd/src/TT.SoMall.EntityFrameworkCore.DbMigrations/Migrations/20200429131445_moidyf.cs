@@ -7,8 +7,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "Zan",
-                table: "Cms.Categories",
+                "Zan",
+                "Cms.Categories",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -16,8 +16,8 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Zan",
-                table: "Cms.Categories");
+                "Zan",
+                "Cms.Categories");
         }
     }
 }

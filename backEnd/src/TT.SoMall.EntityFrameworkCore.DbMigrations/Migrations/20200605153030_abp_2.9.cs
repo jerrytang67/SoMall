@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AbpOrganizationUnits",
-                columns: table => new
+                "AbpOrganizationUnits",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -30,16 +30,16 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_AbpOrganizationUnits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AbpOrganizationUnits_AbpOrganizationUnits_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "AbpOrganizationUnits",
-                        principalColumn: "Id",
+                        "FK_AbpOrganizationUnits_AbpOrganizationUnits_ParentId",
+                        x => x.ParentId,
+                        "AbpOrganizationUnits",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AbpOrganizationUnitRoles",
-                columns: table => new
+                "AbpOrganizationUnitRoles",
+                table => new
                 {
                     RoleId = table.Column<Guid>(nullable: false),
                     OrganizationUnitId = table.Column<Guid>(nullable: false),
@@ -49,24 +49,24 @@ namespace TT.SoMall.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AbpOrganizationUnitRoles", x => new { x.OrganizationUnitId, x.RoleId });
+                    table.PrimaryKey("PK_AbpOrganizationUnitRoles", x => new {x.OrganizationUnitId, x.RoleId});
                     table.ForeignKey(
-                        name: "FK_AbpOrganizationUnitRoles_AbpOrganizationUnits_OrganizationUnitId",
-                        column: x => x.OrganizationUnitId,
-                        principalTable: "AbpOrganizationUnits",
-                        principalColumn: "Id",
+                        "FK_AbpOrganizationUnitRoles_AbpOrganizationUnits_OrganizationUnitId",
+                        x => x.OrganizationUnitId,
+                        "AbpOrganizationUnits",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AbpOrganizationUnitRoles_AbpRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AbpRoles",
-                        principalColumn: "Id",
+                        "FK_AbpOrganizationUnitRoles_AbpRoles_RoleId",
+                        x => x.RoleId,
+                        "AbpRoles",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AbpUserOrganizationUnits",
-                columns: table => new
+                "AbpUserOrganizationUnits",
+                table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
                     OrganizationUnitId = table.Column<Guid>(nullable: false),
@@ -76,52 +76,52 @@ namespace TT.SoMall.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AbpUserOrganizationUnits", x => new { x.OrganizationUnitId, x.UserId });
+                    table.PrimaryKey("PK_AbpUserOrganizationUnits", x => new {x.OrganizationUnitId, x.UserId});
                     table.ForeignKey(
-                        name: "FK_AbpUserOrganizationUnits_AbpOrganizationUnits_OrganizationUnitId",
-                        column: x => x.OrganizationUnitId,
-                        principalTable: "AbpOrganizationUnits",
-                        principalColumn: "Id",
+                        "FK_AbpUserOrganizationUnits_AbpOrganizationUnits_OrganizationUnitId",
+                        x => x.OrganizationUnitId,
+                        "AbpOrganizationUnits",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AbpUserOrganizationUnits_AbpUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AbpUsers",
-                        principalColumn: "Id",
+                        "FK_AbpUserOrganizationUnits_AbpUsers_UserId",
+                        x => x.UserId,
+                        "AbpUsers",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AbpOrganizationUnitRoles_RoleId_OrganizationUnitId",
-                table: "AbpOrganizationUnitRoles",
-                columns: new[] { "RoleId", "OrganizationUnitId" });
+                "IX_AbpOrganizationUnitRoles_RoleId_OrganizationUnitId",
+                "AbpOrganizationUnitRoles",
+                new[] {"RoleId", "OrganizationUnitId"});
 
             migrationBuilder.CreateIndex(
-                name: "IX_AbpOrganizationUnits_Code",
-                table: "AbpOrganizationUnits",
-                column: "Code");
+                "IX_AbpOrganizationUnits_Code",
+                "AbpOrganizationUnits",
+                "Code");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AbpOrganizationUnits_ParentId",
-                table: "AbpOrganizationUnits",
-                column: "ParentId");
+                "IX_AbpOrganizationUnits_ParentId",
+                "AbpOrganizationUnits",
+                "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AbpUserOrganizationUnits_UserId_OrganizationUnitId",
-                table: "AbpUserOrganizationUnits",
-                columns: new[] { "UserId", "OrganizationUnitId" });
+                "IX_AbpUserOrganizationUnits_UserId_OrganizationUnitId",
+                "AbpUserOrganizationUnits",
+                new[] {"UserId", "OrganizationUnitId"});
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AbpOrganizationUnitRoles");
+                "AbpOrganizationUnitRoles");
 
             migrationBuilder.DropTable(
-                name: "AbpUserOrganizationUnits");
+                "AbpUserOrganizationUnits");
 
             migrationBuilder.DropTable(
-                name: "AbpOrganizationUnits");
+                "AbpOrganizationUnits");
         }
     }
 }

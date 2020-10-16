@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Mall_Addresses",
-                columns: table => new
+                "Mall_Addresses",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -30,14 +30,11 @@ namespace TT.SoMall.Migrations
                     LocationType = table.Column<int>(nullable: false),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_Addresses", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Mall_Addresses", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Mall_Comment",
-                columns: table => new
+                "Mall_Comment",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -57,14 +54,11 @@ namespace TT.SoMall.Migrations
                     TenantId = table.Column<Guid>(nullable: true),
                     ShopId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_Comment", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Mall_Comment", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Mall_Partners",
-                columns: table => new
+                "Mall_Partners",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -91,14 +85,11 @@ namespace TT.SoMall.Migrations
                     Views = table.Column<int>(nullable: false),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_Partners", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Mall_Partners", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Mall_PayOrders",
-                columns: table => new
+                "Mall_PayOrders",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -129,14 +120,11 @@ namespace TT.SoMall.Migrations
                     TenantId = table.Column<Guid>(nullable: true),
                     ShopId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_PayOrders", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Mall_PayOrders", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Mall_ProductOrders",
-                columns: table => new
+                "Mall_ProductOrders",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -148,8 +136,8 @@ namespace TT.SoMall.Migrations
                     IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
-                    PricePaidIn = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    PriceOriginal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PricePaidIn = table.Column<decimal>("decimal(18,2)", nullable: true),
+                    PriceOriginal = table.Column<decimal>("decimal(18,2)", nullable: false),
                     State = table.Column<int>(nullable: false),
                     Type = table.Column<int>(nullable: false),
                     PayType = table.Column<int>(nullable: false),
@@ -165,14 +153,11 @@ namespace TT.SoMall.Migrations
                     TenantId = table.Column<Guid>(nullable: true),
                     ShopId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_ProductOrders", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Mall_ProductOrders", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Mall_RealNameInfos",
-                columns: table => new
+                "Mall_RealNameInfos",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -193,14 +178,11 @@ namespace TT.SoMall.Migrations
                     State = table.Column<byte>(nullable: false),
                     TenantId = table.Column<Guid>(nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_RealNameInfos", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_Mall_RealNameInfos", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Mall_PartnerDetails",
-                columns: table => new
+                "Mall_PartnerDetails",
+                table => new
                 {
                     PartnerId = table.Column<Guid>(nullable: false),
                     NoticeContent = table.Column<string>(nullable: true),
@@ -213,16 +195,16 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_Mall_PartnerDetails", x => x.PartnerId);
                     table.ForeignKey(
-                        name: "FK_Mall_PartnerDetails_Mall_Partners_PartnerId",
-                        column: x => x.PartnerId,
-                        principalTable: "Mall_Partners",
-                        principalColumn: "Id",
+                        "FK_Mall_PartnerDetails_Mall_Partners_PartnerId",
+                        x => x.PartnerId,
+                        "Mall_Partners",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Mall_PartnerProducts",
-                columns: table => new
+                "Mall_PartnerProducts",
+                table => new
                 {
                     PartnerId = table.Column<Guid>(nullable: false),
                     SpuId = table.Column<Guid>(nullable: false),
@@ -235,24 +217,24 @@ namespace TT.SoMall.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mall_PartnerProducts", x => new { x.PartnerId, x.SpuId });
+                    table.PrimaryKey("PK_Mall_PartnerProducts", x => new {x.PartnerId, x.SpuId});
                     table.ForeignKey(
-                        name: "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
-                        column: x => x.PartnerId,
-                        principalTable: "Mall_Partners",
-                        principalColumn: "Id",
+                        "FK_Mall_PartnerProducts_Mall_Partners_PartnerId",
+                        x => x.PartnerId,
+                        "Mall_Partners",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Mall_PartnerProducts_Mall_ProductSpu_SpuId",
-                        column: x => x.SpuId,
-                        principalTable: "Mall_ProductSpu",
-                        principalColumn: "Id",
+                        "FK_Mall_PartnerProducts_Mall_ProductSpu_SpuId",
+                        x => x.SpuId,
+                        "Mall_ProductSpu",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Mall_ProductOrderItems",
-                columns: table => new
+                "Mall_ProductOrderItems",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreationTime = table.Column<DateTime>(nullable: false),
@@ -268,7 +250,7 @@ namespace TT.SoMall.Migrations
                     Count = table.Column<double>(nullable: false),
                     SpuName = table.Column<string>(maxLength: 64, nullable: false),
                     SkuName = table.Column<string>(maxLength: 64, nullable: false),
-                    SkuPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SkuPrice = table.Column<decimal>("decimal(18,2)", nullable: false),
                     SkuUnit = table.Column<string>(maxLength: 16, nullable: true),
                     Comment = table.Column<string>(maxLength: 255, nullable: true)
                 },
@@ -276,26 +258,26 @@ namespace TT.SoMall.Migrations
                 {
                     table.PrimaryKey("PK_Mall_ProductOrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Mall_ProductOrderItems_Mall_ProductOrders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Mall_ProductOrders",
-                        principalColumn: "Id",
+                        "FK_Mall_ProductOrderItems_Mall_ProductOrders_OrderId",
+                        x => x.OrderId,
+                        "Mall_ProductOrders",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mall_PartnerProducts_SpuId",
-                table: "Mall_PartnerProducts",
-                column: "SpuId");
+                "IX_Mall_PartnerProducts_SpuId",
+                "Mall_PartnerProducts",
+                "SpuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mall_ProductOrderItems_OrderId",
-                table: "Mall_ProductOrderItems",
-                column: "OrderId");
-            
+                "IX_Mall_ProductOrderItems_OrderId",
+                "Mall_ProductOrderItems",
+                "OrderId");
+
             migrationBuilder.AddColumn<string>(
-                name: "LocationAddress",
-                table: "Mall_Addresses",
+                "LocationAddress",
+                "Mall_Addresses",
                 maxLength: 255,
                 nullable: true);
         }
@@ -303,35 +285,35 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Mall_Addresses");
+                "Mall_Addresses");
 
             migrationBuilder.DropTable(
-                name: "Mall_Comment");
+                "Mall_Comment");
 
             migrationBuilder.DropTable(
-                name: "Mall_PartnerDetails");
+                "Mall_PartnerDetails");
 
             migrationBuilder.DropTable(
-                name: "Mall_PartnerProducts");
+                "Mall_PartnerProducts");
 
             migrationBuilder.DropTable(
-                name: "Mall_PayOrders");
+                "Mall_PayOrders");
 
             migrationBuilder.DropTable(
-                name: "Mall_ProductOrderItems");
+                "Mall_ProductOrderItems");
 
             migrationBuilder.DropTable(
-                name: "Mall_RealNameInfos");
+                "Mall_RealNameInfos");
 
             migrationBuilder.DropTable(
-                name: "Mall_Partners");
+                "Mall_Partners");
 
             migrationBuilder.DropTable(
-                name: "Mall_ProductOrders");
-            
+                "Mall_ProductOrders");
+
             migrationBuilder.DropColumn(
-                name: "LocationAddress",
-                table: "Mall_Addresses");
+                "LocationAddress",
+                "Mall_Addresses");
         }
     }
 }

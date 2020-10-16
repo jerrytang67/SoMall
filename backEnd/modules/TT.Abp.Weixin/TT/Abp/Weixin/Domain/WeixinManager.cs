@@ -5,8 +5,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Serilog;
 using TT.Abp.OssManagement;
-using TT.Abp.Shops.Application;
-using TT.Abp.Weixin.Application;
 using TT.Extensions;
 using TT.Extensions.Oss;
 using TT.Extensions.Redis;
@@ -18,6 +16,7 @@ using Volo.Abp.Caching;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.ObjectMapping;
 using Volo.Abp.Settings;
 using Volo.Abp.Uow;
 
@@ -25,13 +24,13 @@ namespace TT.Abp.Weixin.Domain
 {
     public class WeixinManager : ITransientDependency
     {
-        private readonly IDistributedCache<AccessTokeCacheItem> _tokenCache;
-        private readonly IDistributedCache<JsSdkCacheItem> _jsSdkCache;
-        private readonly IRedisClient _redisClient;
-        private readonly IRepository<WechatUserinfo> _wechatUserRepository;
-        private readonly Volo.Abp.ObjectMapping.IObjectMapper _mapper;
         private readonly ICurrentTenant _currentTenant;
+        private readonly IDistributedCache<JsSdkCacheItem> _jsSdkCache;
+        private readonly IObjectMapper _mapper;
+        private readonly IRedisClient _redisClient;
         private readonly ISettingProvider _setting;
+        private readonly IDistributedCache<AccessTokeCacheItem> _tokenCache;
+        private readonly IRepository<WechatUserinfo> _wechatUserRepository;
         private readonly IWeixinApi _weixinApi;
 
         public WeixinManager(
@@ -39,7 +38,7 @@ namespace TT.Abp.Weixin.Domain
             IDistributedCache<JsSdkCacheItem> jsSdkCache,
             IRedisClient redisClient,
             IRepository<WechatUserinfo> wechatUserRepository,
-            Volo.Abp.ObjectMapping.IObjectMapper mapper,
+            IObjectMapper mapper,
             ICurrentTenant currentTenant,
             ISettingProvider setting,
             IWeixinApi weixinApi)
@@ -61,7 +60,7 @@ namespace TT.Abp.Weixin.Domain
             if (find == null)
             {
                 await _wechatUserRepository.InsertAsync(
-                    new WechatUserinfo(userinfo.appid, userinfo.openid, userinfo.unionid, userinfo.nickName, userinfo.avatarUrl, appName: userinfo.AppName)
+                    new WechatUserinfo(userinfo.appid, userinfo.openid, userinfo.unionid, userinfo.nickName, userinfo.avatarUrl, userinfo.AppName)
                     {
                         city = userinfo.city,
                         province = userinfo.province,
@@ -159,7 +158,7 @@ namespace TT.Abp.Weixin.Domain
             if (ticket.errcode == 0)
             {
                 Log.Logger.Information(JsonConvert.SerializeObject(token));
-                return new JsSdkCacheItem()
+                return new JsSdkCacheItem
                 {
                     Appid = appid,
                     AppSecret = appSeret,
@@ -172,7 +171,7 @@ namespace TT.Abp.Weixin.Domain
             Log.Logger.Error($"ticket 获取失败: {ticket.errmsg}");
             return null;
         }
-        
+
         public async Task<MiniUserInfoResult> Mini_GetUserInfo(string appid, string encryptedDataStr, string sessionKey, string iv)
         {
             var json = Encryption.AES_decrypt(encryptedDataStr, sessionKey, iv);
@@ -192,7 +191,7 @@ namespace TT.Abp.Weixin.Domain
             if (token.errcode == 0)
             {
                 Log.Logger.Information(JsonConvert.SerializeObject(token));
-                return new AccessTokeCacheItem()
+                return new AccessTokeCacheItem
                 {
                     Appid = appid,
                     AppSecret = appSeret,

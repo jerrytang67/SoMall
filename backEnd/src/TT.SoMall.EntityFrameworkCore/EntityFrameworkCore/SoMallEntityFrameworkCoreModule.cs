@@ -54,7 +54,7 @@ namespace TT.SoMall.EntityFrameworkCore
             {
                 /* Remove "includeAllEntities: true" to create
                  * default repositories only for aggregate roots */
-                options.AddDefaultRepositories(includeAllEntities: true);
+                options.AddDefaultRepositories(true);
             });
 
             Configure<AbpDbContextOptions>(options =>

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TT.Abp.Shops;
-using TT.Abp.Shops.Domain;
 using TT.SoMall.Users;
 using Volo.Abp;
 using Volo.Abp.Users;
@@ -20,7 +19,7 @@ namespace TT.SoMall.EntityFrameworkCore
         {
             b.Property<string>(nameof(AppUser.Nickname)).HasMaxLength(ShopConsts.MaxNameLength);
             b.Property<string>(nameof(AppUser.HeadImgUrl)).HasMaxLength(ShopConsts.MaxImageLength);
-            
+
             //b.Property<string>(nameof(AppUser.MyProperty))...
         }
     }

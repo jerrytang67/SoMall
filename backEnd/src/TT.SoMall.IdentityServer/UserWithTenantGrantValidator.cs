@@ -23,9 +23,9 @@ namespace TT.SoMall
             var claimList = new List<Claim> {new Claim("tenantid", tenantid)};
 
             context.Result = new GrantValidationResult(
-                subject: userid,
-                authenticationMethod: ExtensionGrantTypes.UserWithTenantGrantType,
-                claims: claimList
+                userid,
+                ExtensionGrantTypes.UserWithTenantGrantType,
+                claimList
             );
 
             //下一步还会在 AbpProfileService中赋值tenantId后调用

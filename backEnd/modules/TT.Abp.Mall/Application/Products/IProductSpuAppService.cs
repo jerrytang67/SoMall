@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using TT.Abp.Mall.Application.Products.Dtos;
 using TT.Abp.Mall.Domain.Shares;
-using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace TT.Abp.Mall.Application.Products

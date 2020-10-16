@@ -6,8 +6,6 @@ namespace TT.Abp.Mall.Application.Users
 {
     public class MallUserDto : IEntityDto<Guid>
     {
-        public Guid Id { get; set; }
-
         public Guid? TenantId { get; set; }
 
         public string UserName { get; set; }
@@ -23,5 +21,6 @@ namespace TT.Abp.Mall.Application.Users
         public bool PhoneNumberConfirmed { get; set; }
 
         public Dictionary<string, object> ExtraProperties { get; set; }
+        public Guid Id { get; set; }
     }
 }

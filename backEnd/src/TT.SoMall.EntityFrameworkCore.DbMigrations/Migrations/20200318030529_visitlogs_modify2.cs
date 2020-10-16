@@ -8,34 +8,34 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<double>(
-                name: "Lat",
-                table: "Visitor_VisitorLogs",
+                "Lat",
+                "Visitor_VisitorLogs",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTimeOffset>(
-                name: "LeaveTime",
-                table: "Visitor_VisitorLogs",
+                "LeaveTime",
+                "Visitor_VisitorLogs",
                 nullable: true);
 
             migrationBuilder.AddColumn<double>(
-                name: "Lng",
-                table: "Visitor_VisitorLogs",
+                "Lng",
+                "Visitor_VisitorLogs",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Lat",
-                table: "Visitor_VisitorLogs");
+                "Lat",
+                "Visitor_VisitorLogs");
 
             migrationBuilder.DropColumn(
-                name: "LeaveTime",
-                table: "Visitor_VisitorLogs");
+                "LeaveTime",
+                "Visitor_VisitorLogs");
 
             migrationBuilder.DropColumn(
-                name: "Lng",
-                table: "Visitor_VisitorLogs");
+                "Lng",
+                "Visitor_VisitorLogs");
         }
     }
 }

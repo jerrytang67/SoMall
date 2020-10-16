@@ -1,12 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4.Configuration;
-using IdentityServer4.Models;
-using IdentityServer4.Validation;
+﻿using IdentityServer4.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
-using TT.HttpClient.Weixin;
 
 namespace TT.SoMall
 {
@@ -24,7 +19,7 @@ namespace TT.SoMall
                 // options.PublicOrigin = config["AuthServer:Authority"];
                 options.IssuerUri = config["AuthServer:Authority"];
             });
-            
+
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
@@ -37,7 +32,6 @@ namespace TT.SoMall
         {
             app.InitializeApplication();
             app.UseForwardedHeaders();
-
         }
     }
 }

@@ -8,12 +8,12 @@ namespace TT.Abp.AppManagement.EntityFrameworkCore
         AbpDbContext<AppManagementDbContext>,
         IAppManagementDbContext
     {
-        public virtual DbSet<App> Apps { get; set; }
-
         public AppManagementDbContext(DbContextOptions<AppManagementDbContext> options)
             : base(options)
         {
         }
+
+        public virtual DbSet<App> Apps { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

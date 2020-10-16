@@ -10,7 +10,7 @@ namespace TT.Abp.Weixin.Application.Dtos
         public string ShortName { get; set; }
 
         public string LogoImage { get; set; }
-        
+
         public string CoverImage { get; set; }
 
         public string Description { get; set; }

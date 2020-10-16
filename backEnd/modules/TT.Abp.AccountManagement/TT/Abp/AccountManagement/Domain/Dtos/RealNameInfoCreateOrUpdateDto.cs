@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace TT.Abp.AccountManagement.Domain.Dtos
 {
     /// <summary>
-    /// <see cref="RealNameInfo"/>
+    ///     <see cref="RealNameInfo" />
     /// </summary>
     public class RealNameInfoCreateOrUpdateDto
     {

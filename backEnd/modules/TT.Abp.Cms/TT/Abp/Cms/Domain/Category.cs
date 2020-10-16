@@ -18,7 +18,7 @@ namespace TT.Abp.Cms.Domain
         public int Zan { get; protected set; }
 
         public Guid? TenantId { get; protected set; }
-        
+
         public void AddZan()
         {
             Zan += 1;

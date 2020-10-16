@@ -5,7 +5,7 @@ using Volo.Abp.Application.Dtos;
 namespace TT.Abp.AuditManagement.Application.Dtos
 {
     /// <summary>
-    /// <see cref="AuditNode"/>
+    ///     <see cref="AuditNode" />
     /// </summary>
     public class AuditNodeDto : CreationAuditedEntityDto<Guid>
     {

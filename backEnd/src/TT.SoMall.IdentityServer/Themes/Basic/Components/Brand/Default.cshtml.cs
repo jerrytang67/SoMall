@@ -6,7 +6,6 @@ namespace TT.SoMall.Themes.Basic.Components.Brand
     {
         public void OnGet()
         {
-            
         }
     }
 }

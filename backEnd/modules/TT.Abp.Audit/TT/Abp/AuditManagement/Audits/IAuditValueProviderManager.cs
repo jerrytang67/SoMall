@@ -14,9 +14,6 @@ namespace TT.Abp.AuditManagement.Audits
 
     public class AuditValueProviderManager : IAuditValueProviderManager, ISingletonDependency
     {
-        public List<IAuditValueProvider> Providers => _lazyProviders.Value;
-        protected AuditOptions Options { get; }
-
         private readonly Lazy<List<IAuditValueProvider>> _lazyProviders;
 
         public AuditValueProviderManager(
@@ -33,5 +30,8 @@ namespace TT.Abp.AuditManagement.Audits
                 true
             );
         }
+
+        protected AuditOptions Options { get; }
+        public List<IAuditValueProvider> Providers => _lazyProviders.Value;
     }
 }

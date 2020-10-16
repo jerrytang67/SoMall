@@ -5,9 +5,8 @@ namespace TT.SoMall
     [DependsOn(
         typeof(SoMallApplicationModule),
         typeof(SoMallDomainTestModule)
-        )]
+    )]
     public class SoMallApplicationTestModule : AbpModule
     {
-
     }
 }

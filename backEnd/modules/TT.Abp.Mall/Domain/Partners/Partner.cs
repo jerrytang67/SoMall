@@ -9,9 +9,6 @@ namespace TT.Abp.Mall.Domain.Partners
 {
     public class Partner : FullAuditedEntity, IMultiTenant
     {
-        public Guid UserId { get; set; }
-
-
         private Partner()
         {
         }
@@ -21,10 +18,7 @@ namespace TT.Abp.Mall.Domain.Partners
             UserId = userId;
         }
 
-        public override object[] GetKeys()
-        {
-            return new object[] {UserId};
-        }
+        public Guid UserId { get; set; }
 
         [NotNull] public virtual string RealName { get; protected set; }
         [NotNull] public virtual string Phone { get; protected set; }
@@ -35,17 +29,17 @@ namespace TT.Abp.Mall.Domain.Partners
         public MallEnums.PartnerState State { get; protected set; } = MallEnums.PartnerState.待审核;
 
         /// <summary>
-        /// 可用余额
+        ///     可用余额
         /// </summary>
         public virtual decimal AvblBalance { get; protected set; } = 0;
 
         /// <summary>
-        /// 不可用余额
+        ///     不可用余额
         /// </summary>
         public virtual decimal UnavblBalance { get; protected set; } = 0;
 
         /// <summary>
-        /// 已提现总数
+        ///     已提现总数
         /// </summary>
         public virtual decimal TotalWithdrawals { get; protected set; } = 0;
 
@@ -65,6 +59,11 @@ namespace TT.Abp.Mall.Domain.Partners
         public PartnerDetail Detail { get; set; } = new PartnerDetail();
 
         public Guid? TenantId { get; protected set; }
+
+        public override object[] GetKeys()
+        {
+            return new object[] {UserId};
+        }
     }
 
     [Owned]
@@ -76,7 +75,7 @@ namespace TT.Abp.Mall.Domain.Partners
         public virtual string weixin { get; set; } //微信号
 
         /// <summary>
-        /// 自我介绍
+        ///     自我介绍
         /// </summary>
         public virtual string Introducting { get; set; } = @"所在地：
 微信好友数：

@@ -16,17 +16,17 @@ namespace TT.Abp.Mall.Application.Clients
         public string err_code_des { get; set; }
 
         /// <summary>
-        /// 交易类型
+        ///     交易类型
         /// </summary>
         public string trade_type { get; set; } //JSAPI、NATIVE、APP
 
         /// <summary>
-        /// 付款银行 ,银行类型，采用字符串类型的银行标识，银行类型见银行列表 
+        ///     付款银行 ,银行类型，采用字符串类型的银行标识，银行类型见银行列表
         /// </summary>
         public string bank_type { get; set; }
 
         /// <summary>
-        /// is_subscribe 用户是否关注公众账号，Y-关注，N-未关注
+        ///     is_subscribe 用户是否关注公众账号，Y-关注，N-未关注
         /// </summary>
         public string is_subscribe { get; set; }
 
@@ -39,17 +39,17 @@ namespace TT.Abp.Mall.Application.Clients
         public string cash_fee_type { get; set; }
 
         /// <summary>
-        /// 微信支付订单号
+        ///     微信支付订单号
         /// </summary>
         public string transaction_id { get; set; }
 
         /// <summary>
-        /// 商户订单号	
+        ///     商户订单号
         /// </summary>
         public string out_trade_no { get; set; }
 
         /// <summary>
-        /// 支付完成时间	
+        ///     支付完成时间
         /// </summary>
         public string time_end { get; set; }
     }

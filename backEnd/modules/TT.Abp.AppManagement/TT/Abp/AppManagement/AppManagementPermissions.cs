@@ -9,17 +9,17 @@ namespace TT.Abp.AppManagement
     {
         public const string GroupName = "AppManagement";
 
+        public static string[] GetAll()
+        {
+            return ReflectionHelper.GetPublicConstantsRecursively(typeof(AppManagementPermissions));
+        }
+
         public class Apps
         {
             public const string Default = GroupName + ".Apps";
             public const string Create = Default + ".Create";
             public const string Delete = Default + ".Delete";
             public const string Update = Default + ".Update";
-        }
-
-        public static string[] GetAll()
-        {
-            return ReflectionHelper.GetPublicConstantsRecursively(typeof(AppManagementPermissions));
         }
     }
 

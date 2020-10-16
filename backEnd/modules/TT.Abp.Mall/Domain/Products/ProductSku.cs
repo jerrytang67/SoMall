@@ -29,35 +29,7 @@ namespace TT.Abp.Mall.Domain.Products
             TenantId = tenantId;
         }
 
-        #region ISkuData
-
-        public virtual Guid SpuId { get; protected set; }
-        public virtual string Name { get; protected set; }
-        public virtual string Code { get; protected set; }
-        public virtual decimal Price { get; protected set; }
-        public virtual string Desc { get; set; }
-        public virtual string PurchaseNotes { get; set; }
-        public virtual decimal? OriginPrice { get; protected set; }
-        public virtual decimal? VipPrice { get; protected set; }
-        public virtual List<string> CoverImageUrls { get; set; }
-        public virtual DateTimeOffset? DateTimeStart { get; set; }
-        public virtual DateTimeOffset? DateTimeEnd { get; set; }
-        public virtual int? StockCount { get; protected set; }
-
-        public virtual int SoldCount { get; protected set; }
-
-        public virtual int? LimitBuyCount { get; protected set; }
-        public virtual string Unit { get; set; }
-        public virtual Guid? TenantId { get; protected set; }
-        public virtual Guid? ShopId { get; protected set; }
-
-        #region 佣金字段
-        public virtual decimal? CommissionPrice { get; protected set; }
-        public virtual bool CommissionEnable { get; protected set; }
-
-        #endregion
-
-        #endregion
+        [ForeignKey("SpuId")] public virtual ProductSpu Spu { get; set; }
 
         public void SetAndEnableCommission(decimal price)
         {
@@ -89,7 +61,10 @@ namespace TT.Abp.Mall.Domain.Products
         public bool IsSoldOut()
         {
             if (StockCount == 0)
+            {
                 return true;
+            }
+
             return false;
         }
 
@@ -104,6 +79,35 @@ namespace TT.Abp.Mall.Domain.Products
             Id = guidGenerator.Create();
         }
 
-        [ForeignKey("SpuId")] public virtual ProductSpu Spu { get; set; }
+        #region ISkuData
+
+        public virtual Guid SpuId { get; protected set; }
+        public virtual string Name { get; protected set; }
+        public virtual string Code { get; protected set; }
+        public virtual decimal Price { get; protected set; }
+        public virtual string Desc { get; set; }
+        public virtual string PurchaseNotes { get; set; }
+        public virtual decimal? OriginPrice { get; protected set; }
+        public virtual decimal? VipPrice { get; protected set; }
+        public virtual List<string> CoverImageUrls { get; set; }
+        public virtual DateTimeOffset? DateTimeStart { get; set; }
+        public virtual DateTimeOffset? DateTimeEnd { get; set; }
+        public virtual int? StockCount { get; protected set; }
+
+        public virtual int SoldCount { get; protected set; }
+
+        public virtual int? LimitBuyCount { get; protected set; }
+        public virtual string Unit { get; set; }
+        public virtual Guid? TenantId { get; protected set; }
+        public virtual Guid? ShopId { get; protected set; }
+
+        #region 佣金字段
+
+        public virtual decimal? CommissionPrice { get; protected set; }
+        public virtual bool CommissionEnable { get; protected set; }
+
+        #endregion
+
+        #endregion
     }
 }

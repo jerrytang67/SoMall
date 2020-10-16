@@ -19,7 +19,7 @@ namespace TT.Abp.FormManagement
 
             context.Services.AddAutoMapperObjectMapper<FormManagementModule>();
             // AutoMapper
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<FormApplicationAutoMapperProfile>(validate: true); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<FormApplicationAutoMapperProfile>(true); });
 
             // AppService转APi
             Configure<AbpAspNetCoreMvcOptions>(options =>

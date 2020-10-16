@@ -1,9 +1,6 @@
-using System;
 using System.Threading.Tasks;
 using Shouldly;
 using TT.Abp.Cms.Application;
-using TT.Abp.Cms.Domain;
-using Volo.Abp.Domain.Repositories;
 using Xunit;
 
 namespace TT.Abp.Modules.Tests.Cms
@@ -21,7 +18,7 @@ namespace TT.Abp.Modules.Tests.Cms
         public async Task CreateAndGet()
         {
             //Act
-            var result = await _service.CreateAsync(new CategoryCreateOrUpdate()
+            var result = await _service.CreateAsync(new CategoryCreateOrUpdate
             {
                 Name = "TT"
             });
@@ -41,24 +38,22 @@ namespace TT.Abp.Modules.Tests.Cms
             // getDto = await _service.GetAsync(result.Id);
             //
             // getDto.Zan.ShouldBe(2);
-
         }
 
         [Fact]
         public async Task TestZan()
         {
             //Act
-            var result = await _service.CreateAsync(new CategoryCreateOrUpdate()
+            var result = await _service.CreateAsync(new CategoryCreateOrUpdate
             {
                 Name = "TT"
             });
-            
+
             await _service.DianZan(result.Id);
-            
+
             var getDto = await _service.GetAsync(result.Id);
-            
+
             getDto.Zan.ShouldBe(1);
-            
         }
     }
 }

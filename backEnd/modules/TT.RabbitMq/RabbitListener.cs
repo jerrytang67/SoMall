@@ -12,11 +12,10 @@ namespace TT.RabbitMQ
 {
     public class RabbitMqListener : IHostedService
     {
-        private readonly RabbitMqOptions _options;
-        private readonly IConnection _connection;
         private readonly IModel _channel;
+        private readonly IConnection _connection;
         private readonly ILogger<RabbitMqListener> _logger;
-        protected string RouteKey { get; set; }
+        private readonly RabbitMqOptions _options;
 
         public RabbitMqListener(IOptions<RabbitMqOptions> optionsAccessor, ILogger<RabbitMqListener> logger)
         {
@@ -24,7 +23,7 @@ namespace TT.RabbitMQ
             _options = optionsAccessor.Value;
             try
             {
-                var factory = new ConnectionFactory()
+                var factory = new ConnectionFactory
                 {
                     UserName = _options.UserName,
                     Password = _options.Password,
@@ -33,19 +32,28 @@ namespace TT.RabbitMQ
                 };
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
-                _logger.LogInformation($"RabbitMqListener 连接成功");
+                _logger.LogInformation("RabbitMqListener 连接成功");
             }
             catch (Exception ex)
             {
-                _logger.LogError(($"RabbitListener init error,ex:{ex.Message}"));
+                _logger.LogError($"RabbitListener init error,ex:{ex.Message}");
             }
         }
+
+        protected string RouteKey { get; set; }
 
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             await Register();
             await Task.CompletedTask;
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _channel?.Dispose();
+            _connection?.Dispose();
+            return Task.CompletedTask;
         }
 
 
@@ -55,7 +63,7 @@ namespace TT.RabbitMQ
             _channel.ExchangeDeclare("message", ExchangeType.Topic, true, false, null);
             _channel.QueueDeclare(_options.QueryName, true, false, false, null);
 
-            _channel.QueueBind(queue: _options.QueryName, exchange: "message", routingKey: RouteKey);
+            _channel.QueueBind(_options.QueryName, "message", RouteKey);
 
             var consumer = new EventingBasicConsumer(_channel);
 
@@ -80,13 +88,6 @@ namespace TT.RabbitMQ
         {
             // 在继承类中去实现具体操作
             throw new NotImplementedException();
-        }
-
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            _channel?.Dispose();
-            _connection?.Dispose();
-            return Task.CompletedTask;
         }
     }
 }

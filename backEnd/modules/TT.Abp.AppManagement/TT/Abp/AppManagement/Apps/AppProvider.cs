@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.Settings;
 
 namespace TT.Abp.AppManagement.Apps
 {
@@ -17,9 +16,6 @@ namespace TT.Abp.AppManagement.Apps
 
     public class AppProvider : IAppProvider, ITransientDependency
     {
-        protected IAppDefinitionManager AppDefinitionManager { get; }
-        protected IAppValueProviderManager AppValueProviderManager { get; }
-
         public AppProvider(
             IAppDefinitionManager appDefinitionManager,
             IAppValueProviderManager appValueProviderManager)
@@ -27,6 +23,9 @@ namespace TT.Abp.AppManagement.Apps
             AppDefinitionManager = appDefinitionManager;
             AppValueProviderManager = appValueProviderManager;
         }
+
+        protected IAppDefinitionManager AppDefinitionManager { get; }
+        protected IAppValueProviderManager AppValueProviderManager { get; }
 
         public virtual async Task<Dictionary<string, string>> GetOrNullAsync(string name)
         {

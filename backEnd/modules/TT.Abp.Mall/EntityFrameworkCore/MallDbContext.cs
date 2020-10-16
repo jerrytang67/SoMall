@@ -11,16 +11,19 @@ using TT.Abp.Mall.Domain.Shares;
 using TT.Abp.Mall.Domain.Shops;
 using TT.Abp.Mall.Domain.Swipers;
 using TT.Abp.Mall.Domain.Users;
-using Volo.Abp;
 using Volo.Abp.Data;
 using Volo.Abp.EntityFrameworkCore;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace TT.Abp.Mall.EntityFrameworkCore
 {
     [ConnectionStringName("Mall")]
     public class MallDbContext : AbpDbContext<MallDbContext>, IMallDbContext
     {
+        public MallDbContext(DbContextOptions<MallDbContext> options)
+            : base(options)
+        {
+        }
+
         public virtual DbSet<MallUser> MallUsers { get; set; }
 
         public virtual DbSet<MallShop> MallShops { get; set; }
@@ -63,11 +66,6 @@ namespace TT.Abp.Mall.EntityFrameworkCore
         public virtual DbSet<NewsContent> NewsContents { get; set; }
 
         public virtual DbSet<QrDetail> QrDetails { get; set; }
-
-        public MallDbContext(DbContextOptions<MallDbContext> options)
-            : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

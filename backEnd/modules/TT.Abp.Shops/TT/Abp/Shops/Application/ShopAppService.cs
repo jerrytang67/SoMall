@@ -16,26 +16,14 @@ namespace TT.Abp.Shops.Application
 {
     public class ShopAppService : ApplicationService, IShopAppService
     {
-        private readonly IRepository<Shop, Guid> _repository;
         private readonly ICurrentTenant _currentTenant;
+        private readonly IRepository<Shop, Guid> _repository;
 
         public ShopAppService(IRepository<Shop, Guid> shopRepository, ICurrentTenant currentTenant)
         {
             ObjectMapperContext = typeof(ShopModule);
             _repository = shopRepository;
             _currentTenant = currentTenant;
-        }
-
-        public async Task<PagedResultDto<ShopDto>> GetListAsync(PagedResultRequestDto input)
-        {
-            var query = _repository;
-
-            var total = await query.CountAsync();
-
-            var shops = await query.PageBy(input).ToListAsync();
-
-            return new PagedResultDto<ShopDto>(total,
-                ObjectMapper.Map<List<Shop>, List<ShopDto>>(shops));
         }
 
         Task<ShopDto> IShopAppService.GetByShortNameAsync(string shortName)
@@ -51,25 +39,6 @@ namespace TT.Abp.Shops.Application
         Task<PagedResultDto<ShopDto>> IShopAppService.GetListAsync(PagedResultRequestDto input)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<ShopDto> GetByShortNameAsync(string shortName)
-        {
-            var find = await _repository.FirstOrDefaultAsync(x => x.ShortName == shortName);
-
-            if (find == null)
-            {
-                throw new EntityNotFoundException(typeof(Shop), shortName);
-            }
-
-            return ObjectMapper.Map<Shop, ShopDto>(find);
-        }
-
-        public async Task<ShopDto> GetAsync(Guid id)
-        {
-            var find = await _repository.GetAsync(id);
-
-            return ObjectMapper.Map<Shop, ShopDto>(find);
         }
 
         [Authorize]
@@ -113,6 +82,37 @@ namespace TT.Abp.Shops.Application
             }
 
             await _repository.DeleteAsync(find);
+        }
+
+        public async Task<PagedResultDto<ShopDto>> GetListAsync(PagedResultRequestDto input)
+        {
+            var query = _repository;
+
+            var total = await query.CountAsync();
+
+            var shops = await query.PageBy(input).ToListAsync();
+
+            return new PagedResultDto<ShopDto>(total,
+                ObjectMapper.Map<List<Shop>, List<ShopDto>>(shops));
+        }
+
+        public async Task<ShopDto> GetByShortNameAsync(string shortName)
+        {
+            var find = await _repository.FirstOrDefaultAsync(x => x.ShortName == shortName);
+
+            if (find == null)
+            {
+                throw new EntityNotFoundException(typeof(Shop), shortName);
+            }
+
+            return ObjectMapper.Map<Shop, ShopDto>(find);
+        }
+
+        public async Task<ShopDto> GetAsync(Guid id)
+        {
+            var find = await _repository.GetAsync(id);
+
+            return ObjectMapper.Map<Shop, ShopDto>(find);
         }
     }
 }

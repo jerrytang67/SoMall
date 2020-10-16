@@ -4,7 +4,7 @@ using TT.Abp.Mall.Domain.Orders;
 namespace TT.Abp.Mall.Application.Orders.Dtos
 {
     /// <summary>
-    /// <see cref="ProductOrderItem"/>
+    ///     <see cref="ProductOrderItem" />
     /// </summary>
     public class ProductOrderItemDto
     {

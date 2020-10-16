@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Mall_AppProductSpus",
-                columns: table => new
+                "Mall_AppProductSpus",
+                table => new
                 {
                     AppName = table.Column<string>(maxLength: 64, nullable: false),
                     ProductSpuId = table.Column<Guid>(nullable: false),
@@ -19,25 +19,25 @@ namespace TT.SoMall.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mall_AppProductSpus", x => new { x.AppName, x.ProductSpuId });
+                    table.PrimaryKey("PK_Mall_AppProductSpus", x => new {x.AppName, x.ProductSpuId});
                     table.ForeignKey(
-                        name: "FK_Mall_AppProductSpus_Mall_ProductSpu_ProductSpuId",
-                        column: x => x.ProductSpuId,
-                        principalTable: "Mall_ProductSpu",
-                        principalColumn: "Id",
+                        "FK_Mall_AppProductSpus_Mall_ProductSpu_ProductSpuId",
+                        x => x.ProductSpuId,
+                        "Mall_ProductSpu",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mall_AppProductSpus_ProductSpuId",
-                table: "Mall_AppProductSpus",
-                column: "ProductSpuId");
+                "IX_Mall_AppProductSpus_ProductSpuId",
+                "Mall_AppProductSpus",
+                "ProductSpuId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Mall_AppProductSpus");
+                "Mall_AppProductSpus");
         }
     }
 }

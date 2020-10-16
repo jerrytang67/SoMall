@@ -8,8 +8,8 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Mall_TenPayNotify",
-                columns: table => new
+                "Mall_TenPayNotify",
+                table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ExtraProperties = table.Column<string>(nullable: true),
@@ -32,34 +32,31 @@ namespace TT.SoMall.Migrations
                     is_subscribe = table.Column<string>(maxLength: 64, nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mall_TenPayNotify", x => x.Id);
-                });
-            
+                constraints: table => { table.PrimaryKey("PK_Mall_TenPayNotify", x => x.Id); });
+
             migrationBuilder.AddColumn<string>(
-                name: "ConcurrencyStamp",
-                table: "Mall_PayOrders",
+                "ConcurrencyStamp",
+                "Mall_PayOrders",
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "ExtraProperties",
-                table: "Mall_PayOrders",
+                "ExtraProperties",
+                "Mall_PayOrders",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Mall_TenPayNotify");
-            
-            migrationBuilder.DropColumn(
-                name: "ConcurrencyStamp",
-                table: "Mall_PayOrders");
+                "Mall_TenPayNotify");
 
             migrationBuilder.DropColumn(
-                name: "ExtraProperties",
-                table: "Mall_PayOrders");
+                "ConcurrencyStamp",
+                "Mall_PayOrders");
+
+            migrationBuilder.DropColumn(
+                "ExtraProperties",
+                "Mall_PayOrders");
         }
     }
 }

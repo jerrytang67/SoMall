@@ -48,13 +48,13 @@ namespace TT.SoMall.Menus
             context.Menu.AddItem(
                 new ApplicationMenuItem("Shop", l["Menu:Shop"])
                     .AddItem(
-                        new ApplicationMenuItem("Shops", l["Menu:Shop"], url: "/Shops")
+                        new ApplicationMenuItem("Shops", l["Menu:Shop"], "/Shops")
                     )
             );
 
 #if DEBUG
             context.Menu.AddItem(
-                new ApplicationMenuItem("admin", "管理后台",url:"http://192.168.3.50:4200/")
+                new ApplicationMenuItem("admin", "管理后台", "http://192.168.3.50:4200/")
             );
 #else
             context.Menu.AddItem(
@@ -76,9 +76,9 @@ namespace TT.SoMall.Menus
 
             if (currentUser.IsAuthenticated)
             {
-                context.Menu.AddItem(new ApplicationMenuItem("Account.Manage", accountStringLocalizer["ManageYourProfile"], $"{identityServerUrl.EnsureEndsWith('/')}Account/Manage", icon: "fa fa-cog",
-                    order: 1000, null, "_blank"));
-                context.Menu.AddItem(new ApplicationMenuItem("Account.Logout", l["Logout"], url: "/Account/Logout", icon: "fa fa-power-off", order: int.MaxValue - 1000));
+                context.Menu.AddItem(new ApplicationMenuItem("Account.Manage", accountStringLocalizer["ManageYourProfile"], $"{identityServerUrl.EnsureEndsWith('/')}Account/Manage", "fa fa-cog",
+                    1000, null, "_blank"));
+                context.Menu.AddItem(new ApplicationMenuItem("Account.Logout", l["Logout"], "/Account/Logout", "fa fa-power-off", int.MaxValue - 1000));
             }
 
             return Task.CompletedTask;

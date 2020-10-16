@@ -9,14 +9,6 @@ namespace TT.Abp.VisitorManagement.Domain
 {
     public class VisitorShop : AggregateRoot<Guid>, IShop, IUpdateShopData
     {
-        [NotNull] public virtual string Name { get; private set; }
-        [NotNull] public virtual string ShortName { get; private set; }
-        [NotNull] public virtual string LogoImage { get; private set; }
-        [NotNull] public virtual string CoverImage { get; set; }
-        [CanBeNull] public virtual string Description { get; private set; }
-
-        public virtual Guid? TenantId { get; internal set; }
-
         protected VisitorShop()
         {
             ExtraProperties = new Dictionary<string, object>();
@@ -28,6 +20,14 @@ namespace TT.Abp.VisitorManagement.Domain
             UpdateInternal(shop);
             ExtraProperties = new Dictionary<string, object>();
         }
+
+        [NotNull] public virtual string Name { get; private set; }
+        [NotNull] public virtual string ShortName { get; private set; }
+        [NotNull] public virtual string LogoImage { get; private set; }
+        [NotNull] public virtual string CoverImage { get; set; }
+        [CanBeNull] public virtual string Description { get; private set; }
+
+        public virtual Guid? TenantId { get; internal set; }
 
         public virtual bool Update(IShopData shop)
         {

@@ -1,6 +1,4 @@
-﻿using System;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
+﻿using Volo.Abp.Application.Services;
 
 namespace TT.Abp.Weixin.Application
 {

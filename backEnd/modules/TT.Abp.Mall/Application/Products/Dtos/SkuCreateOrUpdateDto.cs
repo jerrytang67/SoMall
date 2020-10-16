@@ -7,35 +7,18 @@ using TT.Abp.Mall.Domain.Products;
 namespace TT.Abp.Mall.Application.Products.Dtos
 {
     /// <summary>
-    /// <see cref="ProductSku"/>
-    /// <see cref="ProductSkuDto"/>
+    ///     <see cref="ProductSku" />
+    ///     <see cref="ProductSkuDto" />
     /// </summary>
     public class SkuCreateOrUpdateDto
     {
-        #region ISkuData
-
-        public Guid? Id { get; set; }
-
-        public Guid? SpuId { get; set; }
-
-        [Required]
-        [StringLength(MallConsts.MaxNameLength)]
-        public string Name { get; set; }
-
-        [StringLength(MallConsts.MaxCodeLength)]
-        public string Code { get; set; }
-
-        public decimal Price { get; set; }
-
-        #endregion
-
-        /// <summary> 
-        /// 原价,非空则显示
+        /// <summary>
+        ///     原价,非空则显示
         /// </summary>
         public decimal? OriginPrice { get; set; }
 
         /// <summary>
-        /// 会员价或活动价
+        ///     会员价或活动价
         /// </summary>
         public decimal? VipPrice { get; set; }
 
@@ -54,12 +37,28 @@ namespace TT.Abp.Mall.Application.Products.Dtos
         public int SoldCount { get; set; }
 
         public int? LimitBuyCount { get; set; }
-        
+
         public string Unit { get; set; }
-        
+
         public bool CommissionEnable { get; set; }
-        
+
         public decimal? CommissionPrice { get; set; }
 
+        #region ISkuData
+
+        public Guid? Id { get; set; }
+
+        public Guid? SpuId { get; set; }
+
+        [Required]
+        [StringLength(MallConsts.MaxNameLength)]
+        public string Name { get; set; }
+
+        [StringLength(MallConsts.MaxCodeLength)]
+        public string Code { get; set; }
+
+        public decimal Price { get; set; }
+
+        #endregion
     }
 }

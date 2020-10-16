@@ -20,12 +20,12 @@ namespace TT.Abp.Mall.EntityFrameworkCore
 
         public Task<List<MallShop>> GetShopsAsync(int maxCount, string filter, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public async Task<List<MallShop>> GetShopsAsync(List<Guid> ids, CancellationToken cancellationToken = default)
         {
-            return await DbSet.Where(x => ids.Contains(x.Id)).ToListAsync(cancellationToken: cancellationToken);
+            return await DbSet.Where(x => ids.Contains(x.Id)).ToListAsync(cancellationToken);
         }
     }
 }

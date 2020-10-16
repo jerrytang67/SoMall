@@ -8,21 +8,21 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "FromClient",
-                table: "Mall_PayOrders");
+                "FromClient",
+                "Mall_PayOrders");
 
             migrationBuilder.DropColumn(
-                name: "OrderId",
-                table: "Mall_PayOrders");
+                "OrderId",
+                "Mall_PayOrders");
 
             migrationBuilder.AddColumn<Guid>(
-                name: "PayOrderId",
-                table: "Mall_ProductOrders",
+                "PayOrderId",
+                "Mall_ProductOrders",
                 nullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "OpenId",
-                table: "Mall_PayOrders",
+                "OpenId",
+                "Mall_PayOrders",
                 maxLength: 32,
                 nullable: false,
                 oldClrType: typeof(string),
@@ -31,8 +31,8 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "MchId",
-                table: "Mall_PayOrders",
+                "MchId",
+                "Mall_PayOrders",
                 maxLength: 32,
                 nullable: false,
                 oldClrType: typeof(string),
@@ -41,8 +41,8 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "BillNo",
-                table: "Mall_PayOrders",
+                "BillNo",
+                "Mall_PayOrders",
                 maxLength: 48,
                 nullable: false,
                 oldClrType: typeof(string),
@@ -51,15 +51,15 @@ namespace TT.SoMall.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "AppName",
-                table: "Mall_PayOrders",
+                "AppName",
+                "Mall_PayOrders",
                 maxLength: 64,
                 nullable: false,
                 defaultValue: "");
 
             migrationBuilder.AlterColumn<string>(
-                name: "ProviderKey",
-                table: "App_Apps",
+                "ProviderKey",
+                "App_Apps",
                 maxLength: 2,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -67,74 +67,74 @@ namespace TT.SoMall.Migrations
                 oldMaxLength: 64,
                 oldNullable: true);
             migrationBuilder.AddColumn<string>(
-                name: "BillNo",
-                table: "Mall_ProductOrders",
+                "BillNo",
+                "Mall_ProductOrders",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "PayOrderId",
-                table: "Mall_ProductOrders");
+                "PayOrderId",
+                "Mall_ProductOrders");
 
             migrationBuilder.DropColumn(
-                name: "AppName",
-                table: "Mall_PayOrders");
+                "AppName",
+                "Mall_PayOrders");
 
             migrationBuilder.AlterColumn<string>(
-                name: "OpenId",
-                table: "Mall_PayOrders",
-                type: "nvarchar(32)",
+                "OpenId",
+                "Mall_PayOrders",
+                "nvarchar(32)",
                 maxLength: 32,
                 nullable: true,
                 oldClrType: typeof(string),
                 oldMaxLength: 32);
 
             migrationBuilder.AlterColumn<string>(
-                name: "MchId",
-                table: "Mall_PayOrders",
-                type: "nvarchar(32)",
+                "MchId",
+                "Mall_PayOrders",
+                "nvarchar(32)",
                 maxLength: 32,
                 nullable: true,
                 oldClrType: typeof(string),
                 oldMaxLength: 32);
 
             migrationBuilder.AlterColumn<string>(
-                name: "BillNo",
-                table: "Mall_PayOrders",
-                type: "nvarchar(48)",
+                "BillNo",
+                "Mall_PayOrders",
+                "nvarchar(48)",
                 maxLength: 48,
                 nullable: true,
                 oldClrType: typeof(string),
                 oldMaxLength: 48);
 
             migrationBuilder.AddColumn<string>(
-                name: "FromClient",
-                table: "Mall_PayOrders",
-                type: "nvarchar(max)",
+                "FromClient",
+                "Mall_PayOrders",
+                "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<Guid>(
-                name: "OrderId",
-                table: "Mall_PayOrders",
-                type: "uniqueidentifier",
+                "OrderId",
+                "Mall_PayOrders",
+                "uniqueidentifier",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AlterColumn<string>(
-                name: "ProviderKey",
-                table: "App_Apps",
-                type: "nvarchar(64)",
+                "ProviderKey",
+                "App_Apps",
+                "nvarchar(64)",
                 maxLength: 64,
                 nullable: true,
                 oldClrType: typeof(string),
                 oldMaxLength: 2,
                 oldNullable: true);
-            
+
             migrationBuilder.DropColumn(
-                name: "BillNo",
-                table: "Mall_ProductOrders");
+                "BillNo",
+                "Mall_ProductOrders");
         }
     }
 }

@@ -7,19 +7,19 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
-                name: "CommissionEnable",
-                table: "Mall_ProductSku",
+                "CommissionEnable",
+                "Mall_ProductSku",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.AddColumn<decimal>(
-                name: "CommissionPrice",
-                table: "Mall_ProductSku",
+                "CommissionPrice",
+                "Mall_ProductSku",
                 nullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "PhoneBackup",
-                table: "Mall_Partners",
+                "PhoneBackup",
+                "Mall_Partners",
                 maxLength: 16,
                 nullable: true,
                 oldClrType: typeof(string),
@@ -30,17 +30,17 @@ namespace TT.SoMall.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "CommissionEnable",
-                table: "Mall_ProductSku");
+                "CommissionEnable",
+                "Mall_ProductSku");
 
             migrationBuilder.DropColumn(
-                name: "CommissionPrice",
-                table: "Mall_ProductSku");
+                "CommissionPrice",
+                "Mall_ProductSku");
 
             migrationBuilder.AlterColumn<string>(
-                name: "PhoneBackup",
-                table: "Mall_Partners",
-                type: "nvarchar(16)",
+                "PhoneBackup",
+                "Mall_Partners",
+                "nvarchar(16)",
                 maxLength: 16,
                 nullable: false,
                 oldClrType: typeof(string),

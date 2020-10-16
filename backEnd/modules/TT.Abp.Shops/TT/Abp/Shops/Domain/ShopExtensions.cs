@@ -5,13 +5,13 @@
         public static IShopData ToShopData(this IShop shop)
         {
             return new ShopData(
-                id: shop.Id,
-                tenantId: shop.TenantId,
-                name: shop.Name,
-                shortName: shop.ShortName,
-                logoImage: shop.LogoImage,
-                coverImage: shop.CoverImage,
-                description: shop.Description
+                shop.Id,
+                shop.TenantId,
+                shop.Name,
+                shop.ShortName,
+                shop.LogoImage,
+                shop.CoverImage,
+                shop.Description
             );
         }
     }

@@ -19,9 +19,9 @@ namespace TT.SoMall.Controllers
     [DisableAuditing]
     public class HomeController : AbpController
     {
-        private readonly ISettingProvider _setting;
         private readonly IdentityUserStore _identityUserStore;
         private readonly IRedisClient _redisClient;
+        private readonly ISettingProvider _setting;
 
         private readonly IdentityUserManager _userManager;
 
@@ -63,9 +63,9 @@ namespace TT.SoMall.Controllers
         [HttpGet]
         public IActionResult HistoryMessage(string from, string to)
         {
-            return Json(new List<MessageViewModel>()
+            return Json(new List<MessageViewModel>
             {
-                new MessageViewModel()
+                new MessageViewModel
                 {
                     Type = 1,
                     FromId = from,
@@ -74,7 +74,7 @@ namespace TT.SoMall.Controllers
                     DateSent = DateTime.Now,
                     DateSeen = DateTime.Now
                 },
-                new MessageViewModel()
+                new MessageViewModel
                 {
                     Type = 1,
                     FromId = from,
@@ -152,7 +152,7 @@ namespace TT.SoMall.Controllers
                 type = 1, // MessageType.File = 2
                 //fromId: ngChatSenderUserId, fromId will be set by the angular component after receiving the http response
                 toId = userId,
-                message = "发送图片,但失败了",
+                message = "发送图片,但失败了"
             });
         }
     }

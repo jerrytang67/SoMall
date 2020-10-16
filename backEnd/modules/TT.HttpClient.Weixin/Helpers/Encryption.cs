@@ -22,7 +22,9 @@ namespace TT.HttpClient.Weixin.Helpers
         {
             if (!new List<int> {16, 24, 32}.Contains(keyLenth))
                 //密钥的长度，16位密钥 = 128位，24位密钥 = 192位，32位密钥 = 256位。
+            {
                 return null;
+            }
 
             var oldBytes = Convert.FromBase64String(encryptedDataStr);
             var bKey = new byte[keyLenth];

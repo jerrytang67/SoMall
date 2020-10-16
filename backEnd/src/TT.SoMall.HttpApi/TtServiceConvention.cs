@@ -14,7 +14,7 @@ namespace TT.SoMall
         public TtServiceConvention(IOptions<AbpAspNetCoreMvcOptions> options) : base(options)
         {
         }
-        
+
         protected override string CalculateRouteTemplate(string rootPath, string controllerName, ActionModel action,
             string httpMethod,
             ConventionalControllerSetting configuration)
@@ -44,7 +44,7 @@ namespace TT.SoMall
                     url += $"/{{{secondaryIds[0].ParameterName}}}";
                 }
             }
-            
+
             if (action.Parameters.Any(p => p.ParameterName == "appName"))
             {
                 url += "/{appName}";
@@ -61,7 +61,7 @@ namespace TT.SoMall
             var actionNameInUrl = action.ActionName
                 //.RemoveHttpMethodPrefix(action.ActionName, httpMethod)
                 .RemovePostFix("Async");
-            
+
             if (configuration?.UrlActionNameNormalizer == null)
             {
                 return actionNameInUrl;

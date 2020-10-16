@@ -5,7 +5,7 @@ namespace TT.SoMall
 {
     [DependsOn(
         typeof(SoMallEntityFrameworkCoreTestModule)
-        )]
+    )]
     public class SoMallDomainTestModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)

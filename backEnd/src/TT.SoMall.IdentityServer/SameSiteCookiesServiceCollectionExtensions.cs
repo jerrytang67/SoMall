@@ -7,38 +7,38 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class SameSiteCookiesServiceCollectionExtensions
     {
         /// <summary>
-        /// -1 defines the unspecified value, which tells ASPNET Core to NOT
-        /// send the SameSite attribute. With ASPNET Core 3.1 the
-        /// <seealso cref="SameSiteMode" /> enum will have a definition for
-        /// Unspecified.
+        ///     -1 defines the unspecified value, which tells ASPNET Core to NOT
+        ///     send the SameSite attribute. With ASPNET Core 3.1 the
+        ///     <seealso cref="SameSiteMode" /> enum will have a definition for
+        ///     Unspecified.
         /// </summary>
         private const SameSiteMode Unspecified = (SameSiteMode) (-1);
 
         /// <summary>
-        /// Configures a cookie policy to properly set the SameSite attribute
-        /// for Browsers that handle unknown values as Strict. Ensure that you
-        /// add the <seealso cref="Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware" />
-        /// into the pipeline before sending any cookies!
+        ///     Configures a cookie policy to properly set the SameSite attribute
+        ///     for Browsers that handle unknown values as Strict. Ensure that you
+        ///     add the <seealso cref="Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware" />
+        ///     into the pipeline before sending any cookies!
         /// </summary>
         /// <remarks>
-        /// Minimum ASPNET Core Version required for this code:
-        ///   - 2.1.14
-        ///   - 2.2.8
-        ///   - 3.0.1
-        ///   - 3.1.0-preview1
-        /// Starting with version 80 of Chrome (to be released in February 2020)
-        /// cookies with NO SameSite attribute are treated as SameSite=Lax.
-        /// In order to always get the cookies send they need to be set to
-        /// SameSite=None. But since the current standard only defines Lax and
-        /// Strict as valid values there are some browsers that treat invalid
-        /// values as SameSite=Strict. We therefore need to check the browser
-        /// and either send SameSite=None or prevent the sending of SameSite=None.
-        /// Relevant links:
-        /// - https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1
-        /// - https://tools.ietf.org/html/draft-west-cookie-incrementalism-00
-        /// - https://www.chromium.org/updates/same-site
-        /// - https://devblogs.microsoft.com/aspnet/upcoming-samesite-cookie-changes-in-asp-net-and-asp-net-core/
-        /// - https://bugs.webkit.org/show_bug.cgi?id=198181
+        ///     Minimum ASPNET Core Version required for this code:
+        ///     - 2.1.14
+        ///     - 2.2.8
+        ///     - 3.0.1
+        ///     - 3.1.0-preview1
+        ///     Starting with version 80 of Chrome (to be released in February 2020)
+        ///     cookies with NO SameSite attribute are treated as SameSite=Lax.
+        ///     In order to always get the cookies send they need to be set to
+        ///     SameSite=None. But since the current standard only defines Lax and
+        ///     Strict as valid values there are some browsers that treat invalid
+        ///     values as SameSite=Strict. We therefore need to check the browser
+        ///     and either send SameSite=None or prevent the sending of SameSite=None.
+        ///     Relevant links:
+        ///     - https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1
+        ///     - https://tools.ietf.org/html/draft-west-cookie-incrementalism-00
+        ///     - https://www.chromium.org/updates/same-site
+        ///     - https://devblogs.microsoft.com/aspnet/upcoming-samesite-cookie-changes-in-asp-net-and-asp-net-core/
+        ///     - https://bugs.webkit.org/show_bug.cgi?id=198181
         /// </remarks>
         /// <param name="services">The service collection to register <see cref="CookiePolicyOptions" /> into.</param>
         /// <returns>The modified <see cref="IServiceCollection" />.</returns>
@@ -70,13 +70,13 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// Checks if the UserAgent is known to interpret an unknown value as Strict.
-        /// For those the <see cref="CookieOptions.SameSite" /> property should be
-        /// set to <see cref="Unspecified" />.
+        ///     Checks if the UserAgent is known to interpret an unknown value as Strict.
+        ///     For those the <see cref="CookieOptions.SameSite" /> property should be
+        ///     set to <see cref="Unspecified" />.
         /// </summary>
         /// <remarks>
-        /// This code is taken from Microsoft:
-        /// https://devblogs.microsoft.com/aspnet/upcoming-samesite-cookie-changes-in-asp-net-and-asp-net-core/
+        ///     This code is taken from Microsoft:
+        ///     https://devblogs.microsoft.com/aspnet/upcoming-samesite-cookie-changes-in-asp-net-and-asp-net-core/
         /// </remarks>
         /// <param name="userAgent">The user agent string to check.</param>
         /// <returns>Whether the specified user agent (browser) accepts SameSite=None or not.</returns>

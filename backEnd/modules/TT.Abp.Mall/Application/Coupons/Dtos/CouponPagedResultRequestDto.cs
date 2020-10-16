@@ -1,5 +1,4 @@
 ﻿using System;
-using Volo.Abp.Application.Dtos;
 
 namespace TT.Abp.Mall.Application.Coupons.Dtos
 {

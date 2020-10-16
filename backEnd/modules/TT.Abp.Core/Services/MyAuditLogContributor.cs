@@ -9,8 +9,6 @@ namespace TT.Abp.Core.Services
 {
     public class MyAuditLogContributor : AspNetCoreAuditLogContributor, ITransientDependency
     {
-        
-        
         protected string GetClientIpAddress(HttpContext httpContext)
         {
             try

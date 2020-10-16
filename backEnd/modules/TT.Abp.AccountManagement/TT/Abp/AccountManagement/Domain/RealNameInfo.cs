@@ -9,11 +9,6 @@ namespace TT.Abp.AccountManagement.Domain
     {
         public Guid UserId { get; protected set; }
 
-        public override object[] GetKeys()
-        {
-            return new object[] {UserId};
-        }
-
         [NotNull] public string RealName { get; protected set; }
 
         [NotNull] public string Phone { get; protected set; }
@@ -32,5 +27,10 @@ namespace TT.Abp.AccountManagement.Domain
         public AccountEnums.RealNameInfoState State { get; protected set; } = 0;
 
         public Guid? TenantId { get; protected set; }
+
+        public override object[] GetKeys()
+        {
+            return new object[] {UserId};
+        }
     }
 }

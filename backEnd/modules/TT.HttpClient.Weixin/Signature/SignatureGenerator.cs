@@ -12,7 +12,10 @@ namespace TT.HttpClient.Weixin.Signature
             var signBytes = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(signStr));
             // Log.Information(signStr);
             var sb = new StringBuilder();
-            foreach (var @byte in signBytes) sb.Append($"{@byte:x2}");
+            foreach (var @byte in signBytes)
+            {
+                sb.Append($"{@byte:x2}");
+            }
 
             return sb.ToString().ToUpper();
         }

@@ -23,15 +23,12 @@ namespace TT.SoMall
         typeof(AbpPermissionManagementDomainSharedModule),
         typeof(AbpSettingManagementDomainSharedModule),
         typeof(AbpTenantManagementDomainSharedModule)
-        )]
+    )]
     public class SoMallDomainSharedModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            Configure<AbpVirtualFileSystemOptions>(options =>
-            {
-                options.FileSets.AddEmbedded<SoMallDomainSharedModule>("TT.SoMall");
-            });
+            Configure<AbpVirtualFileSystemOptions>(options => { options.FileSets.AddEmbedded<SoMallDomainSharedModule>("TT.SoMall"); });
 
             Configure<AbpLocalizationOptions>(options =>
             {

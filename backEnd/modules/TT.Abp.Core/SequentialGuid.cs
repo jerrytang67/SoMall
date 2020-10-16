@@ -6,28 +6,66 @@ using Volo.Abp.Threading;
 namespace TT.Abp.Core
 {
     /// <summary>
-    /// Implements <see cref="IGuidGenerator"/> by creating sequential Guids.
-    /// This code is taken from https://github.com/jhtodd/SequentialGuid/blob/master/SequentialGuid/Classes/SequentialGuid.cs
+    ///     Implements <see cref="IGuidGenerator" /> by creating sequential Guids.
+    ///     This code is taken from https://github.com/jhtodd/SequentialGuid/blob/master/SequentialGuid/Classes/SequentialGuid.cs
     /// </summary>
     public class SequentialGuid : IGuidGenerator
     {
         /// <summary>
-        /// Gets the singleton <see cref="SequentialGuid"/> instance.
+        ///     Database type to generate GUIDs.
         /// </summary>
-        public static SequentialGuid Instance { get; } = new SequentialGuid();
+        public enum SequentialGuidDatabaseType
+        {
+            SqlServer,
+
+            Oracle,
+
+            MySql,
+
+            PostgreSql
+        }
+
+        /// <summary>
+        ///     Describes the type of a sequential GUID value.
+        /// </summary>
+        public enum SequentialGuidType
+        {
+            /// <summary>
+            ///     The GUID should be sequential when formatted using the
+            ///     <see cref="Guid.ToString()" /> method.
+            /// </summary>
+            SequentialAsString,
+
+            /// <summary>
+            ///     The GUID should be sequential when formatted using the
+            ///     <see cref="Guid.ToByteArray" /> method.
+            /// </summary>
+            SequentialAsBinary,
+
+            /// <summary>
+            ///     The sequential portion of the GUID should be located at the end
+            ///     of the Data4 block.
+            /// </summary>
+            SequentialAtEnd
+        }
 
         private static readonly RandomNumberGenerator Rng = RandomNumberGenerator.Create();
 
-        public SequentialGuidDatabaseType DatabaseType { get; set; }
-
         /// <summary>
-        /// Prevents a default instance of the <see cref="SequentialGuid"/> class from being created.
-        /// Use <see cref="Instance"/>.
+        ///     Prevents a default instance of the <see cref="SequentialGuid" /> class from being created.
+        ///     Use <see cref="Instance" />.
         /// </summary>
         public SequentialGuid()
         {
             DatabaseType = SequentialGuidDatabaseType.SqlServer;
         }
+
+        /// <summary>
+        ///     Gets the singleton <see cref="SequentialGuid" /> instance.
+        /// </summary>
+        public static SequentialGuid Instance { get; } = new SequentialGuid();
+
+        public SequentialGuidDatabaseType DatabaseType { get; set; }
 
         public Guid Create()
         {
@@ -76,10 +114,10 @@ namespace TT.Abp.Core
             // Using millisecond resolution for our 48-bit timestamp gives us
             // about 5900 years before the timestamp overflows and cycles.
             // Hopefully this should be sufficient for most purposes. :)
-            long timestamp = DateTime.UtcNow.Ticks / 10000L;
+            var timestamp = DateTime.UtcNow.Ticks / 10000L;
 
             // Then get the bytes
-            byte[] timestampBytes = BitConverter.GetBytes(timestamp);
+            var timestampBytes = BitConverter.GetBytes(timestamp);
 
             // Since we're converting from an Int64, we have to reverse on
             // little-endian systems.
@@ -88,7 +126,7 @@ namespace TT.Abp.Core
                 Array.Reverse(timestampBytes);
             }
 
-            byte[] guidBytes = new byte[16];
+            var guidBytes = new byte[16];
 
             switch (guidType)
             {
@@ -122,44 +160,6 @@ namespace TT.Abp.Core
             }
 
             return new Guid(guidBytes);
-        }
-
-        /// <summary>
-        /// Database type to generate GUIDs.
-        /// </summary>
-        public enum SequentialGuidDatabaseType
-        {
-            SqlServer,
-
-            Oracle,
-
-            MySql,
-
-            PostgreSql,
-        }
-
-        /// <summary>
-        /// Describes the type of a sequential GUID value.
-        /// </summary>
-        public enum SequentialGuidType
-        {
-            /// <summary>
-            /// The GUID should be sequential when formatted using the
-            /// <see cref="Guid.ToString()" /> method.
-            /// </summary>
-            SequentialAsString,
-
-            /// <summary>
-            /// The GUID should be sequential when formatted using the
-            /// <see cref="Guid.ToByteArray" /> method.
-            /// </summary>
-            SequentialAsBinary,
-
-            /// <summary>
-            /// The sequential portion of the GUID should be located at the end
-            /// of the Data4 block.
-            /// </summary>
-            SequentialAtEnd
         }
     }
 }

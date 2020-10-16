@@ -12,8 +12,8 @@ namespace TT.SoMall.Samples
      */
     public class SampleDomainTests : SoMallDomainTestBase
     {
-        private readonly IIdentityUserRepository _identityUserRepository;
         private readonly IdentityUserManager _identityUserManager;
+        private readonly IIdentityUserRepository _identityUserRepository;
 
         public SampleDomainTests()
         {

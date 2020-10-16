@@ -10,13 +10,14 @@ namespace TT.Abp.AuditManagement.Audits
     public class GlobalAuditValueProvider : AuditValueProvider
     {
         public const string ProviderName = "G";
-        public override string Name => ProviderName;
 
         public GlobalAuditValueProvider(
             IRepository<AuditFlow, Guid> auditFlowRepository
         ) : base(auditFlowRepository)
         {
         }
+
+        public override string Name => ProviderName;
 
 
         [UnitOfWork]

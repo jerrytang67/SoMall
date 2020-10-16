@@ -19,9 +19,15 @@ namespace TT.HttpClient.Weixin.Models
 
         public virtual void AddParameter(string key, string value)
         {
-            if (string.IsNullOrEmpty(value)) return;
+            if (string.IsNullOrEmpty(value))
+            {
+                return;
+            }
 
-            if (SortedDictionary.ContainsKey(key)) return;
+            if (SortedDictionary.ContainsKey(key))
+            {
+                return;
+            }
 
             SortedDictionary.Add(key, value);
         }
@@ -34,7 +40,10 @@ namespace TT.HttpClient.Weixin.Models
         public virtual string GetWaitForSignatureStr()
         {
             var sb = new StringBuilder();
-            foreach (var kv in SortedDictionary) sb.Append(kv.Key).Append('=').Append(kv.Value).Append('&');
+            foreach (var kv in SortedDictionary)
+            {
+                sb.Append(kv.Key).Append('=').Append(kv.Value).Append('&');
+            }
 
             return sb.ToString().TrimEnd('&');
         }

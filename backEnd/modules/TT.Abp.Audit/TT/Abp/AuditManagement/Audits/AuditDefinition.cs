@@ -19,18 +19,12 @@ namespace TT.Abp.AuditManagement.Audits
 
         public List<string> Providers { get; set; }
 
-        public ILocalizableString DisplayName
-        {
-            get => _displayName;
-            set => _displayName = value;
-        }
-
-        private ILocalizableString _displayName;
+        public ILocalizableString DisplayName { get; set; }
 
 
         /// <summary>
-        /// Sets a property in the <see cref="Properties"/> dictionary.
-        /// This is a shortcut for nested calls on this object.
+        ///     Sets a property in the <see cref="Properties" /> dictionary.
+        ///     This is a shortcut for nested calls on this object.
         /// </summary>
         public virtual AuditDefinition WithProviders(params string[] providers)
         {

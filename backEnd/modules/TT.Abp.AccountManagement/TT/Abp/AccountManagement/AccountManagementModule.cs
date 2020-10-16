@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using TT.Abp.AccountManagement.EntityFrameworkCore;
 using Volo.Abp.AspNetCore.Mvc;
@@ -20,7 +19,7 @@ namespace TT.Abp.AccountManagement
             context.Services.AddAbpDbContext<AccountManagementDbContext>(options => { options.AddDefaultRepositories(true); });
 
             context.Services.AddAutoMapperObjectMapper<AccountManagementModule>();
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AccountManagementModuleApplicationAutoMapperProfile>(validate: true); });
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AccountManagementModuleApplicationAutoMapperProfile>(true); });
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;
@@ -31,9 +30,5 @@ namespace TT.Abp.AccountManagement
 
     public class AccountManagementModuleApplicationAutoMapperProfile : Profile
     {
-        public AccountManagementModuleApplicationAutoMapperProfile()
-        {
-            
-        }
     }
 }

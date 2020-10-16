@@ -31,16 +31,16 @@ namespace TT.Abp.AppManagement
             });
 
             context.Services.AddAutoMapperObjectMapper<AppManagementModule>();
-            
-            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AppManagementModuleAutoMapperProfile>(validate: false); });
-            
-            
+
+            Configure<AbpAutoMapperOptions>(options => { options.AddProfile<AppManagementModuleAutoMapperProfile>(false); });
+
+
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
                 options.MinifyGeneratedScript = true;
                 options.ConventionalControllers.Create(typeof(AppManagementModule).Assembly);
             });
-            
+
             Configure<AppOptions>(options =>
             {
                 options.ValueProviders.Add<DefaultValueAppValueProvider>();
@@ -48,7 +48,6 @@ namespace TT.Abp.AppManagement
                 options.ValueProviders.Add<GlobalAppValueProvider>();
                 options.ValueProviders.Add<TenantAppValueProvider>();
             });
-            
         }
 
         private static void AutoAddDefinitionProviders(IServiceCollection services)

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using TT.Abp.Mall.Application.Pays;
-using TT.Abp.Mall.Domain.Pays;
 using TT.Abp.Mall.Events.Pays;
 using TT.RabbitMQ;
 

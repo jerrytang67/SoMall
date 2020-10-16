@@ -16,15 +16,12 @@ namespace TT.SoMall
         typeof(AbpPermissionManagementApplicationModule),
         typeof(AbpTenantManagementApplicationModule),
         typeof(AbpFeatureManagementApplicationModule)
-        )]
+    )]
     public class SoMallApplicationModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            Configure<AbpAutoMapperOptions>(options =>
-            {
-                options.AddMaps<SoMallApplicationModule>();
-            });
+            Configure<AbpAutoMapperOptions>(options => { options.AddMaps<SoMallApplicationModule>(); });
         }
     }
 }

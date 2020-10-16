@@ -68,9 +68,9 @@ namespace TT.SoMall.EntityFrameworkCore
             builder.ConfigureWeixinManagement();
 
             builder.ConfigureAppManagement();
-            
+
             builder.ConfigureAuditManagement();
-            
+
             builder.ConfigureCms();
         }
     }

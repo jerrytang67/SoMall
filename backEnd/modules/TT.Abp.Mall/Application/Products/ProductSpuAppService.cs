@@ -27,15 +27,15 @@ namespace TT.Abp.Mall.Application.Products
     public class ProductSpuAppService
         : CrudAppService<ProductSpu, ProductSpuDto, Guid, MallRequestDto, SpuCreateOrUpdateDto, SpuCreateOrUpdateDto>, IProductSpuAppService
     {
-        private readonly IGuidGenerator _guidGenerator;
-        private readonly IRepository<ProductSku, Guid> _skuRepository;
-        private readonly IRepository<ProductCategory, Guid> _categoryRepository;
-        private readonly IRepository<AppProductSpu> _appProductRepository;
-        private readonly IRepository<QrDetail, Guid> _qrDetailRepository;
-        private readonly IMallShopRepository _mallShopRepository;
-        private readonly IMallShopLookupService _mallShopLookupService;
         private readonly IAppDefinitionManager _appDefinitionManager;
+        private readonly IRepository<AppProductSpu> _appProductRepository;
+        private readonly IRepository<ProductCategory, Guid> _categoryRepository;
+        private readonly IGuidGenerator _guidGenerator;
+        private readonly IMallShopLookupService _mallShopLookupService;
+        private readonly IMallShopRepository _mallShopRepository;
         private readonly IMediator _mediator;
+        private readonly IRepository<QrDetail, Guid> _qrDetailRepository;
+        private readonly IRepository<ProductSku, Guid> _skuRepository;
 
         public ProductSpuAppService(
             IGuidGenerator guidGenerator,
@@ -75,7 +75,7 @@ namespace TT.Abp.Mall.Application.Products
 
         public override async Task<ProductSpuDto> CreateAsync(SpuCreateOrUpdateDto input)
         {
-            var local = await Repository.FirstOrDefaultAsync(x => x.Code == input.Code || (x.Name == input.Name && x.CategoryId == input.CategoryId));
+            var local = await Repository.FirstOrDefaultAsync(x => x.Code == input.Code || x.Name == input.Name && x.CategoryId == input.CategoryId);
 
             if (local != null)
             {
@@ -104,7 +104,7 @@ namespace TT.Abp.Mall.Application.Products
         public override async Task<ProductSpuDto> UpdateAsync(Guid id, SpuCreateOrUpdateDto input)
         {
             if (await Repository
-                .AnyAsync(x => (x.Code == input.Code || (x.Name == input.Name && x.CategoryId == input.CategoryId)) && x.Id != id))
+                .AnyAsync(x => (x.Code == input.Code || x.Name == input.Name && x.CategoryId == input.CategoryId) && x.Id != id))
             {
                 throw new UserFriendlyException("同分类下不能同名或商品编号相同");
             }
@@ -121,7 +121,7 @@ namespace TT.Abp.Mall.Application.Products
             ObjectMapper.Map(input, entity);
 
 
-            await Repository.UpdateAsync(entity, autoSave: true);
+            await Repository.UpdateAsync(entity, true);
 
             var dbIds = entity.Skus.Select(x => x.Id).ToList();
 
@@ -134,7 +134,7 @@ namespace TT.Abp.Mall.Application.Products
                     skuInput.Id = sku.Id;
                     skuInput.Desc = Regex.Replace(skuInput.Desc, @"(style=""height:\d+px; width:\d+px"")", @"class=""img""");
                     ObjectMapper.Map(skuInput, sku);
-                    await _skuRepository.UpdateAsync(sku, autoSave: true);
+                    await _skuRepository.UpdateAsync(sku, true);
                 }
                 else
                 {
@@ -162,10 +162,10 @@ namespace TT.Abp.Mall.Application.Products
                 var value = Convert.ToBoolean(jo["checked"]);
                 if (value)
                 {
-                    if ((entity.AppProductSpus).All(x => x.AppName != appName))
+                    if (entity.AppProductSpus.All(x => x.AppName != appName))
                     {
                         await _appProductRepository.InsertAsync(new AppProductSpu(
-                            appName, id, entity.TenantId), autoSave: true);
+                            appName, id, entity.TenantId), true);
                     }
                 }
                 else
@@ -174,7 +174,9 @@ namespace TT.Abp.Mall.Application.Products
                     {
                         var existCate = entity.AppProductSpus.FirstOrDefault(x => x.AppName == appName);
                         if (existCate != null)
-                            await _appProductRepository.DeleteAsync(existCate, autoSave: true);
+                        {
+                            await _appProductRepository.DeleteAsync(existCate, true);
+                        }
                     }
                 }
             }
@@ -186,7 +188,7 @@ namespace TT.Abp.Mall.Application.Products
         }
 
         /// <summary>
-        /// 获取编辑
+        ///     获取编辑
         /// </summary>
         /// <param name="id"></param>
         /// <param name="input"></param>
@@ -210,9 +212,9 @@ namespace TT.Abp.Mall.Application.Products
             schema["apps"] = apps.GetSelection("string", "appName", @"{0}", new[] {"Name"}, "Name");
 
             return new GetForEditOutput<SpuCreateOrUpdateDto>(
-                ObjectMapper.Map<ProductSpu, SpuCreateOrUpdateDto>(find ?? new ProductSpu()
+                ObjectMapper.Map<ProductSpu, SpuCreateOrUpdateDto>(find ?? new ProductSpu
                 {
-                    Skus = new List<ProductSku>()
+                    Skus = new List<ProductSku>
                     {
                         new ProductSku("name")
                     }
@@ -248,22 +250,22 @@ namespace TT.Abp.Mall.Application.Products
             return spuDtos;
         }
 
-        protected override IQueryable<ProductSpu> CreateFilteredQuery(MallRequestDto input)
-        {
-            return Repository
-                .Include(x => x.Category)
-                .Include(x => x.AppProductSpus)
-                .Include(x => x.Skus)
-                .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
-                ;
-        }
-
 
         [HttpPost]
         public async Task<QrDetail> GetQr(MallRequestDto input)
         {
             var result = await _mediator.Send(new GetQrQuery(input, "mall_product_page"));
             return result;
+        }
+
+        protected override IQueryable<ProductSpu> CreateFilteredQuery(MallRequestDto input)
+        {
+            return Repository
+                    .Include(x => x.Category)
+                    .Include(x => x.AppProductSpus)
+                    .Include(x => x.Skus)
+                    .WhereIf(input.ShopId.HasValue, x => x.ShopId == input.ShopId)
+                ;
         }
     }
 }

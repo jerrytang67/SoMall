@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using TT.Abp.AppManagement.Apps;
 using TT.Abp.AppManagement.Domain;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.AppManagement.Application
 {
@@ -53,7 +50,7 @@ namespace TT.Abp.AppManagement.Application
 
 
     /// <summary>
-    /// <see cref="App"/>
+    ///     <see cref="App" />
     /// </summary>
     public class AppDto : EntityDto<Guid>
     {

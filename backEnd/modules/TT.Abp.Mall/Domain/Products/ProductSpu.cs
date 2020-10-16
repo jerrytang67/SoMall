@@ -24,48 +24,48 @@ namespace TT.Abp.Mall.Domain.Products
         }
 
         public virtual Guid CategoryId { get; internal set; }
-        public virtual Guid? TenantId { get; internal set; }
-        public virtual Guid? ShopId { get; internal set; }
-        public virtual string Name { get; internal set; }
 
         /// <summary>
-        /// 商品编码
-        /// </summary>
-        public virtual string Code { get; internal set; }
-
-        /// <summary>
-        /// 共用商品详情
+        ///     共用商品详情
         /// </summary>
         public virtual string DescCommon { get; set; }
 
         /// <summary>
-        /// 共用购买须知
+        ///     共用购买须知
         /// </summary>
         public virtual string PurchaseNotesCommon { get; set; }
-
-        /// <summary>
-        /// 开售时间
-        /// </summary>
-        public virtual DateTimeOffset? DateTimeStart { get; set; }
-
-        /// <summary>
-        /// 结束售卖时间
-        /// </summary>
-        public virtual DateTimeOffset? DateTimeEnd { get; set; }
-
-        /// <summary>
-        /// 限购
-        /// </summary>
-        public virtual int? LimitBuyCount { get; internal set; }
-
-        /// <summary>
-        /// 售出
-        /// </summary>
-        public virtual int SoldCount { get; internal set; }
 
         [ForeignKey("CategoryId")] public virtual ProductCategory Category { get; set; }
 
         public virtual ICollection<ProductSku> Skus { get; set; }
         public virtual ICollection<AppProductSpu> AppProductSpus { get; set; }
+        public virtual Guid? ShopId { get; internal set; }
+        public virtual Guid? TenantId { get; internal set; }
+        public virtual string Name { get; internal set; }
+
+        /// <summary>
+        ///     商品编码
+        /// </summary>
+        public virtual string Code { get; internal set; }
+
+        /// <summary>
+        ///     开售时间
+        /// </summary>
+        public virtual DateTimeOffset? DateTimeStart { get; set; }
+
+        /// <summary>
+        ///     结束售卖时间
+        /// </summary>
+        public virtual DateTimeOffset? DateTimeEnd { get; set; }
+
+        /// <summary>
+        ///     限购
+        /// </summary>
+        public virtual int? LimitBuyCount { get; internal set; }
+
+        /// <summary>
+        ///     售出
+        /// </summary>
+        public virtual int SoldCount { get; internal set; }
     }
 }

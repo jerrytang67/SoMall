@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TT.Abp.VisitorManagement.Application.Dtos;
 using TT.Abp.VisitorManagement.Domain;
@@ -11,10 +13,8 @@ using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
-using Volo.Abp.MultiTenancy;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using Volo.Abp.Guids;
+using Volo.Abp.MultiTenancy;
 
 namespace TT.Abp.VisitorManagement.Application
 {
@@ -29,11 +29,11 @@ namespace TT.Abp.VisitorManagement.Application
 
     public class VisitorLogAppService : ApplicationService, IVisitorLogAppService
     {
+        private readonly ICurrentTenant _currentTenant;
+        private readonly IRepository<Form, Guid> _formRepository;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IRepository<VisitorLog, Guid> _repository;
         private readonly IRepository<VisitorShop, Guid> _shopRepository;
-        private readonly IRepository<Form, Guid> _formRepository;
-        private readonly ICurrentTenant _currentTenant;
 
         public VisitorLogAppService(
             IGuidGenerator guidGenerator,
@@ -99,7 +99,9 @@ namespace TT.Abp.VisitorManagement.Application
             var visitlog = await _repository.FirstOrDefaultAsync(x => x.Id == input.Id);
 
             if (visitlog == null)
+            {
                 throw new UserFriendlyException("NotFind");
+            }
 
             visitlog.LeaveTime = DateTimeOffset.Now;
 

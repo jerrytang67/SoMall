@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using TT.Abp.VisitorManagement.Domain;
 
 namespace TT.Abp.VisitorManagement.Application.Dtos
 {
     /// <summary>
-    /// <see cref="VisitorLog"/>
+    ///     <see cref="VisitorLog" />
     /// </summary>
     public class VisitorLogDto
     {
@@ -15,9 +14,9 @@ namespace TT.Abp.VisitorManagement.Application.Dtos
         public List<FormItemDto> FormJson { get; set; }
         public Guid? CredentialId { get; set; }
         public CredentialDto Credential { get; set; }
-        
+
         public DateTime CreationTime { get; set; }
-        
+
         public double? Lat { get; set; }
         public double? Lng { get; set; }
         public DateTimeOffset? LeaveTime { get; set; }

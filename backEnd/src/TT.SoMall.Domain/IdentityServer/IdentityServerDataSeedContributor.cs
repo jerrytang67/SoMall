@@ -21,10 +21,10 @@ namespace TT.SoMall.IdentityServer
     {
         private readonly IApiResourceRepository _apiResourceRepository;
         private readonly IClientRepository _clientRepository;
-        private readonly IIdentityResourceDataSeeder _identityResourceDataSeeder;
-        private readonly IGuidGenerator _guidGenerator;
-        private readonly IPermissionDataSeeder _permissionDataSeeder;
         private readonly IConfiguration _configuration;
+        private readonly IGuidGenerator _guidGenerator;
+        private readonly IIdentityResourceDataSeeder _identityResourceDataSeeder;
+        private readonly IPermissionDataSeeder _permissionDataSeeder;
 
         public IdentityServerDataSeedContributor(
             IClientRepository clientRepository,
@@ -77,7 +77,7 @@ namespace TT.SoMall.IdentityServer
                         name,
                         name + " API"
                     ),
-                    autoSave: true
+                    true
                 );
             }
 
@@ -121,8 +121,8 @@ namespace TT.SoMall.IdentityServer
                     commonScopes,
                     new[] {"hybrid"},
                     (configurationSection["SoMall_Web:ClientSecret"] ?? "1q2w3e*").Sha256(),
-                    redirectUris: new[] {$"{webClientRootUrl}signin-oidc"},
-                    postLogoutRedirectUri: $"{webClientRootUrl}signout-callback-oidc"
+                    new[] {$"{webClientRootUrl}signin-oidc"},
+                    $"{webClientRootUrl}signout-callback-oidc"
                 );
             }
 
@@ -178,7 +178,7 @@ namespace TT.SoMall.IdentityServer
                         // tt-somall
                         AlwaysSendClientClaims = true
                     },
-                    autoSave: true
+                    true
                 );
             }
 

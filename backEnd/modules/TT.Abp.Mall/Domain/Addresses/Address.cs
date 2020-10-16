@@ -1,6 +1,5 @@
 ﻿using System;
 using JetBrains.Annotations;
-using TT.Abp.Mall.Domain.Products;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp.MultiTenancy;
 

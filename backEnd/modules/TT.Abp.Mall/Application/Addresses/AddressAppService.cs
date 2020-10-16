@@ -4,15 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp.Domain.Repositories;
 using TT.Abp.Mall.Application.Addresses.Dtos;
 using TT.Abp.Mall.Application.Users;
 using TT.Abp.Mall.Definitions;
 using TT.Abp.Mall.Domain.Addresses;
 using TT.Abp.Mall.Domain.Users;
-using Volo.Abp.EventBus.Local;
+using Volo.Abp.Application.Dtos;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Linq;
 
 namespace TT.Abp.Mall.Application.Addresses
@@ -31,7 +30,6 @@ namespace TT.Abp.Mall.Application.Addresses
         : CrudAppService<Address, AddressDto, Guid, PagedAndSortedResultRequestDto, AddressCreateOrUpdateDto, AddressCreateOrUpdateDto>, IAddressAppService
     {
         private readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
-        protected IMallUserLookupService UserLookupService { get; }
 
         public AddressAppService(
             IRepository<Address, Guid> repository,
@@ -47,6 +45,8 @@ namespace TT.Abp.Mall.Application.Addresses
             base.UpdatePolicyName = MallPermissions.Addresses.Update;
             base.DeletePolicyName = MallPermissions.Addresses.Delete;
         }
+
+        protected IMallUserLookupService UserLookupService { get; }
 
         public override async Task<PagedResultDto<AddressDto>> GetListAsync(PagedAndSortedResultRequestDto input)
         {
@@ -100,7 +100,7 @@ namespace TT.Abp.Mall.Application.Addresses
 
             TryToSetTenantId(entity);
 
-            await Repository.InsertAsync(entity, autoSave: true);
+            await Repository.InsertAsync(entity, true);
 
             return MapToGetOutputDto(entity);
         }
@@ -115,7 +115,7 @@ namespace TT.Abp.Mall.Application.Addresses
 
             //TODO: Check if input has id different than given id and normalize if it's default value, throw ex otherwise
             MapToEntity(input, entity);
-            await Repository.UpdateAsync(entity, autoSave: true);
+            await Repository.UpdateAsync(entity, true);
 
             return MapToGetOutputDto(entity);
         }

@@ -12,12 +12,12 @@ namespace TT.RabbitMQ
 {
     public class DeadLetterListener : IHostedService
     {
-        public readonly RabbitMqOptions Options;
-        private readonly IConnection _connection;
         private readonly IModel _channel;
+        private readonly IConnection _connection;
 
 
         public readonly ILogger<DeadLetterListener> Logger;
+        public readonly RabbitMqOptions Options;
 
         public DeadLetterListener(
             IOptions<RabbitMqOptions> optionsAccessor,
@@ -28,20 +28,20 @@ namespace TT.RabbitMQ
             Options = optionsAccessor.Value;
             try
             {
-                var factory = new ConnectionFactory()
+                var factory = new ConnectionFactory
                 {
                     UserName = Options.UserName,
                     Password = Options.Password,
                     HostName = Options.HostName,
                     Port = Options.Port
                 };
-                this._connection = factory.CreateConnection();
-                this._channel = _connection.CreateModel();
-                Logger.LogWarning($"RabbitMQ 连接成功");
+                _connection = factory.CreateConnection();
+                _channel = _connection.CreateModel();
+                Logger.LogWarning("RabbitMQ 连接成功");
             }
             catch (Exception ex)
             {
-                Logger.LogError(($"RabbitListener init error,ex:{ex.Message}"));
+                Logger.LogError($"RabbitListener init error,ex:{ex.Message}");
             }
         }
 
@@ -52,6 +52,13 @@ namespace TT.RabbitMQ
             await Task.CompletedTask;
         }
 
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _channel?.Dispose();
+            _connection?.Dispose();
+            return Task.CompletedTask;
+        }
+
         // 处理死信队列
         protected virtual async Task Register()
         {
@@ -59,8 +66,8 @@ namespace TT.RabbitMQ
             var WORK_EXCHANGE = Options.DelayWorkExchangeName; // dead letter exchange
 
             _channel.ExchangeDeclare(WORK_EXCHANGE, "direct");
-            _channel.QueueDeclare(WORK_QUEUE, durable: true, exclusive: false, autoDelete: false, arguments: null);
-            _channel.QueueBind(queue: WORK_QUEUE, exchange: WORK_EXCHANGE, routingKey: string.Empty, arguments: null);
+            _channel.QueueDeclare(WORK_QUEUE, true, false, false, null);
+            _channel.QueueBind(WORK_QUEUE, WORK_EXCHANGE, string.Empty, null);
 
             //回调，当consumer收到消息后会执行该函数
             var consumer = new EventingBasicConsumer(_channel);
@@ -71,7 +78,7 @@ namespace TT.RabbitMQ
                 var result = await ProcessAsync(message);
                 if (result)
                 {
-                    _channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+                    _channel.BasicAck(ea.DeliveryTag, false);
                 }
                 // else
                 // {
@@ -81,7 +88,7 @@ namespace TT.RabbitMQ
 
                 await Task.Yield();
             };
-            _channel.BasicConsume(queue: WORK_QUEUE, autoAck: false, consumer: consumer);
+            _channel.BasicConsume(WORK_QUEUE, false, consumer);
 
             await Task.CompletedTask;
         }
@@ -89,13 +96,6 @@ namespace TT.RabbitMQ
         protected virtual Task<bool> ProcessAsync(string message)
         {
             throw new NotImplementedException();
-        }
-
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            _channel?.Dispose();
-            _connection?.Dispose();
-            return Task.CompletedTask;
         }
     }
 }

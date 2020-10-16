@@ -8,16 +8,6 @@ namespace TT.Abp.AppManagement.Domain
 {
     public class App : FullAuditedAggregateRoot<Guid>
     {
-        [NotNull] public string Name { get; set; }
-
-        [NotNull] public string ClientName { get; set; }
-
-        public Dictionary<string, string> Value { get; set; }
-
-        [CanBeNull] public virtual string ProviderName { get; protected set; }
-
-        [CanBeNull] public virtual string ProviderKey { get; protected set; }
-
         protected App()
         {
         }
@@ -40,5 +30,15 @@ namespace TT.Abp.AppManagement.Domain
             ProviderName = providerName;
             ProviderKey = providerKey;
         }
+
+        [NotNull] public string Name { get; set; }
+
+        [NotNull] public string ClientName { get; set; }
+
+        public Dictionary<string, string> Value { get; set; }
+
+        [CanBeNull] public virtual string ProviderName { get; protected set; }
+
+        [CanBeNull] public virtual string ProviderKey { get; protected set; }
     }
 }

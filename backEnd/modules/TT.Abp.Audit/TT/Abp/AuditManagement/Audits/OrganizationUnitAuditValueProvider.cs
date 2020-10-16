@@ -11,13 +11,13 @@ namespace TT.Abp.AuditManagement.Audits
     {
         public const string ProviderName = "O";
 
-        public override string Name => ProviderName;
-
         public OrganizationUnitAuditValueProvider(
             IRepository<AuditFlow, Guid> auditFlowRepository
         ) : base(auditFlowRepository)
         {
         }
+
+        public override string Name => ProviderName;
 
         [UnitOfWork]
         public override async Task<Guid?> GetOrNullAsync(AuditDefinition audit)

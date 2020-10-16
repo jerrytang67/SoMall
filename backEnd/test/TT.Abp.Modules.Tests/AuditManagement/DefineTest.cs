@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Shouldly;
 using TT.Abp.AuditManagement.Application;
 using TT.Abp.AuditManagement.Audits;
@@ -13,11 +12,11 @@ namespace TT.Abp.Modules.Tests.AuditManagement
 {
     public class DefineTest : SoMallModulesTestBase
     {
-        private IAuditDefinitionManager _auditDefinitionManager;
-        private IAuditValueProviderManager _auditValueProvider;
-        private IRepository<AuditFlow, Guid> _auditFlowRepository;
-        private IAuditProvider _auditProvider;
         private IAuditManagementAppService _appService;
+        private readonly IAuditDefinitionManager _auditDefinitionManager;
+        private readonly IRepository<AuditFlow, Guid> _auditFlowRepository;
+        private readonly IAuditProvider _auditProvider;
+        private readonly IAuditValueProviderManager _auditValueProvider;
 
         public DefineTest()
         {

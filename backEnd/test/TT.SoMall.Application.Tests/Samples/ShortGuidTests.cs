@@ -23,7 +23,7 @@ namespace TT.SoMall.Samples
             var guid = _guidGenerator.Create();
             var @short = guid.ToShortString();
             @short.FromShortString().ShouldBe(guid);
-            
+
             var guid2 = new Guid("59c34426-fdb2-3c88-87ff-39f5067be555");
             var short2 = guid2.ToShortString();
             short2.ShouldBe("JkTDWbL9iDyH_zn1BnvlVQ");

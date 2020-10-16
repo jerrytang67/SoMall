@@ -8,26 +8,26 @@ namespace TT.SoMall.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
-                name: "IsGlobal",
-                table: "Mall_ProductCategory",
+                "IsGlobal",
+                "Mall_ProductCategory",
                 nullable: false,
                 defaultValue: false);
 
             migrationBuilder.AddColumn<string>(
-                name: "RedirectUrl",
-                table: "Mall_ProductCategory",
+                "RedirectUrl",
+                "Mall_ProductCategory",
                 maxLength: 255,
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "Sort",
-                table: "Mall_ProductCategory",
+                "Sort",
+                "Mall_ProductCategory",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
-                name: "Mall_AppProductCategory",
-                columns: table => new
+                "Mall_AppProductCategory",
+                table => new
                 {
                     AppName = table.Column<string>(maxLength: 64, nullable: false),
                     ProductCategoryId = table.Column<Guid>(nullable: false),
@@ -43,37 +43,37 @@ namespace TT.SoMall.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Mall_AppProductCategory", x => new { x.AppName, x.ProductCategoryId });
+                    table.PrimaryKey("PK_Mall_AppProductCategory", x => new {x.AppName, x.ProductCategoryId});
                     table.ForeignKey(
-                        name: "FK_Mall_AppProductCategory_Mall_ProductCategory_ProductCategoryId",
-                        column: x => x.ProductCategoryId,
-                        principalTable: "Mall_ProductCategory",
-                        principalColumn: "Id",
+                        "FK_Mall_AppProductCategory_Mall_ProductCategory_ProductCategoryId",
+                        x => x.ProductCategoryId,
+                        "Mall_ProductCategory",
+                        "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Mall_AppProductCategory_ProductCategoryId",
-                table: "Mall_AppProductCategory",
-                column: "ProductCategoryId");
+                "IX_Mall_AppProductCategory_ProductCategoryId",
+                "Mall_AppProductCategory",
+                "ProductCategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Mall_AppProductCategory");
+                "Mall_AppProductCategory");
 
             migrationBuilder.DropColumn(
-                name: "IsGlobal",
-                table: "Mall_ProductCategory");
+                "IsGlobal",
+                "Mall_ProductCategory");
 
             migrationBuilder.DropColumn(
-                name: "RedirectUrl",
-                table: "Mall_ProductCategory");
+                "RedirectUrl",
+                "Mall_ProductCategory");
 
             migrationBuilder.DropColumn(
-                name: "Sort",
-                table: "Mall_ProductCategory");
+                "Sort",
+                "Mall_ProductCategory");
         }
     }
 }

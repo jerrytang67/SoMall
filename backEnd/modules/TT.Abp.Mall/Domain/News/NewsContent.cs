@@ -19,6 +19,8 @@ namespace TT.Abp.Mall.Domain.News
         public int Status { get; set; }
         public int ViewCount { get; protected set; }
 
+        public virtual NewsCategory Category { get; set; }
+
         public Guid? ShopId { get; protected set; }
 
         public Guid? TenantId { get; protected set; }
@@ -27,7 +29,5 @@ namespace TT.Abp.Mall.Domain.News
         {
             ViewCount += 1;
         }
-
-        public virtual NewsCategory Category { get; set; }
     }
 }

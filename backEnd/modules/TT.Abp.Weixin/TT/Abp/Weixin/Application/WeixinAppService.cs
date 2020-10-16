@@ -26,25 +26,24 @@ namespace TT.Abp.Weixin.Application
 {
     public class WeixinAppService : ApplicationService, IWeixinAppService
     {
-        private readonly IGuidGenerator _guidGenerator;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IPasswordHasher<IdentityUser> _passwordHasher;
-        private readonly ICurrentTenant _currentTenant;
-        private readonly ISettingProvider _setting;
-        private readonly WeixinManager _weixinManager;
-        private readonly IdentityUserStore _identityUserStore;
-        private readonly ICapPublisher _capBus;
-        private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IAppProvider _appProvider;
+        private readonly ICapPublisher _capBus;
+        private readonly IConfiguration _configuration;
+        private readonly ICurrentTenant _currentTenant;
+        private readonly IGuidGenerator _guidGenerator;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IdentityUserStore _identityUserStore;
+        private readonly Microsoft.AspNetCore.Identity.IPasswordHasher<IdentityUser> _passwordHasher;
+        private readonly ISettingProvider _setting;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly IWeixinApi _weixinApi;
+        private readonly WeixinManager _weixinManager;
 
 
         public WeixinAppService(
             IGuidGenerator guidGenerator,
             IConfiguration configuration,
-            IHttpClientFactory httpClientFactory,
-            IPasswordHasher<IdentityUser> passwordHasher,
+            IHttpClientFactory httpClientFactory, Microsoft.AspNetCore.Identity.IPasswordHasher<IdentityUser> passwordHasher,
             ICurrentTenant currentTenant,
             ISettingProvider setting,
             WeixinManager weixinManager,
@@ -99,7 +98,7 @@ namespace TT.Abp.Weixin.Application
             // 更新数据库
             await _capBus.PublishAsync("weixin.services.mini.getuserinfo", miniUserInfo);
 
-            var user = await _identityUserStore.FindByLoginAsync($"unionid", miniUserInfo.unionid);
+            var user = await _identityUserStore.FindByLoginAsync("unionid", miniUserInfo.unionid);
             if (user == null)
             {
                 var userId = _guidGenerator.Create();
@@ -109,14 +108,14 @@ namespace TT.Abp.Weixin.Application
                     Name = miniUserInfo.nickName
                 };
 
-                using (var uow = _unitOfWorkManager.Begin(requiresNew: true))
+                using (var uow = _unitOfWorkManager.Begin(true))
                 {
                     var passHash = _passwordHasher.HashPassword(user, "1q2w3E*");
                     await _identityUserStore.CreateAsync(user);
                     await _identityUserStore.SetPasswordHashAsync(user, passHash);
 
                     await _identityUserStore.AddLoginAsync(user,
-                        new UserLoginInfo($"unionid", miniUserInfo.unionid, "unionid"));
+                        new UserLoginInfo("unionid", miniUserInfo.unionid, "unionid"));
 
                     await _identityUserStore.AddLoginAsync(user,
                         new UserLoginInfo($"{appid}_openid", miniUserInfo.openid, "openid"));
@@ -176,24 +175,6 @@ namespace TT.Abp.Weixin.Application
             return await Task.FromResult(CurrentUser);
         }
 
-
-        [HttpGet]
-        public async Task<object> GetUnLimitQr(Guid scene, string page = null)
-        {
-            var shorter = scene.ToShortString();
-            var url = await _weixinManager.Getwxacodeunlimit("", shorter, page);
-
-            return new {url};
-        }
-
-
-        [HttpPost]
-        public async Task<object> GetPhone(WeChatMiniProgramAuthenticateModel data)
-        {
-            var json = Encryption.AES_decrypt(data.encryptedData, data.session_key, data.iv);
-            return await Task.FromResult(json);
-        }
-
         public async Task<JssdkResultDto> GetJssdk(string url, string appName)
         {
             var app = await _appProvider.GetOrNullAsync(appName);
@@ -220,6 +201,24 @@ namespace TT.Abp.Weixin.Application
 
             var result = await _weixinApi.GetToken(appid, appSec, code);
             return result;
+        }
+
+
+        [HttpGet]
+        public async Task<object> GetUnLimitQr(Guid scene, string page = null)
+        {
+            var shorter = scene.ToShortString();
+            var url = await _weixinManager.Getwxacodeunlimit("", shorter, page);
+
+            return new {url};
+        }
+
+
+        [HttpPost]
+        public async Task<object> GetPhone(WeChatMiniProgramAuthenticateModel data)
+        {
+            var json = Encryption.AES_decrypt(data.encryptedData, data.session_key, data.iv);
+            return await Task.FromResult(json);
         }
     }
 }
