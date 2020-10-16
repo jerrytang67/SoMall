@@ -13,7 +13,7 @@
         <PackageTags>SoMall;ABP;MicroService</PackageTags>
         <Description>社交电商商城开源项目.socail+mall即取名SoMall</Description>
         <!-- 打包的文件夹 -->
-        <OutputPath>$(MSBuildThisFileDirectory)bin\$(Configuration)</OutputPath>
+<!--        <OutputPath>$(MSBuildThisFileDirectory)bin\$(Configuration)</OutputPath>-->
         <PackageOutputPath>$(OutputPath)</PackageOutputPath>
     </PropertyGroup>
 

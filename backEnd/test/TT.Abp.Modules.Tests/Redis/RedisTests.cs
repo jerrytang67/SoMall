@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Shouldly;
 using StackExchange.Redis;
-using TT.Abp.Weixin.Domain;
 using TT.Extensions.Redis;
 using Xunit;
 
@@ -43,8 +42,8 @@ namespace TT.Abp.Modules.Tests.Redis
         [Fact]
         public async Task StreamTest()
         {
-            await _redisClient.Database.StreamAddAsync("somall_stream_test", "key:1", new RedisValue("123"));
-            await _redisClient.Database.StreamAddAsync("somall_stream_test", "key:2", new RedisValue("456"));
+            await _redisClient.Database.StreamAddAsync("somall_stream_test", "key:1", "1");
+            await _redisClient.Database.StreamAddAsync("somall_stream_test", "key:2", "456");
         }
     }
 }

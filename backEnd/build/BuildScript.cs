@@ -7,7 +7,7 @@ using FlubuCore.Scripting.Attributes;
 
 namespace BuildScript
 {
-    [Include("./build/BuildVersion.cs")]
+    [Include("./BuildVersion.cs")]
     public partial class BuildScript : DefaultBuildScript
     {
         [FromArg("c|configuration")]
@@ -43,6 +43,12 @@ namespace BuildScript
                 .DependsOn(clean)
                 .AddCoreTask(x => x.Restore());
 
+            var justbuild = context.CreateTarget("JustBuild")
+                .SetDescription("Builds all projects in the solution.")
+                // .DependsOn(restore)
+                .AddCoreTask(x => x.Build()
+                    .InformationalVersion(BuildVersion.VersionWithSuffix()));
+            
             var build = context.CreateTarget("Build")
                 .SetDescription("Builds all projects in the solution.")
                 .DependsOn(restore)
@@ -79,7 +85,8 @@ namespace BuildScript
                     restore,
                     build,
                     //   tests, 
-                    pack);
+                    pack
+                    );
         }
     }
 }
