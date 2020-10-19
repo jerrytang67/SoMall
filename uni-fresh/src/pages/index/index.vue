@@ -9,7 +9,7 @@
          <view class="VerticalMain margin-lr-xs">
             <view class="cu-list menu-avatar">
                <view class="cu-item" v-for="(x ,idx2) in showItems" :key="idx2">
-                  <view class="cu-avatar round lg" :style="'background-image:url('+x.LogoUrl+'!w300w);'" :class="[animation&&currentTarget.Id===x.Id?'animation-shake':'']"></view>
+                  <view class="cu-avatar radius lg" :style="'background-image:url('+x.LogoUrl+'!w300w);'" :class="[animation&&currentTarget.Id===x.Id?'animation-shake':'']"></view>
                   <view class="content">
                      <view class="text-grey">{{x.Name}}</view>
                      <view class="text-gray text-sm flex">
@@ -58,6 +58,21 @@ export default class About extends BaseView {
    tabCur = 0;
 
    currentTarget: IShopItem = {};
+
+   onShareAppMessage(option: any) {
+      return {
+         title: "非常水果 在线下单",
+         path: "/pages/index/index",
+      };
+   }
+
+   onShareTimeline() {
+      return {
+         title: "非常水果 在线下单",
+         query: ``,
+      };
+   }
+
 
    get shop() {
       return AppModule.getShop;

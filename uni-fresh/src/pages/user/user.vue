@@ -6,7 +6,7 @@
             <div class="nickname" v-if="openid">{{userInfo.nickName}}</div>
             <div class="nickname" v-else @click="login">{{userInfo.nickName}}</div>
             <div class="info flex-r-ac" v-if="openid">
-               <div class="jf">余额: {{shopMember.Balance | currency}}</div>
+               <div class="jf">帐户余额: {{shopMember.Balance | currency}}</div>
             </div>
          </div>
       </div>

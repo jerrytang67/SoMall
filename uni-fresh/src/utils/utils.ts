@@ -6,7 +6,7 @@ const errorPrompt = (err: any) => {
 }
 
 const httpsPromisify = (fn: Function) => {
-    return function (options: RequestOptions | undefined) {
+    return function (options: any | undefined) {
         return new Promise((resolve, reject) => {
             options!.success = ({
                 data

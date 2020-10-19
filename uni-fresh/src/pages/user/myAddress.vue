@@ -169,7 +169,7 @@ export default class MyAddress extends BaseView {
       console.log(x);
       await api.SetAddressDefault({ Id: x.Id! }).then((res: any) => {
          this.initUser();
-         if (res.success) uni.navigateBack();
+         if (res.success) uni.navigateBack({});
       });
    }
 

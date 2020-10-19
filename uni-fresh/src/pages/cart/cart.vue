@@ -32,7 +32,7 @@
 
       <view class="cu-list menu card-menu margin-top">
          <view class="cu-item" style="padding:20rpx 0 20rpx 10rpx;" v-for="(x ,index) in cart" :key="index">
-            <view class="cu-avatar round lg" :style="'background-image:url('+x.LogoUrl+'!w300w);'"></view>
+            <view class="cu-avatar radius lg margin-right" :style="'background-image:url('+x.LogoUrl+'!w300w);'"></view>
             <view class="content">
                <view class="text-grey">{{x.Name}}</view>
                <view class="text-gray text-sm flex">

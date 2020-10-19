@@ -2,7 +2,7 @@ import utils from "./utils";
 import { UserModule, IAddress } from '@/store/modules/user';
 
 let host = process.env.VUE_APP_BASE_API;
-host = "http://localhost:8088"
+//host = "http://localhost:8088"
 //host = "https://www.lovewujiang.com"
 const TenantId = 2;
 
@@ -14,7 +14,7 @@ const request = (
     data: string | object | ArrayBuffer) => {
 
 
-    uni.showLoading();
+    uni.showLoading({});
     uni.showNavigationBarLoading();
 
     let _url = (url.startsWith("http") ? url : host + url);

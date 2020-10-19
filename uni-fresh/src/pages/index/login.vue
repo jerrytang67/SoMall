@@ -42,22 +42,21 @@ export default class Login extends Vue {
                      code: loginRes.code,
                      iv: res1.iv,
                      encryptedData: res1.encryptedData,
-                     storeId: 4
+                     storeId: 4,
                   }).then((res: any) => {
                      console.log(res);
                      if (res.success) {
                         UserModule.Set_UserInfo(res.data.userInfo);
                         UserModule.Set_Token(res.data.token);
-
-                        uni.navigateBack();
+                        uni.navigateBack({});
                      }
                   });
-               }
+               },
             });
          },
-         fail: err => {
+         fail: (err) => {
             console.log(err);
-         }
+         },
       });
    }
 }

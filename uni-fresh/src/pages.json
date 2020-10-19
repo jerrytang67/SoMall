@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "莴聚下单版",
+				"navigationBarTitleText": "非常水果 在线下单",
 				"enablePullDownRefresh": true
 			}
 		},
