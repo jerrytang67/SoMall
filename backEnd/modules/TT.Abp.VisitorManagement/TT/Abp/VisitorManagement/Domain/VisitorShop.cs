@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using TT.Abp.Shops;
 using TT.Abp.Shops.Domain;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 
 namespace TT.Abp.VisitorManagement.Domain
@@ -19,14 +20,14 @@ namespace TT.Abp.VisitorManagement.Domain
 
         protected VisitorShop()
         {
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         public VisitorShop(IShopData shop) : base(shop.Id)
         {
             TenantId = shop.TenantId;
             UpdateInternal(shop);
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         public virtual bool Update(IShopData shop)
