@@ -11,71 +11,78 @@ namespace TT.SoMall
     [Dependency(ReplaceServices = true)]
     public class TtServiceConvention : AbpServiceConvention
     {
-        public TtServiceConvention(IOptions<AbpAspNetCoreMvcOptions> options) : base(options)
+        public TtServiceConvention(
+            IOptions<AbpAspNetCoreMvcOptions> options,
+            IConventionalRouteBuilder conventionalRouteBuilder)
+            : base(options, conventionalRouteBuilder)
         {
         }
-        
-        protected override string CalculateRouteTemplate(string rootPath, string controllerName, ActionModel action,
-            string httpMethod,
-            ConventionalControllerSetting configuration)
-        {
-            var controllerNameInUrl =
-                NormalizeUrlControllerName(rootPath, controllerName, action, httpMethod, configuration);
 
-            var url = $"api/{rootPath}/{controllerNameInUrl.ToCamelCase()}";
+        #region Obsolete
 
-            // Add {id} path if needed
-            // if (action.Parameters.Any(p => p.ParameterName == "id"))
-            // {
-            //     url += "/{id}";
-            // }
+        // protected override string CalculateRouteTemplate(string rootPath, string controllerName, ActionModel action,
+        //     string httpMethod,
+        //     ConventionalControllerSetting configuration)
+        // {
+        //     var controllerNameInUrl =
+        //         NormalizeUrlControllerName(rootPath, controllerName, action, httpMethod, configuration);
+        //
+        //     var url = $"api/{rootPath}/{controllerNameInUrl.ToCamelCase()}";
+        //
+        //     // Add {id} path if needed
+        //     // if (action.Parameters.Any(p => p.ParameterName == "id"))
+        //     // {
+        //     //     url += "/{id}";
+        //     // }
+        //
+        //     //Add action name if needed
+        //     var actionNameInUrl = NormalizeUrlActionName(rootPath, controllerName, action, httpMethod, configuration);
+        //     if (!actionNameInUrl.IsNullOrEmpty())
+        //     {
+        //         url += $"/{actionNameInUrl.ToCamelCase()}";
+        //
+        //         //Add secondary Id
+        //         var secondaryIds = action.Parameters
+        //             .Where(p => p.ParameterName.EndsWith("Id", StringComparison.Ordinal)).ToList();
+        //         if (secondaryIds.Count == 1)
+        //         {
+        //             url += $"/{{{secondaryIds[0].ParameterName}}}";
+        //         }
+        //     }
+        //
+        //     if (action.Parameters.Any(p => p.ParameterName == "appName"))
+        //     {
+        //         url += "/{appName}";
+        //     }
+        //
+        //     return url;
+        // }
+        //
+        //
+        // protected override string NormalizeUrlActionName(string rootPath, string controllerName, ActionModel action,
+        //     string httpMethod,
+        //     ConventionalControllerSetting configuration)
+        // {
+        //     var actionNameInUrl = action.ActionName
+        //         //.RemoveHttpMethodPrefix(action.ActionName, httpMethod)
+        //         .RemovePostFix("Async");
+        //
+        //     if (configuration?.UrlActionNameNormalizer == null)
+        //     {
+        //         return actionNameInUrl;
+        //     }
+        //
+        //     return configuration.UrlActionNameNormalizer(
+        //         new UrlActionNameNormalizerContext(
+        //             rootPath,
+        //             controllerName,
+        //             action,
+        //             actionNameInUrl,
+        //             httpMethod
+        //         )
+        //     );
+        // }
 
-            //Add action name if needed
-            var actionNameInUrl = NormalizeUrlActionName(rootPath, controllerName, action, httpMethod, configuration);
-            if (!actionNameInUrl.IsNullOrEmpty())
-            {
-                url += $"/{actionNameInUrl.ToCamelCase()}";
-
-                //Add secondary Id
-                var secondaryIds = action.Parameters
-                    .Where(p => p.ParameterName.EndsWith("Id", StringComparison.Ordinal)).ToList();
-                if (secondaryIds.Count == 1)
-                {
-                    url += $"/{{{secondaryIds[0].ParameterName}}}";
-                }
-            }
-            
-            if (action.Parameters.Any(p => p.ParameterName == "appName"))
-            {
-                url += "/{appName}";
-            }
-
-            return url;
-        }
-
-
-        protected override string NormalizeUrlActionName(string rootPath, string controllerName, ActionModel action,
-            string httpMethod,
-            ConventionalControllerSetting configuration)
-        {
-            var actionNameInUrl = action.ActionName
-                //.RemoveHttpMethodPrefix(action.ActionName, httpMethod)
-                .RemovePostFix("Async");
-            
-            if (configuration?.UrlActionNameNormalizer == null)
-            {
-                return actionNameInUrl;
-            }
-
-            return configuration.UrlActionNameNormalizer(
-                new UrlActionNameNormalizerContext(
-                    rootPath,
-                    controllerName,
-                    action,
-                    actionNameInUrl,
-                    httpMethod
-                )
-            );
-        }
+        #endregion
     }
 }

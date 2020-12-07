@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TT.Abp.Shops;
 using TT.Abp.Shops.Domain;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 
 namespace TT.Abp.Mall.Domain.Shops
@@ -11,14 +12,14 @@ namespace TT.Abp.Mall.Domain.Shops
     {
         public MallShop()
         {
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         public MallShop(IShopData shop) : base(shop.Id)
         {
             TenantId = shop.TenantId;
             UpdateInternal(shop);
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         public string Name { get; internal set; }

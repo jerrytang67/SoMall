@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Volo.Abp;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace TT.Abp.Shops.Domain
@@ -10,7 +11,7 @@ namespace TT.Abp.Shops.Domain
     {
         protected Shop()
         {
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
         public Shop(Guid id, string name, string shortName, string logoImage, string description, Guid? tenantId)
@@ -21,7 +22,7 @@ namespace TT.Abp.Shops.Domain
             LogoImage = logoImage;
             Description = description;
             TenantId = tenantId;
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
 
@@ -34,7 +35,7 @@ namespace TT.Abp.Shops.Domain
             CoverImage = shopData.CoverImage;
             Description = shopData.Description;
             TenantId = shopData.TenantId;
-            ExtraProperties = new Dictionary<string, object>();
+            ExtraProperties = new ExtraPropertyDictionary();
         }
 
 
