@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Serilog;
 using TT.Extensions;
 using TT.HttpClient.Weixin.WeixiinResult;
@@ -159,7 +160,22 @@ namespace TT.HttpClient.Weixin
             var jsonReuslt = strResponse.TryConvert<WeixinUserInfoResult>();
             return await Task.FromResult(jsonReuslt);
         }
+
+        public async Task<BaseWeChatReulst> CustomSend(string accessToken, string openid, string msgtype, object body)
+        {
+            var postData = new JObject {{"touser", openid}, {"msgtype", msgtype}, {msgtype, JObject.FromObject(body)}};
+
+            HttpContent hc = new StreamContent(new MemoryStream(Encoding.UTF8.GetBytes(postData.ToString())));
+
+            var strResponse =
+                await _client.PostAsync($"cgi-bin/message/custom/send?access_token={accessToken}", hc);
+
+            var result = await strResponse.Content.ReadAsStringAsync();
+            
+            return result.TryConvert<BaseWeChatReulst>();
+        }
     }
+
 
     public class OAuth2Result
     {

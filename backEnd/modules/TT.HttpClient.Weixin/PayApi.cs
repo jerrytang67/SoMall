@@ -66,7 +66,7 @@ namespace TT.HttpClient.Weixin
             string notifyUrl = "");
 
         Task<bool> Transfers(string mch_appid, string mchid, string mchKey, string partner_trade_no,
-            string openid, string re_user_name, int amount, string desc);
+            string openid, string re_user_name, int amount, string desc, bool check_name = true);
     }
 
     public class PayApi : IPayApi
@@ -74,7 +74,8 @@ namespace TT.HttpClient.Weixin
         private readonly System.Net.Http.HttpClient _client;
         private readonly ISignatureGenerator _signatureGenerator;
 
-        public PayApi(System.Net.Http.HttpClient client,
+        public PayApi
+        (System.Net.Http.HttpClient client,
             ISignatureGenerator signatureGenerator
         )
         {
@@ -376,7 +377,8 @@ namespace TT.HttpClient.Weixin
         {
             var result = await RequestAsync(targetUrl, requestParameters.ToXmlStr());
 
-            if (result.Element("xml").Element("return_code").Value != "SUCCESS"){
+            if (result.Element("xml").Element("return_code").Value != "SUCCESS")
+            {
                 var errMsg =
                         "微信支付接口调用失败，具体失败原因：" +
                         result.Element("xml").Element("return_msg").Value
@@ -392,8 +394,8 @@ namespace TT.HttpClient.Weixin
             Log.Information(result.ToString(), "TenPay_XmlResult");
             return result;
         }
-        
-        
+
+
         protected virtual async Task<XDocument> RequestAndGetReturnValueAsync2(string targetUrl,
             PayParameters requestParameters)
         {
@@ -433,7 +435,7 @@ namespace TT.HttpClient.Weixin
         /// <param name="desc"></param>
         /// <returns></returns>
         public async Task<bool> Transfers(string mch_appid, string mchid, string mchKey, string partner_trade_no,
-            string openid, string re_user_name, int amount, string desc)
+            string openid, string re_user_name, int amount, string desc, bool check_name = true)
         {
             var request = new PayParameters();
             request.AddParameter("mch_appid", mch_appid);
@@ -441,7 +443,9 @@ namespace TT.HttpClient.Weixin
             request.AddParameter("nonce_str", RandomExt.GetRandom());
             request.AddParameter("partner_trade_no", partner_trade_no);
             request.AddParameter("openid", openid);
-            request.AddParameter("check_name", "FORCE_CHECK");
+
+            request.AddParameter("check_name", check_name ? "FORCE_CHECK" : "NO_CHECK");
+
             request.AddParameter("re_user_name", re_user_name);
             request.AddParameter("amount", amount);
             request.AddParameter("desc", desc);
@@ -453,9 +457,13 @@ namespace TT.HttpClient.Weixin
             var returnCode = GetXmlNodeString(xmlResult, "return_code");
             var resultode = GetXmlNodeString(xmlResult, "result_code");
 
-            if (returnCode == "SUCCESS" && resultode == "SUCCESS") return await Task.FromResult(true);
+            if (returnCode == "SUCCESS" && resultode == "SUCCESS")
+                return true;
 
-            throw new Exception(GetXmlNodeString(xmlResult, "err_code"));
+            var s = GetXmlNodeString(xmlResult, "err_code");
+            throw new Exception(xmlResult.ToString()
+                // GetXmlNodeString(xmlResult, "err_code")
+            );
         }
 
         #endregion

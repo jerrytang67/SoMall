@@ -7,12 +7,12 @@
         <StartupObject />
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="4.0.0" />
-        <PackageReference Include="Volo.Abp.AutoMapper" Version="4.0.0" />
-        <PackageReference Include="Volo.Abp.Ddd.Application" Version="4.0.0" />
-        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="4.0.0" />
-        <PackageReference Include="Volo.Abp.Ddd.Domain" Version="4.0.0" />
-        <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="4.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+        <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="4.2.2" />
+        <PackageReference Include="Volo.Abp.AutoMapper" Version="4.2.2" />
+        <PackageReference Include="Volo.Abp.Ddd.Application" Version="4.2.2" />
+        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="4.2.2" />
+        <PackageReference Include="Volo.Abp.Ddd.Domain" Version="4.2.2" />
+        <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="4.2.2" />
     </ItemGroup>
 </Project>

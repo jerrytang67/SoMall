@@ -111,9 +111,8 @@ namespace TT.Abp.Modules.Tests.Mall
             //act
             var result = await _spuAppService.GetQr(new MallRequestDto() { Keywords = "!@3", AppName = "mall_mini" });
             result.Params["Keywords"].ShouldBe("!@3");
-            result.Id.ShouldNotBeNull();
+            result.Id.ShouldNotBe(Guid.Empty);
             result.CreatorId.ShouldBe(_currentUser.Id);
-            result.CreationTime.ShouldNotBeNull();
             result.ViewCount.ShouldBe(1);
         }
     }

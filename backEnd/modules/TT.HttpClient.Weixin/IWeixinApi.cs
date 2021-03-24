@@ -18,5 +18,7 @@ namespace TT.HttpClient.Weixin
         Task<OAuth2Result> GetToken(string appid, string appsec, string code);
 
         Task<WeixinUserInfoResult> SnsUserInfo(string access_token, string openid);
+
+        Task<BaseWeChatReulst> CustomSend(string accessToken, string openid, string msgtype, object body);
     }
 }

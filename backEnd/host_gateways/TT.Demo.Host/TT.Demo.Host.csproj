@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Ocelot" Version="16.0.1" />
+    <PackageReference Include="Ocelot" Version="17.0.0" />
 <!--    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="4.0.0" />-->
   </ItemGroup>
 </Project>

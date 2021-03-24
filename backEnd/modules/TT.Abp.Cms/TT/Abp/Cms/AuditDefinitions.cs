@@ -1,5 +1,6 @@
 ﻿using TT.Abp.AuditManagement.Audits;
 using TT.Abp.Cms.Localization;
+using Volo.Abp;
 using Volo.Abp.Localization;
 
 namespace TT.Abp.Cms

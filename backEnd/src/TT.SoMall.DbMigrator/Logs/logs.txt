@@ -1,0 +1,51 @@
+2021-03-25 00:08:59.268 +08:00 [INF] Started database migrations...
+2021-03-25 00:08:59.282 +08:00 [INF] Migrating host database schema...
+2021-03-25 00:08:59.913 +08:00 [WRN] The property 'Value.App' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2021-03-25 00:08:59.916 +08:00 [WRN] The property 'CoverImageUrls.ProductSku' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2021-03-25 00:08:59.917 +08:00 [WRN] The property 'Params.QrDetail' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2021-03-25 00:08:59.946 +08:00 [WRN] The 'bool' property 'IsRequired' on entity type 'FormItem' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'.
+2021-03-25 00:08:59.957 +08:00 [WRN] No type was specified for the decimal property 'AvblBalance' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:08:59.958 +08:00 [WRN] No type was specified for the decimal property 'TotalWithdrawals' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:08:59.959 +08:00 [WRN] No type was specified for the decimal property 'UnavblBalance' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:08:59.961 +08:00 [WRN] No type was specified for the decimal property 'Price' on entity type 'PartnerProduct'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:08:59.963 +08:00 [WRN] No type was specified for the decimal property 'CommissionPrice' on entity type 'ProductSku'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:09:00.482 +08:00 [ERR] Failed executing DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AbpAuditLogs] (
+    [Id] uniqueidentifier NOT NULL,
+    [ApplicationName] nvarchar(96) NULL,
+    [UserId] uniqueidentifier NULL,
+    [UserName] nvarchar(256) NULL,
+    [TenantId] uniqueidentifier NULL,
+    [TenantName] nvarchar(max) NULL,
+    [ImpersonatorUserId] uniqueidentifier NULL,
+    [ImpersonatorTenantId] uniqueidentifier NULL,
+    [ExecutionTime] datetime2 NOT NULL,
+    [ExecutionDuration] int NOT NULL,
+    [ClientIpAddress] nvarchar(64) NULL,
+    [ClientName] nvarchar(128) NULL,
+    [ClientId] nvarchar(64) NULL,
+    [CorrelationId] nvarchar(64) NULL,
+    [BrowserInfo] nvarchar(512) NULL,
+    [HttpMethod] nvarchar(16) NULL,
+    [Url] nvarchar(256) NULL,
+    [Exceptions] nvarchar(4000) NULL,
+    [Comments] nvarchar(256) NULL,
+    [HttpStatusCode] int NULL,
+    [ExtraProperties] nvarchar(max) NULL,
+    [ConcurrencyStamp] nvarchar(40) NULL,
+    CONSTRAINT [PK_AbpAuditLogs] PRIMARY KEY ([Id])
+);
+2021-03-25 00:09:45.230 +08:00 [INF] Started database migrations...
+2021-03-25 00:09:45.244 +08:00 [INF] Migrating host database schema...
+2021-03-25 00:09:45.873 +08:00 [WRN] The property 'Value.App' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2021-03-25 00:09:45.876 +08:00 [WRN] The property 'CoverImageUrls.ProductSku' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2021-03-25 00:09:45.877 +08:00 [WRN] The property 'Params.QrDetail' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2021-03-25 00:09:45.906 +08:00 [WRN] The 'bool' property 'IsRequired' on entity type 'FormItem' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'.
+2021-03-25 00:09:45.918 +08:00 [WRN] No type was specified for the decimal property 'AvblBalance' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:09:45.919 +08:00 [WRN] No type was specified for the decimal property 'TotalWithdrawals' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:09:45.920 +08:00 [WRN] No type was specified for the decimal property 'UnavblBalance' on entity type 'Partner'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:09:45.921 +08:00 [WRN] No type was specified for the decimal property 'Price' on entity type 'PartnerProduct'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:09:45.922 +08:00 [WRN] No type was specified for the decimal property 'CommissionPrice' on entity type 'ProductSku'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType()', specify precision and scale using 'HasPrecision()' or configure a value converter using 'HasConversion()'.
+2021-03-25 00:09:47.614 +08:00 [INF] Executing host database seed...
+2021-03-25 00:09:49.951 +08:00 [INF] Successfully completed host database migrations.
+2021-03-25 00:09:50.087 +08:00 [INF] Successfully completed database migrations.
