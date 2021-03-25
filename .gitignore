@@ -5,3 +5,4 @@ mpvue/package-lock.json
 backEnd/src/TT.SoMall.HttpApi.Host/appsettings.Development.json
 backEnd/src/TT.SoMall.HttpApi.Host/appsettings.Production.json
 backEnd/src/TT.SoMall.IdentityServer/appsettings.Production.json
+angular/package-lock.json
