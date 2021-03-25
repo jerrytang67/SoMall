@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { Component, OnInit } from '@angular/core';import {  NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute } from '@angular/router';
 import { MallShopProxyService, MallShopDto, WeixinProxyService } from 'src/api/appService';
 import { ShopSelectComponent } from 'src/app/visitor/components/shop-select/shop-select.component';

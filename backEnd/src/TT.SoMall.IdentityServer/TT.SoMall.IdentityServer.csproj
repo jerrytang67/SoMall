@@ -3,7 +3,7 @@
   <Import Project="..\..\common.props" />
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>TT.SoMall</RootNamespace>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -22,10 +22,6 @@
     <Content Remove="Logs\**" />
     <EmbeddedResource Remove="Logs\**" />
     <None Remove="Logs\**" />
-    <Content Update="Themes\Basic\Components\Brand\Default.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,11 +39,8 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.4.1" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="5.0.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,9 +49,9 @@
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="4.2.2" />
     <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="4.2.2" />
     <PackageReference Include="Volo.Abp.Account.Application" Version="4.2.2" />
+    <PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="4.2.2" />
     <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="4.2.2" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1" />
-    <PackageReference Include="Winton.Extensions.Configuration.Consul" Version="3.1.1" />
     <ProjectReference Include="..\TT.SoMall.EntityFrameworkCore.DbMigrations\TT.SoMall.EntityFrameworkCore.DbMigrations.csproj" />
   </ItemGroup>
 </Project>

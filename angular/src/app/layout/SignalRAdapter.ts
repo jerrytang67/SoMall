@@ -51,7 +51,9 @@ export class SignalRAdapter extends ChatAdapter {
     }
 
     joinRoom(): void {
-        if (this.hubConnection && this.hubConnection.state == signalR.HubConnectionState.Connected) {
+        if (this.hubConnection
+            // && this.hubConnection.state == signalR.HubConnectionState.Connected
+        ) {
             this.hubConnection.send("join", this.username);
         }
     }
@@ -74,7 +76,9 @@ export class SignalRAdapter extends ChatAdapter {
     }
 
     sendMessage(message: Message): void {
-        if (this.hubConnection && this.hubConnection.state == signalR.HubConnectionState.Connected)
+        if (this.hubConnection
+            // && this.hubConnection.state == signalR.HubConnectionState.Connected
+        )
             this.hubConnection.send("sendMessage", message);
     }
 }

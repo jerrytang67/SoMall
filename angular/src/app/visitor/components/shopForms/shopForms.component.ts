@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormProxyService, FormDto, WeixinProxyService, VisitorShopDto, } from 'src/api/appService';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import {  NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute } from '@angular/router';
 import { ShopSelectComponent } from '../shop-select/shop-select.component';
 

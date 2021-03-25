@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { IdentityQuery } from '../store/identity.query';
 import { IdentityService } from '../store/identity.service';
 import { PermissionsService } from '../store/permissions.service';
-import { mergeMap } from 'rxjs/operators';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import { mergeMap } from 'rxjs/operators';import {  NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { PermissionsManagerComponent } from '../permissions-manager/permissions-manager.component';
 import { EditRoleComponent } from './role-edit.component';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IdentityService } from '../store/identity.service';
-import { NzModalService } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { Identity } from '../models/identity';
 import { switchMap, pluck, take, mergeMap } from 'rxjs/operators';
 import { IdentityQuery } from '../store/identity.query';

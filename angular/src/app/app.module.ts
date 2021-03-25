@@ -1,6 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 // akita tools
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
@@ -30,14 +31,12 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/tmp/i18n/', '.json');
 }
 
-/** 配置 angular i18n **/
-import { NZ_I18N, zh_CN, NZ_DATE_FNS_COMPATIBLE } from 'ng-zorro-antd';
-import { registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
-registerLocaleData(zh);
+// angular i18n
+import { isPlatformBrowser, registerLocaleData } from '@angular/common';
+import localeZh from '@angular/common/locales/zh';
+registerLocaleData(localeZh);
 
 import { NgChatModule } from 'ng-chat';
-
 
 export function startupServiceFactory(
   startupService: StartupService
@@ -71,8 +70,6 @@ export function startupServiceFactory(
   providers: [
     ...INTERCEPTOR_PROVIDES,
     { provide: LOCALE_ID, useValue: "zh_CN" },
-    { provide: NZ_I18N, useValue: zh_CN },
-    { provide: NZ_DATE_FNS_COMPATIBLE, useValue: true },
     StartupService,
     {
       // Provider for APP_INITIALIZER

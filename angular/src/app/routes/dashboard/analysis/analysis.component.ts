@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { yuan } from '@shared';
 import { HttpClient } from '@angular/common/http';
 
@@ -46,7 +46,7 @@ export class DashboardAnalysisComponent implements OnInit {
   setDate(type: any) {
     setTimeout(() => this.cdr.detectChanges());
   }
-  
+
   changeSaleType() {
     this.salesPieData =
       this.salesType === 'all'

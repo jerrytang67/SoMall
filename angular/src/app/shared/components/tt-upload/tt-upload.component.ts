@@ -1,6 +1,9 @@
 import { Component, OnInit, forwardRef, OnChanges, SimpleChanges, NgZone, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UploadFile, UploadXHRArgs, NzUploadComponent } from 'ng-zorro-antd';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzUploadFile, NzUploadXHRArgs, NzUploadComponent } from 'ng-zorro-antd/upload';
+
 import { OssQuery } from 'src/store/oss/oss.query';
 import { HttpRequest, HttpClient, HttpEvent, HttpResponse, HttpEventType } from '@angular/common/http';
 import { OssService } from 'src/store/oss/oss.service';
@@ -67,7 +70,7 @@ export class TtUploadComponent implements OnChanges {
     }
 
 
-    createNew(v): UploadFile {
+    createNew(v): NzUploadFile {
         return {
             uid: v,
             name: v,
@@ -124,18 +127,18 @@ export class TtUploadComponent implements OnChanges {
     };
     previewImage: string | undefined = '';
 
-    handlePreview = (file: UploadFile) => {
+    handlePreview = (file: NzUploadFile) => {
         this.previewImage = file.url || file.thumbUrl;
         this.previewVisible = true;
         console.log(this.imgList)
     };
 
-    previewIsImage = (file: UploadFile) => {
+    previewIsImage = (file: NzUploadFile) => {
         return true;
     }
 
 
-    customReq = (item: UploadXHRArgs) => {
+    customReq = (item: NzUploadXHRArgs) => {
         // Create a FormData here to store files and other parameters.
         const formData = new FormData();
         // tslint:disable-next-line:no-any

@@ -1,7 +1,7 @@
 
 //startup.service.ts
 import { Injectable } from '@angular/core';
-import { NzIconService } from 'ng-zorro-antd';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 export interface Configuration {
   api: string;

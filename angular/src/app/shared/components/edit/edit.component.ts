@@ -21,7 +21,7 @@ import { FormControlName, NgModel } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { SEContainerComponent } from './edit-container.component';
-import { InputNumber, InputBoolean, isEmpty } from 'ng-zorro-antd';
+import { InputNumber, InputBoolean, isEmpty } from '../../utils/decorator/convert';
 import { deepGet } from '@core/utils/other';
 
 const prefixCls = `se`;

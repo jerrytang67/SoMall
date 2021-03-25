@@ -8,11 +8,14 @@ using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Guids;
 using Volo.Abp.IdentityServer.ApiResources;
+using Volo.Abp.IdentityServer.ApiScopes;
 using Volo.Abp.IdentityServer.Clients;
 using Volo.Abp.IdentityServer.IdentityResources;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.Uow;
 using ApiResource = Volo.Abp.IdentityServer.ApiResources.ApiResource;
+using ApiScope = Volo.Abp.IdentityServer.ApiScopes.ApiScope;
 using Client = Volo.Abp.IdentityServer.Clients.Client;
 
 namespace TT.SoMall.IdentityServer
@@ -20,34 +23,49 @@ namespace TT.SoMall.IdentityServer
     public class IdentityServerDataSeedContributor : IDataSeedContributor, ITransientDependency
     {
         private readonly IApiResourceRepository _apiResourceRepository;
+        private readonly IApiScopeRepository _apiScopeRepository;
         private readonly IClientRepository _clientRepository;
         private readonly IIdentityResourceDataSeeder _identityResourceDataSeeder;
         private readonly IGuidGenerator _guidGenerator;
         private readonly IPermissionDataSeeder _permissionDataSeeder;
         private readonly IConfiguration _configuration;
+        private readonly ICurrentTenant _currentTenant;
 
         public IdentityServerDataSeedContributor(
             IClientRepository clientRepository,
             IApiResourceRepository apiResourceRepository,
+            IApiScopeRepository apiScopeRepository,
             IIdentityResourceDataSeeder identityResourceDataSeeder,
             IGuidGenerator guidGenerator,
             IPermissionDataSeeder permissionDataSeeder,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ICurrentTenant currentTenant)
         {
             _clientRepository = clientRepository;
             _apiResourceRepository = apiResourceRepository;
+            _apiScopeRepository = apiScopeRepository;
             _identityResourceDataSeeder = identityResourceDataSeeder;
             _guidGenerator = guidGenerator;
             _permissionDataSeeder = permissionDataSeeder;
             _configuration = configuration;
+            _currentTenant = currentTenant;
         }
 
         [UnitOfWork]
         public virtual async Task SeedAsync(DataSeedContext context)
         {
-            await _identityResourceDataSeeder.CreateStandardResourcesAsync();
-            await CreateApiResourcesAsync();
-            await CreateClientsAsync();
+            using (_currentTenant.Change(context?.TenantId))
+            {
+                await _identityResourceDataSeeder.CreateStandardResourcesAsync();
+                await CreateApiResourcesAsync();
+                await CreateApiScopesAsync();
+                await CreateClientsAsync();
+            }
+        }
+
+        private async Task CreateApiScopesAsync()
+        {
+            await CreateApiScopeAsync("SoMall");
         }
 
         private async Task CreateApiResourcesAsync()
@@ -60,7 +78,8 @@ namespace TT.SoMall.IdentityServer
                 "phone_number",
                 "phone_number_verified",
                 "role",
-                "picture"
+                "picture",
+                "SoMall"
             };
 
             await CreateApiResourceAsync("SoMall", commonApiUserClaims);
@@ -92,6 +111,24 @@ namespace TT.SoMall.IdentityServer
             return await _apiResourceRepository.UpdateAsync(apiResource);
         }
 
+        private async Task<ApiScope> CreateApiScopeAsync(string name)
+        {
+            var apiScope = await _apiScopeRepository.GetByNameAsync(name);
+            if (apiScope == null)
+            {
+                apiScope = await _apiScopeRepository.InsertAsync(
+                    new ApiScope(
+                        _guidGenerator.Create(),
+                        name,
+                        name + " API"
+                    ),
+                    autoSave: true
+                );
+            }
+
+            return apiScope;
+        }
+
         private async Task CreateClientsAsync()
         {
             var commonScopes = new[]
@@ -117,31 +154,49 @@ namespace TT.SoMall.IdentityServer
                  * solution. Otherwise, you can delete this client. */
 
                 await CreateClientAsync(
-                    webClientId,
-                    commonScopes,
-                    new[] {"hybrid"},
-                    (configurationSection["SoMall_Web:ClientSecret"] ?? "1q2w3e*").Sha256(),
-                    redirectUris: new[] {$"{webClientRootUrl}signin-oidc"},
-                    postLogoutRedirectUri: $"{webClientRootUrl}signout-callback-oidc"
+                    name: webClientId,
+                    scopes: commonScopes,
+                    grantTypes: new[] {"hybrid"},
+                    secret: (configurationSection["SoMall_Web:ClientSecret"] ?? "1q2w3e*").Sha256(),
+                    redirectUri: $"{webClientRootUrl}signin-oidc",
+                    postLogoutRedirectUri: $"{webClientRootUrl}signout-callback-oidc",
+                    frontChannelLogoutUri: $"{webClientRootUrl}Account/FrontChannelLogout",
+                    corsOrigins: new[] {webClientRootUrl.RemovePostFix("/")}
                 );
             }
 
-            //Console Test Client
-            var consoleClientId = configurationSection["SoMall_App:ClientId"];
-            if (!consoleClientId.IsNullOrWhiteSpace())
+            //Console Test / Angular Client
+            var consoleAndAngularClientId = configurationSection["SoMall_App:ClientId"];
+            if (!consoleAndAngularClientId.IsNullOrWhiteSpace())
             {
-                await CreateClientAsync(
-                    consoleClientId,
-                    commonScopes,
-                    new[] {"password", "client_credentials", "implicit", "UserWithTenant"},
-                    (configurationSection["SoMall_App:ClientSecret"] ?? "1q2w3e*").Sha256(),
+                var webClientRootUrl = configurationSection["SoMall_App:RootUrl"]?.TrimEnd('/');
 
-                    // tt-somall
-                    new[]
-                    {
-                        "http://localhost:4200/callback.html",
-                        "http://192.168.3.50:4200/callback.html"
-                    }
+                await CreateClientAsync(
+                    name: consoleAndAngularClientId,
+                    scopes: commonScopes,
+                    grantTypes: new[] {"password", "client_credentials", "implicit", "UserWithTenant"},
+                    secret: (configurationSection["SoMall_App:ClientSecret"] ?? "1q2w3e*").Sha256(),
+                    requireClientSecret: false,
+                    redirectUri: webClientRootUrl,
+                    postLogoutRedirectUri: webClientRootUrl,
+                    corsOrigins: new[] {webClientRootUrl.RemovePostFix("/")}
+                );
+            }
+
+            // Swagger Client
+            var swaggerClientId = configurationSection["SoMall_Swagger:ClientId"];
+            if (!swaggerClientId.IsNullOrWhiteSpace())
+            {
+                var swaggerRootUrl = configurationSection["SoMall_Swagger:RootUrl"].TrimEnd('/');
+
+                await CreateClientAsync(
+                    name: swaggerClientId,
+                    scopes: commonScopes,
+                    grantTypes: new[] {"authorization_code"},
+                    secret: configurationSection["SoMall_Swagger:ClientSecret"]?.Sha256(),
+                    requireClientSecret: false,
+                    redirectUri: $"{swaggerRootUrl}/swagger/oauth2-redirect.html",
+                    corsOrigins: new[] {swaggerRootUrl.RemovePostFix("/")}
                 );
             }
         }
@@ -150,10 +205,14 @@ namespace TT.SoMall.IdentityServer
             string name,
             IEnumerable<string> scopes,
             IEnumerable<string> grantTypes,
-            string secret,
-            string[] redirectUris = null,
+            string secret = null,
+            string redirectUri = null,
             string postLogoutRedirectUri = null,
-            IEnumerable<string> permissions = null)
+            string frontChannelLogoutUri = null,
+            bool requireClientSecret = true,
+            bool requirePkce = false,
+            IEnumerable<string> permissions = null,
+            IEnumerable<string> corsOrigins = null)
         {
             var client = await _clientRepository.FindByClientIdAsync(name);
             if (client == null)
@@ -174,9 +233,9 @@ namespace TT.SoMall.IdentityServer
                         AuthorizationCodeLifetime = 300,
                         IdentityTokenLifetime = 300,
                         RequireConsent = false,
-
-                        // tt-somall
-                        AlwaysSendClientClaims = true
+                        FrontChannelLogoutUri = frontChannelLogoutUri,
+                        RequireClientSecret = requireClientSecret,
+                        RequirePkce = requirePkce
                     },
                     autoSave: true
                 );
@@ -198,19 +257,19 @@ namespace TT.SoMall.IdentityServer
                 }
             }
 
-            if (client.FindSecret(secret) == null)
+            if (!secret.IsNullOrEmpty())
             {
-                client.AddSecret(secret);
+                if (client.FindSecret(secret) == null)
+                {
+                    client.AddSecret(secret);
+                }
             }
 
-            if (redirectUris != null && redirectUris.Length > 0)
+            if (redirectUri != null)
             {
-                foreach (var uri in redirectUris)
+                if (client.FindRedirectUri(redirectUri) == null)
                 {
-                    if (client.FindRedirectUri(uri) == null)
-                    {
-                        client.AddRedirectUri(uri);
-                    }
+                    client.AddRedirectUri(redirectUri);
                 }
             }
 
@@ -227,8 +286,20 @@ namespace TT.SoMall.IdentityServer
                 await _permissionDataSeeder.SeedAsync(
                     ClientPermissionValueProvider.ProviderName,
                     name,
-                    permissions
+                    permissions,
+                    null
                 );
+            }
+
+            if (corsOrigins != null)
+            {
+                foreach (var origin in corsOrigins)
+                {
+                    if (!origin.IsNullOrWhiteSpace() && client.FindCorsOrigin(origin) == null)
+                    {
+                        client.AddCorsOrigin(origin);
+                    }
+                }
             }
 
             return await _clientRepository.UpdateAsync(client);

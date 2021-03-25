@@ -5,6 +5,7 @@ using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.IdentityServer;
 using Volo.Abp.Localization;
+using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
@@ -26,11 +27,17 @@ namespace TT.SoMall
         )]
     public class SoMallDomainSharedModule : AbpModule
     {
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            SoMallGlobalFeatureConfigurator.Configure();
+            SoMallModuleExtensionConfigurator.Configure();
+        }
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             Configure<AbpVirtualFileSystemOptions>(options =>
             {
-                options.FileSets.AddEmbedded<SoMallDomainSharedModule>("TT.SoMall");
+                options.FileSets.AddEmbedded<SoMallDomainSharedModule>();
             });
 
             Configure<AbpLocalizationOptions>(options =>
@@ -39,6 +46,13 @@ namespace TT.SoMall
                     .Add<SoMallResource>("en")
                     .AddBaseTypes(typeof(AbpValidationResource))
                     .AddVirtualJson("/Localization/SoMall");
+
+                options.DefaultResourceType = typeof(SoMallResource);
+            });
+
+            Configure<AbpExceptionLocalizationOptions>(options =>
+            {
+                options.MapCodeNamespace("SoMall", typeof(SoMallResource));
             });
         }
     }

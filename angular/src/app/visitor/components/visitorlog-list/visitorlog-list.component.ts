@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VisitorLogProxyService, VisitorLogDto } from 'src/api/appService';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import {  NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

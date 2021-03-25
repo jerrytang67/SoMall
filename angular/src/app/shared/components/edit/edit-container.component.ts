@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { SEConfig } from './edit.config';
-import { InputNumber, toNumber, InputBoolean } from 'ng-zorro-antd';
+import { InputNumber, toNumber, InputBoolean } from '../../utils/decorator/convert';
 
 export type REP_TYPE = 1 | 2 | 3 | 4 | 5 | 6;
 

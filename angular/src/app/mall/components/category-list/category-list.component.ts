@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import {  NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ProductCategoryProxyService, ProductCategoryDto } from 'src/api/appService';
 import { CategoryEditComponent } from '../category-edit/category-edit.component';
 import { TranslateService } from '@ngx-translate/core';

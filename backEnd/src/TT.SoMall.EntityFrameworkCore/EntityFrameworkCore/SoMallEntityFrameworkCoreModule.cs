@@ -48,6 +48,11 @@ namespace TT.SoMall.EntityFrameworkCore
     )]
     public class SoMallEntityFrameworkCoreModule : AbpModule
     {
+        public override void PreConfigureServices(ServiceConfigurationContext context)
+        {
+            SoMallEfCoreEntityExtensionMappings.Configure();
+        }
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.AddAbpDbContext<SoMallDbContext>(options =>

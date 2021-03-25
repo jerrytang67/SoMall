@@ -16,28 +16,29 @@ namespace TT.SoMall
         {
             services.AddApplication<SoMallIdentityServerModule>();
 
-            // custom
-            var config = services.GetConfiguration();
-
-            services.PostConfigure<IdentityServerOptions>(options =>
-            {
-                // options.PublicOrigin = config["AuthServer:Authority"];
-                options.IssuerUri = config["AuthServer:Authority"];
-            });
-            
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-                options.KnownNetworks.Clear();
-                options.KnownProxies.Clear();
-            });
+            #region custom
+            // var config = services.GetConfiguration();
+            //
+            // services.PostConfigure<IdentityServerOptions>(options =>
+            // {
+            //     // options.PublicOrigin = config["AuthServer:Authority"];
+            //     options.IssuerUri = config["AuthServer:Authority"];
+            // });
+            //
+            // services.Configure<ForwardedHeadersOptions>(options =>
+            // {
+            //     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            //     options.KnownNetworks.Clear();
+            //     options.KnownProxies.Clear();
+            // });
+            #endregion
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.InitializeApplication();
-            app.UseForwardedHeaders();
-
+            
+            // app.UseForwardedHeaders();
         }
     }
 }

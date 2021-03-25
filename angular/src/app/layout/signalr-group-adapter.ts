@@ -60,7 +60,9 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
     }
 
     joinRoom(): void {
-        if (this.hubConnection && this.hubConnection.state == signalR.HubConnectionState.Connected) {
+        if (this.hubConnection
+            //  && this.hubConnection..state == signalR.HubConnectionState.Connected
+        ) {
             this.hubConnection.send("join", this.username, this.avatar);
         }
     }
@@ -95,7 +97,9 @@ export class SignalRGroupAdapter extends ChatAdapter implements IChatGroupAdapte
     }
 
     sendMessage(message: Message): void {
-        if (this.hubConnection && this.hubConnection.state == 1) {
+        if (this.hubConnection
+            //  && this.hubConnection.state == 1
+        ) {
             console.log("client on sendMessage", message)
             this.hubConnection.send("sendMsg", JSON.stringify(message));
         }

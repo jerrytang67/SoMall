@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChildren, ViewChild, TemplateRef, ViewContainerRef, HostListener, QueryList, ElementRef } from '@angular/core';
 import { ProductSpuProxyService, ProductSpuDto } from 'src/api/appService';
-import { NzMessageService } from 'ng-zorro-antd';
+import {  NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Router } from '@angular/router';
 import { Overlay, CdkOverlayOrigin, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';

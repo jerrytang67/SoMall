@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using Localization.Resources.AbpUi;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.DataProtection;
@@ -10,28 +9,29 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
+using StackExchange.Redis;
 using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.Localization;
 using TT.SoMall.MultiTenancy;
-using StackExchange.Redis;
 using TT.Abp.Core;
-using TT.SoMall.Menus;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc.UI;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
+using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Auditing;
 using Volo.Abp.Autofac;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Caching;
+using Volo.Abp.Caching.StackExchangeRedis;
+using Volo.Abp.IdentityServer;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
-using Volo.Abp.MultiTenancy;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
@@ -41,6 +41,8 @@ namespace TT.SoMall
 {
     [DependsOn(
         typeof(AbpAutofacModule),
+        typeof(AbpIdentityServerDomainModule),
+        typeof(AbpCachingStackExchangeRedisModule),
         typeof(AbpAccountWebIdentityServerModule),
         typeof(AbpAccountApplicationModule),
         typeof(AbpAspNetCoreMvcUiBasicThemeModule),
@@ -58,7 +60,7 @@ namespace TT.SoMall
             var configuration = context.Services.GetConfiguration();
 
             context.Services.ConfigureNonBreakingSameSiteCookies();
-            
+
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources
@@ -87,13 +89,23 @@ namespace TT.SoMall
                 });
             }
 
-            Configure<AppUrlOptions>(options => { options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"]; });
+            Configure<AppUrlOptions>(options =>
+            {
+                options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+                options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"].Split(','));
+            });
 
             Configure<AbpBackgroundJobOptions>(options => { options.IsJobExecutionEnabled = false; });
 
             Configure<AbpDistributedCacheOptions>(options => { options.KeyPrefix = "SoMall:"; });
 
-            context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:ConnectionString"]; });
+            if (!hostingEnvironment.IsDevelopment())
+            {
+                var redis = ConnectionMultiplexer.Connect(configuration["Redis:ConnectionString"]);
+                context.Services
+                    .AddDataProtection()
+                    .PersistKeysToStackExchangeRedis(redis, "SoMall-Protection-Keys");
+            }
 
             context.Services.AddCors(options =>
             {
@@ -113,29 +125,37 @@ namespace TT.SoMall
                         .AllowCredentials();
                 });
             });
-
-            Configure<AbpMultiTenancyOptions>(options => { options.IsEnabled = MultiTenancyConsts.IsEnabled; });
-
-            ConfigureNavigationServices(configuration);
-            
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
+            var env = context.GetEnvironment();
 
-            app.UseCookiePolicy();
-            
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseAbpRequestLocalization();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseErrorPage();
+            }
+
             app.UseCorrelationId();
             app.UseVirtualFiles();
             app.UseRouting();
             app.UseCors(DefaultCorsPolicyName);
             app.UseAuthentication();
+
             if (MultiTenancyConsts.IsEnabled)
             {
                 app.UseMultiTenancy();
             }
 
+            app.UseUnitOfWork();
             app.UseIdentityServer();
             app.UseAuthorization();
 
@@ -144,7 +164,6 @@ namespace TT.SoMall
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
             app.UseConfiguredEndpoints();
-            
         }
 
 
@@ -162,7 +181,7 @@ namespace TT.SoMall
             Configure<AbpNavigationOptions>(options =>
             {
                 options.MenuContributors.Clear();
-                options.MenuContributors.Add(new SoMallMenuContributor(configuration));
+                //options.MenuContributors.Add(new SoMallMenuContributor(configuration));
             });
         }
     }

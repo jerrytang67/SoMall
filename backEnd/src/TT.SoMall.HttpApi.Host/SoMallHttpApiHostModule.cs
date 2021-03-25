@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.MultiTenancy;
+using StackExchange.Redis;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Converters;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.Caching;
+using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.Swashbuckle;
 using Volo.Abp.VirtualFileSystem;
 
 namespace TT.SoMall
@@ -30,10 +33,12 @@ namespace TT.SoMall
     [DependsOn(
         typeof(SoMallHttpApiModule),
         typeof(AbpAutofacModule),
+        typeof(AbpCachingStackExchangeRedisModule),
         typeof(AbpAspNetCoreMvcUiMultiTenancyModule),
         typeof(SoMallApplicationModule),
         typeof(SoMallEntityFrameworkCoreDbMigrationsModule),
-        typeof(AbpAspNetCoreSerilogModule)
+        typeof(AbpAspNetCoreSerilogModule),
+        typeof(AbpSwashbuckleModule)
     )]
     public class SoMallHttpApiHostModule : AbpModule
     {
@@ -44,14 +49,14 @@ namespace TT.SoMall
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
 
-            ConfigureConventionalControllers(context);
+            ConfigureConventionalControllers();
             ConfigureAuthentication(context, configuration);
             ConfigureLocalization();
             ConfigureCache(configuration);
             ConfigureVirtualFileSystem(context);
-            ConfigureRedis(context, configuration);
+            ConfigureRedis(context, configuration, hostingEnvironment);
             ConfigureCors(context, configuration);
-            ConfigureSwaggerServices(context);
+            ConfigureSwaggerServices(context, configuration);
         }
 
         private void ConfigureCache(IConfiguration configuration)
@@ -67,56 +72,52 @@ namespace TT.SoMall
             {
                 Configure<AbpVirtualFileSystemOptions>(options =>
                 {
-                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainSharedModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain.Shared"));
-
-                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain"));
-
-                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath,
-                        $"..{Path.DirectorySeparatorChar}TT.SoMall.Application.Contracts"));
-
-                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}TT.SoMall.Application"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainSharedModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain.Shared"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallDomainModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}TT.SoMall.Domain"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationContractsModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}TT.SoMall.Application.Contracts"));
+                    options.FileSets.ReplaceEmbeddedByPhysical<SoMallApplicationModule>(
+                        Path.Combine(hostingEnvironment.ContentRootPath,
+                            $"..{Path.DirectorySeparatorChar}TT.SoMall.Application"));
                 });
             }
         }
 
-        private void ConfigureConventionalControllers(ServiceConfigurationContext context)
+        private void ConfigureConventionalControllers()
         {
             Configure<AbpAspNetCoreMvcOptions>(options =>
             {
-                options.MinifyGeneratedScript = true;
                 options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly);
-            });
-
-            context.Services.AddControllers(
-                opt => { opt.InputFormatters.Add(new XmlSerializerInputFormatter(opt)); }
-            ).AddNewtonsoftJson(options =>
-            {
-                // options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-
-                options.SerializerSettings.Converters.Add(new StringEnumConverter());
-
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
         }
 
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
         {
-            context.Services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
+            context.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
                     options.Authority = configuration["AuthServer:Authority"];
-                    options.RequireHttpsMetadata = false;
-                    options.ApiName = "SoMall";
-                })
-                ;
+                    options.RequireHttpsMetadata = Convert.ToBoolean(configuration["AuthServer:RequireHttpsMetadata"]);
+                    options.Audience = "SoMall";
+                });
         }
 
-        private static void ConfigureSwaggerServices(ServiceConfigurationContext context)
+        private static void ConfigureSwaggerServices(ServiceConfigurationContext context, IConfiguration configuration)
         {
-            context.Services.AddSwaggerGen(
+            context.Services.AddAbpSwaggerGenWithOAuth(
+                configuration["AuthServer:Authority"],
+                new Dictionary<string, string>
+                {
+                    {"SoMall", "SoMall API"}
+                },
                 options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo { Title = "SoMall API", Version = "v1" });
+                    options.SwaggerDoc("v1", new OpenApiInfo {Title = "SoMall API", Version = "v1"});
                     options.DocInclusionPredicate((docName, description) => true);
                     options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                 });
@@ -136,9 +137,16 @@ namespace TT.SoMall
 
         private void ConfigureRedis(
             ServiceConfigurationContext context,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IWebHostEnvironment hostingEnvironment)
         {
-            context.Services.AddStackExchangeRedisCache(options => { options.Configuration = configuration["Redis:ConnectionString"]; });
+            if (!hostingEnvironment.IsDevelopment())
+            {
+                var redis = ConnectionMultiplexer.Connect(configuration["Redis:ConnectionString"]);
+                context.Services
+                    .AddDataProtection()
+                    .PersistKeysToStackExchangeRedis(redis, "SoMall-Protection-Keys");
+            }
         }
 
         private void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
@@ -148,7 +156,6 @@ namespace TT.SoMall
                 options.AddPolicy(DefaultCorsPolicyName, builder =>
                 {
                     builder
-                        //.AllowAnyOrigin()
                         .WithOrigins(
                             configuration["App:CorsOrigins"]
                                 .Split(",", StringSplitOptions.RemoveEmptyEntries)
@@ -169,29 +176,46 @@ namespace TT.SoMall
 
 
             var app = context.GetApplicationBuilder();
+            var env = context.GetEnvironment();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseAbpRequestLocalization();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseErrorPage();
+            }
 
             app.UseCorrelationId();
-            //app.UseVirtualFiles();
+            app.UseVirtualFiles();
             app.UseRouting();
             app.UseCors(DefaultCorsPolicyName);
             app.UseAuthentication();
-            app.UseAuthorization();
 
             if (MultiTenancyConsts.IsEnabled)
             {
                 app.UseMultiTenancy();
             }
 
-            app.UseAbpRequestLocalization(option =>
-            {
-                option.DefaultRequestCulture = new RequestCulture("zh-Hans");
-            });
+            app.UseAuthorization();
 
             app.UseSwagger();
-            app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "SoMall API"); });
+            app.UseAbpSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "SoMall API");
+
+                var configuration = context.GetConfiguration();
+                options.OAuthClientId(configuration["AuthServer:SwaggerClientId"]);
+                options.OAuthClientSecret(configuration["AuthServer:SwaggerClientSecret"]);
+            });
 
             app.UseAuditing();
             app.UseAbpSerilogEnrichers();
+            app.UseUnitOfWork();
             app.UseConfiguredEndpoints();
         }
     }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using TT.SoMall.Users;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Uow;
 
 namespace TT.SoMall
 {
@@ -26,6 +27,7 @@ namespace TT.SoMall
         }
 
 
+        [UnitOfWork]
         public override async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             await base.GetProfileDataAsync(context);
@@ -40,7 +42,7 @@ namespace TT.SoMall
             {
                 var guid = new Guid(userId);
 
-                var user = await _appUserRepository.FirstOrDefaultAsync(x => x.Id == guid);
+                var user = await _appUserRepository.AsNoTracking().FirstOrDefaultAsync(x => x.Id == guid);
 
                 if (user != null)
                 {

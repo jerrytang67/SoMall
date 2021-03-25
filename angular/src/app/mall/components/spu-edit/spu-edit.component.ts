@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SpuCreateOrUpdateDto, ProductSpuProxyService, SkuCreateOrUpdateDto } from 'src/api/appService';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NzMessageService, UploadFile } from 'ng-zorro-antd';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { TranslatorService } from '@core/translator/translator.service';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -110,8 +112,8 @@ export class SpuEditComponent implements OnInit {
       "soldCount": [item.soldCount, [Validators.required, Validators.min(0)]],
       "stockCount": item.stockCount,
       "limitBuyCount": item.limitBuyCount,
-      "commissionEnable":item.commissionEnable,
-      "commissionPrice":item.commissionPrice
+      "commissionEnable": item.commissionEnable,
+      "commissionPrice": item.commissionPrice
     });
   }
 

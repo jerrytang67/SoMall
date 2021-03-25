@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Localization.Resources.AbpUi;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using TT.SoMall.Localization;
 using Volo.Abp.Account;
 using Volo.Abp.AspNetCore.Mvc.Conventions;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
+using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.TenantManagement;
@@ -23,6 +26,18 @@ namespace TT.SoMall
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.Replace(ServiceDescriptor.Transient<IAbpServiceConvention, TtServiceConvention>());
+			            ConfigureLocalization();
+        }
+        private void ConfigureLocalization()
+        {
+            Configure<AbpLocalizationOptions>(options =>
+            {
+                options.Resources
+                    .Get<SoMallResource>()
+                    .AddBaseTypes(
+                        typeof(AbpUiResource)
+                    );
+            });
         }
     }
 }

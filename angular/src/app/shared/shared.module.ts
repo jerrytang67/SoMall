@@ -227,7 +227,8 @@ const DIRECTIVES = [];
   ]
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
+  //static forRoot(): ModuleWithProviders {
+  static forRoot() {
     return {
       ngModule: SharedModule
     };

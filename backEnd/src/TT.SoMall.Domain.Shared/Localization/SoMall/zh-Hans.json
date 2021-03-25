@@ -1,11 +1,8 @@
 {
-  "culture": "zh-Hans",
-  "texts": {
-    "Menu:Home": "首页",
-    "Menu:Shop": "商户管理",
-    "Welcome": "欢迎",
-    "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io.",
-    "Shops": "商户",
-    "Permission:PayOrders": "支付订单"
+    "culture": "zh-Hans",
+    "texts": {
+      "Menu:Home": "首页",
+      "Welcome": "欢迎",
+      "LongWelcomeMessage": "欢迎来到该应用程序. 这是一个基于ABP框架的启动项目. 有关更多信息, 请访问 abp.io."
+    }
   }
-}

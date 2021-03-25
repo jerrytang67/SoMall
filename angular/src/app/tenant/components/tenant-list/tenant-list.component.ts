@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NzModalService, NzMessageService } from 'ng-zorro-antd';
+import {  NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { ActivatedRoute } from '@angular/router';
 import { TenantService } from '../../store/tenant.service';
 import { CreateTenantComponent } from './create-tenant.component';
