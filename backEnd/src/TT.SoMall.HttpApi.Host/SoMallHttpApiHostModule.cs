@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using TT.SoMall.EntityFrameworkCore;
 using TT.SoMall.MultiTenancy;
@@ -17,6 +18,7 @@ using StackExchange.Redis;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.Conventions;
 using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
@@ -48,7 +50,12 @@ namespace TT.SoMall
         {
             var configuration = context.Services.GetConfiguration();
             var hostingEnvironment = context.Services.GetHostingEnvironment();
-
+            Configure<AbpConventionalControllerOptions>(options =>
+            {
+                options.UseV3UrlStyle = true;
+            });
+            context.Services.Replace(ServiceDescriptor.Transient<IConventionalRouteBuilder, TtConventionalRouteBuilder>());
+            
             ConfigureConventionalControllers();
             ConfigureAuthentication(context, configuration);
             ConfigureLocalization();
@@ -90,10 +97,7 @@ namespace TT.SoMall
 
         private void ConfigureConventionalControllers()
         {
-            Configure<AbpAspNetCoreMvcOptions>(options =>
-            {
-                options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly);
-            });
+            Configure<AbpAspNetCoreMvcOptions>(options => { options.ConventionalControllers.Create(typeof(SoMallApplicationModule).Assembly); });
         }
 
         private void ConfigureAuthentication(ServiceConfigurationContext context, IConfiguration configuration)
@@ -173,8 +177,6 @@ namespace TT.SoMall
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
-
-
             var app = context.GetApplicationBuilder();
             var env = context.GetEnvironment();
 
@@ -227,7 +229,7 @@ namespace TT.SoMall
         {
             var parameters = descriptions
                 .SelectMany(desc => desc.ParameterDescriptions)
-                .GroupBy(x => x, (x, xs) => new { IsOptional = xs.Count() == 1, Parameter = x },
+                .GroupBy(x => x, (x, xs) => new {IsOptional = xs.Count() == 1, Parameter = x},
                     ApiParameterDescriptionEqualityComparer.Instance)
                 .ToList();
             var description = descriptions.First();

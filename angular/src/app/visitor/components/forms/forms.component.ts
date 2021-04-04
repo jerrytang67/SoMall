@@ -45,7 +45,7 @@ export class FormsComponent implements OnInit {
         form: {
           title: "",
           description: "",
-          theme: FormTheme.red
+          theme: 0
         }
       },
       nzFooter: [

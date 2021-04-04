@@ -79,7 +79,7 @@ import wechat from "../../utils/wechat";
 @Component
 export default class LoginPage extends BaseView {
    onShow() {
-      // if H5
+      // #ifdef H5
       console.log("h5");
       if (wechat.isWechat()) {
          console.log("wechat.isWechat");
@@ -95,13 +95,13 @@ export default class LoginPage extends BaseView {
             const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${host}&response_type=code&scope=snsapi_userinfo&state=${_state}#wechat_redirect`;
             location.href = url;
          } else {
-            api.oAuth({ code }).then(res => {
+            api.oAuth({ code }).then((res) => {
                console.log(res);
             });
          }
       }
 
-      // endif
+      // #endif
    }
 
    theme = "black";

@@ -25,11 +25,18 @@ namespace TT.SoMall
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
-            context.Services.Replace(ServiceDescriptor.Transient<IAbpServiceConvention, TtServiceConvention>());
-			            ConfigureLocalization();
+            // Configure<AbpConventionalControllerOptions>(options =>
+            // {
+            //     options.UseV3UrlStyle = true;
+            // });
+            
+            // context.Services.Replace(ServiceDescriptor.Transient<IAbpServiceConvention, TtServiceConvention>());
+            // context.Services.Replace(ServiceDescriptor.Transient<IConventionalRouteBuilder, TtConventionalRouteBuilder>());
+			         //    ConfigureLocalization();
         }
         private void ConfigureLocalization()
         {
+            
             Configure<AbpLocalizationOptions>(options =>
             {
                 options.Resources

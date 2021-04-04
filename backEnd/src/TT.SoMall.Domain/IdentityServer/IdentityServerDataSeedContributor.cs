@@ -171,7 +171,7 @@ namespace TT.SoMall.IdentityServer
             {
                 var webClientRootUrl = configurationSection["SoMall_App:RootUrl"]?.TrimEnd('/');
 
-                await CreateClientAsync(
+                var client = await CreateClientAsync(
                     name: consoleAndAngularClientId,
                     scopes: commonScopes,
                     grantTypes: new[] {"password", "client_credentials", "implicit", "UserWithTenant"},
@@ -181,6 +181,7 @@ namespace TT.SoMall.IdentityServer
                     postLogoutRedirectUri: webClientRootUrl,
                     corsOrigins: new[] {webClientRootUrl.RemovePostFix("/")}
                 );
+                client.AllowAccessTokensViaBrowser = true;
             }
 
             // Swagger Client

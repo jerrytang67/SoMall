@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -22,6 +23,7 @@ namespace TT.Abp.Core.Application
             _auditlogRepository = auditlogRepository;
         }
 
+        [HttpGet]
         public async Task<PagedResultDto<AuditLogListDto>> GetAuditLogs(GetAuditLogsInput input)
         {
             var query = _auditlogRepository.AsQueryable();
