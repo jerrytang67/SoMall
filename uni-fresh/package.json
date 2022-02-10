@@ -59,7 +59,7 @@
     "@vue/cli-service": "~4.2.0",
     "babel-plugin-import": "^1.11.0",
     "miniprogram-api-typings": "^3.0.1",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.3.1",
     "postcss-comment": "^2.0.0",
     "typescript": "^3.0.0",
