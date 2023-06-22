@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TT.Abp.VisitorManagement.Domain;
 using Volo.Abp.Application.Dtos;
 
 namespace TT.Abp.VisitorManagement.Application.Dtos

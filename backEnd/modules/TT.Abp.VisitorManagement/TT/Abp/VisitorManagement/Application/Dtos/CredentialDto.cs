@@ -1,4 +1,6 @@
-﻿namespace TT.Abp.VisitorManagement.Application.Dtos
+﻿using TT.Abp.VisitorManagement.Domain;
+
+namespace TT.Abp.VisitorManagement.Application.Dtos
 {
     public class CredentialDto
     {

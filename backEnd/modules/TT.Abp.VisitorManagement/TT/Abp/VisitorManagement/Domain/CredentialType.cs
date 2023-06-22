@@ -7,7 +7,7 @@
             Default = 0,
             Code = 1,
             Image = 1 << 1,
-            IdCard = 1 << 1
+            IdCard = 1 << 2
         }
 
         public enum FormItemType

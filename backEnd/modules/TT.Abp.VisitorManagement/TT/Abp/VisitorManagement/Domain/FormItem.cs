@@ -12,22 +12,17 @@ namespace TT.Abp.VisitorManagement.Domain
             ItemId = itemId;
             FormId = formId;
         }
-
         public Guid FormId { get; }
         public Guid ItemId { get; }
-
+        
         public VisitorEnums.FormItemType Type { get; set; }
-
+        
         public int Sort { get; set; }
-
         [NotNull] public string Label { get; set; }
         [NotNull] public string Key { get; set; }
-
         [NotNull] public string PlaceHolder { get; set; }
-
         public string DefaultValue { get; set; }
         public string ErrorText { get; set; }
-
         public bool IsRequired { get; set; }
         public bool IsDisable { get; set; }
 
